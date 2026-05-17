@@ -18,21 +18,20 @@ body, html {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.85); /* Slightly clearer overlay for better speed delivery */
     z-index: 9999;
-    display: none; /* Hidden by default */
+    display: none; 
     justify-content: center;
     align-items: center;
 }
 
-/* The spinning ring using your Olive Green color */
 .spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #e0e0e0;
-    border-top: 5px solid #708238; /* Olive Green */
+    width: 45px;
+    height: 45px;
+    border: 4px solid #e2e8f0;
+    border-top: 4px solid #708238; /* Olive Green */
     border-radius: 50%;
-    animation: spin 1s linear infinite;
+    animation: spin 0.7s linear infinite; /* Sped up rotation speed matching the snappier load feel */
 }
 
 @keyframes spin {
@@ -55,14 +54,15 @@ body, html {
     z-index: 1000;
 }
 
-/* Top-left Brand Text: Updated to Olive Green & Clean Wildlife Font */
+/* Top-left Brand Text: Set to clean premium Montserrat Font */
 .nav-title {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     color: #708238; /* Exact Olive Green */
     white-space: nowrap;
-    padding-right: 20px;
+    padding-right: 25px;
+    letter-spacing: -0.5px;
 }
 
 .nav-links {
@@ -80,36 +80,30 @@ body, html {
     height: 100%;
     text-decoration: none;
     color: #000000;
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
     text-align: center;
+    text-transform: uppercase; /* Dynamically forces all nav items into ALL-CAPS */
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Standard Tab Hover Highlight */
+/* Tab Hover State */
 .nav-item:hover {
     background-color: #708238; 
     color: #ffffff;
 }
 
-/* Active State Tracker Style: Shows what tab you are currently on */
+/* Active State Tracker Style */
 .nav-item.active-tab {
-    background-color: #708238; /* Filled with Olive Green */
-    color: #ffffff;            /* White text */
-    font-weight: 700;
+    background-color: #708238; 
+    color: #ffffff;            
 }
 
-/* Donation Button Custom Text Color Override */
+/* Reverted Donation Button Styles */
 .nav-links .donate-btn {
-    color: #FFFF00; /* Bright Yellow text */
-    font-weight: 700;
     border-left: 1px solid #eeeeee;
-}
-
-/* Keeps the donation hover background working correctly */
-.nav-links .donate-btn:hover {
-    background-color: #708238;
-    color: #ffffff; /* Turns white on hover for clear visibility */
+    /* Removed custom yellow color rule to match clean navigation layout */
 }
 
 /* --- Hero Slider Section --- */
@@ -123,7 +117,7 @@ body, html {
     display: flex;
     align-items: center; 
     justify-content: flex-start; 
-    padding-left: 25px; /* Shifted left: approx. 1 inch from the screen border */
+    padding-left: 25px; /* Exact 1-inch offset layout anchor */
     transition: background-image 0.8s ease-in-out;
 }
 
@@ -134,25 +128,29 @@ body, html {
     z-index: 10;
 }
 
-/* Hero Main Title: Matching Nature/Wildlife Font */
+/* Hero Title: Premium Bold Montserrat styling */
 .hero-title {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Montserrat', sans-serif;
     color: #ffffff;
-    font-size: 3.8rem;
-    line-height: 1.2;
-    font-weight: 700;
+    font-size: 4rem;
+    line-height: 1.15;
+    font-weight: 800;
     margin-bottom: 25px;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+    letter-spacing: -1px;
+    text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
 }
 
 .btn-read-more {
+    font-family: 'Montserrat', sans-serif;
     display: inline-block;
     background-color: #708238; 
     color: #ffffff;
     text-decoration: none;
-    padding: 12px 35px;
-    font-size: 1rem;
-    font-weight: 600;
+    padding: 14px 38px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     border-radius: 4px;
     transition: background-color 0.3s ease;
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
@@ -166,13 +164,13 @@ body, html {
 .slider-controls-container {
     position: absolute;
     bottom: 40px;
-    right: 25px; /* Aligned evenly with the left margin layout */
+    right: 25px; 
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 18px;
     z-index: 10;
     background-color: rgba(0, 0, 0, 0.3);
-    padding: 12px 20px;
+    padding: 12px 18px;
     border-radius: 4px;
 }
 
