@@ -9,7 +9,7 @@ body, html {
     height: 100%;
     background-color: #f4f6f0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow: hidden; /* Locks view strictly to our hero interface prototype */
+    overflow: hidden; /* Locks the window viewport strictly to our beautiful hero interface */
 }
 
 /* --- Loading Spinner Overlay Styles --- */
@@ -87,7 +87,7 @@ body, html {
     letter-spacing: 0.5px;
     text-align: center;
     text-transform: uppercase; 
-    cursor: default; /* Changes cursor to signal static placeholder state */
+    cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -106,7 +106,7 @@ body, html {
     color: #708238;
 }
 
-/* --- Hero Slider Section --- */
+/* --- Hero Slider Section Wrapper --- */
 .hero-section {
     height: 100vh; 
     padding-top: 60px; 
@@ -115,21 +115,32 @@ body, html {
     align-items: center; 
     justify-content: flex-start; 
     padding-left: 25px; 
-    overflow: hidden; 
-    background-color: #131512; /* Premium rich dark shadow base layer */
+    overflow: hidden; /* Clips out the structural slides waiting in the horizontal row */
 }
 
-/* Isolated background rendering layer */
-.hero-bg {
+/* NEW: The horizontal slider track container */
+.slider-track {
+    display: flex;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 1;
+    
+    /* Premium Smooth Pull: Adjust the 0.8s time window to speed up or slow down the pull */
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
+    will-change: transform; /* Signals the graphics processor to optimize the tracking motion */
+}
+
+/* NEW: Individual full-screen sliding panels */
+.slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    z-index: 1;
 }
 
 .hero-content {
@@ -137,7 +148,7 @@ body, html {
     flex-direction: column;
     align-items: flex-start;
     position: relative;
-    z-index: 10; 
+    z-index: 10; /* Pushes layout content safely over the background track layer */
 }
 
 .hero-title {
@@ -222,20 +233,4 @@ body, html {
 .dot:hover, .dot.active {
     background-color: #708238;
     border-color: #708238;
-}
-
-/* --- Optimized Non-Flashy Premium Slide Animation --- */
-.slide-fade {
-    animation: elegantFade 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-
-@keyframes elegantFade {
-    0% {
-        opacity: 0.1;
-        filter: blur(4px); /* Very soft initial lens focus blur */
-    }
-    100% {
-        opacity: 1;
-        filter: blur(0px); /* Resolves perfectly clean and sharp */
-    }
 }
