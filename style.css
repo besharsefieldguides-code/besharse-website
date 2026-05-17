@@ -118,7 +118,9 @@ body, html {
     align-items: center; 
     justify-content: flex-start; 
     padding-left: 25px; /* Exact 1-inch offset layout anchor */
-    transition: background-image 0.8s ease-in-out;
+    
+    /* ANIMATION TUNING: Creates a polished background image cross-fade over 1.2 seconds */
+    transition: background-image 1.2s ease-in-out;
 }
 
 .hero-content {
