@@ -13,8 +13,8 @@
     <!-- Core Stylesheet Link -->
     <link rel="stylesheet" href="style.css">
     
-    <!-- Browser Tab Favicon -->
-    <link rel="icon" type="image/png" href="logo.png">
+    <!-- Browser Tab Custom Icon (Favicon) -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
 
@@ -27,7 +27,6 @@
     <nav class="navbar">
         <span class="nav-title">Besharse Field Guides</span>
         <div class="nav-links">
-            <!-- Every item calls selectTab() to shift the olive green highlight smoothly without reloads -->
             <a href="javascript:void(0);" id="tab-home" onclick="selectTab('tab-home')" class="nav-item">Home</a>
             <a href="javascript:void(0);" id="tab-about" onclick="selectTab('tab-about')" class="nav-item">About</a>
             <a href="javascript:void(0);" id="tab-books" onclick="selectTab('tab-books')" class="nav-item">Books</a>
@@ -56,12 +55,10 @@
         <!-- Float content pinned safely over the shifting background track -->
         <div class="hero-content">
             <h1 class="hero-title">Welcome to<br>Besharse Field Guides</h1>
-            
-            <!-- UPDATED: Pointing cleanly to your standalone article template -->
             <a href="read-more.html" class="btn-read-more">Read More</a>
         </div>
 
-        <!-- Slider Controls Wrapper (Exactly 6 pagination dots matching the track length) -->
+        <!-- Slider Controls Wrapper (Exactly 6 pagination dots) -->
         <div class="slider-controls-container">
             <button class="slider-arrow" onclick="changeSlide(-1)">&lt;</button>
             <div class="slider-dots">
