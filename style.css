@@ -18,11 +18,17 @@ body, html {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.85); /* Slightly clearer overlay for better speed delivery */
+    background-color: rgba(255, 255, 255, 0.85); 
     z-index: 9999;
-    display: none; 
+    
+    /* FIX: Set to flex by default so it appears instantly upon page refresh */
+    display: flex; 
     justify-content: center;
     align-items: center;
+    
+    /* FIX: Added opacity transition for a smooth fade-out effect */
+    opacity: 1;
+    transition: opacity 0.5s ease;
 }
 
 .spinner {
@@ -31,7 +37,7 @@ body, html {
     border: 4px solid #e2e8f0;
     border-top: 4px solid #708238; /* Olive Green */
     border-radius: 50%;
-    animation: spin 0.7s linear infinite; /* Sped up rotation speed matching the snappier load feel */
+    animation: spin 0.7s linear infinite; 
 }
 
 @keyframes spin {
@@ -54,12 +60,11 @@ body, html {
     z-index: 1000;
 }
 
-/* Top-left Brand Text: Set to clean premium Montserrat Font */
 .nav-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     font-size: 1.3rem;
-    color: #708238; /* Exact Olive Green */
+    color: #708238; 
     white-space: nowrap;
     padding-right: 25px;
     letter-spacing: -0.5px;
@@ -84,26 +89,23 @@ body, html {
     font-weight: 700;
     letter-spacing: 0.5px;
     text-align: center;
-    text-transform: uppercase; /* Dynamically forces all nav items into ALL-CAPS */
+    text-transform: uppercase; 
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Tab Hover State */
 .nav-item:hover {
     background-color: #708238; 
     color: #ffffff;
 }
 
-/* Active State Tracker Style */
 .nav-item.active-tab {
     background-color: #708238; 
     color: #ffffff;            
 }
 
-/* Reverted Donation Button Styles */
 .nav-links .donate-btn {
     border-left: 1px solid #eeeeee;
-    color: #708238; /* Exact Olive Green to match your brand title */
+    color: #708238; /* Exact Olive Green */
 }
 
 /* --- Hero Slider Section --- */
@@ -117,9 +119,9 @@ body, html {
     display: flex;
     align-items: center; 
     justify-content: flex-start; 
-    padding-left: 25px; /* Exact 1-inch offset layout anchor */
+    padding-left: 25px; 
     
-    /* ANIMATION TUNING: Creates a polished background image cross-fade over 1.2 seconds */
+    /* FIX: Cross-fade animation for the background images */
     transition: background-image 1.2s ease-in-out;
 }
 
@@ -130,11 +132,10 @@ body, html {
     z-index: 10;
 }
 
-/* Hero Title: Premium Bold Montserrat styling */
 .hero-title {
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
-    font-size: 3rem; /* Reduced by 25% (was 4rem) for a cleaner, more balanced look */
+    font-size: 3rem; 
     line-height: 1.15;
     font-weight: 800;
     margin-bottom: 25px;
