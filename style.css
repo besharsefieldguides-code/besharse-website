@@ -1,217 +1,156 @@
-/* --- Base Reset & Fonts --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+// ==========================================
+// 1. AUTOMATIC IMAGE SLIDESHOW CONFIGURATION
+// ==========================================
+
+const images = [
+    "url('Zebra1.jpg')",     
+    "url('Lion1.jpg')",      
+    "url('Hippo1.jpg')",     
+    "url('Lemur1.jpg')",   
+    "url('Elephant1.jpg')",  
+    "url('Crocodile1.jpg')"  
+];
+
+let currentSlideIndex = 0;
+const slideIntervalTime = 10000; 
+let sliderTimer;
+
+function preloadImages() {
+    for (let i = 0; i < images.length; i++) {
+        const img = new Image();
+        const match = images[i].match(/'(.*?)'/);
+        if (match && match[1]) {
+            img.src = match[1];
+        }
+    }
 }
 
-body, html {
-    height: 100%;
-    background-color: #f4f6f0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* --- Loading Spinner Overlay Styles --- */
-.loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.85); 
-    z-index: 9999;
+function updateSlider() {
+    // Target the isolated background layer to perform clear, isolated animations
+    const bgLayer = document.getElementById("hero-bg");
+    const dots = document.getElementsByClassName("dot");
+    if (!bgLayer) return;
     
-    /* FIX: Set to flex by default so it appears instantly upon page refresh */
-    display: flex; 
-    justify-content: center;
-    align-items: center;
+    // Remove the transition class so it can be cleanly restarted
+    bgLayer.classList.remove("slide-fade");
     
-    /* FIX: Added opacity transition for a smooth fade-out effect */
-    opacity: 1;
-    transition: opacity 0.5s ease;
-}
-
-.spinner {
-    width: 45px;
-    height: 45px;
-    border: 4px solid #e2e8f0;
-    border-top: 4px solid #708238; /* Olive Green */
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite; 
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* --- Navigation Bar --- */
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #ffffff;
-    padding: 0 20px;
-    height: 60px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-.nav-title {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 1.3rem;
-    color: #708238; 
-    white-space: nowrap;
-    padding-right: 25px;
-    letter-spacing: -0.5px;
-}
-
-.nav-links {
-    display: flex;
-    flex-grow: 1;
-    height: 100%;
-    align-items: center;
-}
-
-.nav-item {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    text-decoration: none;
-    color: #000000;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-align: center;
-    text-transform: uppercase; 
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.nav-item:hover {
-    background-color: #708238; 
-    color: #ffffff;
-}
-
-.nav-item.active-tab {
-    background-color: #708238; 
-    color: #ffffff;            
-}
-
-.nav-links .donate-btn {
-    border-left: 1px solid #eeeeee;
-    color: #708238; /* Exact Olive Green */
-}
-
-/* --- Hero Slider Section --- */
-.hero-section {
-    height: 100vh; 
-    padding-top: 60px; 
-    position: relative;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    align-items: center; 
-    justify-content: flex-start; 
-    padding-left: 25px; 
+    // Force a DOM Reflow: This forces the browser to register the removal instantly
+    void bgLayer.offsetWidth; 
     
-    /* FIX: Cross-fade animation for the background images */
-    transition: background-image 1.2s ease-in-out;
+    // Apply the next image overlay configuration smoothly
+    bgLayer.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), ${images[currentSlideIndex]}`;
+    
+    // Inject the transition class back into the element to execute the fade
+    bgLayer.classList.add("slide-fade");
+    
+    // Cycle matching states across slider control dots
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].classList.remove("active");
+    }
+    if (dots[currentSlideIndex]) {
+        dots[currentSlideIndex].classList.add("active");
+    }
 }
 
-.hero-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    z-index: 10;
+function changeSlide(direction) {
+    currentSlideIndex += direction;
+    if (currentSlideIndex >= images.length) {
+        currentSlideIndex = 0;
+    } else if (currentSlideIndex < 0) {
+        currentSlideIndex = images.length - 1;
+    }
+    updateSlider();
+    resetTimer();
 }
 
-.hero-title {
-    font-family: 'Montserrat', sans-serif;
-    color: #ffffff;
-    font-size: 3rem; 
-    line-height: 1.15;
-    font-weight: 800;
-    margin-bottom: 25px;
-    letter-spacing: -1px;
-    text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+function setSlide(index) {
+    currentSlideIndex = index;
+    updateSlider();
+    resetTimer();
 }
 
-.btn-read-more {
-    font-family: 'Montserrat', sans-serif;
-    display: inline-block;
-    background-color: #708238; 
-    color: #ffffff;
-    text-decoration: none;
-    padding: 14px 38px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+function startTimer() {
+    sliderTimer = setInterval(() => {
+        changeSlide(1);
+    }, slideIntervalTime);
 }
 
-.btn-read-more:hover {
-    background-color: #55632a; 
+function resetTimer() {
+    clearInterval(sliderTimer);
+    startTimer();
 }
 
-/* --- Slider Controls Container --- */
-.slider-controls-container {
-    position: absolute;
-    bottom: 40px;
-    right: 25px; 
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    z-index: 10;
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: 12px 18px;
-    border-radius: 4px;
+// ==========================================
+// 2. REFRESH & PERSISTENT NAVIGATION LOGIC
+// ==========================================
+function handleTabRefresh(clickedTabId, urlHash) {
+    sessionStorage.setItem('selectedNavbarTab', clickedTabId);
+    window.history.pushState(null, null, urlHash);
+    
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+        loadingOverlay.style.display = 'flex';
+        loadingOverlay.style.opacity = '1'; 
+    }
+    
+    setTimeout(() => {
+        window.location.reload();
+    }, 400);
 }
 
-.slider-arrow {
-    background: transparent;
-    color: #ffffff;
-    border: 1px solid #ffffff; 
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
+function applySavedTabHighlight() {
+    const savedTabId = sessionStorage.getItem('selectedNavbarTab');
+    const allTabs = document.getElementsByClassName('nav-item');
+    
+    for (let i = 0; i < allTabs.length; i++) {
+        allTabs[i].classList.remove('active-tab');
+    }
+    
+    if (savedTabId && document.getElementById(savedTabId)) {
+        document.getElementById(savedTabId).classList.add('active-tab');
+        
+        // Grab the corresponding URL target hash and scroll to it smoothly post-refresh
+        const targetHash = window.location.hash;
+        if (targetHash) {
+            const targetElement = document.querySelector(targetHash);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    } else {
+        const homeTab = document.getElementById('tab-home');
+        if (homeTab) {
+            homeTab.classList.add('active-tab');
+        }
+    }
 }
 
-.slider-arrow:hover {
-    background-color: #708238;
-    border-color: #708238;
-    color: #ffffff;
+// ==========================================
+// 3. INITIALIZATION ENGINE & FAIL-SAFES
+// ==========================================
+
+function hideLoadingScreen() {
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay && loadingOverlay.style.display !== 'none') {
+        loadingOverlay.style.opacity = '0'; 
+        setTimeout(() => {
+            loadingOverlay.style.display = 'none'; 
+        }, 500); 
+    }
 }
 
-.slider-dots {
-    display: flex;
-    gap: 10px;
-}
+window.onload = function() {
+    try {
+        preloadImages();           
+        updateSlider();            
+        startTimer();              
+        applySavedTabHighlight();  
+    } catch (error) {
+        console.error("Initialization error:", error);
+    } finally {
+        hideLoadingScreen();
+    }
+};
 
-.dot {
-    width: 14px;
-    height: 14px;
-    background: transparent;
-    border: 1px solid #ffffff; 
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.dot:hover, .dot.active {
-    background-color: #708238;
-    border-color: #708238;
-}
+// ULTIMATE FAIL-SAFE: Disables the loading overlay after exactly 2.5 seconds regardless of network blocks
+setTimeout(hideLoadingScreen, 2500);
