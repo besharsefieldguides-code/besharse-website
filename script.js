@@ -1,9 +1,8 @@
-// Array containing the paths/URLs to your slideshow images
-// Note: A dark gradient overlay is added inline via JavaScript to keep text legible
+// Array containing your slideshow image filenames directly from your root directory
 const images = [
-    "url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2560')", // Image 1
-    "url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2560')", // Image 2
-    "url('https://images.unsplash.com/photo-1500627869374-13cd993b1115?q=80&w=2560')"  // Image 3
+    "url('forest.jpg')",    // Replace with your exact first filename
+    "url('mountains.jpg')", // Replace with your exact second filename
+    "url('wildlife.jpg')"   // Replace with your exact third filename
 ];
 
 let currentSlideIndex = 0;
@@ -24,28 +23,23 @@ function updateSlider() {
     dots[currentSlideIndex].classList.add("active");
 }
 
-// Function for arrow button clicks (+1 or -1)
 function changeSlide(direction) {
     currentSlideIndex += direction;
-    
     if (currentSlideIndex >= images.length) {
         currentSlideIndex = 0;
     } else if (currentSlideIndex < 0) {
         currentSlideIndex = images.length - 1;
     }
-    
     updateSlider();
-    resetTimer(); // Restarts the 10-second window on interaction
+    resetTimer();
 }
 
-// Function for direct bullet point selection
 function setSlide(index) {
     currentSlideIndex = index;
     updateSlider();
     resetTimer();
 }
 
-// Timer configuration functions
 function startTimer() {
     sliderTimer = setInterval(() => {
         changeSlide(1);
@@ -57,7 +51,6 @@ function resetTimer() {
     startTimer();
 }
 
-// Initialize the carousel layout when the page finishes loading
 window.onload = function() {
     updateSlider();
     startTimer();
