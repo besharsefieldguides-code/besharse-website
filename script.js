@@ -1,48 +1,21 @@
 // ==========================================
-// AUTOMATIC IMAGE SLIDESHOW ENGINE
+// 1. HORIZONTAL PULL SLIDESHOW LOGIC
 // ==========================================
 
-const images = [
-    "url('Zebra1.jpg')",     
-    "url('Lion1.jpg')",      
-    "url('Hippo1.jpg')",     
-    "url('Lemur1.jpg')",   
-    "url('Elephant1.jpg')",  
-    "url('Crocodile1.jpg')"  
-];
-
 let currentSlideIndex = 0;
-const slideIntervalTime = 10000; // Time spent on each slide (10 seconds)
+const totalSlidesCount = 6; // Matching exactly our 6 HTML slide nodes
+const slideIntervalTime = 10000; // Slide view time duration (10 seconds)
 let sliderTimer;
 
-function preloadImages() {
-    for (let i = 0; i < images.length; i++) {
-        const img = new Image();
-        const match = images[i].match(/'(.*?)'/);
-        if (match && match[1]) {
-            img.src = match[1];
-        }
-    }
-}
-
 function updateSlider() {
-    const bgLayer = document.getElementById("hero-bg");
+    const track = document.getElementById("slider-track");
     const dots = document.getElementsByClassName("dot");
-    if (!bgLayer) return;
+    if (!track) return;
     
-    // Drop the animation class so it reset-arms for the next slide transition
-    bgLayer.classList.remove("slide-fade");
+    // Smooth Pull Mechanic: Pulls the horizontal track row by intervals of 100%
+    track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
     
-    // Force a micro DOM reflow to make the browser register the class drop instantly
-    void bgLayer.offsetWidth; 
-    
-    // Map the new background asset behind the content card layer
-    bgLayer.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), ${images[currentSlideIndex]}`;
-    
-    // Re-inject the optimized animation class to trigger the smooth lens-fade
-    bgLayer.classList.add("slide-fade");
-    
-    // Update structural state of pagination indicators
+    // Cycle matching active classes across pagination dot rings
     for (let i = 0; i < dots.length; i++) {
         dots[i].classList.remove("active");
     }
@@ -53,10 +26,10 @@ function updateSlider() {
 
 function changeSlide(direction) {
     currentSlideIndex += direction;
-    if (currentSlideIndex >= images.length) {
+    if (currentSlideIndex >= totalSlidesCount) {
         currentSlideIndex = 0;
     } else if (currentSlideIndex < 0) {
-        currentSlideIndex = images.length - 1;
+        currentSlideIndex = totalSlidesCount - 1;
     }
     updateSlider();
     resetTimer();
@@ -80,7 +53,44 @@ function resetTimer() {
 }
 
 // ==========================================
-// INITIALIZATION ENGINE & INTERFACE SECURITY
+// 2. PROTOTYPE NAVBAR SELECTION TRACKING
+// ==========================================
+
+function selectTab(clickedTabId) {
+    const allTabs = document.getElementsByClassName('nav-item');
+    
+    // Wipe clean any existing active highlights from all tabs
+    for (let i = 0; i < allTabs.length; i++) {
+        allTabs[i].classList.remove('active-tab');
+    }
+    
+    // Target and apply the premium olive green highlight to the active choice
+    const activeTab = document.getElementById(clickedTabId);
+    if (activeTab) {
+        activeTab.classList.add('active-tab');
+    }
+    
+    // Cache the design choice in sessionStorage to keep it persistent 
+    sessionStorage.setItem('selectedNavbarTab', clickedTabId);
+}
+
+function applySavedTabHighlight() {
+    const savedTabId = sessionStorage.getItem('selectedNavbarTab');
+    
+    // If a tab was previously active before structural adjustments, repaint it
+    if (savedTabId && document.getElementById(savedTabId)) {
+        document.getElementById(savedTabId).classList.add('active-tab');
+    } else {
+        // Fall back to painting the Home tab by default if storage is empty
+        const homeTab = document.getElementById('tab-home');
+        if (homeTab) {
+            homeTab.classList.add('active-tab');
+        }
+    }
+}
+
+// ==========================================
+// 3. INITIALIZATION ENGINE & SCREEN REMOVAL
 // ==========================================
 
 function hideLoadingScreen() {
@@ -95,9 +105,9 @@ function hideLoadingScreen() {
 
 window.onload = function() {
     try {
-        preloadImages();           
         updateSlider();            
         startTimer();              
+        applySavedTabHighlight();  
     } catch (error) {
         console.error("Interface engine setup error:", error);
     } finally {
