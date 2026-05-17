@@ -6,7 +6,7 @@
 }
 
 body, html {
-    background-color: #f4f6f0; /* Balanced warm eco-beige backdrop */
+    background-color: #f4f6f0; 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #2d3748;
 }
@@ -64,14 +64,15 @@ body, html {
     color: #ffffff;
 }
 
+/* Separator rule synchronized with your main stylesheet to display solid black */
 .nav-links .donate-btn {
-    border-left: 1px solid #eeeeee;
+    border-left: 1px solid #000000; /* Crisp solid black visual separator fence */
     color: #708238;
 }
 
 /* --- Reading Frame Structure --- */
 .page-wrapper {
-    padding-top: 120px; /* Generously clears the top 60px fixed menu bar */
+    padding-top: 120px; /* Clears the top 60px viewport space safely */
     padding-bottom: 60px;
     display: flex;
     justify-content: center;
@@ -80,7 +81,7 @@ body, html {
 .article-container {
     background-color: #ffffff;
     width: 90%;
-    max-width: 800px; /* Scientifically proven width threshold for reading comfort */
+    max-width: 800px; /* Optimized line break threshold layout for text reading comfort */
     padding: 50px 40px;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.04);
@@ -93,7 +94,7 @@ body, html {
     font-weight: 700;
     font-size: 0.75rem;
     text-transform: uppercase;
-    color: #708238; /* Olive Green Brand Marker */
+    color: #708238; 
     letter-spacing: 1px;
     margin-bottom: 12px;
 }
@@ -139,7 +140,7 @@ body, html {
     margin-bottom: 15px;
 }
 
-/* --- Action Link Treatments --- */
+/* --- Action Links --- */
 .action-footer {
     margin-top: 50px;
     border-top: 1px solid #edf2f7;
