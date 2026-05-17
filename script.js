@@ -3,12 +3,12 @@
 // ==========================================
 
 const images = [
-    "url('Zebra.jpg')",     
-    "url('Lion.jpg')",      
-    "url('Hippo.jpg')",     
-    "url('Giraffe.jpg')",   
-    "url('Elephant.jpg')",  
-    "url('Crocodile.jpg')"  
+    "url('Zebra1.jpg')",     
+    "url('Lion1.jpg')",      
+    "url('Hippo1.jpg')",     
+    "url('Lemur1.jpg')",   
+    "url('Elephant1.jpg')",  
+    "url('Crocodile1.jpg')"  
 ];
 
 let currentSlideIndex = 0;
