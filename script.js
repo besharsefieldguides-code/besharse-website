@@ -3,8 +3,8 @@
 // ==========================================
 
 let currentSlideIndex = 0;
-const totalSlidesCount = 6; 
-const slideIntervalTime = 10000; 
+const totalSlidesCount = 6; // Exactly 6 sliding panels 
+const slideIntervalTime = 10000; // 10 second auto rotation view cycle
 let sliderTimer;
 
 function updateSlider() {
@@ -12,8 +12,10 @@ function updateSlider() {
     const dots = document.getElementsByClassName("dot");
     if (!track) return;
     
+    // Smooth Pull Transformation Equation
     track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
     
+    // Cycle matching pagination point rings active status
     for (let i = 0; i < dots.length; i++) {
         dots[i].classList.remove("active");
     }
@@ -57,17 +59,21 @@ function resetTimer() {
 function selectTab(clickedTabId) {
     const allTabs = document.getElementsByClassName('nav-item');
     
+    // Wipe highlight color configurations from all tags
     for (let i = 0; i < allTabs.length; i++) {
         allTabs[i].classList.remove('active-tab');
     }
     
+    // Add the active tab color override matrix
     const activeTab = document.getElementById(clickedTabId);
     if (activeTab) {
         activeTab.classList.add('active-tab');
     }
     
+    // Save state index key to local memory layout
     sessionStorage.setItem('selectedNavbarTab', clickedTabId);
 
+    // Update URL bar path values quietly without forcing document jumps
     const hashName = clickedTabId.replace('tab-', '#');
     window.history.pushState(null, null, hashName);
 }
@@ -75,7 +81,7 @@ function selectTab(clickedTabId) {
 function applySavedTabHighlight() {
     const currentHash = window.location.hash;
     
-    // SAFE HARDENING: Clears stuck storage if hash is empty or explicitly #home
+    // Hardening Check: Destroys old session strings if user returns to dashboard fresh
     if (!currentHash || currentHash === '' || currentHash === '#home') {
         sessionStorage.removeItem('selectedNavbarTab');
     }
@@ -87,6 +93,7 @@ function applySavedTabHighlight() {
         allTabs[i].classList.remove('active-tab');
     }
     
+    // Restore highlighted active element, fallback to standard Home tab highlight
     if (activeTabId && document.getElementById(activeTabId)) {
         document.getElementById(activeTabId).classList.add('active-tab');
     } else {
@@ -117,9 +124,9 @@ window.onload = function() {
         startTimer();              
         applySavedTabHighlight();  
     } catch (error) {
-        console.error("Interface loop exception guard active:", error);
+        console.error("Interface execution error safely bypassed:", error);
     } finally {
-        // Unconditional execution ensures the screen never freezes
+        // Crucial Loop Fix: Guarantees overlay destruction under all initialization paths
         hideLoadingScreen();
     }
 };
