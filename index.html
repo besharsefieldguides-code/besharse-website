@@ -1,14 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Besharse Field Guides</title>
-    <style>
-        body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #f0f0f0; }
-        h1 { color: #2c3e50; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>kingston pooped his pants</h1>
-    <p>AUSTIN MADE THIS WEBSITE!</p>
+
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <span class="nav-title">Besharse Field Guides</span>
+        <div class="nav-links">
+            <a href="#home" class="nav-item">Home</a>
+            <a href="#about" class="nav-item">About</a>
+            <a href="#books" class="nav-item">Books</a>
+            <a href="#services" class="nav-item">Services</a>
+            <a href="#events" class="nav-item">Events</a>
+            <a href="#blog" class="nav-item">Blog</a>
+            <a href="#contacts" class="nav-item">Contacts</a>
+            <a href="#social-media" class="nav-item">Social Media</a>
+            <a href="#donate" class="nav-item donate-btn">MAKE A DONATION</a>
+        </div>
+    </nav>
+
+    <!-- Hero Slider Section -->
+    <header class="hero-section" id="hero-slider">
+        
+        <!-- Main Hero Content Overlay (Far Left) -->
+        <div class="hero-content">
+            <h1 class="hero-title">Besharse Field Guides</h1>
+            <a href="#about" class="btn-read-more">Read More</a>
+        </div>
+
+        <!-- Slider Controls Wrapper (Bottom Right Corner) -->
+        <div class="slider-controls-container">
+            <!-- Thin Boxed Left Arrow -->
+            <button class="slider-arrow" onclick="changeSlide(-1)">&lt;</button>
+
+            <!-- Thin Boxed Bullet Points (Indicators) -->
+            <div class="slider-dots">
+                <span class="dot" onclick="setSlide(0)"></span>
+                <span class="dot" onclick="setSlide(1)"></span>
+                <span class="dot" onclick="setSlide(2)"></span>
+            </div>
+
+            <!-- Thin Boxed Right Arrow -->
+            <button class="slider-arrow" onclick="changeSlide(1)">&gt;</button>
+        </div>
+        
+    </header>
+
+    <script src="script.js"></script>
 </body>
 </html>
