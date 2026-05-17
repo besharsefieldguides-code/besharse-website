@@ -10,7 +10,7 @@ body, html {
     height: 100%;
     background-color: #f4f6f0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Guards against horizontal breakages or unwanted side-scrolling layouts */
 }
 
 /* --- Loading Spinner Overlay Styles --- */
@@ -43,27 +43,27 @@ body, html {
     100% { transform: rotate(360deg); }
 }
 
-/* --- Responsive Navigation Bar --- */
+/* --- Universal Responsive Navigation Bar --- */
 .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #ffffff;
-    padding: 0 4%;
+    padding: 0 4%; /* Scalable side spacing instead of a rigid pixel width */
     min-height: 60px;
-    height: auto;
+    height: auto; /* Allows navbar height to expand naturally if text links wrap down */
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Allows menu links to wrap cleanly instead of breaking screen boundaries */
 }
 
 .nav-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: calc(1.1rem + 0.3vw); 
+    font-size: calc(1.1rem + 0.3vw); /* Scales typography based directly on screen monitor size */
     color: #708238; 
     padding: 10px 0;
     white-space: nowrap;
@@ -75,14 +75,14 @@ body, html {
     flex-grow: 1;
     align-items: center;
     justify-content: flex-end;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Automatically changes menu structure if space runs tight */
 }
 
 .nav-item {
     padding: 15px 12px;
     text-decoration: none;
     color: #000000;
-    font-size: calc(0.7rem + 0.15vw); 
+    font-size: calc(0.7rem + 0.15vw); /* Responsive font tracking */
     font-weight: 700;
     letter-spacing: 0.5px;
     text-align: center;
@@ -96,21 +96,20 @@ body, html {
     color: #ffffff;
 }
 
-/* REVERTED: The border structural styling has been cleared out completely */
 .nav-links .donate-btn, #tab-donate {
     color: #708238;
 }
 
-/* --- Universal Screen Fluid Hero Slider --- */
+/* --- Universal Screen Fluid Hero Slider Section --- */
 .hero-section {
-    min-height: 100vh;
+    min-height: 100vh; /* Demands full screen viewport height on any display monitor */
     height: auto;
     padding-top: 60px; 
     position: relative;
     display: flex;
     align-items: center; 
     justify-content: flex-start; 
-    padding-left: 5%;
+    padding-left: 5%; /* Fluid left offset matches display metrics */
     padding-right: 5%;
     overflow: hidden;
 }
@@ -131,8 +130,8 @@ body, html {
     flex: 0 0 100%;
     width: 100%;
     height: 100%;
-    background-size: cover;
-    background-position: center;
+    background-size: cover; /* Forces the background animals to completely fill their container without stretching */
+    background-position: center; /* Always locks focus on the center of your pictures */
     background-repeat: no-repeat;
 }
 
@@ -149,7 +148,7 @@ body, html {
 .hero-title {
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
-    font-size: calc(1.8rem + 2vw); 
+    font-size: calc(1.8rem + 2vw); /* Dynamically shrinks heading text on mobile phones automatically */
     line-height: 1.2;
     font-weight: 800;
     margin-bottom: 25px;
@@ -177,7 +176,7 @@ body, html {
     background-color: #55632a; 
 }
 
-/* --- Responsive Slider Controls --- */
+/* --- Responsive Slider Controls Container --- */
 .slider-controls-container {
     position: absolute;
     bottom: 4%;
@@ -229,7 +228,7 @@ body, html {
     border-color: #708238;
 }
 
-/* --- Screen-Size Adjustments (Media Queries) --- */
+/* --- Specific Device Size Layout Adjustments (Media Queries) --- */
 @media (max-width: 768px) {
     .navbar {
         justify-content: center;
@@ -240,10 +239,10 @@ body, html {
         width: 100%;
     }
     .nav-item {
-        padding: 10px 8px;
+        padding: 10px 8px; /* Tighter padding locks links safely inside tablet widths */
     }
     .slider-controls-container {
-        left: 50%;
+        left: 50%; /* Automatically centers slider controls horizontally on mobile touchscreens */
         transform: translateX(-50%);
         right: auto;
     }
