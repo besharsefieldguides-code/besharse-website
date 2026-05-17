@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Besharse Field Guides</title>
-    <!-- Importing Montserrat: A clean, premium modern wildlife & adventure font -->
+    <!-- Modern uppercase/bold typography font link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Segoe+UI:wght@400;500;700&display=swap" rel="stylesheet">
@@ -21,26 +21,27 @@
     <nav class="navbar">
         <span class="nav-title">Besharse Field Guides</span>
         <div class="nav-links">
-            <!-- Navigation links remain simple text; CSS handles the uppercase transition -->
-            <a href="javascript:void(0);" onclick="triggerHomeRefresh();" class="nav-item active-tab">Home</a>
-            <a href="#about" class="nav-item">About</a>
-            <a href="#books" class="nav-item">Books</a>
-            <a href="#services" class="nav-item">Services</a>
-            <a href="#events" class="nav-item">Events</a>
-            <a href="#blog" class="nav-item">Blog</a>
-            <a href="#contacts" class="nav-item">Contacts</a>
-            <a href="#social-media" class="nav-item">Social Media</a>
-            <a href="#donate" class="nav-item donate-btn">Make a Donation</a>
+            <!-- Every tab now points to the same JavaScript refresher function -->
+            <a href="javascript:void(0);" id="tab-home" onclick="handleTabRefresh('tab-home')" class="nav-item">Home</a>
+            <a href="javascript:void(0);" id="tab-about" onclick="handleTabRefresh('tab-about')" class="nav-item">About</a>
+            <a href="javascript:void(0);" id="tab-books" onclick="handleTabRefresh('tab-books')" class="nav-item">Books</a>
+            <a href="javascript:void(0);" id="tab-services" onclick="handleTabRefresh('tab-services')" class="nav-item">Services</a>
+            <a href="javascript:void(0);" id="tab-events" onclick="handleTabRefresh('tab-events')" class="nav-item">Events</a>
+            <a href="javascript:void(0);" id="tab-blog" onclick="handleTabRefresh('tab-blog')" class="nav-item">Blog</a>
+            <a href="javascript:void(0);" id="tab-contacts" onclick="handleTabRefresh('tab-contacts')" class="nav-item">Contacts</a>
+            <a href="javascript:void(0);" id="tab-social" onclick="handleTabRefresh('tab-social')" class="nav-item">Social Media</a>
+            <a href="javascript:void(0);" id="tab-donate" onclick="handleTabRefresh('tab-donate')" class="nav-item donate-btn">Make a Donation</a>
         </div>
     </nav>
 
     <!-- Hero Slider Section -->
     <header class="hero-section" id="hero-slider">
         
-        <!-- Main Hero Content Overlay -->
+        <!-- Main Hero Content Overlay (Far Left) -->
         <div class="hero-content">
             <h1 class="hero-title">Welcome to<br>Besharse Field Guides</h1>
-            <a href="#about" class="btn-read-more">Read More</a>
+            <!-- Clicking Read More acts exactly like clicking the About tab -->
+            <a href="javascript:void(0);" onclick="handleTabRefresh('tab-about')" class="btn-read-more">Read More</a>
         </div>
 
         <!-- Slider Controls Wrapper (Bottom Right Corner) -->
@@ -56,16 +57,6 @@
         
     </header>
 
-    <!-- Optimized loading speed script -->
-    <script>
-        function triggerHomeRefresh() {
-            var overlay = document.getElementById('loading-overlay');
-            overlay.style.display = 'flex'; 
-            setTimeout(function() {
-                window.location.reload(); 
-            }, 400); // Speed optimized to 400 milliseconds for ultra-fast load execution
-        }
-    </script>
     <script src="script.js"></script>
 </body>
 </html>
