@@ -59,19 +59,24 @@ function resetTimer() {
 function selectTab(clickedTabId) {
     const allTabs = document.getElementsByClassName('nav-item');
     
-    // Wipe clean any existing active highlights from all tabs
+    // 1. Wipe clean any existing active highlights from all tabs
     for (let i = 0; i < allTabs.length; i++) {
         allTabs[i].classList.remove('active-tab');
     }
     
-    // Target and apply the premium olive green highlight to the active choice
+    // 2. Target and apply the premium olive green highlight to the active choice
     const activeTab = document.getElementById(clickedTabId);
     if (activeTab) {
         activeTab.classList.add('active-tab');
     }
     
-    // Cache the design choice in sessionStorage to keep it persistent 
+    // 3. Cache the design choice in sessionStorage to keep it persistent 
     sessionStorage.setItem('selectedNavbarTab', clickedTabId);
+
+    // 4. NEW: Update the address bar URL quietly without jumping or reloading
+    // We convert the tab ID (like 'tab-about') into a clean hash link (like '#about')
+    const hashName = clickedTabId.replace('tab-', '#');
+    window.history.pushState(null, null, hashName);
 }
 
 function applySavedTabHighlight() {
