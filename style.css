@@ -1,0 +1,169 @@
+/* --- Base Reset --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body, html {
+    height: 100%;
+    background-color: #f4f6f0;
+}
+
+/* --- Navigation Bar --- */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 0 20px;
+    height: 60px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.nav-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333333;
+    white-space: nowrap;
+    padding-right: 20px;
+}
+
+.nav-links {
+    display: flex;
+    flex-grow: 1;
+    height: 100%;
+    align-items: center;
+}
+
+.nav-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-decoration: none;
+    color: #000000;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-item:hover {
+    background-color: #708238; 
+    color: #ffffff;
+}
+
+.donate-btn {
+    font-weight: 700;
+    border-left: 1px solid #eeeeee;
+}
+
+/* --- Hero Slider Section --- */
+.hero-section {
+    height: 100vh; 
+    padding-top: 60px; 
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center; 
+    justify-content: flex-start; 
+    padding-left: 10%; 
+    transition: background-image 0.8s ease-in-out;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 10;
+}
+
+.hero-title {
+    color: #ffffff;
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.btn-read-more {
+    display: inline-block;
+    background-color: #708238; 
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.btn-read-more:hover {
+    background-color: #55632a; 
+}
+
+/* --- Unified Slider Controls Container (Bottom Right) --- */
+.slider-controls-container {
+    position: absolute;
+    bottom: 40px;
+    right: 10%; /* Matches the 10% alignment spacing of your left-side title */
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between arrows and the middle bullet points */
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.3); /* Soft dark backing box for legibility over light images */
+    padding: 12px 20px;
+    border-radius: 4px;
+}
+
+/* Thin Boxed Slider Arrows */
+.slider-arrow {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid #ffffff; 
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slider-arrow:hover {
+    background-color: #708238;
+    border-color: #708238;
+    color: #ffffff;
+}
+
+/* Centered Thin Boxed Bullet Points */
+.slider-dots {
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    width: 14px;
+    height: 14px;
+    background: transparent;
+    border: 1px solid #ffffff; 
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Olive Green Active & Hover States */
+.dot:hover, .dot.active {
+    background-color: #708238;
+    border-color: #708238;
+}
