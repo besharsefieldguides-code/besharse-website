@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="style.css">
     
     <!-- Browser Tab Favicon -->
-    <link class="tab-icon" rel="icon" type="image/png" href="logo.png">
+    <link rel="icon" type="image/png" href="logo.png">
 </head>
 <body>
 
@@ -22,6 +22,20 @@
     <div id="loading-overlay" class="loading-overlay">
         <div class="spinner"></div>
     </div>
+
+    <!-- INLINE ULTIMATE FAIL-SAFE: If script.js fails to load or links break, 
+         this script runs directly from the HTML to guarantee the site appears -->
+    <script>
+        setTimeout(function() {
+            var overlay = document.getElementById('loading-overlay');
+            if (overlay && overlay.style.display !== 'none') {
+                overlay.style.opacity = '0'; 
+                setTimeout(function() {
+                    overlay.style.display = 'none'; 
+                }, 500); 
+            }
+        }, 2500);
+    </script>
 
     <!-- Top Navigation Bar -->
     <nav class="navbar">
