@@ -96,9 +96,9 @@ body, html {
     color: #ffffff;
 }
 
-/* Target element modified to feature a solid black divider line layout */
-.nav-links .donate-btn {
-    border-left: 1px solid #000000; /* Crisp solid black visual separator fence */
+/* FIXED: Target specific ID directly to guarantee the solid black divider shows up */
+#tab-donate {
+    border-left: 1px solid #000000; /* Crisp solid black visual separator line */
     color: #708238;
 }
 
