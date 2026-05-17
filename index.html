@@ -13,7 +13,7 @@
     <!-- Core Stylesheet Link -->
     <link rel="stylesheet" href="style.css">
     
-    <!-- Browser Tab Custom Icon (Configured for your high-quality transparent PNG logo) -->
+    <!-- Browser Tab Custom Icon -->
     <link rel="icon" type="image/png" href="logo.png">
 </head>
 <body>
@@ -27,7 +27,6 @@
     <nav class="navbar">
         <span class="nav-title">Besharse Field Guides</span>
         <div class="nav-links">
-            <!-- Every item calls selectTab() to shift the olive green highlight smoothly without reloads -->
             <a href="javascript:void(0);" id="tab-home" onclick="selectTab('tab-home')" class="nav-item">Home</a>
             <a href="javascript:void(0);" id="tab-about" onclick="selectTab('tab-about')" class="nav-item">About</a>
             <a href="javascript:void(0);" id="tab-books" onclick="selectTab('tab-books')" class="nav-item">Books</a>
@@ -36,8 +35,8 @@
             <a href="javascript:void(0);" id="tab-blog" onclick="selectTab('tab-blog')" class="nav-item">Blog</a>
             <a href="javascript:void(0);" id="tab-contact" onclick="selectTab('tab-contact')" class="nav-item">Contact</a>
             <a href="javascript:void(0);" id="tab-social" onclick="selectTab('tab-social')" class="nav-item">Social Media</a>
-            <!-- FIXED: href changed to javascript:void(0); so it does not navigate to the read-more page -->
-            <a href="javascript:void(0);" id="tab-donate" onclick="selectTab('tab-donate')" class="nav-item donate-btn">Make a Donation</a>
+            <!-- FIXED: Absolutely locked href to # to kill all page routing completely -->
+            <a href="#" id="tab-donate" onclick="selectTab('tab-donate'); return false;" class="nav-item donate-btn">Make a Donation</a>
         </div>
     </nav>
 
@@ -57,12 +56,10 @@
         <!-- Float content pinned safely over the shifting background track -->
         <div class="hero-content">
             <h1 class="hero-title">Welcome to<br>Besharse Field Guides</h1>
-            
-            <!-- Direct link navigation to your separate article canvas -->
             <a href="read-more.html" class="btn-read-more">Read More</a>
         </div>
 
-        <!-- Slider Controls Wrapper (Exactly 6 pagination dots matching the track layout) -->
+        <!-- Slider Controls Wrapper -->
         <div class="slider-controls-container">
             <button class="slider-arrow" onclick="changeSlide(-1)">&lt;</button>
             <div class="slider-dots">
