@@ -81,17 +81,34 @@ function selectTab(clickedTabId) {
 
 function applySavedTabHighlight() {
     const savedTabId = sessionStorage.getItem('selectedNavbarTab');
+    const currentHash = window.location.hash;
     
-    // If a tab was previously active before structural adjustments, repaint it
-    if (savedTabId && document.getElementById(savedTabId)) {
-        document.getElementById(savedTabId).classList.add('active-tab');
+    // NEW FAIL-SAFE: If there is no URL hash (like visiting index.html cleanly or returning),
+    // we clear the old session storage so it doesn't get stuck on an old tab highlight.
+    if (!currentHash || currentHash === '#home') {
+        sessionStorage.removeItem('selectedNavbarTab');
+    }
+
+    // Grab the freshly evaluated tab ID after our fail-safe check
+    const activeTabId = sessionStorage.getItem('selectedNavbarTab');
+    
+    // Wipe clean any existing active highlights from all tabs across the board
+    const allTabs = document.getElementsByClassName('nav-item');
+    for (let i = 0; i < allTabs.length; i++) {
+        allTabs[i].classList.remove('active-tab');
+    }
+    
+    // If a tab highlight is saved and exists on this page, paint it olive green
+    if (activeTabId && document.getElementById(activeTabId)) {
+        document.getElementById(activeTabId).classList.add('active-tab');
     } else {
-        // Fall back to painting the Home tab by default if storage is empty
+        // Fall back to painting the Home tab by default if the storage cache was cleared
         const homeTab = document.getElementById('tab-home');
         if (homeTab) {
             homeTab.classList.add('active-tab');
         }
     }
+}
 }
 
 // ==========================================
