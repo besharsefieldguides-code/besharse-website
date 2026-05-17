@@ -103,7 +103,7 @@ body, html {
 /* Reverted Donation Button Styles */
 .nav-links .donate-btn {
     border-left: 1px solid #eeeeee;
-    /* Removed custom yellow color rule to match clean navigation layout */
+    color: #708238; /* Exact Olive Green to match your brand title */
 }
 
 /* --- Hero Slider Section --- */
