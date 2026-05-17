@@ -59,65 +59,60 @@ function resetTimer() {
 function selectTab(clickedTabId) {
     const allTabs = document.getElementsByClassName('nav-item');
     
-    // 1. Wipe clean any existing active highlights from all tabs
+    // Wipe clean any existing active highlights from all tabs
     for (let i = 0; i < allTabs.length; i++) {
         allTabs[i].classList.remove('active-tab');
     }
     
-    // 2. Target and apply the premium olive green highlight to the active choice
+    // Target and apply the premium olive green highlight to the active choice
     const activeTab = document.getElementById(clickedTabId);
     if (activeTab) {
         activeTab.classList.add('active-tab');
     }
     
-    // 3. Cache the design choice in sessionStorage to keep it persistent 
+    // Cache the design choice in sessionStorage to keep it persistent 
     sessionStorage.setItem('selectedNavbarTab', clickedTabId);
 
-    // 4. NEW: Update the address bar URL quietly without jumping or reloading
-    // We convert the tab ID (like 'tab-about') into a clean hash link (like '#about')
+    // Update the address bar URL quietly without jumping or reloading
     const hashName = clickedTabId.replace('tab-', '#');
     window.history.pushState(null, null, hashName);
 }
 
 function applySavedTabHighlight() {
-    const savedTabId = sessionStorage.getItem('selectedNavbarTab');
     const currentHash = window.location.hash;
     
-    // NEW FAIL-SAFE: If there is no URL hash (like visiting index.html cleanly or returning),
-    // we clear the old session storage so it doesn't get stuck on an old tab highlight.
-    if (!currentHash || currentHash === '#home') {
+    // FIXED FAIL-SAFE: If there's no hash or we are returning fresh to home,
+    // clear memory immediately so it defaults cleanly to the Home tab highlight.
+    if (!currentHash || currentHash === '' || currentHash === '#home') {
         sessionStorage.removeItem('selectedNavbarTab');
     }
 
-    // Grab the freshly evaluated tab ID after our fail-safe check
     const activeTabId = sessionStorage.getItem('selectedNavbarTab');
-    
-    // Wipe clean any existing active highlights from all tabs across the board
     const allTabs = document.getElementsByClassName('nav-item');
+    
+    // Clear active classes safely
     for (let i = 0; i < allTabs.length; i++) {
         allTabs[i].classList.remove('active-tab');
     }
     
-    // If a tab highlight is saved and exists on this page, paint it olive green
+    // Apply highlight to memory state, otherwise default directly to home element
     if (activeTabId && document.getElementById(activeTabId)) {
         document.getElementById(activeTabId).classList.add('active-tab');
     } else {
-        // Fall back to painting the Home tab by default if the storage cache was cleared
         const homeTab = document.getElementById('tab-home');
         if (homeTab) {
             homeTab.classList.add('active-tab');
         }
     }
 }
-}
 
 // ==========================================
-// 3. INITIALIZATION ENGINE & SCREEN REMOVAL
+// 3. INITIALIZATION ENGINE & UNCONDITIONAL RESET
 // ==========================================
 
 function hideLoadingScreen() {
     const loadingOverlay = document.getElementById('loading-overlay');
-    if (loadingOverlay && loadingOverlay.style.display !== 'none') {
+    if (loadingOverlay) {
         loadingOverlay.style.opacity = '0'; 
         setTimeout(() => {
             loadingOverlay.style.display = 'none'; 
@@ -131,8 +126,10 @@ window.onload = function() {
         startTimer();              
         applySavedTabHighlight();  
     } catch (error) {
-        console.error("Interface engine setup error:", error);
+        console.error("Interface execution caught safely:", error);
     } finally {
+        // Crucial Fix: Executing inside finally ensures the loading screen 
+        // drops completely even if a state check experiences an exception.
         hideLoadingScreen();
     }
 };
