@@ -54,24 +54,17 @@ function resetTimer() {
 
 
 // ==========================================
-// 2. REFRESH & PERSISTENT NAVIGATION LOGIC (UPDATED)
+// 2. REFRESH & PERSISTENT NAVIGATION LOGIC
 // ==========================================
-
-// Now accepts both the Tab Element ID and the URL Hash path
 function handleTabRefresh(clickedTabId, urlHash) {
-    // 1. Save the clicked tab ID into session storage memory
     sessionStorage.setItem('selectedNavbarTab', clickedTabId);
-    
-    // 2. Use HTML5 history modification to push the hashtag change directly into the address bar
     window.history.pushState(null, null, urlHash);
     
-    // 3. Fire up the loading overlay spinner animation
     const loadingOverlay = document.getElementById('loading-overlay');
     if (loadingOverlay) {
         loadingOverlay.style.display = 'flex';
     }
     
-    // 4. Force a clean page refresh after our optimized 0.4-second delay
     setTimeout(() => {
         window.location.reload();
     }, 400);
