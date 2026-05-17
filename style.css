@@ -10,7 +10,7 @@ body, html {
     height: 100%;
     background-color: #f4f6f0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-x: hidden; /* Prevents unwanted horizontal scrolling on small screens */
+    overflow-x: hidden;
 }
 
 /* --- Loading Spinner Overlay Styles --- */
@@ -57,13 +57,13 @@ body, html {
     top: 0;
     width: 100%;
     z-index: 1000;
-    flex-wrap: wrap; /* Allows menu elements to adjust on small screens */
+    flex-wrap: wrap;
 }
 
 .nav-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: calc(1.1rem + 0.3vw); /* Fluid typography scales perfectly on all screens */
+    font-size: calc(1.1rem + 0.3vw); 
     color: #708238; 
     padding: 10px 0;
     white-space: nowrap;
@@ -82,7 +82,7 @@ body, html {
     padding: 15px 12px;
     text-decoration: none;
     color: #000000;
-    font-size: calc(0.7rem + 0.15vw); /* Responsive link text size */
+    font-size: calc(0.7rem + 0.15vw); 
     font-weight: 700;
     letter-spacing: 0.5px;
     text-align: center;
@@ -96,9 +96,8 @@ body, html {
     color: #ffffff;
 }
 
-/* FIXED DIVIDER: Force solid black border onto the donation class descriptor */
+/* REVERTED: The border structural styling has been cleared out completely */
 .nav-links .donate-btn, #tab-donate {
-    border-left: 2px solid #000000 !important; /* Thickened to 2px black to ensure visibility across all display matrices */
     color: #708238;
 }
 
@@ -150,7 +149,7 @@ body, html {
 .hero-title {
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
-    font-size: calc(1.8rem + 2vw); /* Automatically resizes text beautifully between phone and ultra-wide monitor layout scales */
+    font-size: calc(1.8rem + 2vw); 
     line-height: 1.2;
     font-weight: 800;
     margin-bottom: 25px;
@@ -247,9 +246,5 @@ body, html {
         left: 50%;
         transform: translateX(-50%);
         right: auto;
-    }
-    .nav-links .donate-btn, #tab-donate {
-        border-left: none !important;
-        border-top: 2px solid #000000 !important; /* Shifts the divider line to the top when menu wraps on mobile screens */
     }
 }
