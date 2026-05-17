@@ -2,19 +2,28 @@
 // 1. AUTOMATIC IMAGE SLIDESHOW CONFIGURATION
 // ==========================================
 
-// Array expanded to hold 6 nature image file variables from your GitHub root directory
 const images = [
-    "url('Zebra1.jpg')",     // Slide 1 filename
-    "url('Lion1.jpg')",  // Slide 2 filename
-    "url('Hippo1.jpg')",   // Slide 3 filename
-    "url('Lemur1.jpg')",    // Slide 4: Change to your exact 4th filename
-    "url('Elephant1.jpg')",    // Slide 5: Change to your exact 5th filename
-    "url('Crocodile1.jpg')"     // Slide 6: Change to your exact 6th filename
+    "url('Zebra.jpg')",     
+    "url('Lion.jpg')",      
+    "url('Hippo.jpg')",     
+    "url('Giraffe.jpg')",   
+    "url('Elephant.jpg')",  
+    "url('Crocodile.jpg')"  
 ];
 
 let currentSlideIndex = 0;
 const slideIntervalTime = 10000; 
 let sliderTimer;
+
+function preloadImages() {
+    for (let i = 0; i < images.length; i++) {
+        const img = new Image();
+        const match = images[i].match(/'(.*?)'/);
+        if (match && match[1]) {
+            img.src = match[1];
+        }
+    }
+}
 
 function updateSlider() {
     const sliderContainer = document.getElementById("hero-slider");
@@ -59,7 +68,6 @@ function resetTimer() {
     startTimer();
 }
 
-
 // ==========================================
 // 2. REFRESH & PERSISTENT NAVIGATION LOGIC
 // ==========================================
@@ -70,6 +78,7 @@ function handleTabRefresh(clickedTabId, urlHash) {
     const loadingOverlay = document.getElementById('loading-overlay');
     if (loadingOverlay) {
         loadingOverlay.style.display = 'flex';
+        loadingOverlay.style.opacity = '1'; 
     }
     
     setTimeout(() => {
@@ -95,12 +104,36 @@ function applySavedTabHighlight() {
     }
 }
 
+// ==========================================
+// 3. INITIALIZATION ENGINE & FAIL-SAFES
+// ==========================================
 
-// ==========================================
-// 3. INITIALIZATION ENGINE
-// ==========================================
+// Dedicated function to gracefully remove the loading screen
+function hideLoadingScreen() {
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay && loadingOverlay.style.display !== 'none') {
+        loadingOverlay.style.opacity = '0'; 
+        setTimeout(() => {
+            loadingOverlay.style.display = 'none'; 
+        }, 500); 
+    }
+}
+
 window.onload = function() {
-    updateSlider();            
-    startTimer();              
-    applySavedTabHighlight();  
+    // The try/finally block ensures that even if one of these functions fails,
+    // the code will skip to the "finally" block and remove the loading screen.
+    try {
+        preloadImages();           
+        updateSlider();            
+        startTimer();              
+        applySavedTabHighlight();  
+    } catch (error) {
+        console.error("Initialization error:", error);
+    } finally {
+        hideLoadingScreen();
+    }
 };
+
+// ULTIMATE FAIL-SAFE: If the window.onload event gets stuck (e.g., waiting for a broken external font), 
+// this forces the loading screen to disappear after exactly 2.5 seconds no matter what.
+setTimeout(hideLoadingScreen, 2500);
