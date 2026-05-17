@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Besharse Field Guides</title>
+    <title>Besharse Field Guides - Interface Design</title>
     
-    <!-- Typography & Preconnect Performance Enhancements -->
+    <!-- Typography & Font Performance Links -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Segoe+UI:wght@400;500;700&display=swap" rel="stylesheet">
@@ -23,44 +23,30 @@
         <div class="spinner"></div>
     </div>
 
-    <!-- INLINE ULTIMATE FAIL-SAFE: If script.js fails to load or links break, 
-         this script runs directly from the HTML to guarantee the site appears -->
-    <script>
-        setTimeout(function() {
-            var overlay = document.getElementById('loading-overlay');
-            if (overlay && overlay.style.display !== 'none') {
-                overlay.style.opacity = '0'; 
-                setTimeout(function() {
-                    overlay.style.display = 'none'; 
-                }, 500); 
-            }
-        }, 2500);
-    </script>
-
-    <!-- Top Navigation Bar -->
+    <!-- Top Navigation Bar (Deactivated Placeholder Layout) -->
     <nav class="navbar">
         <span class="nav-title">Besharse Field Guides</span>
         <div class="nav-links">
-            <a href="javascript:void(0);" id="tab-home" onclick="handleTabRefresh('tab-home', '#home')" class="nav-item">Home</a>
-            <a href="javascript:void(0);" id="tab-about" onclick="handleTabRefresh('tab-about', '#about')" class="nav-item">About</a>
-            <a href="javascript:void(0);" id="tab-books" onclick="handleTabRefresh('tab-books', '#books')" class="nav-item">Books</a>
-            <a href="javascript:void(0);" id="tab-services" onclick="handleTabRefresh('tab-services', '#services')" class="nav-item">Services</a>
-            <a href="javascript:void(0);" id="tab-events" onclick="handleTabRefresh('tab-events', '#events')" class="nav-item">Events</a>
-            <a href="javascript:void(0);" id="tab-blog" onclick="handleTabRefresh('tab-blog', '#blog')" class="nav-item">Blog</a>
-            <a href="javascript:void(0);" id="tab-contact" onclick="handleTabRefresh('tab-contact', '#contact')" class="nav-item">Contact</a>
-            <a href="javascript:void(0);" id="tab-social" onclick="handleTabRefresh('tab-social', '#social-media')" class="nav-item">Social Media</a>
-            <a href="javascript:void(0);" id="tab-donate" onclick="handleTabRefresh('tab-donate', '#donate')" class="nav-item donate-btn">Make a Donation</a>
+            <a href="javascript:void(0);" id="tab-home" class="nav-item active-tab">Home</a>
+            <a href="javascript:void(0);" id="tab-about" class="nav-item">About</a>
+            <a href="javascript:void(0);" id="tab-books" class="nav-item">Books</a>
+            <a href="javascript:void(0);" id="tab-services" class="nav-item">Services</a>
+            <a href="javascript:void(0);" id="tab-events" class="nav-item">Events</a>
+            <a href="javascript:void(0);" id="tab-blog" class="nav-item">Blog</a>
+            <a href="javascript:void(0);" id="tab-contact" class="nav-item">Contact</a>
+            <a href="javascript:void(0);" id="tab-social" class="nav-item">Social Media</a>
+            <a href="javascript:void(0);" id="tab-donate" class="nav-item donate-btn">Make a Donation</a>
         </div>
     </nav>
 
-    <!-- Hero Slider Section -->
+    <!-- Hero Slider Section Prototype -->
     <header class="hero-section" id="hero-slider">
         <!-- Isolated background container strictly for executing smooth CSS animations -->
         <div id="hero-bg" class="hero-bg"></div>
 
         <div class="hero-content">
             <h1 class="hero-title">Welcome to<br>Besharse Field Guides</h1>
-            <a href="javascript:void(0);" onclick="handleTabRefresh('tab-about', '#about')" class="btn-read-more">Read More</a>
+            <a href="javascript:void(0);" class="btn-read-more">Read More</a>
         </div>
 
         <!-- Slider Controls Wrapper (Configured with exactly 6 tracking dots) -->
@@ -78,74 +64,7 @@
         </div>
     </header>
 
-    <!-- Main Content Presentation Blocks -->
-    <main class="content-container">
-        
-        <!-- Home Element Anchor Location -->
-        <div id="home"></div>
-
-        <!-- About Section -->
-        <section id="about" class="site-section">
-            <h2 class="section-title">About Besharse Field Guides</h2>
-            <p class="section-text">
-                Welcome to our premier wildlife and nature database. We specialize in producing meticulous, highly detailed, and beautifully illustrated field guides designed for explorers, biologists, and nature enthusiasts alike.
-            </p>
-        </section>
-
-        <!-- Books Section -->
-        <section id="books" class="site-section">
-            <h2 class="section-title">Our Featured Guides</h2>
-            <div class="content-grid">
-                <div class="card">
-                    <h3>Savannah Mammals</h3>
-                    <p>An in-depth tracking guide covering behaviors, footprints, and habitats of large African mammals.</p>
-                </div>
-                <div class="card">
-                    <h3>Reptiles & Amphibians</h3>
-                    <p>A comprehensive visual index exploring rare, venomous, and elusive wetlands species.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services Section -->
-        <section id="services" class="site-section">
-            <h2 class="section-title">Professional Services</h2>
-            <p class="section-text">We offer ecological consulting, field data surveying, high-precision mapping, and custom publishing layout services for educational institutions worldwide.</p>
-        </section>
-
-        <!-- Events Section -->
-        <section id="events" class="site-section">
-            <h2 class="section-title">Upcoming Events</h2>
-            <p class="section-text">Stay tuned for upcoming biological field workshops, guest lectures, wilderness survival courses, and local book signings.</p>
-        </section>
-
-        <!-- Blog Section -->
-        <section id="blog" class="site-section">
-            <h2 class="section-title">Field Notes Blog</h2>
-            <p class="section-text">Read the latest operational updates, tracking journals, and expedition logs posted directly from our active field researchers.</p>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="site-section">
-            <h2 class="section-title">Contact Us</h2>
-            <p class="section-text">Have an administrative question or looking to collaborate on a tracking guide? Reach out to our field office via email or phone.</p>
-        </section>
-
-        <!-- Social Media Section -->
-        <section id="social-media" class="site-section">
-            <h2 class="section-title">Follow Our Expeditions</h2>
-            <p class="section-text">Connect with us on our media channels to catch live field footage, tracking tutorials, and real-time animal observation stories.</p>
-        </section>
-
-        <!-- Donate Section -->
-        <section id="donate" class="site-section">
-            <h2 class="section-title">Support Our Research</h2>
-            <p class="section-text">Your generous contributions help fund conservation initiatives, field expeditions, and free educational distribution programs globally.</p>
-        </section>
-
-    </main>
-
-    <!-- Core Interactive Logic Script -->
+    <!-- Core Interactive Slideshow Script -->
     <script src="script.js"></script>
 </body>
 </html>
