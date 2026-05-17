@@ -9,7 +9,7 @@ body, html {
     height: 100%;
     background-color: #f4f6f0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow: hidden; /* Locks the window viewport strictly to our beautiful hero interface */
+    overflow: hidden; /* Locks view strictly to the hero dashboard */
 }
 
 /* --- Loading Spinner Overlay Styles --- */
@@ -91,14 +91,9 @@ body, html {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.nav-item:hover {
+.nav-item:hover, .nav-item.active-tab {
     background-color: #708238; 
     color: #ffffff;
-}
-
-.nav-item.active-tab {
-    background-color: #708238; 
-    color: #ffffff;             
 }
 
 .nav-links .donate-btn {
@@ -106,7 +101,7 @@ body, html {
     color: #708238;
 }
 
-/* --- Hero Slider Section Wrapper --- */
+/* --- Hero Slider Wrapper --- */
 .hero-section {
     height: 100vh; 
     padding-top: 60px; 
@@ -115,10 +110,9 @@ body, html {
     align-items: center; 
     justify-content: flex-start; 
     padding-left: 25px; 
-    overflow: hidden; /* Clips out the structural slides waiting in the horizontal row */
+    overflow: hidden;
 }
 
-/* NEW: The horizontal slider track container */
 .slider-track {
     display: flex;
     position: absolute;
@@ -127,13 +121,10 @@ body, html {
     width: 100%;
     height: 100%;
     z-index: 1;
-    
-    /* Premium Smooth Pull: Adjust the 0.8s time window to speed up or slow down the pull */
     transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
-    will-change: transform; /* Signals the graphics processor to optimize the tracking motion */
+    will-change: transform;
 }
 
-/* NEW: Individual full-screen sliding panels */
 .slide {
     flex: 0 0 100%;
     width: 100%;
@@ -148,7 +139,7 @@ body, html {
     flex-direction: column;
     align-items: flex-start;
     position: relative;
-    z-index: 10; /* Pushes layout content safely over the background track layer */
+    z-index: 10;
 }
 
 .hero-title {
@@ -182,7 +173,7 @@ body, html {
     background-color: #55632a; 
 }
 
-/* --- Slider Controls Container --- */
+/* --- Slider Controls --- */
 .slider-controls-container {
     position: absolute;
     bottom: 40px;
