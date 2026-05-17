@@ -4,12 +4,12 @@
 
 // Array expanded to hold 6 nature image file variables from your GitHub root directory
 const images = [
-    "url('forest.jpg')",     // Slide 1 filename
-    "url('mountains.jpg')",  // Slide 2 filename
-    "url('wildlife.jpg')",   // Slide 3 filename
-    "url('nature1.jpg')",    // Slide 4: Change to your exact 4th filename
-    "url('nature2.jpg')",    // Slide 5: Change to your exact 5th filename
-    "url('nature3.jpg')"     // Slide 6: Change to your exact 6th filename
+    "url('Zebra.jpg')",     // Slide 1 filename
+    "url('Lion.jpg')",  // Slide 2 filename
+    "url('Hippo.jpg')",   // Slide 3 filename
+    "url('Giraffe.jpg')",    // Slide 4: Change to your exact 4th filename
+    "url('Elephant.jpg')",    // Slide 5: Change to your exact 5th filename
+    "url('Crocodile.jpg')"     // Slide 6: Change to your exact 6th filename
 ];
 
 let currentSlideIndex = 0;
