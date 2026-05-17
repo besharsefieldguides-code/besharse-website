@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Besharse Field Guides</title>
-    <!-- Importing a clean, elegant nature/wildlife font style -->
+    <!-- Importing Montserrat: A clean, premium modern wildlife & adventure font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Segoe+UI:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Segoe+UI:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,10 +19,9 @@
 
     <!-- Top Navigation Bar -->
     <nav class="navbar">
-        <!-- Top Left Corner Text: Now Olive Green & Wildlife Font -->
         <span class="nav-title">Besharse Field Guides</span>
         <div class="nav-links">
-            <!-- Clicking Home triggers the spinner, then reloads the page -->
+            <!-- Navigation links remain simple text; CSS handles the uppercase transition -->
             <a href="javascript:void(0);" onclick="triggerHomeRefresh();" class="nav-item active-tab">Home</a>
             <a href="#about" class="nav-item">About</a>
             <a href="#books" class="nav-item">Books</a>
@@ -31,15 +30,14 @@
             <a href="#blog" class="nav-item">Blog</a>
             <a href="#contacts" class="nav-item">Contacts</a>
             <a href="#social-media" class="nav-item">Social Media</a>
-            <!-- Donation Tab: Custom Yellow Text -->
-            <a href="#donate" class="nav-item donate-btn">MAKE A DONATION</a>
+            <a href="#donate" class="nav-item donate-btn">Make a Donation</a>
         </div>
     </nav>
 
     <!-- Hero Slider Section -->
     <header class="hero-section" id="hero-slider">
         
-        <!-- Main Hero Content Overlay (Moved closer to the left edge) -->
+        <!-- Main Hero Content Overlay -->
         <div class="hero-content">
             <h1 class="hero-title">Welcome to<br>Besharse Field Guides</h1>
             <a href="#about" class="btn-read-more">Read More</a>
@@ -58,14 +56,14 @@
         
     </header>
 
-    <!-- Adding inline function specifically for the Home refresh feature -->
+    <!-- Optimized loading speed script -->
     <script>
         function triggerHomeRefresh() {
             var overlay = document.getElementById('loading-overlay');
-            overlay.style.display = 'flex'; // Shows the loading spinner screen
+            overlay.style.display = 'flex'; 
             setTimeout(function() {
-                window.location.reload(); // Refreshes the page after 1.5 seconds
-            }, 1500);
+                window.location.reload(); 
+            }, 400); // Speed optimized to 400 milliseconds for ultra-fast load execution
         }
     </script>
     <script src="script.js"></script>
