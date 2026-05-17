@@ -26,7 +26,6 @@
             <a href="javascript:void(0);" id="tab-services" onclick="handleTabRefresh('tab-services', '#services')" class="nav-item">Services</a>
             <a href="javascript:void(0);" id="tab-events" onclick="handleTabRefresh('tab-events', '#events')" class="nav-item">Events</a>
             <a href="javascript:void(0);" id="tab-blog" onclick="handleTabRefresh('tab-blog', '#blog')" class="nav-item">Blog</a>
-            <!-- Updated: ID changed to 'tab-contact' and link text changed to 'Contact' -->
             <a href="javascript:void(0);" id="tab-contact" onclick="handleTabRefresh('tab-contact', '#contact')" class="nav-item">Contact</a>
             <a href="javascript:void(0);" id="tab-social" onclick="handleTabRefresh('tab-social', '#social-media')" class="nav-item">Social Media</a>
             <a href="javascript:void(0);" id="tab-donate" onclick="handleTabRefresh('tab-donate', '#donate')" class="nav-item donate-btn">Make a Donation</a>
@@ -40,12 +39,16 @@
             <a href="javascript:void(0);" onclick="handleTabRefresh('tab-about', '#about')" class="btn-read-more">Read More</a>
         </div>
 
+        <!-- Slider Controls Wrapper (Updated with 6 Dots total) -->
         <div class="slider-controls-container">
             <button class="slider-arrow" onclick="changeSlide(-1)">&lt;</button>
             <div class="slider-dots">
                 <span class="dot" onclick="setSlide(0)"></span>
                 <span class="dot" onclick="setSlide(1)"></span>
                 <span class="dot" onclick="setSlide(2)"></span>
+                <span class="dot" onclick="setSlide(3)"></span> <!-- Added for Image 4 -->
+                <span class="dot" onclick="setSlide(4)"></span> <!-- Added for Image 5 -->
+                <span class="dot" onclick="setSlide(5)"></span> <!-- Added for Image 6 -->
             </div>
             <button class="slider-arrow" onclick="changeSlide(1)">&gt;</button>
         </div>
