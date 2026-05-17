@@ -1,5 +1,5 @@
 // ==========================================
-// 1. AUTOMATIC IMAGE SLIDESHOW CONFIGURATION
+// AUTOMATIC IMAGE SLIDESHOW ENGINE
 // ==========================================
 
 const images = [
@@ -12,7 +12,7 @@ const images = [
 ];
 
 let currentSlideIndex = 0;
-const slideIntervalTime = 10000; 
+const slideIntervalTime = 10000; // Time spent on each slide (10 seconds)
 let sliderTimer;
 
 function preloadImages() {
@@ -30,19 +30,19 @@ function updateSlider() {
     const dots = document.getElementsByClassName("dot");
     if (!bgLayer) return;
     
-    // Clear class to reset CSS animation smoothly
+    // Drop the animation class so it reset-arms for the next slide transition
     bgLayer.classList.remove("slide-fade");
     
-    // Force DOM Reflow to reset CSS transition states instantly
+    // Force a micro DOM reflow to make the browser register the class drop instantly
     void bgLayer.offsetWidth; 
     
-    // Switch background assets
+    // Map the new background asset behind the content card layer
     bgLayer.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), ${images[currentSlideIndex]}`;
     
-    // Re-assign animation class
+    // Re-inject the optimized animation class to trigger the smooth lens-fade
     bgLayer.classList.add("slide-fade");
     
-    // Sync slider pagination dot states
+    // Update structural state of pagination indicators
     for (let i = 0; i < dots.length; i++) {
         dots[i].classList.remove("active");
     }
@@ -80,56 +80,7 @@ function resetTimer() {
 }
 
 // ==========================================
-// 2. REFRESH & PERSISTENT NAVIGATION LOGIC
-// ==========================================
-function handleTabRefresh(clickedTabId, urlHash) {
-    sessionStorage.setItem('selectedNavbarTab', clickedTabId);
-    window.history.pushState(null, null, urlHash);
-    
-    const loadingOverlay = document.getElementById('loading-overlay');
-    if (loadingOverlay) {
-        loadingOverlay.style.display = 'flex';
-        loadingOverlay.style.opacity = '1'; 
-    }
-    
-    setTimeout(() => {
-        window.location.reload();
-    }, 400);
-}
-
-function applySavedTabHighlight() {
-    const savedTabId = sessionStorage.getItem('selectedNavbarTab');
-    const allTabs = document.getElementsByClassName('nav-item');
-    
-    for (let i = 0; i < allTabs.length; i++) {
-        allTabs[i].classList.remove('active-tab');
-    }
-    
-    if (savedTabId && document.getElementById(savedTabId)) {
-        document.getElementById(savedTabId).classList.add('active-tab');
-        
-        // Target anchor hash scrolling with safe query selection wrappers
-        const targetHash = window.location.hash;
-        if (targetHash && targetHash !== '#') {
-            try {
-                const targetElement = document.querySelector(targetHash);
-                if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                }
-            } catch (error) {
-                console.error("Navigation target parsing exception caught safely:", error);
-            }
-        }
-    } else {
-        const homeTab = document.getElementById('tab-home');
-        if (homeTab) {
-            homeTab.classList.add('active-tab');
-        }
-    }
-}
-
-// ==========================================
-// 3. INITIALIZATION ENGINE & FAIL-SAFES
+// INITIALIZATION ENGINE & INTERFACE SECURITY
 // ==========================================
 
 function hideLoadingScreen() {
@@ -147,9 +98,8 @@ window.onload = function() {
         preloadImages();           
         updateSlider();            
         startTimer();              
-        applySavedTabHighlight();  
     } catch (error) {
-        console.error("Initialization error:", error);
+        console.error("Interface engine setup error:", error);
     } finally {
         hideLoadingScreen();
     }
