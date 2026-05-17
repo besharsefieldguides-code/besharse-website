@@ -3,8 +3,8 @@
 // ==========================================
 
 let currentSlideIndex = 0;
-const totalSlidesCount = 6; // Matching exactly our 6 HTML slide nodes
-const slideIntervalTime = 10000; // Slide view time duration (10 seconds)
+const totalSlidesCount = 6; 
+const slideIntervalTime = 10000; 
 let sliderTimer;
 
 function updateSlider() {
@@ -12,10 +12,8 @@ function updateSlider() {
     const dots = document.getElementsByClassName("dot");
     if (!track) return;
     
-    // Smooth Pull Mechanic: Pulls the horizontal track row by intervals of 100%
     track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
     
-    // Cycle matching active classes across pagination dot rings
     for (let i = 0; i < dots.length; i++) {
         dots[i].classList.remove("active");
     }
@@ -59,21 +57,17 @@ function resetTimer() {
 function selectTab(clickedTabId) {
     const allTabs = document.getElementsByClassName('nav-item');
     
-    // Wipe clean any existing active highlights from all tabs
     for (let i = 0; i < allTabs.length; i++) {
         allTabs[i].classList.remove('active-tab');
     }
     
-    // Target and apply the premium olive green highlight to the active choice
     const activeTab = document.getElementById(clickedTabId);
     if (activeTab) {
         activeTab.classList.add('active-tab');
     }
     
-    // Cache the design choice in sessionStorage to keep it persistent 
     sessionStorage.setItem('selectedNavbarTab', clickedTabId);
 
-    // Update the address bar URL quietly without jumping or reloading
     const hashName = clickedTabId.replace('tab-', '#');
     window.history.pushState(null, null, hashName);
 }
@@ -81,8 +75,7 @@ function selectTab(clickedTabId) {
 function applySavedTabHighlight() {
     const currentHash = window.location.hash;
     
-    // FIXED FAIL-SAFE: If there's no hash or we are returning fresh to home,
-    // clear memory immediately so it defaults cleanly to the Home tab highlight.
+    // SAFE HARDENING: Clears stuck storage if hash is empty or explicitly #home
     if (!currentHash || currentHash === '' || currentHash === '#home') {
         sessionStorage.removeItem('selectedNavbarTab');
     }
@@ -90,12 +83,10 @@ function applySavedTabHighlight() {
     const activeTabId = sessionStorage.getItem('selectedNavbarTab');
     const allTabs = document.getElementsByClassName('nav-item');
     
-    // Clear active classes safely
     for (let i = 0; i < allTabs.length; i++) {
         allTabs[i].classList.remove('active-tab');
     }
     
-    // Apply highlight to memory state, otherwise default directly to home element
     if (activeTabId && document.getElementById(activeTabId)) {
         document.getElementById(activeTabId).classList.add('active-tab');
     } else {
@@ -107,7 +98,7 @@ function applySavedTabHighlight() {
 }
 
 // ==========================================
-// 3. INITIALIZATION ENGINE & UNCONDITIONAL RESET
+// 3. INITIALIZATION ENGINE & OVERLAY GUARD
 // ==========================================
 
 function hideLoadingScreen() {
@@ -126,10 +117,9 @@ window.onload = function() {
         startTimer();              
         applySavedTabHighlight();  
     } catch (error) {
-        console.error("Interface execution caught safely:", error);
+        console.error("Interface loop exception guard active:", error);
     } finally {
-        // Crucial Fix: Executing inside finally ensures the loading screen 
-        // drops completely even if a state check experiences an exception.
+        // Unconditional execution ensures the screen never freezes
         hideLoadingScreen();
     }
 };
