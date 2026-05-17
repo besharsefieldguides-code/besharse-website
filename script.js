@@ -1,10 +1,15 @@
 // ==========================================
 // 1. AUTOMATIC IMAGE SLIDESHOW CONFIGURATION
 // ==========================================
+
+// Array expanded to hold 6 nature image file variables from your GitHub root directory
 const images = [
-    "url('forest.jpg')",    
-    "url('mountains.jpg')", 
-    "url('wildlife.jpg')"   
+    "url('forest.jpg')",     // Slide 1 filename
+    "url('mountains.jpg')",  // Slide 2 filename
+    "url('wildlife.jpg')",   // Slide 3 filename
+    "url('nature1.jpg')",    // Slide 4: Change to your exact 4th filename
+    "url('nature2.jpg')",    // Slide 5: Change to your exact 5th filename
+    "url('nature3.jpg')"     // Slide 6: Change to your exact 6th filename
 ];
 
 let currentSlideIndex = 0;
@@ -15,7 +20,9 @@ function updateSlider() {
     const sliderContainer = document.getElementById("hero-slider");
     const dots = document.getElementsByClassName("dot");
     if (!sliderContainer) return;
+    
     sliderContainer.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), ${images[currentSlideIndex]}`;
+    
     for (let i = 0; i < dots.length; i++) {
         dots[i].classList.remove("active");
     }
