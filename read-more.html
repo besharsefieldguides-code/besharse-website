@@ -1,70 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- CRITICAL FOR MULTI-DEVICE RESPONSIVENESS: Tells mobile screens to scale 1:1 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Featured Article - Besharse Field Guides</title>
+    <title>Besharse Field Guides - Article View</title>
     
-    <!-- Typography Links -->
+    <!-- Typography Connections -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Segoe+UI:wght@400;500;700&display=swap" rel="stylesheet">
     
-    <!-- Custom Stylesheet link -->
-    <link rel="stylesheet" href="read-more-style.css">
-    
-    <!-- Browser Tab Custom Icon (Linked directly to your transparent PNG asset) -->
-    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        /* --- Base Page Settings --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f4f6f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333333;
+            line-height: 1.6;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* --- Fluid Screen-Fitting Container --- */
+        .article-container {
+            background-color: #ffffff;
+            /* Combines standard desktop size limit with safe mobile screen percentage limits */
+            width: 100%;
+            max-width: 800px; 
+            padding: calc(20px + 2vw); /* Side spacing scales wider on big screens and tighter on small ones */
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* --- Responsive Headers & Typography --- */
+        .article-title {
+            font-family: 'Montserrat', sans-serif;
+            color: #708238; /* Signature Olive Brand Color */
+            font-size: calc(1.6rem + 1.5vw); /* Dynamically scales text down on phones */
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .article-meta {
+            font-size: 0.85rem;
+            color: #666666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f4f6f0;
+            padding-bottom: 15px;
+        }
+
+        .article-body p {
+            font-size: calc(0.95rem + 0.1vw); /* Keeps readable paragraphs on all hardware devices */
+            margin-bottom: 20px;
+            color: #444444;
+            text-align: justify;
+        }
+
+        /* --- Fluid Back Navigation Controls --- */
+        .btn-back {
+            font-family: 'Montserrat', sans-serif;
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #708238;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 28px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .btn-back:hover {
+            background-color: #55632a;
+        }
+
+        /* --- Hardware Breakpoint Rules --- */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px 10px; /* Reduces external border margins on small phone viewports */
+            }
+            .article-body p {
+                text-align: left; /* Changes text justification for easier reading on narrow phone screens */
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Unified Navigation Bar Layout -->
-    <nav class="navbar">
-        <span class="nav-title">Besharse Field Guides</span>
-        <div class="nav-links">
-            <!-- Uses structural anchors to return safely back to index layout profiles -->
-            <a href="index.html#home" class="nav-item">Home</a>
-            <a href="index.html#about" class="nav-item">About</a>
-            <a href="index.html#books" class="nav-item">Books</a>
-            <a href="index.html#services" class="nav-item">Services</a>
-            <a href="index.html#events" class="nav-item">Events</a>
-            <a href="index.html#blog" class="nav-item">Blog</a>
-            <a href="index.html#contact" class="nav-item">Contact</a>
-            <a href="index.html#social" class="nav-item">Social Media</a>
-            <a href="index.html#donate" class="nav-item donate-btn">Make a Donation</a>
+    <!-- Centered Content Wrapper Block -->
+    <div class="article-container">
+        <h1 class="article-title">Field Guide Documentation Overview</h1>
+        <div class="article-meta">Published by Besharse Field Guides</div>
+        
+        <div class="article-body">
+            <p>Welcome to the comprehensive field guide research library portal. This dedicated canvas workspace holds descriptive breakdowns, high-resolution visual records, and interactive tracking models built to interface flawlessly with our centralized core systems.</p>
+            <p>Our ongoing documentation pipeline relies on dynamic structural layout scaling to ensure environmental records and asset tags remain perfectly legible to researchers directly out in the field across any mobile field apparatus or widescreen laboratory arrays.</p>
+            <p>As we continue expanding our design logic, additional modules will connect cleanly to our navigation bar framework without altering core system layouts.</p>
         </div>
-    </nav>
 
-    <!-- Main Content Container -->
-    <main class="page-wrapper">
-        <article class="article-container">
-            
-            <span class="category-badge">Featured Announcement</span>
-            
-            <h1 class="article-title">The Next Era of Wildlife Documentation</h1>
-            
-            <div class="divider"></div>
-            
-            <p class="lead-text">
-                Discover how our upcoming tracking systems are redefining how researchers capture, catalog, and interact with remote environmental data across the globe.
-            </p>
-            
-            <p class="body-text">
-                This dedicated layout serves as your deep-dive reading canvas. Separating this space into its own layout template ensures your high-resolution images, layout matrices, and extensive tracking reports can scale cleanly without overcrowding your main interactive entry screen.
-            </p>
-
-            <h2 class="article-subtitle">Designed for Deep Field Exploration</h2>
-            <p class="body-text">
-                Every line of text, spacing element, and structural margin on this sub-page is balanced specifically to provide an optimal reading experience across both mobile layouts and wide desktop displays.
-            </p>
-
-            <!-- Back Navigation Footer Link (Clears active storage tab memory smoothly) -->
-            <div class="action-footer">
-                <a href="index.html" class="btn-back">&larr; Return to Dashboard</a>
-            </div>
-
-        </article>
-    </main>
+        <!-- Returns back to the perfectly responsive home slider dashboard -->
+        <a href="index.html" class="btn-back">Return to Dashboard</a>
+    </div>
 
 </body>
 </html>
