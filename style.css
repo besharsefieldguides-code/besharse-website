@@ -60,14 +60,45 @@ body, html {
     flex-wrap: wrap; 
 }
 
+/* NEW: Groups the main title and flag badge perfectly inline together */
+.brand-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Precise gap separation control */
+    padding: 10px 0;
+}
+
 .nav-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     font-size: calc(1.1rem + 0.3vw); 
     color: #708238; 
-    padding: 10px 0;
     white-space: nowrap;
     letter-spacing: -0.5px;
+}
+
+/* NEW: The USA badge display styling blueprint */
+.location-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #f0f4e8; /* Soft light olive tint variant background */
+    border: 1px solid #708238; /* Matches your brand line aesthetic */
+    padding: 4px 8px;
+    border-radius: 20px; /* Gives it a modern, clean pill shape */
+}
+
+.flag-icon {
+    font-size: calc(0.9rem + 0.2vw); /* Fluidly scales flag size across displays */
+    line-height: 1;
+}
+
+.location-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: calc(0.65rem + 0.1vw);
+    font-weight: 800;
+    color: #708238;
+    letter-spacing: 0.5px;
 }
 
 .nav-links {
@@ -96,12 +127,10 @@ body, html {
     color: #ffffff;
 }
 
-/* The standard non-hovered state text color */
 .nav-links .donate-btn, #tab-donate {
     color: #708238;
 }
 
-/* FIXED HOVER VISIBILITY: Forces text to turn crisp white when hovered or when active */
 .nav-item.donate-btn:hover, .nav-item.donate-btn.active-tab {
     color: #ffffff !important;
 }
@@ -239,6 +268,10 @@ body, html {
     .navbar {
         justify-content: center;
         text-align: center;
+    }
+    .brand-group {
+        justify-content: center;
+        width: 100%; /* Centers your title and brand group on mobile viewports */
     }
     .nav-links {
         justify-content: center;
