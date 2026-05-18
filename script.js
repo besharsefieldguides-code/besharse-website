@@ -2,11 +2,13 @@
 // 1. HORIZONTAL PULL SLIDESHOW LOGIC
 // ==========================================
 
+// STATE MATRIX: Global values tracking active slides and interval handlers
 let currentSlideIndex = 0;
-const totalSlidesCount = 6; // Exactly 6 sliding panels 
-const slideIntervalTime = 10000; // 10 second auto rotation view cycle
+const totalSlidesCount = 6; 
+const slideIntervalTime = 10000; 
 let sliderTimer;
 
+// DOM TRANSFORMATION: Moves the slider track horizontally based on current index
 function updateSlider() {
     const track = document.getElementById("slider-track");
     const dots = document.getElementsByClassName("dot");
@@ -24,6 +26,7 @@ function updateSlider() {
     }
 }
 
+// NAVIGATION MUTATION: Advances or reverses the slider via interactive arrow triggers
 function changeSlide(direction) {
     currentSlideIndex += direction;
     if (currentSlideIndex >= totalSlidesCount) {
@@ -35,18 +38,21 @@ function changeSlide(direction) {
     resetTimer();
 }
 
+// PAGINATION ROUTING: Forces the slider directly to a specific target index node
 function setSlide(index) {
     currentSlideIndex = index;
     updateSlider();
     resetTimer();
 }
 
+// CHRONOS SYSTEM: Initializes the automatic sliding background rotation loop
 function startTimer() {
     sliderTimer = setInterval(() => {
         changeSlide(1);
     }, slideIntervalTime);
 }
 
+// CHRONOS RESET: Clears active slide timers to protect view pacing on manual interaction
 function resetTimer() {
     clearInterval(sliderTimer);
     startTimer();
@@ -56,6 +62,7 @@ function resetTimer() {
 // 2. PROTOTYPE NAVBAR SELECTION TRACKING
 // ==========================================
 
+// STATE ENGINE: Updates visual navbar tabs and updates session data storage paths
 function selectTab(clickedTabId) {
     const allTabs = document.getElementsByClassName('nav-item');
     
@@ -78,6 +85,7 @@ function selectTab(clickedTabId) {
     window.history.pushState(null, null, hashName);
 }
 
+// PERSISTENCE RESOLUTION: Synchronizes UI state with historical storage or URL hashes
 function applySavedTabHighlight() {
     const currentHash = window.location.hash;
     
@@ -108,6 +116,7 @@ function applySavedTabHighlight() {
 // 3. INITIALIZATION ENGINE & OVERLAY GUARD
 // ==========================================
 
+// DOM TRANSITION: Fades and removes the application load mask on window completion
 function hideLoadingScreen() {
     const loadingOverlay = document.getElementById('loading-overlay');
     if (loadingOverlay) {
@@ -118,6 +127,7 @@ function hideLoadingScreen() {
     }
 }
 
+// RUNTIME ENTRYPOINT: Safely executes core systems on document completely loaded event
 window.onload = function() {
     try {
         updateSlider();            
