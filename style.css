@@ -37,14 +37,17 @@ body {
     height: 60px;
 }
 
+/* Brand Title - Updated Color to Match Theme */
 .brand-title {
     font-family: 'Antonio', sans-serif;
     font-size: 1.25rem;
     font-weight: 700;
-    color: #000000;
+    color: #556B2F; /* Swapped from pure black to Solid Olive Green */
     text-transform: uppercase;
     letter-spacing: 2px;
     line-height: 38px;
+    
+    /* Strict non-selectable / non-hover parameters */
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -93,9 +96,9 @@ body {
 .hero-section {
     position: relative;
     width: 100%;
-    height: calc(100vh - 60px); /* Fills screen space below the 60px navbar */
+    height: calc(100vh - 60px);
     overflow: hidden;
-    background-color: #000000;
+    background-color: #1a1a1a; /* Soft matte dark gray to elegantly frame zoomed-out pictures */
 }
 
 .carousel-container {
@@ -104,50 +107,21 @@ body {
     position: relative;
 }
 
+/* Fixed blurry scaling and added zoom-out effect */
 .carousel-slide {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Keeps image proportions clean and crisp */
+    object-fit: contain; /* Zooms out and displays the full image sharply without cropping blur */
+    padding: 2rem; /* Gives the pictures breathing room away from screen edges */
     opacity: 0;
-    transition: opacity 1s ease-in-out; /* Smooth crossfade effect */
+    transition: opacity 1s ease-in-out;
     z-index: 1;
 }
 
 .carousel-slide.active {
     opacity: 1;
     z-index: 2;
-}
-
-/* Bottom-Right Custom Theme Button */
-.hero-action-btn {
-    position: absolute;
-    bottom: 2rem;
-    right: 2rem;
-    z-index: 10; /* Ensures it sits firmly on top of the images */
-    height: 46px;
-    padding: 0 2rem;
-    border-radius: 23px; /* Pill layout symmetry */
-    border: none;
-    background-color: #556B2F; /* Theme-matched Solid Olive Green */
-    color: #ffffff; /* Pure white text for clean contrast against olive */
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-    transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.hero-action-btn:hover {
-    transform: translateY(-2px); /* Slight interactive lift */
-    background-color: #415224; /* Darker tone of olive for refined depth */
-}
-
-.hero-action-btn:active {
-    transform: translateY(0);
 }
