@@ -27,20 +27,19 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 40px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
-        /* Brand Title - Reverted to Black with Boldness */
+        /* Brand Title - Static Text Styling with Boldness */
         .navbar-brand {
             font-size: 20px;
-            color: #000000; /* Changed back to black */
+            color: #000000;
             font-weight: bold;
             letter-spacing: 0.5px;
-            user-select: none; /* Prevents accidental text selection highlighting */
-            cursor: default; /* Standard arrow cursor, indicating it is non-interactive */
+            user-select: none;
+            cursor: default;
         }
 
         /* Navigation Tabs Layout */
@@ -62,27 +61,104 @@
             color: #000000;
             text-decoration: none;
             font-size: 14px;
-            text-transform: uppercase; /* All caps */
-            font-weight: bold; /* Keeps the tabs bold for clean uniformity */
+            text-transform: uppercase;
+            font-weight: bold;
             letter-spacing: 1px;
-            padding: 10px 16px; /* Creates the box shape around the text */
+            padding: 10px 16px;
             border-radius: 4px;
             transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
         }
 
         /* Box Filled Hover Interaction */
         .navbar-tabs a:hover {
-            background-color: #556b2f; /* Same Olive Green filled box */
-            color: #ffffff; /* Text turns white so it remains clear and readable */
+            background-color: #556b2f;
+            color: #ffffff;
+        }
+
+        /* Solid Black Horizontal Divider Line */
+        .navbar-divider {
+            border: none;
+            height: 1px;
+            background-color: #000000;
+            width: 100%;
+            position: sticky;
+            top: 70px;
+            z-index: 1000;
+        }
+
+        /* Full Screen Slideshow Container */
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 71px); /* Fills entire viewport beneath header and divider */
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        /* Slide Windows */
+        .my-slides {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .my-slides img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures imagery spans perfectly without distortion */
+        }
+
+        /* Smooth Fade Animation Mechanics */
+        .fade-animation {
+            animation-name: fade;
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes fade {
+            from { opacity: 0.4; } 
+            to { opacity: 1; }
+        }
+
+        /* Control Button Layout Placement (Bottom Far Right Vertically Centered inside Area) */
+        .slideshow-controls {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* Individual Slot Slider Buttons */
+        .dot {
+            cursor: pointer;
+            height: 14px;
+            width: 14px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .dot:hover, .dot.active {
+            background-color: #556b2f; /* Highlight state coordinates with brand color */
+            border-color: #556b2f;
+            transform: scale(1.15);
         }
     </style>
 </head>
 <body>
 
+    <!-- Navbar Section -->
     <nav class="navbar">
         <span class="navbar-brand">Besharse Field Guides</span>
         <ul class="navbar-tabs">
-            <li><a href="#home">HOME</a></li>
+            <li><a href="#home" onclick="currentSlide(1)">HOME</a></li>
             <li><a href="#about">ABOUT</a></li>
             <li><a href="#books">BOOKS</a></li>
             <li><a href="#services">SERVICES</a></li>
@@ -91,6 +167,73 @@
             <li><a href="#donate">DONATE</a></li>
         </ul>
     </nav>
+
+    <!-- Black Divider Line -->
+    <hr class="navbar-divider">
+
+    <!-- Big Main Area Full-Window Slideshow Content -->
+    <main class="slideshow-container">
+        
+        <!-- Slot 1 -->
+        <div class="my-slides fade-animation">
+            <img src="https://images.unsplash.com/photo-1545284861-f1698e3b8c29?q=80&w=1920" alt="Wildlife Image Slot 1">
+        </div>
+
+        <!-- Slot 2 -->
+        <div class="my-slides fade-animation">
+            <img src="https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?q=80&w=1920" alt="Wildlife Image Slot 2">
+        </div>
+
+        <!-- Slot 3 -->
+        <div class="my-slides fade-animation">
+            <img src="https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=1920" alt="Wildlife Image Slot 3">
+        </div>
+
+        <!-- Navigation Buttons: Bottom Far Right Centered Group -->
+        <div class="slideshow-controls">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+
+    </main>
+
+    <!-- Slideshow Mechanism Logic Engine -->
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        // Interactive Dot Selection Mechanic
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        // Core Rendering System
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("my-slides");
+            let dots = document.getElementsByClassName("dot");
+            
+            if (n > slides.length) { slideIndex = 1 }    
+            if (n < 1) { slideIndex = slides.length }
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
+            slides[slideIndex-1].style.display = "block";  
+            dots[slideIndex-1].className += " active";
+        }
+
+        // Automatic smooth progression system (swaps images every 5 seconds)
+        setInterval(() => {
+            slideIndex++;
+            showSlides(slideIndex);
+        }, 5000);
+    </script>
 
 </body>
 </html>
