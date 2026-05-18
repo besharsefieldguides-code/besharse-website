@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Mission - Besharse Field Guides</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Segoe+UI:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* PAGE-SPECIFIC ENHANCEMENTS: Styling unique to the mission narrative */
+        .content-body {
+            padding-top: 120px; /* Accounts for the fixed navbar [cite: 20] */
+            max-width: 900px;
+            margin: 0 auto;
+            padding-left: 5%;
+            padding-right: 5%;
+            padding-bottom: 80px;
+        }
+
+        .mission-header {
+            border-left: 5px solid #708238;
+            padding-left: 20px;
+            margin-bottom: 40px;
+        }
+
+        .mission-title {
+            font-family: 'Montserrat', sans-serif;
+            color: #708238;
+            font-size: calc(1.5rem + 1.5vw);
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .story-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .highlight-box {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin: 40px 0;
+        }
+
+        .foundation-pledge {
+            font-weight: 700;
+            color: #708238;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-home {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #708238;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: transform 0.2s ease;
+        }
+
+        .back-home:hover {
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <span class="nav-title">Besharse Field Guides</span>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item">Home</a>
+            <div class="nav-divider"></div>
+            <a href="index.html#tab-donate" id="tab-donate" class="nav-item donate-btn">Make a Donation</a>
+        </div>
+    </nav>
+
+    <main class="content-body">
+        <header class="mission-header">
+            <h1 class="mission-title">The Dream: Ozark Wildlife Center</h1>
+            <p style="font-weight: 600; color: #555;">Building a sanctuary in Arkansas.</p>
+        </header>
+
+        <section class="story-section">
+            <p class="story-text">
+                My big dream is rooted in the heart of Ozark, Arkansas. I am dedicated to building a state-of-the-art 
+                wildlife center focused on the rescue, rehabilitation, and long-term care of our local fauna. 
+                Nature is a delicate balance, and this facility will serve as a sanctuary for animals in need 
+                and a beacon of hope for conservation.
+            </p>
+
+            <div class="highlight-box">
+                <h3 style="margin-bottom: 15px; font-family: 'Montserrat';">Education & Preservation</h3>
+                <p class="story-text">
+                    Beyond medical care, our mission is to educate the public. By fostering a deep connection 
+                    between the community and the natural world, we can inspire the next generation of 
+                    environmental stewards right here in Arkansas.
+                </p>
+                <div class="foundation-pledge">
+                    <span>🌿</span>
+                    <span>100% of your donations go directly to the facility foundation.</span>
+                </div>
+            </div>
+
+            <p class="story-text">
+                I do not take a profit from these donations. Every cent contributed is channeled directly into 
+                construction, medical supplies, and the daily operations of the foundation. Together, we can 
+                ensure that the wildlife of the Ozarks has a fighting chance.
+            </p>
+
+            <a href="index.html" class="back-home">← Back to Home</a>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
