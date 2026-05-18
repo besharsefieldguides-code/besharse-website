@@ -46,8 +46,15 @@
         .navbar-tabs {
             display: flex;
             list-style: none;
-            gap: 30px; /* Perfectly balances spacing between links */
+            gap: 10px; /* Reduced gap to accommodate padding for boxes */
             align-items: center;
+            height: 100%;
+        }
+
+        .navbar-tabs li {
+            display: flex;
+            align-items: center;
+            height: 100%;
         }
 
         .navbar-tabs a {
@@ -57,12 +64,15 @@
             text-transform: uppercase; /* All caps */
             font-weight: normal; /* No boldness */
             letter-spacing: 1px;
-            transition: color 0.2s ease-in-out;
+            padding: 10px 16px; /* Creates the box shape around the text */
+            border-radius: 4px; /* Subtle rounding for a polished look */
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
         }
 
-        /* Hover Interaction */
+        /* Box Filled Hover Interaction */
         .navbar-tabs a:hover {
-            color: #556b2f; /* Olive Green color highlight */
+            background-color: #556b2f; /* Olive Green filled box */
+            color: #ffffff; /* Text turns white so it remains clear and readable */
         }
     </style>
 </head>
@@ -75,8 +85,8 @@
             <li><a href="#about">ABOUT</a></li>
             <li><a href="#books">BOOKS</a></li>
             <li><a href="#services">SERVICES</a></li>
-            <li><a href="#contact">CONTACT</a></li>
             <li><a href="#social-media">SOCIAL MEDIA</a></li>
+            <li><a href="#contact">CONTACT</a></li>
             <li><a href="#donate">DONATE</a></li>
         </ul>
     </nav>
