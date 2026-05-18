@@ -36,11 +36,11 @@
         /* Brand Title - Reverted to Black with Boldness */
         .navbar-brand {
             font-size: 20px;
-            color: #000000; /* Changed back to black */
+            color: #000000;
             font-weight: bold;
             letter-spacing: 0.5px;
-            user-select: none; /* Prevents accidental text selection highlighting */
-            cursor: default; /* Standard arrow cursor, indicating it is non-interactive */
+            user-select: none;
+            cursor: default;
         }
 
         /* Navigation Tabs Layout */
@@ -62,23 +62,46 @@
             color: #000000;
             text-decoration: none;
             font-size: 14px;
-            text-transform: uppercase; /* All caps */
-            font-weight: bold; /* Keeps the tabs bold for clean uniformity */
+            text-transform: uppercase;
+            font-weight: bold;
             letter-spacing: 1px;
-            padding: 10px 16px; /* Creates the box shape around the text */
+            padding: 10px 16px;
             border-radius: 4px;
             transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
         }
 
         /* Box Filled Hover Interaction */
         .navbar-tabs a:hover {
-            background-color: #556b2f; /* Same Olive Green filled box */
-            color: #ffffff; /* Text turns white so it remains clear and readable */
+            background-color: #556b2f;
+            color: #ffffff;
+        }
+
+        /* Main Hero / White Content Section */
+        .main-hero-section {
+            background-color: #ffffff;
+            width: 100%;
+            min-height: 60vh; /* Generous vertical depth for a bold layout space */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 40px;
+            text-align: center;
+            border-bottom: 1px solid #eeeeee; /* Subtle border for layout separation */
+        }
+
+        .hero-placeholder-text {
+            color: #a0a0a0;
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            user-select: none;
         }
     </style>
 </head>
 <body>
 
+    <!-- Navbar Section -->
     <nav class="navbar">
         <span class="navbar-brand">Besharse Field Guides</span>
         <ul class="navbar-tabs">
@@ -91,6 +114,11 @@
             <li><a href="#donate">DONATE</a></li>
         </ul>
     </nav>
+
+    <!-- New Main Body White Section -->
+    <main class="main-hero-section">
+        <div class="hero-placeholder-text">[ MAIN SITE CONTENT SECTION ]</div>
+    </main>
 
 </body>
 </html>
