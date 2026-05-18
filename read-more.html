@@ -3,53 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Vision - Besharse Field Guides</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Segoe+UI:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Our Mission - Besharse Field Guides</title>
     <link rel="stylesheet" href="style.css">
-    
     <style>
-        .content-body { padding-top: 120px; max-width: 1000px; margin: 0 auto; padding-left: 5%; padding-right: 5%; padding-bottom: 100px; }
-        .mission-header { border-left: 6px solid #708238; padding-left: 25px; margin-bottom: 50px; }
-        .mission-title { font-family: 'Montserrat', sans-serif; color: #708238; font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 800; text-transform: uppercase; line-height: 1.1; }
-        .vision-statement { font-size: 1.4rem; font-weight: 600; color: #2c3316; margin-top: 15px; font-style: italic; }
-        .story-text { font-size: 1.15rem; line-height: 1.9; color: #333; margin-bottom: 30px; }
-        .foundation-pledge-banner { background-color: #708238; color: #ffffff; padding: 30px; border-radius: 8px; text-align: center; margin: 50px 0; }
-        .back-home { display: inline-flex; align-items: center; text-decoration: none; color: #708238; font-weight: 700; text-transform: uppercase; gap: 8px; transition: 0.2s; }
-        .back-home:hover { gap: 15px; }
+        .mission-page { padding-top: 100px; max-width: 800px; margin: 0 auto; padding-bottom: 50px; }
+        .mission-card { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        h1 { color: #708238; font-family: 'Montserrat'; margin-bottom: 20px; }
+        p { line-height: 1.8; margin-bottom: 20px; color: #333; }
+        .highlight { font-weight: bold; color: #708238; }
     </style>
 </head>
 <body>
-    <div id="loading-overlay" class="loading-overlay"><div class="spinner"></div></div>
-
     <nav class="navbar">
         <span class="nav-title">Besharse Field Guides</span>
         <div class="nav-links">
-            <a href="index.html" class="nav-item">Return Home</a>
+            <a href="index.html" class="nav-item">Home</a>
         </div>
     </nav>
 
-    <main class="content-body">
-        <header class="mission-header">
-            <h1 class="mission-title">The Dream:<br>A Global Sanctuary</h1>
-            <p class="vision-statement">Building the world’s largest wildlife conservation center.</p>
-        </header>
+    <div class="mission-page">
+        <div class="mission-card">
+            <h1>Building the Future of Wildlife</h1>
+            <p>My big dream is to establish the <span class="highlight">largest wildlife conservation center ever built</span>. While our roots are being planted in Ozark, Arkansas, our vision is global. We are dedicated to saving wildlife and educating the public worldwide.</p>
+            
+            <p>This facility will be a sanctuary where animals are cared for, rehabilitated, and protected. Education is at the core of what we do, ensuring that everyone understands the importance of our natural world.</p>
 
-        <p class="story-text">
-            Our goal is simple yet massive: to establish the largest wildlife conservation facility in existence, 
-            headquartered in Ozark, Arkansas, but serving the entire planet. We protect, rehabilitate, 
-            and educate on a global scale.
-        </p>
-
-        <div class="foundation-pledge-banner">
-            <h3 style="font-family: 'Montserrat'; font-weight: 800;">100% Direct Impact</h3>
-            <p>I take zero profit. Every donation goes directly to the foundation card to build the facility and save wildlife.</p>
+            <p class="highlight">100% Transparency:</p>
+            <p>I do not make a profit from your donations. Every single cent goes directly to the foundation for the facility and the care of the animals. Your support builds the sanctuary, provides medical care, and saves lives.</p>
+            
+            <a href="index.html" class="btn-read-more">Back to Home</a>
         </div>
-
-        <a href="index.html" class="back-home">← Back to Main Interface</a>
-    </main>
-
-    <script src="script.js"></script>
+    </div>
 </body>
 </html>
