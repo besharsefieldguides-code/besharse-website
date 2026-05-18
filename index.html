@@ -33,61 +33,51 @@
             z-index: 1000;
         }
 
-        /* Brand Title - Reverted to Black with Boldness */
+        /* Brand Title - Original Static Text Setup */
         .navbar-brand {
             font-size: 20px;
-            color: #000000;
-            font-weight: bold;
+            color: #000000; /* Reverted to classic black */
+            font-weight: normal; /* Removed all boldness */
             letter-spacing: 0.5px;
             user-select: none;
             cursor: default;
         }
 
-        /* Navigation Tabs Layout */
+        /* Navigation Tabs Layout - Original Spacing */
         .navbar-tabs {
             display: flex;
             list-style: none;
-            gap: 10px;
+            gap: 30px; /* Restored perfectly balanced wide layout spacing */
             align-items: center;
-            height: 100%;
-        }
-
-        .navbar-tabs li {
-            display: flex;
-            align-items: center;
-            height: 100%;
         }
 
         .navbar-tabs a {
             color: #000000;
             text-decoration: none;
             font-size: 14px;
-            text-transform: uppercase;
-            font-weight: bold;
+            text-transform: uppercase; /* All caps */
+            font-weight: normal; /* Removed all boldness */
             letter-spacing: 1px;
-            padding: 10px 16px;
-            border-radius: 4px;
-            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            transition: color 0.2s ease-in-out;
         }
 
-        /* Box Filled Hover Interaction */
+        /* Hover Interaction - Original Clean Text Highlight */
         .navbar-tabs a:hover {
-            background-color: #556b2f;
-            color: #ffffff;
+            color: #556b2f; /* Reverted to classic olive green text highlight */
         }
 
-        /* Main Hero / White Content Section */
+        /* Main Content Section */
         .main-hero-section {
             background-color: #ffffff;
             width: 100%;
-            min-height: 60vh; /* Generous vertical depth for a bold layout space */
+            min-height: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 60px 40px;
             text-align: center;
-            border-bottom: 1px solid #eeeeee; /* Subtle border for layout separation */
+            border-bottom: 1px solid #eeeeee;
         }
 
         .hero-placeholder-text {
@@ -115,7 +105,7 @@
         </ul>
     </nav>
 
-    <!-- New Main Body White Section -->
+    <!-- Main Body White Section -->
     <main class="main-hero-section">
         <div class="hero-placeholder-text">[ MAIN SITE CONTENT SECTION ]</div>
     </main>
