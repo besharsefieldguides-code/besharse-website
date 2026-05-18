@@ -36,11 +36,11 @@
         /* Brand Title - Reverted to Black with Boldness */
         .navbar-brand {
             font-size: 20px;
-            color: #000000; /* Changed back to black */
+            color: #000000;
             font-weight: bold;
             letter-spacing: 0.5px;
-            user-select: none; /* Prevents accidental text selection highlighting */
-            cursor: default; /* Standard arrow cursor, indicating it is non-interactive */
+            user-select: none;
+            cursor: default;
         }
 
         /* Navigation Tabs Layout */
@@ -62,18 +62,18 @@
             color: #000000;
             text-decoration: none;
             font-size: 14px;
-            text-transform: uppercase; /* All caps */
-            font-weight: bold; /* Keeps the tabs bold for clean uniformity */
+            text-transform: uppercase;
+            font-weight: bold;
             letter-spacing: 1px;
-            padding: 10px 16px; /* Creates the box shape around the text */
+            padding: 10px 16px;
             border-radius: 4px;
             transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
         }
 
         /* Box Filled Hover Interaction */
         .navbar-tabs a:hover {
-            background-color: #556b2f; /* Same Olive Green filled box */
-            color: #ffffff; /* Text turns white so it remains clear and readable */
+            background-color: #556b2f;
+            color: #ffffff;
         }
 
         /* Black Horizontal Divider Line */
@@ -91,7 +91,7 @@
         .slideshow-container {
             position: relative;
             width: 100%;
-            height: calc(100vh - 71px); /* Perfectly occupies the main viewport area under the line */
+            height: calc(100vh - 71px);
             overflow: hidden;
             background-color: #ffffff;
         }
@@ -106,7 +106,7 @@
         .my-slides img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Keeps images scaled cleanly without stretching */
+            object-fit: cover;
         }
 
         /* Clean Fading Transition Animation */
@@ -121,43 +121,47 @@
             to { opacity: 1; }
         }
 
-        /* Modern Navigation Controls - Placed very close to the bottom right corner */
+        /* Modern Navigation Controls - Placed close to the bottom right corner */
         .slideshow-controls {
             position: absolute;
-            bottom: 24px;
-            right: 32px;
+            bottom: 30px;
+            right: 40px;
             display: flex;
-            gap: 8px;
+            gap: 12px;
             z-index: 20;
         }
 
-        /* Sleek Modern ( < ) and ( > ) Arrow Buttons */
+        /* Ultra-Clean Modern Floating Glass Buttons */
         .nav-btn {
             cursor: pointer;
-            width: 44px;
-            height: 44px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border: 1px solid #000000;
-            color: #000000;
-            font-size: 18px;
-            font-weight: bold;
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px); /* Blurred backdrop effect */
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 4px;
+            border-radius: 50%; /* Rounded format feels modern and sleek */
             user-select: none;
-            transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
+        /* Sophisticated Interactive States */
         .nav-btn:hover {
-            background-color: #556b2f; /* Accents with your brand's olive green */
-            color: #ffffff;
+            background: #556b2f; /* Shifts seamlessly into your brand olive green */
             border-color: #556b2f;
+            color: #ffffff;
+            transform: translateY(-2px); /* Slight premium floating lift */
+            box-shadow: 0 6px 20px rgba(85, 107, 47, 0.4);
         }
 
         .nav-btn:active {
-            transform: scale(0.95);
+            transform: translateY(0) scale(0.95);
         }
     </style>
 </head>
@@ -180,7 +184,7 @@
     <!-- Black Horizontal Line Separator -->
     <hr class="navbar-divider">
 
-    <!-- Automated Slideshow Main Area (Positioned cleanly under the divider line) -->
+    <!-- Automated Slideshow Main Area -->
     <main class="slideshow-container">
         
         <!-- Custom Picture Slot 1 -->
@@ -198,7 +202,7 @@
             <img src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?q=80&w=1920" alt="Nature Slide 3">
         </div>
 
-        <!-- Modern Controls: Centered closely to the bottom right corner -->
+        <!-- Modern UI Controls Grouped in the Bottom Right Corner -->
         <div class="slideshow-controls">
             <button class="nav-btn" onclick="changeSlide(-1)" aria-label="Previous slide">&#10094;</button>
             <button class="nav-btn" onclick="changeSlide(1)" aria-label="Next slide">&#10095;</button>
@@ -217,9 +221,9 @@
 
         // Manual Arrow Navigation Mechanic
         function changeSlide(direction) {
-            clearInterval(slideTimer); // Reset timer on manual click to prevent stuttering
+            clearInterval(slideTimer);
             showSlides(slideIndex += direction);
-            startAutoCycle(); // Restart automatic cycle timer
+            startAutoCycle();
         }
 
         // Core Rendering System
@@ -240,7 +244,7 @@
         function startAutoCycle() {
             slideTimer = setInterval(() => {
                 showSlides(slideIndex += 1);
-            }, 5000); // Transitions to next image every 5 seconds
+            }, 5000);
         }
     </script>
 
