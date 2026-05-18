@@ -37,11 +37,13 @@ body {
     height: 80px;
 }
 
-/* Brand Title Requirements */
+/* Updated Brand Title with Wildlife/Stencil Font */
 .brand-title {
-    font-family: 'Cinzel', serif; /* Clean, professional wildlife-style font */
-    font-size: 1.5rem;
+    font-family: 'Stardos Stencil', system-ui; /* Sharp, wildlife-style stencil font */
+    font-size: 1.8rem;
+    font-weight: 700;
     color: #000000;
+    text-transform: uppercase;
     letter-spacing: 1px;
     /* Strict non-selectable / non-hover parameters */
     user-select: none;
@@ -57,7 +59,7 @@ body {
     display: flex;
     align-items: center;
     height: 100%;
-    gap: 0.25rem; /* Tightened layout spacing */
+    gap: 0.25rem;
 }
 
 /* Tab Item Styling */
@@ -65,24 +67,24 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 42px; /* Set fixed height to make the hover target look intentional, not full screen */
-    padding: 0 1.1rem; /* Balanced horizontal breathing room */
-    border-radius: 20px; /* Gives the hover effect a sleek, modern capsule/pill shape */
+    height: 42px;
+    padding: 0 1.1rem;
+    border-radius: 20px;
     color: #000000;
     text-decoration: none;
     font-family: 'Inter', sans-serif;
     font-weight: 700;
     font-size: 0.8rem;
-    text-transform: uppercase; /* Fully capitalized text */
+    text-transform: uppercase;
     letter-spacing: 0.5px;
     background-color: transparent;
-    transition: all 0.2s ease-in-out; /* Smooth fade-in transition */
+    transition: all 0.2s ease-in-out;
 }
 
-/* Updated Hover Effect - Elegant Solid Olive Capsule Pill */
+/* Hover Effect - Solid Olive Capsule Pill */
 .nav-tab-link:hover {
-    background-color: #556B2F; /* Back to a bold, solid Olive Green background */
-    color: #000000; /* Pure black text remains strictly untouched */
+    background-color: #556B2F; /* Solid Olive Green */
+    color: #000000;
 }
 
 /* Spacer for Fixed Navbar layout */
