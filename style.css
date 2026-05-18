@@ -37,14 +37,15 @@ body {
     height: 80px;
 }
 
-/* Updated Brand Title with Wildlife/Stencil Font */
+/* Updated Brand Title - Clean, Tall Modern Wildlife Aesthetic */
 .brand-title {
-    font-family: 'Stardos Stencil', system-ui; /* Sharp, wildlife-style stencil font */
-    font-size: 1.8rem;
+    font-family: 'Antonio', sans-serif; /* Tall, clean, bold geometric font */
+    font-size: 2rem;
     font-weight: 700;
     color: #000000;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    text-transform: uppercase; /* Fully capitalized for authority */
+    letter-spacing: 2px; /* Extra spacing to replicate premium outdoor apparel/gear branding */
+    
     /* Strict non-selectable / non-hover parameters */
     user-select: none;
     -webkit-user-select: none;
