@@ -1,6 +1,5 @@
 let currentSlideIndex = 0;
-const totalSlidesCount = 6; 
-const slideIntervalTime = 10000; 
+const totalSlidesCount = 6;
 let sliderTimer;
 
 function updateSlider() {
@@ -8,21 +7,12 @@ function updateSlider() {
     const dots = document.getElementsByClassName("dot");
     if (!track) return;
     track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
-    for (let i = 0; i < dots.length; i++) {
-        dots[i].classList.remove("active");
-    }
-    if (dots[currentSlideIndex]) {
-        dots[currentSlideIndex].classList.add("active");
-    }
+    for (let i = 0; i < dots.length; i++) dots[i].classList.remove("active");
+    if (dots[currentSlideIndex]) dots[currentSlideIndex].classList.add("active");
 }
 
 function changeSlide(direction) {
-    currentSlideIndex += direction;
-    if (currentSlideIndex >= totalSlidesCount) {
-        currentSlideIndex = 0;
-    } else if (currentSlideIndex < 0) {
-        currentSlideIndex = totalSlidesCount - 1;
-    }
+    currentSlideIndex = (currentSlideIndex + direction + totalSlidesCount) % totalSlidesCount;
     updateSlider();
     resetTimer();
 }
@@ -33,40 +23,17 @@ function setSlide(index) {
     resetTimer();
 }
 
-function startTimer() {
-    sliderTimer = setInterval(() => {
-        changeSlide(1);
-    }, slideIntervalTime);
+function startTimer() { sliderTimer = setInterval(() => changeSlide(1), 10000); }
+function resetTimer() { clearInterval(sliderTimer); startTimer(); }
+
+function selectTab(id) {
+    const tabs = document.getElementsByClassName('nav-item');
+    for (let t of tabs) t.classList.remove('active-tab');
+    if (document.getElementById(id)) document.getElementById(id).classList.add('active-tab');
 }
 
-function resetTimer() {
-    clearInterval(sliderTimer);
-    startTimer();
-}
-
-function selectTab(clickedTabId) {
-    sessionStorage.setItem('selectedNavbarTab', clickedTabId);
-    applySavedTabHighlight();
-}
-
-function applySavedTabHighlight() {
-    const activeTabId = sessionStorage.getItem('selectedNavbarTab');
-    const allTabs = document.getElementsByClassName('nav-item');
-    for (let i = 0; i < allTabs.length; i++) {
-        allTabs[i].classList.remove('active-tab');
-    }
-    if (activeTabId && document.getElementById(activeTabId)) {
-        document.getElementById(activeTabId).classList.add('active-tab');
-    }
-}
-
-window.onload = function() {
-    updateSlider();            
-    startTimer();              
-    applySavedTabHighlight();
-    const overlay = document.getElementById('loading-overlay');
-    if (overlay) {
-        overlay.style.opacity = '0'; 
-        setTimeout(() => { overlay.style.display = 'none'; }, 500); 
-    }
+window.onload = () => {
+    updateSlider(); startTimer();
+    const loader = document.getElementById('loading-overlay');
+    if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 500); }
 };
