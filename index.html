@@ -33,22 +33,29 @@
             z-index: 1000;
         }
 
-        /* Brand Title - Original Static Text Setup */
+        /* Brand Title - Reverted to Black with Boldness */
         .navbar-brand {
             font-size: 20px;
-            color: #000000; /* Reverted to classic black */
-            font-weight: normal; /* Removed all boldness */
+            color: #000000; /* Changed back to black */
+            font-weight: bold;
             letter-spacing: 0.5px;
-            user-select: none;
-            cursor: default;
+            user-select: none; /* Prevents accidental text selection highlighting */
+            cursor: default; /* Standard arrow cursor, indicating it is non-interactive */
         }
 
-        /* Navigation Tabs Layout - Original Spacing */
+        /* Navigation Tabs Layout */
         .navbar-tabs {
             display: flex;
             list-style: none;
-            gap: 30px; /* Restored perfectly balanced wide layout spacing */
+            gap: 10px;
             align-items: center;
+            height: 100%;
+        }
+
+        .navbar-tabs li {
+            display: flex;
+            align-items: center;
+            height: 100%;
         }
 
         .navbar-tabs a {
@@ -56,42 +63,22 @@
             text-decoration: none;
             font-size: 14px;
             text-transform: uppercase; /* All caps */
-            font-weight: normal; /* Removed all boldness */
+            font-weight: bold; /* Keeps the tabs bold for clean uniformity */
             letter-spacing: 1px;
-            transition: color 0.2s ease-in-out;
+            padding: 10px 16px; /* Creates the box shape around the text */
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
         }
 
-        /* Hover Interaction - Original Clean Text Highlight */
+        /* Box Filled Hover Interaction */
         .navbar-tabs a:hover {
-            color: #556b2f; /* Reverted to classic olive green text highlight */
-        }
-
-        /* Main Content Section */
-        .main-hero-section {
-            background-color: #ffffff;
-            width: 100%;
-            min-height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 60px 40px;
-            text-align: center;
-            border-bottom: 1px solid #eeeeee;
-        }
-
-        .hero-placeholder-text {
-            color: #a0a0a0;
-            font-size: 16px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            user-select: none;
+            background-color: #556b2f; /* Same Olive Green filled box */
+            color: #ffffff; /* Text turns white so it remains clear and readable */
         }
     </style>
 </head>
 <body>
 
-    <!-- Navbar Section -->
     <nav class="navbar">
         <span class="navbar-brand">Besharse Field Guides</span>
         <ul class="navbar-tabs">
@@ -104,11 +91,6 @@
             <li><a href="#donate">DONATE</a></li>
         </ul>
     </nav>
-
-    <!-- Main Body White Section -->
-    <main class="main-hero-section">
-        <div class="hero-placeholder-text">[ MAIN SITE CONTENT SECTION ]</div>
-    </main>
 
 </body>
 </html>
