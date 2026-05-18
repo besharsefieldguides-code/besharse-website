@@ -33,20 +33,21 @@
             z-index: 1000;
         }
 
-        /* Brand Title Placement */
+        /* Brand Title - Static Text Styling */
         .navbar-brand {
             font-size: 20px;
-            color: #000000;
-            text-decoration: none;
+            color: #556b2f; /* Olive Green branding */
             font-weight: normal; /* No boldness */
             letter-spacing: 0.5px;
+            user-select: none; /* Prevents accidental text selection highlighting */
+            cursor: default; /* Standard arrow cursor, indicating it is non-interactive */
         }
 
         /* Navigation Tabs Layout */
         .navbar-tabs {
             display: flex;
             list-style: none;
-            gap: 10px; /* Reduced gap to accommodate padding for boxes */
+            gap: 10px;
             align-items: center;
             height: 100%;
         }
@@ -65,7 +66,7 @@
             font-weight: normal; /* No boldness */
             letter-spacing: 1px;
             padding: 10px 16px; /* Creates the box shape around the text */
-            border-radius: 4px; /* Subtle rounding for a polished look */
+            border-radius: 4px;
             transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
         }
 
@@ -79,7 +80,8 @@
 <body>
 
     <nav class="navbar">
-        <a href="#" class="navbar-brand">Besharse Field Guides</a>
+        <!-- Changed from an <a> tag to a static <span> tag to remove interactivity -->
+        <span class="navbar-brand">Besharse Field Guides</span>
         <ul class="navbar-tabs">
             <li><a href="#home">HOME</a></li>
             <li><a href="#about">ABOUT</a></li>
