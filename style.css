@@ -98,7 +98,7 @@ body {
     width: 100%;
     height: calc(100vh - 60px);
     overflow: hidden;
-    background-color: #ffffff; /* Stable white backdrop backdrop */
+    background-color: #ffffff; /* Clean white canvas base */
 }
 
 .carousel-container {
@@ -107,7 +107,7 @@ body {
     position: relative;
 }
 
-/* Clean image fitting rules to seamlessly pull back the camera view */
+/* Image behavior tuned to stretch edge-to-edge without center cropping zoom */
 .carousel-slide {
     position: absolute;
     top: 0;
@@ -115,9 +115,8 @@ body {
     width: 100%;
     height: 100%;
     
-    /* The Fix: Pushes out the zoom perfectly by displaying the complete photo centered */
-    object-fit: scale-down; 
-    object-position: center;
+    /* The Update: Forces image dimensions to stretch perfectly across the entire viewport */
+    object-fit: fill; 
     
     opacity: 0;
     transition: opacity 1s ease-in-out;
