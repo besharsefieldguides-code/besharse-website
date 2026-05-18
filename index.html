@@ -131,33 +131,34 @@
             z-index: 20;
         }
 
-        /* Ultra-Clean Modern Floating Glass Buttons */
+        /* Ultra-Clean Modern Floating Glass Buttons with High-Visibility Borders */
         .nav-btn {
             cursor: pointer;
             width: 48px;
             height: 48px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px); /* Blurred backdrop effect */
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            /* Crisp, high-contrast white border with a tight drop shadow to guarantee visibility on any background image */
+            border: 2px solid #ffffff; 
             color: #ffffff;
             font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%; /* Rounded format feels modern and sleek */
+            border-radius: 50%;
             user-select: none;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3));
         }
 
         /* Sophisticated Interactive States */
         .nav-btn:hover {
-            background: #556b2f; /* Shifts seamlessly into your brand olive green */
+            background: #556b2f;
             border-color: #556b2f;
             color: #ffffff;
-            transform: translateY(-2px); /* Slight premium floating lift */
-            box-shadow: 0 6px 20px rgba(85, 107, 47, 0.4);
+            transform: translateY(-2px);
+            filter: drop-shadow(0px 6px 12px rgba(85, 107, 47, 0.5));
         }
 
         .nav-btn:active {
