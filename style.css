@@ -34,20 +34,17 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
-    height: 60px; /* Maintains our sleek, clean navbar height profile */
+    height: 60px;
 }
 
-/* Brand Title - Scaled up for strong readability */
 .brand-title {
     font-family: 'Antonio', sans-serif;
-    font-size: 1.25rem; /* Increased size for crisp, immediate legibility */
+    font-size: 1.25rem;
     font-weight: 700;
     color: #000000;
     text-transform: uppercase;
     letter-spacing: 2px;
-    line-height: 38px; /* Perfectly aligns baseline with the larger tab choices */
-    
-    /* Strict non-selectable / non-hover parameters */
+    line-height: 38px;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -56,40 +53,101 @@ body {
     pointer-events: none; 
 }
 
-/* Navigation Tabs Structure */
 .nav-tabs {
     display: flex;
     align-items: center;
     height: 100%;
-    gap: 0.35rem; /* Slightly spaced out to balance the larger text size */
+    gap: 0.35rem;
 }
 
-/* Tab Item Styling - Synchronized with Title Sizing */
 .nav-tab-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 38px; /* Balanced perfectly inside the 60px height envelope */
-    padding: 0 1.25rem; /* Expanded padding to complement the larger text scaling */
-    border-radius: 19px; /* Seamlessly updates pill symmetry for the new height */
+    height: 38px;
+    padding: 0 1.25rem;
+    border-radius: 19px;
     color: #000000;
     text-decoration: none;
     font-family: 'Inter', sans-serif;
     font-weight: 700;
-    font-size: 1rem; /* Scaled up in precise synchronization with the brand title */
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     background-color: transparent;
     transition: all 0.2s ease-in-out;
 }
 
-/* Hover Effect - Solid Olive Capsule Pill */
 .nav-tab-link:hover {
     background-color: #556B2F; /* Solid Olive Green */
     color: #000000;
 }
 
-/* Spacer for Fixed Navbar layout */
 .main-content {
     padding-top: 60px; 
+}
+
+/* ==========================================================================
+   MAIN HERO & SLIDESHOW SECTION
+   ========================================================================== */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 60px); /* Fills screen space below the 60px navbar */
+    overflow: hidden;
+    background-color: #000000;
+}
+
+.carousel-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Keeps image proportions clean and crisp */
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Smooth crossfade effect */
+    z-index: 1;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Bottom-Right Custom Theme Button */
+.hero-action-btn {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 10; /* Ensures it sits firmly on top of the images */
+    height: 46px;
+    padding: 0 2rem;
+    border-radius: 23px; /* Pill layout symmetry */
+    border: none;
+    background-color: #556B2F; /* Theme-matched Solid Olive Green */
+    color: #ffffff; /* Pure white text for clean contrast against olive */
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.hero-action-btn:hover {
+    transform: translateY(-2px); /* Slight interactive lift */
+    background-color: #415224; /* Darker tone of olive for refined depth */
+}
+
+.hero-action-btn:active {
+    transform: translateY(0);
 }
