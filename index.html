@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Besharse Field Guides</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #000000;
+        }
+
+        /* Navbar Layout */
+        .navbar {
+            background-color: #ffffff;
+            width: 100%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Brand Title Placement */
+        .navbar-brand {
+            font-size: 20px;
+            color: #000000;
+            text-decoration: none;
+            font-weight: normal; /* No boldness */
+            letter-spacing: 0.5px;
+        }
+
+        /* Navigation Tabs Layout */
+        .navbar-tabs {
+            display: flex;
+            list-style: none;
+            gap: 30px; /* Perfectly balances spacing between links */
+            align-items: center;
+        }
+
+        .navbar-tabs a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 14px;
+            text-transform: uppercase; /* All caps */
+            font-weight: normal; /* No boldness */
+            letter-spacing: 1px;
+            transition: color 0.2s ease-in-out;
+        }
+
+        /* Hover Interaction */
+        .navbar-tabs a:hover {
+            color: #556b2f; /* Olive Green color highlight */
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="navbar-brand">Besharse Field Guides</a>
+        <ul class="navbar-tabs">
+            <li><a href="#home">HOME</a></li>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#books">BOOKS</a></li>
+            <li><a href="#services">SERVICES</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+            <li><a href="#social-media">SOCIAL MEDIA</a></li>
+            <li><a href="#donate">DONATE</a></li>
+        </ul>
+    </nav>
+
+</body>
+</html>
