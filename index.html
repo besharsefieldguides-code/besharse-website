@@ -33,10 +33,10 @@
             z-index: 1000;
         }
 
-        /* Brand Title - Static Text Styling */
+        /* Brand Title - Exact Color Match */
         .navbar-brand {
             font-size: 20px;
-            color: #556b2f; /* Olive Green branding */
+            color: #556b2f; /* Exact Olive Green used in the highlighter */
             font-weight: normal; /* No boldness */
             letter-spacing: 0.5px;
             user-select: none; /* Prevents accidental text selection highlighting */
@@ -72,7 +72,7 @@
 
         /* Box Filled Hover Interaction */
         .navbar-tabs a:hover {
-            background-color: #556b2f; /* Olive Green filled box */
+            background-color: #556b2f; /* Same Olive Green filled box */
             color: #ffffff; /* Text turns white so it remains clear and readable */
         }
     </style>
@@ -80,7 +80,6 @@
 <body>
 
     <nav class="navbar">
-        <!-- Changed from an <a> tag to a static <span> tag to remove interactivity -->
         <span class="navbar-brand">Besharse Field Guides</span>
         <ul class="navbar-tabs">
             <li><a href="#home">HOME</a></li>
