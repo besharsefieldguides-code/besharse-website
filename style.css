@@ -52,7 +52,7 @@ body, html {
     padding: 0 4%; 
     min-height: 60px;
     height: auto; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: fixed;
     top: 0;
     width: 100%;
@@ -60,7 +60,6 @@ body, html {
     flex-wrap: wrap; 
 }
 
-/* RESTORED: All badge styling code has been deleted to bring back the original spacing layout */
 .nav-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
@@ -92,16 +91,19 @@ body, html {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.nav-item:hover, .nav-item.active-tab {
+.nav-item:hover, 
+.nav-item.active-tab {
     background-color: #708238; 
     color: #ffffff;
 }
 
-.nav-links .donate-btn, #tab-donate {
+.nav-links .donate-btn, 
+#tab-donate {
     color: #708238;
 }
 
-.nav-item.donate-btn:hover, .nav-item.donate-btn.active-tab {
+.nav-item.donate-btn:hover, 
+.nav-item.donate-btn.active-tab {
     color: #ffffff !important;
 }
 
@@ -174,7 +176,7 @@ body, html {
     letter-spacing: 1px;
     border-radius: 4px;
     transition: background-color 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .btn-read-more:hover {
@@ -228,7 +230,8 @@ body, html {
     transition: all 0.3s ease;
 }
 
-.dot:hover, .dot.active {
+.dot:hover, 
+.dot.active {
     background-color: #708238;
     border-color: #708238;
 }
@@ -239,13 +242,16 @@ body, html {
         justify-content: center;
         text-align: center;
     }
+    
     .nav-links {
         justify-content: center;
         width: 100%;
     }
+    
     .nav-item {
         padding: 10px 8px; 
     }
+    
     .slider-controls-container {
         left: 50%; 
         transform: translateX(-50%);
