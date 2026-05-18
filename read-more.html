@@ -3,173 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Mission - Besharse Field Guides</title>
-    
+    <title>The Vision - Besharse Field Guides</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Segoe+UI:wght@400;500;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="style.css">
     
     <style>
-        /* PAGE-SPECIFIC MISSION LAYOUT */
-        .content-body {
-            padding-top: 120px; 
-            max-width: 1000px;
-            margin: 0 auto;
-            padding-left: 5%;
-            padding-right: 5%;
-            padding-bottom: 100px;
-        }
-
-        .mission-header {
-            border-left: 6px solid #708238;
-            padding-left: 25px;
-            margin-bottom: 50px;
-        }
-
-        .mission-title {
-            font-family: 'Montserrat', sans-serif;
-            color: #708238;
-            font-size: calc(1.8rem + 1.5vw);
-            font-weight: 800;
-            text-transform: uppercase;
-            line-height: 1.1;
-        }
-
-        .vision-statement {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #2c3316;
-            margin-top: 15px;
-            font-style: italic;
-        }
-
-        .story-text {
-            font-size: 1.15rem;
-            line-height: 1.9;
-            color: #333;
-            margin-bottom: 30px;
-        }
-
-        .global-impact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-        }
-
-        .impact-card {
-            background-color: #ffffff;
-            border: 1px solid #e2e8f0;
-            padding: 35px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .impact-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .impact-card h3 {
-            font-family: 'Montserrat', sans-serif;
-            color: #708238;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            font-size: 1.2rem;
-        }
-
-        .foundation-pledge-banner {
-            background-color: #708238;
-            color: #ffffff;
-            padding: 25px;
-            border-radius: 8px;
-            text-align: center;
-            margin: 50px 0;
-        }
-
-        .pledge-title {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .back-home {
-            display: inline-flex;
-            align-items: center;
-            margin-top: 30px;
-            text-decoration: none;
-            color: #708238;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 1rem;
-            transition: gap 0.2s ease;
-            gap: 8px;
-        }
-
-        .back-home:hover {
-            gap: 15px;
-        }
+        .content-body { padding-top: 120px; max-width: 1000px; margin: 0 auto; padding-left: 5%; padding-right: 5%; padding-bottom: 100px; }
+        .mission-header { border-left: 6px solid #708238; padding-left: 25px; margin-bottom: 50px; }
+        .mission-title { font-family: 'Montserrat', sans-serif; color: #708238; font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 800; text-transform: uppercase; line-height: 1.1; }
+        .vision-statement { font-size: 1.4rem; font-weight: 600; color: #2c3316; margin-top: 15px; font-style: italic; }
+        .story-text { font-size: 1.15rem; line-height: 1.9; color: #333; margin-bottom: 30px; }
+        .foundation-pledge-banner { background-color: #708238; color: #ffffff; padding: 30px; border-radius: 8px; text-align: center; margin: 50px 0; }
+        .back-home { display: inline-flex; align-items: center; text-decoration: none; color: #708238; font-weight: 700; text-transform: uppercase; gap: 8px; transition: 0.2s; }
+        .back-home:hover { gap: 15px; }
     </style>
 </head>
 <body>
-
-    <div id="loading-overlay" class="loading-overlay">
-        <div class="spinner"></div>
-    </div>
+    <div id="loading-overlay" class="loading-overlay"><div class="spinner"></div></div>
 
     <nav class="navbar">
         <span class="nav-title">Besharse Field Guides</span>
         <div class="nav-links">
-            <a href="index.html" class="nav-item">Home</a>
-            <div class="nav-divider"></div>
-            <a href="index.html#tab-donate" id="tab-donate" class="nav-item donate-btn">Make a Donation</a>
+            <a href="index.html" class="nav-item">Return Home</a>
         </div>
     </nav>
 
     <main class="content-body">
         <header class="mission-header">
-            <h1 class="mission-title">The Vision:<br>A Global Sanctuary</h1>
+            <h1 class="mission-title">The Dream:<br>A Global Sanctuary</h1>
             <p class="vision-statement">Building the world’s largest wildlife conservation center.</p>
         </header>
 
-        <section class="story-section">
-            <p class="story-text">
-                What began as a dream in Ozark, Arkansas, has evolved into a global mission. We are not just 
-                protecting our local ecosystem—we are building a legacy to become the largest wildlife 
-                conservation center in history. From the heart of the Ozarks to every corner of the globe, 
-                our reach will ensure no species is left without a protector.
-            </p>
+        <p class="story-text">
+            Our goal is simple yet massive: to establish the largest wildlife conservation facility in existence, 
+            headquartered in Ozark, Arkansas, but serving the entire planet. We protect, rehabilitate, 
+            and educate on a global scale.
+        </p>
 
-            <div class="global-impact-grid">
-                <div class="impact-card">
-                    <h3>Worldwide Protection</h3>
-                    <p>Our initiatives extend beyond borders, providing resources, medical expertise, and 
-                    sanctuary space for wildlife across every continent.</p>
-                </div>
-                <div class="impact-card">
-                    <h3>Unrivaled Education</h3>
-                    <p>By building the largest facility of its kind, we will host researchers and educators 
-                    to create a global hub for wildlife knowledge and public awareness.</p>
-                </div>
-            </div>
+        <div class="foundation-pledge-banner">
+            <h3 style="font-family: 'Montserrat'; font-weight: 800;">100% Direct Impact</h3>
+            <p>I take zero profit. Every donation goes directly to the foundation card to build the facility and save wildlife.</p>
+        </div>
 
-            <div class="foundation-pledge-banner">
-                <div class="pledge-title">Our 100% Transparency Guarantee</div>
-                <p>I take zero profit. Every single dollar donated is funneled directly into the 
-                foundation to build, staff, and maintain our global conservation facilities.</p>
-            </div>
-
-            <p class="story-text">
-                This isn't just a project; it's a necessity. With your support, the Ozark-based center will 
-                be the headquarters for a movement that saves lives, restores habitats, and educates 
-                billions. Together, we are building a future where wildlife thrives.
-            </p>
-
-            <a href="index.html" class="back-home">← Return to Headquarters</a>
-        </section>
+        <a href="index.html" class="back-home">← Back to Main Interface</a>
     </main>
 
     <script src="script.js"></script>
