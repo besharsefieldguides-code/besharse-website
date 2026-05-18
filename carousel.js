@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const slideIntervalTime = 4000; // Time each slide stays visible (4 seconds)
 
     function nextSlide() {
+        if (slides.length === 0) return;
+        
         // Remove active class from the current image
         slides[currentSlideIndex].classList.remove('active');
         
