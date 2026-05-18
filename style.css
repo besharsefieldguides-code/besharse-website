@@ -1,214 +1,56 @@
-/* --- Base Reset & Fonts --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body, html { width: 100%; height: 100%; background-color: #f4f6f0; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
 
-body, html {
-    width: 100%;
-    height: 100%;
-    background-color: #f4f6f0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-x: hidden;
-}
+/* --- Loading Spinner --- */
+.loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: 0.5s opacity; }
+.spinner { width: 45px; height: 45px; border: 4px solid #e2e8f0; border-top: 4px solid #708238; border-radius: 50%; animation: spin 0.7s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
 
-/* --- Loading Spinner Overlay Styles --- */
-.loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.85); 
-    z-index: 9999;
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-    opacity: 1;
-    transition: opacity 0.5s ease;
-}
+/* --- Navbar --- */
+.navbar { display: flex; align-items: center; justify-content: space-between; background: #fff; padding: 0 4%; height: 70px; position: fixed; top: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.nav-title { font-family: 'Montserrat'; font-weight: 800; color: #708238; text-transform: uppercase; }
+.nav-links { display: flex; align-items: center; height: 100%; }
+.nav-item { padding: 0 15px; text-decoration: none; color: #000; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; display: flex; align-items: center; height: 100%; transition: 0.3s; }
+.nav-item:hover, .nav-item.active-tab { background: #708238; color: #fff !important; }
+.nav-divider { width: 1px; height: 25px; background: #000; margin: 0 10px; }
 
-.spinner {
-    width: 45px;
-    height: 45px;
-    border: 4px solid #e2e8f0;
-    border-top: 4px solid #708238; 
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite; 
-}
+/* --- Hero & Slider --- */
+.hero-section { height: 100vh; position: relative; display: flex; align-items: center; overflow: hidden; }
+.slider-track { display: flex; position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+.slide { flex: 0 0 100%; height: 100%; background-size: cover; background-position: center; }
+.hero-content { position: relative; z-index: 5; padding-left: 8%; }
+.hero-title { font-family: 'Montserrat'; color: #fff; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); margin-bottom: 25px; }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* --- Universal Responsive Navigation Bar --- */
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #ffffff;
-    padding: 0 4%;
-    height: 70px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-.nav-title {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 1.2rem;
-    color: #708238; 
-    text-transform: uppercase;
-    letter-spacing: -0.5px;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    height: 100%;
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    height: 100%;
-    text-decoration: none;
-    color: #000000;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase; 
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.nav-item:hover,
-.nav-item.active-tab {
-    background-color: #708238; 
-    color: #ffffff !important;
-}
-
-.nav-divider {
-    width: 1px;
-    height: 25px;
-    background-color: #000000;
-    margin: 0 10px;
-}
-
-/* --- Hero Section Slider Design --- */
-.hero-section {
-    height: 100vh;
-    width: 100%;
-    position: relative;
-    display: flex;
-    align-items: center; 
-    overflow: hidden;
-}
-
-.slider-track {
-    display: flex;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-    will-change: transform;
-}
-
-.slide {
-    flex: 0 0 100%;
-    height: 100%;
-    background-size: cover; 
-    background-position: center;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 5;
-    padding-left: 8%;
-    max-width: 800px;
-}
-
-.hero-title {
-    font-family: 'Montserrat', sans-serif;
-    color: #ffffff;
-    font-size: 4rem;
-    line-height: 1.1;
-    font-weight: 800;
-    margin-bottom: 25px;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.btn-read-more {
+/* --- The Buttons You Liked --- */
+.btn-read-more, .donate-now-btn {
     display: inline-block;
     background-color: #708238; 
     color: #ffffff;
     text-decoration: none;
-    padding: 14px 32px;
-    font-size: 0.9rem;
+    padding: 16px 35px;
     font-weight: 700;
     text-transform: uppercase;
     border-radius: 4px;
-    transition: background-color 0.3s ease;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
+.btn-read-more:hover, .donate-now-btn:hover { background-color: #55632a; transform: translateY(-2px); }
 
-.btn-read-more:hover {
-    background-color: #55632a;
-}
+/* --- Slider Controls --- */
+.slider-controls-container { position: absolute; bottom: 4%; right: 4%; display: flex; gap: 12px; background: rgba(0,0,0,0.4); padding: 8px 14px; border-radius: 4px; align-items: center; }
+.slider-arrow { background: transparent; border: 1px solid #fff; color: #fff; width: 32px; height: 32px; cursor: pointer; transition: 0.3s; }
+.slider-arrow:hover { background: #708238; border-color: #708238; }
+.dot { width: 12px; height: 12px; border: 1px solid #fff; cursor: pointer; transition: 0.3s; }
+.dot.active { background: #708238; border-color: #708238; }
 
-.slider-controls-container {
-    position: absolute;
-    bottom: 4%;
-    right: 4%; 
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    z-index: 10; 
-    background-color: rgba(0, 0, 0, 0.4);
-    padding: 8px 14px;
-    border-radius: 4px;
-}
+/* --- Donation Section --- */
+.donation-container { padding: 80px 5%; background: #fff; display: flex; justify-content: center; }
+.donation-card { max-width: 700px; text-align: center; border: 2px solid #708238; padding: 40px; border-radius: 8px; }
+.donation-headline { font-family: 'Montserrat'; color: #708238; margin-bottom: 15px; }
+.donation-subtext { margin-bottom: 25px; line-height: 1.6; color: #444; }
 
-.slider-arrow {
-    background: transparent;
-    color: #ffffff;
-    border: 1px solid #ffffff; 
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.slider-arrow:hover {
-    background-color: #708238;
-    border-color: #708238;
-}
-
-.slider-dots {
-    display: flex;
-    gap: 8px;
-}
-
-.dot {
-    width: 12px;
-    height: 12px;
-    background: transparent;
-    border: 1px solid #ffffff; 
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.dot:hover, 
-.dot.active {
-    background-color: #708238;
-    border-color: #708238;
+@media (max-width: 768px) {
+    .navbar { flex-direction: column; height: auto; padding: 10px; }
+    .nav-divider { display: none; }
+    .slider-controls-container { right: 50%; transform: translateX(50%); }
 }
