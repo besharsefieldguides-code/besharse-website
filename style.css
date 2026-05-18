@@ -76,12 +76,12 @@ body {
     text-transform: uppercase; /* Fully capitalized text */
     letter-spacing: 0.5px;
     background-color: transparent;
-    transition: all 0.25s ease-in-out; /* Smooth fade-in transition */
+    transition: all 0.2s ease-in-out; /* Smooth fade-in transition */
 }
 
-/* Updated Hover Effect - Elegant Capsule Pill */
+/* Updated Hover Effect - Elegant Solid Olive Capsule Pill */
 .nav-tab-link:hover {
-    background-color: rgba(85, 107, 47, 0.15); /* Translucent Olive Green for a subtle, designer look */
+    background-color: #556B2F; /* Back to a bold, solid Olive Green background */
     color: #000000; /* Pure black text remains strictly untouched */
 }
 
