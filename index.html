@@ -28,6 +28,7 @@
     <nav class="navbar">
         <span class="nav-title">Besharse Field Guides</span>
 
+        <!-- UNIVERSAL NAVIGATION STRUCTURE: Arranges navigation elements with the requested structural separation -->
         <div class="nav-links">
             <a href="javascript:void(0);" id="tab-home" onclick="selectTab('tab-home')" class="nav-item">Home</a>
             <a href="javascript:void(0);" id="tab-about" onclick="selectTab('tab-about')" class="nav-item">About</a>
@@ -36,8 +37,12 @@
             <a href="javascript:void(0);" id="tab-events" onclick="selectTab('tab-events')" class="nav-item">Events</a>
             <a href="javascript:void(0);" id="tab-blog" onclick="selectTab('tab-blog')" class="nav-item">Blog</a>
             <a href="javascript:void(0);" id="tab-contact" onclick="selectTab('tab-contact')" class="nav-item">Contact</a>
-            <a href="javascript:void(0);" id="tab-social" onclick="selectTab('tab-social')" class="nav-item">Social Media</a>
             <a href="#" id="tab-donate" onclick="selectTab('tab-donate'); return false;" class="nav-item donate-btn">Make a Donation</a>
+            
+            <!-- THE STRUCTURAL SEGMENTATION BOUNDARY: Renders the thin black divider via the stylesheet mapping rules -->
+            <div class="nav-divider"></div>
+            
+            <a href="javascript:void(0);" id="tab-social" onclick="selectTab('tab-social')" class="nav-item">Social Media</a>
         </div>
     </nav>
 
