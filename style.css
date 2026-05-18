@@ -107,6 +107,15 @@ body, html {
     color: #ffffff !important;
 }
 
+/* VISUAL ANCHOR: Creates a thin vertical divider between donation features and social menus */
+.nav-divider {
+    width: 1px;
+    height: 24px;
+    background-color: #000000;
+    margin: 0 10px;
+    align-self: center;
+}
+
 /* --- Universal Screen Fluid Hero Slider Section --- */
 .hero-section {
     min-height: 100vh; 
@@ -250,6 +259,11 @@ body, html {
     
     .nav-item {
         padding: 10px 8px; 
+    }
+    
+    /* VISUAL ANCHOR: Hides the vertical divider on mobile layouts to keep layout wrapping clean */
+    .nav-divider {
+        display: none;
     }
     
     .slider-controls-container {
