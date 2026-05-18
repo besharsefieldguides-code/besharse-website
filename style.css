@@ -24,7 +24,7 @@ body {
     top: 0;
     left: 0;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
 }
 
 .nav-container {
@@ -57,29 +57,32 @@ body {
     display: flex;
     align-items: center;
     height: 100%;
-    gap: 0.5rem; /* Base spacing between items */
+    gap: 0.25rem; /* Tightened layout spacing */
 }
 
 /* Tab Item Styling */
 .nav-tab-link {
     display: flex;
     align-items: center;
-    height: 100%;
-    padding: 0 1.25rem; /* Perfectly spaced tab hit areas */
+    justify-content: center;
+    height: 42px; /* Set fixed height to make the hover target look intentional, not full screen */
+    padding: 0 1.1rem; /* Balanced horizontal breathing room */
+    border-radius: 20px; /* Gives the hover effect a sleek, modern capsule/pill shape */
     color: #000000;
     text-decoration: none;
     font-family: 'Inter', sans-serif;
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     text-transform: uppercase; /* Fully capitalized text */
-    letter-spacing: 1px;
-    transition: background-color 0.2s ease-in-out;
+    letter-spacing: 0.5px;
+    background-color: transparent;
+    transition: all 0.25s ease-in-out; /* Smooth fade-in transition */
 }
 
-/* Hover Effect Modification */
+/* Updated Hover Effect - Elegant Capsule Pill */
 .nav-tab-link:hover {
-    background-color: #556B2F; /* Olive Green background shift */
-    color: #000000; /* Pure black text remains unchanged */
+    background-color: rgba(85, 107, 47, 0.15); /* Translucent Olive Green for a subtle, designer look */
+    color: #000000; /* Pure black text remains strictly untouched */
 }
 
 /* Spacer for Fixed Navbar layout */
