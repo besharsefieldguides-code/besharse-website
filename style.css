@@ -37,12 +37,12 @@ body {
     height: 60px;
 }
 
-/* Brand Title - Updated Color to Match Theme */
+/* Brand Title - Solid Olive Green Theme Color */
 .brand-title {
     font-family: 'Antonio', sans-serif;
     font-size: 1.25rem;
     font-weight: 700;
-    color: #556B2F; /* Swapped from pure black to Solid Olive Green */
+    color: #556B2F; /* Branded Solid Olive Green */
     text-transform: uppercase;
     letter-spacing: 2px;
     line-height: 38px;
@@ -98,7 +98,7 @@ body {
     width: 100%;
     height: calc(100vh - 60px);
     overflow: hidden;
-    background-color: #1a1a1a; /* Soft matte dark gray to elegantly frame zoomed-out pictures */
+    background-color: #ffffff; /* Reset back to clean white backdrop per request */
 }
 
 .carousel-container {
@@ -107,15 +107,15 @@ body {
     position: relative;
 }
 
-/* Fixed blurry scaling and added zoom-out effect */
+/* Brought image layout back to normal full-bleed scaling */
 .carousel-slide {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Zooms out and displays the full image sharply without cropping blur */
-    padding: 2rem; /* Gives the pictures breathing room away from screen edges */
+    object-fit: cover; /* Restored back to full image crop coverage */
+    padding: 0; /* Stripped away the inner padding boxes */
     opacity: 0;
     transition: opacity 1s ease-in-out;
     z-index: 1;
