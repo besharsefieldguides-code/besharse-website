@@ -52,8 +52,8 @@ body {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Updated Hover State to Sunflower Yellow with Black Text */
+/* Updated Hover State to Slightly Lighter Olive */
 .nav-item:hover {
-    background-color: #FFDA03; /* Sunflower Yellow */
-    color: #000000; /* Black text for readability on yellow */
+    background-color: #6E8B3D; /* Slightly Lighter Olive Green */
+    color: #ffffff; /* Clean white text for readability */
 }
