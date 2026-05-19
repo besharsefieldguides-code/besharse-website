@@ -52,8 +52,8 @@ body {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Updated Hover State to Exact Dark Brown */
+/* Updated Hover State to New Vibrant Green */
 .nav-item:hover {
-    background-color: #654321; /* Dark Brown (RGB 101, 67, 33) */
+    background-color: #457D24; /* Custom Green Accent */
     color: #ffffff;
 }
