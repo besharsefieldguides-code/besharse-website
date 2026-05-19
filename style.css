@@ -52,8 +52,8 @@ body {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Updated Hover State to Final Earthy Brown */
+/* Updated Hover State to Exact Dark Brown */
 .nav-item:hover {
-    background-color: #7B3F00; /* Cocoa Brown */
+    background-color: #654321; /* Dark Brown (RGB 101, 67, 33) */
     color: #ffffff;
 }
