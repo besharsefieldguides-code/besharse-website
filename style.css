@@ -1,0 +1,60 @@
+/* Reset basic styles for a clean layout */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+}
+
+/* Navbar container and layout styling */
+.navbar {
+    background-color: #556B2F; /* Olive Green */
+    width: 100%;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Brand Logo (Far Left) */
+.nav-logo {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+}
+
+/* Navigation Links (Far Right Alignment) */
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+}
+
+.nav-item {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Theme-matched Hover State */
+.nav-item:hover {
+    background-color: #6B8E23; /* Olive Drab / Lighter Olive accent */
+    color: #ffffff;
+}
