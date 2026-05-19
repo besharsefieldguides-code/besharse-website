@@ -20,7 +20,7 @@ body {
 
 .nav-container {
     max-width: 100%;
-    padding: 0 20px; /* Moved elements tight to the screen boundaries */
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,7 +39,7 @@ body {
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 6px; /* Decreased space between options for a tighter layout */
+    gap: 6px;
 }
 
 .nav-item {
@@ -52,8 +52,8 @@ body {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Updated Hover State to Light Brown */
+/* Updated Hover State to Custom Deep Brown */
 .nav-item:hover {
-    background-color: #A0522D; /* Sienna / Light Brown */
+    background-color: #48371C; /* Custom Dark Brown Accent */
     color: #ffffff;
 }
