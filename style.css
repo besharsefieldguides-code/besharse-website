@@ -8,11 +8,18 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
+    width: 100%;
+    height: 100%; /* Ensures the document takes up the full browser screen */
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #ffffff;
-    /* Completely removes the right-side vertical and horizontal scrollbars */
-    overflow: hidden; 
+    overflow: hidden; /* Completely removes all right-side and bottom browser scrollbars */
+}
+
+/* Force body to act as a full-height column layout */
+body {
+    display: flex;
+    flex-direction: column;
 }
 
 /* Navbar container and layout styling */
@@ -21,6 +28,7 @@ body {
     width: 100%;
     padding: 15px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Prevents the navbar from shrinking */
 }
 
 .nav-container {
@@ -35,7 +43,7 @@ body {
 .nav-logo {
     color: #ffffff;
     font-family: 'Caveat Brush', cursive;
-    font-size: 1.6rem; /* Bumped up slightly to your exact preference */
+    font-size: 1.6rem; 
     letter-spacing: 0.5px;
     cursor: default;
 }
@@ -64,16 +72,17 @@ body {
 }
 
 /* ==============================================================================
-   MAIN CONTENT & SHOWCASE IMAGE (FULL WINDOW HEIGHT)
+   MAIN CONTENT & SHOWCASE IMAGE (PERFECT FILL)
    ============================================================================== */
 .main-content {
     width: 100%;
+    flex-grow: 1; /* Tells the main container to automatically expand and absorb all remaining space */
+    display: flex;
 }
 
 .hero-showcase {
     width: 100%;
-    /* Dynamically calculates full remaining window height minus the exact navbar height */
-    height: calc(100vh - 68px); 
+    height: 100%; /* Fully fills the expanded main content container with zero gaps */
     background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80&w=1920');
     background-size: cover; 
     background-position: center; 
