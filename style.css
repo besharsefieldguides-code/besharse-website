@@ -11,7 +11,8 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #ffffff;
-    overflow-x: hidden; /* Prevents unwanted horizontal scrolling */
+    /* Completely removes the right-side vertical and horizontal scrollbars */
+    overflow: hidden; 
 }
 
 /* Navbar container and layout styling */
