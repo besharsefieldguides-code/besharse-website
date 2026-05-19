@@ -43,7 +43,7 @@ body {
 .nav-logo {
     color: #ffffff;
     font-family: 'Caveat Brush', cursive;
-    font-size: 1.6rem; 
+    font-size: 1.84rem; /* Scaled up exactly 15% for better visibility */
     letter-spacing: 0.5px;
     cursor: default;
 }
