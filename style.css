@@ -1,3 +1,6 @@
+/* Import Caveat Brush directly from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap');
+
 /* Reset basic styles for a clean layout */
 * {
     margin: 0;
@@ -29,8 +32,8 @@ body {
 /* Brand Logo (Far Left, Non-Clickable Text) */
 .nav-logo {
     color: #ffffff;
-    font-size: 1.3rem;
-    font-weight: 700;
+    font-family: 'Caveat Brush', cursive; /* Applied your new font exclusively to the title */
+    font-size: 2rem; /* Adjusted up slightly because script fonts tend to look smaller */
     letter-spacing: 0.5px;
     cursor: default;
 }
