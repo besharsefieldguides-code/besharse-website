@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Besharse Field Guides | Wildlife Education & Rescue</title>
+    <style>
+        /* CSS RESET & VARIABLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary-color: #1e3f20;
+            --secondary-color: #8b5a2b;
+            --accent-color: #2e6f40;
+            --light-bg: #f4f7f4;
+            --dark-text: #222222;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        /* NAVIGATION BAR */
+        header {
+            background-color: var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+
+        .nav-logo {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #a3d9a5;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 0.75rem 2rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #6d441f;
+        }
+
+        /* SECTION LAYOUTS */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            margin: 0.5rem auto 0;
+        }
+
+        /* ABOUT / VISION SECTION */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.75rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        /* BOOKS SECTION */
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .book-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .book-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .book-desc {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        /* SERVICES & FIELD GUIDE INTERACTIVE SECTION */
+        .guide-container {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .guide-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .selector-btn {
+            background-color: #e0eee0;
+            color: var(--primary-color);
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .selector-btn.active, .selector-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .guide-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media(max-width: 768px) {
+            .about-grid, .guide-display { grid-template-columns: 1fr; }
+            .nav-menu { display: none; } /* Simplified layout for raw file delivery */
+        }
+
+        .map-placeholder {
+            background-color: #ddd;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #555;
+            border: 2px dashed var(--secondary-color);
+        }
+
+        /* EVENTS & BLOG & DONATE */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .donate-box {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: var(--white);
+            padding: 4rem 2rem;
+            border-radius: 8px;
+        }
+
+        .donate-box h3 { font-size: 2rem; margin-bottom: 1rem; }
+
+        /* CONTACT FORM */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <header>
+        <nav class="navbar">
+            <a href="#" class="nav-logo">Besharse Field Guides</a>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#books" class="nav-link">Books</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#events" class="nav-link">Events</a></li>
+                <li><a href="#blog" class="nav-link">Blog</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#donate" class="nav-link">Donate</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HOME / HERO SECTION -->
+    <div id="home" class="hero">
+        <h1>Protecting Wildlife Worldwide</h1>
+        <p>Our mission is to establish a premier Wildlife Rescue and Education Center in Ozark, Arkansas, rescuing global species and educating communities through comprehensive field guides.</p>
+        <a href="#about" class="btn">Explore Our Mission</a>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <h2 class="section-title">Our Vision</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <h3>The Ozark, Arkansas Wildlife Center Project</h3>
+                <p>We are working toward a big goal: building a state-of-the-art wildlife center nestled in Ozark, Arkansas. This facility will serve dual noble purposes: rescuing injured and displaced animals from all corners of the globe, and maintaining specialized educational species groups to teach the public firsthand about conservation engineering, biological systems, and habitat health.</p>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1575550959106-5a7defe28b56?auto=format&fit=crop&w=600&q=80" alt="Wildlife Conservation" style="width:100%; border-radius:8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOKS SECTION -->
+    <section id="books">
+        <h2 class="section-title">Published Field Guides</h2>
+        <div class="book-grid">
+            <div class="book-card">
+                <div>
+                    <h3 class="book-title">Reptiles of the Ozarks</h3>
+                    <p class="book-desc">A comprehensive breakdowns of regional herpetology, detailing complex species ranges, identification techniques, and safety protocols for field researchers.</p>
+                </div>
+                <a href="#" class="btn" onclick="alert('Redirecting to secure merchant store backend...'); return false;">Buy on Amazon</a>
+            </div>
+            <div class="book-card">
+                <div>
+                    <h3 class="book-title">Arkansas Venomous Snakes</h3>
+                    <p class="book-desc">An essential handbook highlighting identification indices for Arkansas's venomous snake lineages, mapping critical safety measures and visual look-alikes.</p>
+                </div>
+                <a href="#" class="btn" onclick="alert('Redirecting to secure merchant store backend...'); return false;">Buy on Barnes & Noble</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES / BUILT-IN FIELD GUIDE SECTION -->
+    <section id="services">
+        <h2 class="section-title">Services & Free Mini-Field Guide</h2>
+        <p style="text-align: center; max-width: 800px; margin: -2rem auto 2rem;">We supply consultation frameworks and educational curricula. Use our built-in utility app below to study regional snakes and their corresponding ranges.</p>
+        
+        <div class="guide-container">
+            <div class="guide-selector">
+                <button class="selector-btn active" onclick="switchGuide('copperhead', this)">Copperhead</button>
+                <button class="selector-btn" onclick="switchGuide('cottonmouth', this)">Cottonmouth</button>
+                <button class="selector-btn" onclick="switchGuide('rattlesnake', this)">Timber Rattlesnake</button>
+            </div>
+            
+            <div class="guide-display">
+                <div id="guide-info">
+                    <h3 id="snake-name" style="color: var(--primary-color); margin-bottom: 0.5rem;">Copperhead (Agkistrodon contortrix)</h3>
+                    <p id="snake-desc" style="margin-bottom: 1rem;">Commonly found throughout Arkansas woodlands and rocky hillsides. Features a distinct hourglass pattern overlaying a tan body infrastructure.</p>
+                    <strong>Status:</strong> <span id="snake-status">Venomous / Common native</span>
+                </div>
+                <div>
+                    <div class="map-placeholder" id="snake-map">
+                        Map Infrastructure: Statewide Range Grid
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EVENTS SECTION -->
+    <section id="events">
+        <h2 class="section-title">Upcoming Events</h2>
+        <div class="grid-3">
+            <div class="card">
+                <h3>Ozark Public Presentation</h3>
+                <p><strong>Date:</strong> October 12, 2026</p>
+                <p>Join us at the town hall meeting outlining the site configuration metrics and structural zoning for the incoming rescue facility.</p>
+            </div>
+            <div class="card">
+                <h3>Guided Identification Field Hike</h3>
+                <p><strong>Date:</strong> November 04, 2026</p>
+                <p>An outdoor educational track tracing safe herpetological exploration pathways through public state lands.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOG SECTION -->
+    <section id="blog">
+        <h2 class="section-title">The Conservation Log</h2>
+        <div class="grid-3">
+            <div class="card">
+                <h3>Rescuing Across Borders</h3>
+                <p>How our planned intake pipeline structures will handle logistics when moving vulnerable dynamic species securely to Arkansas.</p>
+            </div>
+            <div class="card">
+                <h3>Sifting through Subspecies Data</h3>
+                <p>A closer scientific gaze at how range maps mutate alongside changing macroclimatic trends in the mid-South.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <h2 class="section-title">Contact Our Team</h2>
+        <form class="contact-form" onsubmit="alert('Form submission processed cleanly!'); return false;">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" required placeholder="John Doe">
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" required placeholder="john@example.com">
+            </div>
+            <div class="form-group">
+                <label>Message</label>
+                <textarea rows="5" required placeholder="Inquire about our upcoming book entries or the Ozark Rescue Center roadmap..."></textarea>
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Submit Inquiry</button>
+        </form>
+    </section>
+
+    <!-- DONATE SECTION -->
+    <section id="donate">
+        <div class="donate-box">
+            <h3>Support the Ozark Wildlife Center Foundation</h3>
+            <p style="margin-bottom: 2rem; max-width:600px; margin-left:auto; margin-right:auto;">Your backing directly finances site acquisitions, physical holding structures, and ongoing distribution of educational material.</p>
+            <button class="btn" style="background-color: var(--white); color: var(--primary-color);" onclick="alert('Launching secure donation payment pipeline UI...');">Make a Donation</button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Besharse Field Guides. All Rights Reserved. Dev via GitHub Pipeline for IONOS Deployment.</p>
+    </footer>
+
+    <!-- INTERACTIVE ENGINE JAVASCRIPT -->
+    <script>
+        const snakeData = {
+            copperhead: {
+                name: "Copperhead (Agkistrodon contortrix)",
+                desc: "Commonly found throughout Arkansas woodlands and rocky hillsides. Features a distinct hourglass pattern overlaying a tan body infrastructure.",
+                status: "Venomous / Common native",
+                map: "Map Infrastructure: Statewide Range Grid"
+            },
+            cottonmouth: {
+                name: "Cottonmouth / Water Moccasin (Agkistrodon piscivorus)",
+                desc: "Semiaquatic pit viper found predominantly within lowland rivers, swamps, and marshes of Arkansas. Dark dark bands with wide gaping defense stance.",
+                status: "Venomous / Semi-Aquatic Ecosystems",
+                map: "Map Infrastructure: Lowlands & River Valley Systems"
+            },
+            rattlesnake: {
+                name: "Timber Rattlesnake (Crotalus horridus)",
+                desc: "Large heavily wooded mountain dweller. Recognizable by its chevron pattern bands and keratinized tail rattle mechanism.",
+                status: "Venomous / Protected Forest Ecosystems",
+                map: "Map Infrastructure: Ozark/Ouachita High Canopy Systems"
+            }
+        };
+
+        function switchGuide(key, buttonElement) {
+            // Update active state in selector buttons
+            const buttons = document.querySelectorAll('.selector-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+
+            // Inject dataset elements directly into DOM nodes
+            document.getElementById('snake-name').innerText = snakeData[key].name;
+            document.getElementById('snake-desc').innerText = snakeData[key].desc;
+            document.getElementById('snake-status').innerText = snakeData[key].status;
+            document.getElementById('snake-map').innerText = snakeData[key].map;
+        }
+    </script>
+</body>
+</html>
