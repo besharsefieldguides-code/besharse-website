@@ -52,8 +52,8 @@ body {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Updated Hover State to New Vibrant Green */
+/* Updated Hover State to Deep Forest Green */
 .nav-item:hover {
-    background-color: #457D24; /* Custom Green Accent */
+    background-color: #325B1A; /* Custom Deep Forest Green */
     color: #ffffff;
 }
