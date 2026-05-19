@@ -52,8 +52,9 @@ body {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Updated Hover State to Custom Deep Brown */
+/* Updated Hover State to Earthy Brown Options */
 .nav-item:hover {
-    background-color: #48371C; /* Custom Dark Brown Accent */
+    background-color: #7B3F00; /* Option A: Cocoa Brown */
+    /* background-color: #4A3B2C; */ /* Option B: Earthy Umber/Mud Brown (Uncomment to use) */
     color: #ffffff;
 }
