@@ -52,8 +52,8 @@ body {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Updated Hover State to Deep Forest Green */
+/* Updated Hover State to Sunflower Yellow with Black Text */
 .nav-item:hover {
-    background-color: #325B1A; /* Custom Deep Forest Green */
-    color: #ffffff;
+    background-color: #FFDA03; /* Sunflower Yellow */
+    color: #000000; /* Black text for readability on yellow */
 }
