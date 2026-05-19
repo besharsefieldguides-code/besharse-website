@@ -32,8 +32,8 @@ body {
 /* Brand Logo (Far Left, Non-Clickable Text) */
 .nav-logo {
     color: #ffffff;
-    font-family: 'Caveat Brush', cursive; /* Applied your new font exclusively to the title */
-    font-size: 2rem; /* Adjusted up slightly because script fonts tend to look smaller */
+    font-family: 'Caveat Brush', cursive;
+    font-size: 2rem;
     letter-spacing: 0.5px;
     cursor: default;
 }
@@ -59,4 +59,21 @@ body {
 .nav-item:hover {
     background-color: #6E8B3D; /* Slightly Lighter Olive Green */
     color: #ffffff; 
+}
+
+/* ==============================================================================
+   MAIN CONTENT & SHOWCASE IMAGE
+   ============================================================================== */
+.main-content {
+    width: 100%;
+}
+
+.hero-showcase {
+    width: 100%;
+    height: 75vh; /* Takes up 75% of the total screen viewing height */
+    /* Placeholder Wildlife Image - Swap out the URL inside the quotes below to change the photo */
+    background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80&w=1920');
+    background-size: cover; /* Keeps image perfectly proportioned without stretching */
+    background-position: center; /* Centers the focal point of the photo */
+    background-repeat: no-repeat;
 }
