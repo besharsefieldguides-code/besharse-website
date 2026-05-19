@@ -19,21 +19,20 @@ body {
 }
 
 .nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    max-width: 100%;
+    padding: 0 96px; /* Precise 1-inch gap layout on both edges */
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* Brand Logo (Far Left) */
+/* Brand Logo (Far Left, Non-Clickable Text) */
 .nav-logo {
     color: #ffffff;
     font-size: 1.3rem;
     font-weight: 700;
-    text-decoration: none;
     letter-spacing: 0.5px;
+    cursor: default; /* Tells user it's plain text, not a link */
 }
 
 /* Navigation Links (Far Right Alignment) */
@@ -53,8 +52,8 @@ body {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Theme-matched Hover State */
+/* Updated Hover State to Black */
 .nav-item:hover {
-    background-color: #6B8E23; /* Olive Drab / Lighter Olive accent */
+    background-color: #000000; /* Pure Black Hover */
     color: #ffffff;
 }
