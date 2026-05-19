@@ -35,7 +35,7 @@ body {
 .nav-logo {
     color: #ffffff;
     font-family: 'Caveat Brush', cursive;
-    font-size: 1.2rem; /* Shrunk down to a clean, low-profile scale */
+    font-size: 1.6rem; /* Bumped up slightly to your exact preference */
     letter-spacing: 0.5px;
     cursor: default;
 }
