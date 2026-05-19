@@ -52,9 +52,8 @@ body {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Updated Hover State to Earthy Brown Options */
+/* Updated Hover State to Final Earthy Brown */
 .nav-item:hover {
-    background-color: #7B3F00; /* Option A: Cocoa Brown */
-    /* background-color: #4A3B2C; */ /* Option B: Earthy Umber/Mud Brown (Uncomment to use) */
+    background-color: #7B3F00; /* Cocoa Brown */
     color: #ffffff;
 }
