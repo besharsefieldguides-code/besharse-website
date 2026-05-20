@@ -3,54 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcade Game</title>
+    <title>3D Browser FPS</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            user-select: none;
         }
-        body {
-            background-color: #1a1a1a;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+        body, html {
+            width: 100%;
+            height: 100%;
             overflow: hidden;
+            background-color: #000;
+            font-family: 'Courier New', Courier, monospace;
         }
-        #game-container {
-            text-align: center;
-        }
-        #score-board {
-            font-size: 24px;
-            margin-bottom: 15px;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-        canvas {
-            background-color: #111111;
-            border: 4px solid #444444;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        #game-canvas {
+            width: 100%;
+            height: 100%;
             display: block;
         }
-        .instructions {
-            margin-top: 15px;
+        /* UI HUD Layer */
+        #hud {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+        .hud-element {
+            color: #00ff66;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(0, 255, 102, 0.6);
+        }
+        #crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+        #crosshair::before, #crosshair::after {
+            content: '';
+            position: absolute;
+            background-color: #00ff66;
+            box-shadow: 0 0 4px rgba(0, 255, 102, 0.8);
+        }
+        #crosshair::before { top: 4px; left: -10px; width: 30px; height: 2px; }
+        #crosshair::after { top: -10px; left: 4px; width: 2px; height: 30px; }
+
+        /* Start/Pause Overlay */
+        #blocker {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            cursor: pointer;
+            text-align: center;
+            border: 4px solid #00ff66;
+            margin: auto;
+        }
+        #instructions {
+            font-size: 28px;
+            color: #00ff66;
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+            animation: blink 1.5s infinite;
+        }
+        .controls-guide {
+            margin-top: 20px;
             color: #888888;
-            font-size: 14px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
     </style>
+    <!-- Include Three.js for 3D engine support -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
-    <div id="game-container">
-        <div id="score-board">Score: <span id="score">0</span></div>
-        <canvas id="gameCanvas" width="800" height="600"></canvas>
-        <div class="instructions">Use WASD or Arrow Keys to move. Collect the green targets!</div>
+    <div id="blocker">
+        <div id="instructions">CLICK TO INITIALIZE SYSTEM</div>
+        <div class="controls-guide">
+            WASD = Move | MOUSE = Look Around | LEFT CLICK = Fire Weapon
+        </div>
     </div>
+
+    <div id="hud">
+        <div class="hud-element">SCORE: <span id="score-val">000</span></div>
+        <div class="hud-element">WEAPON: PLASMA_RAIL_v1.0</div>
+    </div>
+    
+    <div id="crosshair"></div>
+
+    <canvas id="game-canvas"></canvas>
 
     <script src="PlayerMovement.js"></script>
 </body>
