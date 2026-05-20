@@ -86,6 +86,7 @@
             pointer-events: none;
             box-shadow: 0 0 6px #00ff66;
             z-index: 5;
+            transition: opacity 0.1s;
         }
         /* Menu Screens */
         #blocker {
@@ -124,7 +125,8 @@
 
     <div id="blocker">
         <div id="instructions">DEPLOY TO FIELD</div>
-        <div class="sub-text">WASD = Move Responsively | Mouse = Aim | Left Click = Fire | R = Reload</div>
+        <div class="sub-text">WASD = Move | Space = Jump | Mouse = Look | Hold Left Click = Auto Fire</div>
+        <div class="sub-text">Right Click = ADS Sights | Y = Swap Weapon | G = Grenade | R = Reload</div>
         <div id="game-over-msg" style="color: #ff3333; margin-top: 20px; font-weight: bold; display: none; font-size: 20px;">ELIMINATED. RESETTING TO ROUND 1.</div>
     </div>
 
@@ -135,7 +137,7 @@
             <div class="hud-card">HOSTILES: <span id="bots-val">1</span></div>
         </div>
         <div class="hud-row" style="justify-content: flex-end;">
-            <div class="hud-card" id="ammo-display">AMMO: <span id="ammo-val">30</span>/30</div>
+            <div class="hud-card" id="ammo-display"><span id="weapon-name">AK47</span>: <span id="ammo-val">30</span>/<span id="max-ammo-val">30</span></div>
         </div>
     </div>
     
