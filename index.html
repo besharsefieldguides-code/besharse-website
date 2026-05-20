@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tactical FPS Sandbox</title>
+    <title>Tactical Combat Sandbox</title>
     <style>
         * {
             box-sizing: border-box;
@@ -23,7 +23,7 @@
             height: 100%;
             display: block;
         }
-        /* Minimalist Competitive HUD */
+        /* Tactical HUD Display */
         #hud {
             position: absolute;
             top: 0;
@@ -36,6 +36,7 @@
             justify-content: space-between;
             padding: 25px;
             box-sizing: border-box;
+            z-index: 5;
         }
         .hud-row {
             display: flex;
@@ -43,38 +44,55 @@
             width: 100%;
         }
         .hud-card {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 10px 20px;
+            background: rgba(15, 15, 15, 0.85);
+            padding: 12px 24px;
             border-radius: 4px;
             color: #ffffff;
             font-size: 20px;
             font-weight: 700;
             letter-spacing: 1px;
             border-left: 4px solid #00ff66;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        #health-card {
+            border-left: 4px solid #ff3333;
         }
         #ammo-display {
             border-left: none;
             border-right: 4px solid #00ff66;
         }
-        /* Tiny Crosshair */
+        /* Red Damage Flash Screen Overlay */
+        #damage-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 0, 0, 0);
+            pointer-events: none;
+            transition: background-color 0.1s ease-out;
+            z-index: 4;
+        }
+        /* Snappy Crosshair */
         #crosshair {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 4px;
-            height: 4px;
+            width: 6px;
+            height: 6px;
             background-color: #00ff66;
             border-radius: 50%;
             transform: translate(-50%, -50%);
             pointer-events: none;
-            box-shadow: 0 0 4px #00ff66;
+            box-shadow: 0 0 6px #00ff66;
+            z-index: 5;
         }
-        /* State Overlay */
+        /* Menu Screens */
         #blocker {
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: rgba(10, 10, 10, 0.85);
+            background-color: rgba(10, 10, 10, 0.95);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -85,30 +103,36 @@
             z-index: 10;
         }
         #instructions {
-            font-size: 32px;
-            font-weight: 800;
+            font-size: 36px;
+            font-weight: 900;
             color: #00ff66;
             margin-bottom: 10px;
+            letter-spacing: 2px;
         }
         .sub-text {
             color: #aaaaaa;
             font-size: 16px;
+            margin-top: 5px;
         }
     </style>
-    <!-- Three.js Library -->
+    <!-- Three.js Engine Layer -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
+    <div id="damage-overlay"></div>
+
     <div id="blocker">
-        <div id="instructions">CLICK TO MATCHMAKE</div>
-        <div class="sub-text">WASD = Move | Mouse = Aim | Left Click = Shoot | R = Reload</div>
+        <div id="instructions">DEPLOY TO FIELD</div>
+        <div class="sub-text">WASD = Move Responsively | Mouse = Aim | Left Click = Fire | R = Reload</div>
+        <div id="game-over-msg" style="color: #ff3333; margin-top: 20px; font-weight: bold; display: none; font-size: 20px;">ELIMINATED. RESETTING TO ROUND 1.</div>
     </div>
 
     <div id="hud">
         <div class="hud-row">
             <div class="hud-card">ROUND: <span id="round-val">1</span></div>
-            <div class="hud-card">BOTS LEFT: <span id="bots-val">1</span></div>
+            <div class="hud-card" id="health-card">HP: <span id="hp-val">100</span></div>
+            <div class="hud-card">HOSTILES: <span id="bots-val">1</span></div>
         </div>
         <div class="hud-row" style="justify-content: flex-end;">
             <div class="hud-card" id="ammo-display">AMMO: <span id="ammo-val">30</span>/30</div>
