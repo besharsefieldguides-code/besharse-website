@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Browser FPS</title>
+    <title>Tactical FPS Sandbox</title>
     <style>
         * {
             box-sizing: border-box;
@@ -15,15 +15,15 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #000;
-            font-family: 'Courier New', Courier, monospace;
+            background-color: #0b0b0b;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
         #game-canvas {
             width: 100%;
             height: 100%;
             display: block;
         }
-        /* UI HUD Layer */
+        /* Minimalist Competitive HUD */
         #hud {
             position: absolute;
             top: 0;
@@ -34,39 +34,47 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 30px;
+            padding: 25px;
             box-sizing: border-box;
         }
-        .hud-element {
-            color: #00ff66;
-            font-size: 24px;
-            font-weight: bold;
-            text-shadow: 0 0 8px rgba(0, 255, 102, 0.6);
+        .hud-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
         }
+        .hud-card {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
+            border-radius: 4px;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-left: 4px solid #00ff66;
+        }
+        #ammo-display {
+            border-left: none;
+            border-right: 4px solid #00ff66;
+        }
+        /* Tiny Crosshair */
         #crosshair {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 10px;
-            height: 10px;
+            width: 4px;
+            height: 4px;
+            background-color: #00ff66;
+            border-radius: 50%;
             transform: translate(-50%, -50%);
             pointer-events: none;
+            box-shadow: 0 0 4px #00ff66;
         }
-        #crosshair::before, #crosshair::after {
-            content: '';
-            position: absolute;
-            background-color: #00ff66;
-            box-shadow: 0 0 4px rgba(0, 255, 102, 0.8);
-        }
-        #crosshair::before { top: 4px; left: -10px; width: 30px; height: 2px; }
-        #crosshair::after { top: -10px; left: 4px; width: 2px; height: 30px; }
-
-        /* Start/Pause Overlay */
+        /* State Overlay */
         #blocker {
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.85);
+            background-color: rgba(10, 10, 10, 0.85);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -74,41 +82,37 @@
             color: #ffffff;
             cursor: pointer;
             text-align: center;
-            border: 4px solid #00ff66;
-            margin: auto;
+            z-index: 10;
         }
         #instructions {
-            font-size: 28px;
+            font-size: 32px;
+            font-weight: 800;
             color: #00ff66;
-            text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
-            animation: blink 1.5s infinite;
+            margin-bottom: 10px;
         }
-        .controls-guide {
-            margin-top: 20px;
-            color: #888888;
+        .sub-text {
+            color: #aaaaaa;
             font-size: 16px;
-            line-height: 1.6;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
         }
     </style>
-    <!-- Include Three.js for 3D engine support -->
+    <!-- Three.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
     <div id="blocker">
-        <div id="instructions">CLICK TO INITIALIZE SYSTEM</div>
-        <div class="controls-guide">
-            WASD = Move | MOUSE = Look Around | LEFT CLICK = Fire Weapon
-        </div>
+        <div id="instructions">CLICK TO MATCHMAKE</div>
+        <div class="sub-text">WASD = Move | Mouse = Aim | Left Click = Shoot | R = Reload</div>
     </div>
 
     <div id="hud">
-        <div class="hud-element">SCORE: <span id="score-val">000</span></div>
-        <div class="hud-element">WEAPON: PLASMA_RAIL_v1.0</div>
+        <div class="hud-row">
+            <div class="hud-card">ROUND: <span id="round-val">1</span></div>
+            <div class="hud-card">BOTS LEFT: <span id="bots-val">1</span></div>
+        </div>
+        <div class="hud-row" style="justify-content: flex-end;">
+            <div class="hud-card" id="ammo-display">AMMO: <span id="ammo-val">30</span>/30</div>
+        </div>
     </div>
     
     <div id="crosshair"></div>
