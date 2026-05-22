@@ -22,7 +22,7 @@ body {
     z-index: 1000; 
 }
 
-/* Global Font (Title & Tabs) */
+/* Global Font */
 .navbar-title, 
 .navbar-links-visible a, 
 .navbar-dropdown-drawer a, 
@@ -42,9 +42,17 @@ body {
     list-style: none;
     align-items: center;
     margin-left: auto; 
-    margin-right: 1.5rem;  
+    margin-right: 1rem;
+    height: 100%; /* Ensure links take up full navbar height */
 }
 
+.navbar-links-visible li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Base Link Styling */
 .navbar-links-visible a,
 .navbar-dropdown-drawer a {
     display: flex;
@@ -53,11 +61,13 @@ body {
     color: #ffffff; 
     font-size: 0.75rem; 
     font-weight: 600;
-    transition: color 0.2s ease;
+    transition: all 0.2s ease-in-out;
 }
 
+/* Specific Padding for Top Tabs to make the hover box look right */
 .navbar-links-visible a {
-    padding: 0.3rem 0.5rem;
+    padding: 0 0.8rem;
+    height: 100%; 
 }
 
 /* Bold White Hollow Icons */
@@ -69,23 +79,25 @@ body {
     transition: all 0.2s ease;
 }
 
-/* --- HOVER EFFECT: TEXT AND ICON TURN BLACK --- */
+/* --- UNIFIED TRANSPARENT HOVER EFFECT --- */
 .navbar-links-visible a:hover,
 .navbar-dropdown-drawer a:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Transparent black overlay */
     color: #000000;
 }
 
 .navbar-links-visible a:hover .bi,
 .navbar-dropdown-drawer a:hover .bi {
     color: #000000 !important;
-    -webkit-text-stroke: 0.5px #000000; /* Keeps the bold look in black */
+    -webkit-text-stroke: 0.5px #000000;
 }
 
-/* Professional Search Bar */
+/* Search Bar Styling */
 .navbar-actions {
     display: flex;
     align-items: center;
     gap: 1rem;
+    padding-left: 0.5rem;
 }
 
 .search-container {
@@ -116,10 +128,10 @@ body {
 
 .search-input:focus {
     background-color: rgba(255, 255, 255, 0.15);
-    width: 180px;
+    width: 170px;
 }
 
-/* Hero Image Section */
+/* Hero Section */
 .hero-section {
     width: 100%;
     height: calc(100vh - 44px);
@@ -129,20 +141,24 @@ body {
     background-repeat: no-repeat;
 }
 
-/* Hamburger & Drawer */
+/* Hamburger Toggle */
 .hamburger-toggle {
     background: none;
     border: none;
     color: #ffffff;
     cursor: pointer;
     display: flex;
-    transition: color 0.2s ease;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
 }
 
 .hamburger-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.1);
     color: #000000;
 }
 
+/* Dropdown Drawer */
 .navbar-dropdown-drawer {
     position: absolute;
     top: 44px; 
@@ -151,6 +167,8 @@ body {
     box-shadow: -4px 8px 24px rgba(0,0,0,0.2);
     display: none; 
     min-width: 180px;
+    border-bottom-left-radius: 4px;
+    overflow: hidden; /* Ensures hover effect stays inside corners */
 }
 
 .navbar-dropdown-drawer.active {
@@ -162,9 +180,7 @@ body {
 }
 
 .navbar-dropdown-drawer a {
-    padding: 0.7rem 1.2rem;
-}
-
-.navbar-dropdown-drawer a:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0.8rem 1.2rem;
+    width: 100%;
+    justify-content: flex-start;
 }
