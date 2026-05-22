@@ -7,7 +7,7 @@
 
 body {
     background-color: #ffffff;
-    overflow-x: hidden; /* Prevents unwanted horizontal scrolling */
+    overflow-x: hidden;
 }
 
 /* Navbar Container */
@@ -22,6 +22,7 @@ body {
     z-index: 1000; 
 }
 
+/* Global Font (Title & Tabs) */
 .navbar-title, 
 .navbar-links-visible a, 
 .navbar-dropdown-drawer a, 
@@ -52,6 +53,7 @@ body {
     color: #ffffff; 
     font-size: 0.75rem; 
     font-weight: 600;
+    transition: color 0.2s ease;
 }
 
 .navbar-links-visible a {
@@ -62,8 +64,21 @@ body {
 .bi { 
     font-size: 0.85rem !important; 
     margin-right: 6px;
-    color: #ffffff !important;
+    color: #ffffff;
     -webkit-text-stroke: 0.5px #ffffff; 
+    transition: all 0.2s ease;
+}
+
+/* --- HOVER EFFECT: TEXT AND ICON TURN BLACK --- */
+.navbar-links-visible a:hover,
+.navbar-dropdown-drawer a:hover {
+    color: #000000;
+}
+
+.navbar-links-visible a:hover .bi,
+.navbar-dropdown-drawer a:hover .bi {
+    color: #000000 !important;
+    -webkit-text-stroke: 0.5px #000000; /* Keeps the bold look in black */
 }
 
 /* Professional Search Bar */
@@ -104,13 +119,13 @@ body {
     width: 180px;
 }
 
-/* --- HERO IMAGE STYLING --- */
+/* Hero Image Section */
 .hero-section {
     width: 100%;
-    height: calc(100vh - 44px); /* Full height minus navbar height */
-    background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop'); /* Placeholder Forest Image */
-    background-size: cover; /* Ensures image covers the full area */
-    background-position: center; /* Centers the image */
+    height: calc(100vh - 44px);
+    background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
 }
 
@@ -121,6 +136,11 @@ body {
     color: #ffffff;
     cursor: pointer;
     display: flex;
+    transition: color 0.2s ease;
+}
+
+.hamburger-toggle:hover {
+    color: #000000;
 }
 
 .navbar-dropdown-drawer {
@@ -143,4 +163,8 @@ body {
 
 .navbar-dropdown-drawer a {
     padding: 0.7rem 1.2rem;
+}
+
+.navbar-dropdown-drawer a:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
