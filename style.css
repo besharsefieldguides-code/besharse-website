@@ -14,101 +14,96 @@ body {
 
 /* Navbar Container Header Panel */
 .navbar {
-    position: relative; /* Mandated for stacking alignment of the absolute drawer */
+    position: relative; 
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #556B2F; /* Olive Green background */
-    padding: 0 0.5rem; /* Extreme edge boundary spacing alignment */
+    padding: 0 0.5rem; 
     height: 49px;
-    z-index: 1000; /* Assures it remains locked floating above normal text items */
+    z-index: 1000; 
 }
 
-/* Left Side Layout: Title Graphic text */
+/* Left Side Layout: Title text */
 .navbar-title {
     font-family: 'Playpen Sans', cursive;
     font-size: 1.3rem;
     font-weight: 700;
-    color: #ffffff; /* Clear pure white layout profile color */
+    color: #ffffff; 
     cursor: default;
     user-select: none;
 }
 
-/* Middle Layout Position: Core Four Permanent Links */
+/* Middle Layout Position: Core Four Links */
 .navbar-links-visible {
     display: flex;
     list-style: none;
     height: 100%;
     align-items: center;
-    margin-left: auto; /* Pushes links system right next to actions layout container block */
-    margin-right: 1.5rem; 
+    margin-left: auto; 
+    margin-right: 1.5rem;  
 }
 
 .navbar-links-visible li {
     display: flex;
     align-items: center;
-    margin: 0 0.15rem;
 }
 
-/* Navigation Links Anchor Components Core Rules */
+/* Base Link Styling */
 .navbar-links-visible a,
 .navbar-dropdown-drawer a {
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 0.35rem 0.5rem; 
     text-decoration: none;
-    color: #ffffff; /* Standard color state */
+    color: #ffffff; 
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Top Bar Specific Link Styles */
+.navbar-links-visible a {
+    padding: 0.35rem 0.6rem; 
     font-weight: 600;
     font-size: 0.85rem;
     letter-spacing: 0.5px;
-    transition: color 0.2s ease;
-    line-height: 1; /* Locks text baseline tracking perfectly to avoid stacking distortion */
 }
 
-/* Thin Hollow Icon Interior Padding Rule Adjustment */
-.navbar-links-visible a .bi,
-.navbar-dropdown-drawer a .bi {
-    margin-right: 9px; /* Gives the text perfect breathing room */
-    font-size: 0.9rem;
-    display: inline-block;
-    line-height: 1;
+.navbar-links-visible a .bi {
+    margin-right: 8px;
+    font-size: 1rem;
 }
 
-/* Link Actions Hover Colors Flip State Engine */
+/* HOVER EFFECT: Text/Icons flip to black */
 .navbar-links-visible a:hover,
 .navbar-dropdown-drawer a:hover {
-    color: #000000; /* Flips element text vector fonts fully to black */
+    color: #000000; 
 }
 
-/* Underline Animation Graphic Generator Asset Layer */
-.navbar-links-visible a::after,
-.navbar-dropdown-drawer a::after {
+/* Underline Animation for Top Bar */
+.navbar-links-visible a::after {
     content: '';
     position: absolute;
     bottom: 2px;
-    left: 0.5rem;
-    right: 0.5rem;
+    left: 0.6rem;
+    right: 0.6rem;
     height: 2px;
-    background-color: #000000; /* Pure black horizontal underline */
+    background-color: #000000; 
     transform: scaleX(0);
     transition: transform 0.2s ease;
 }
 
-.navbar-links-visible a:hover::after,
-.navbar-dropdown-drawer a:hover::after {
+.navbar-links-visible a:hover::after {
     transform: scaleX(1);
 }
 
-/* Action Center Controls Section layout: Search input + Toggle control element block */
+/* Action Center Controls */
 .navbar-actions {
     display: flex;
     align-items: center;
     gap: 0.75rem;
 }
 
-/* Compact Integrated Modern Search Field Container Panel Block */
+/* Search Box Container */
 .search-container {
     position: relative;
     display: flex;
@@ -118,102 +113,97 @@ body {
 .search-icon {
     position: absolute;
     left: 8px;
-    color: #ffffff; /* Keeps icon white to match look */
+    color: #ffffff; 
     font-size: 0.85rem;
     pointer-events: none;
 }
 
-.search-container .bi-search {
-    display: flex;
-    align-items: center;
-}
-
 .search-input {
-    background-color: rgba(255, 255, 255, 0.15); /* Slightly lighter background area translucent mask layer */
+    background-color: rgba(255, 255, 255, 0.15); 
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 4px;
-    padding: 0.25rem 0.5rem 0.25rem 1.75rem; /* Indented padding creates perfect clear clearance room away from search glass graphic */
+    padding: 0.25rem 0.5rem 0.25rem 1.75rem; 
     color: #ffffff;
     font-size: 0.8rem;
-    width: 160px;
+    width: 150px;
     outline: none;
-    transition: all 0.2s ease;
-}
-
-.search-input::placeholder {
-    color: rgba(255, 255, 255, 0.7); /* Muted legible search placeholder texts layout formatting rule */
+    transition: background-color 0.2s ease;
 }
 
 .search-input:focus {
     background-color: #ffffff;
     color: #000000;
-    border-color: #000000;
 }
 
-/* Swaps the interior search structural graphic icon filter view color on state focus triggers */
 .search-container:focus-within .search-icon {
     color: #000000;
 }
 
-/* Clean Unstyled Modern Hamburger Activator Button Element Link */
+/* Hamburger Button Styling */
 .hamburger-toggle {
     background: none;
     border: none;
     color: #ffffff;
-    font-size: 1.3rem; /* Slightly larger for easier click targeting */
+    font-size: 1.5rem; 
     cursor: pointer;
-    padding: 0.25rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: color 0.2s ease;
+    padding: 0.25rem;
 }
 
 .hamburger-toggle:hover {
-    color: #000000; /* Flips menu clicker to solid black cleanly */
+    color: #000000;
 }
 
-/* Hidden Stack Drop Down Menu Drawer Panel Layout Layer Blocks */
+/* DROPDOWN DRAWER - Fixed Alignment */
 .navbar-dropdown-drawer {
     position: absolute;
-    top: 49px; /* Placed directly flush below the primary header row base edge lines */
-    right: 0rem; /* Shifted 5% outward rightward relative to parent limits */
-    background-color: #556B2F; /* Keeps matches uniform olive backdrop */
-    border-radius: 0 0 0px 6px; /* Squared outer corner to hug the browser frame edge nicely */
-    box-shadow: -4px 4px 12px rgba(0,0,0,0.15);
-    padding: 0.4rem 0;
-    display: none; /* Block view layout hidden by default layers */
-    min-width: 160px;
+    top: 49px; 
+    right: 0; 
+    background-color: #556B2F; 
+    border-radius: 0 0 0px 8px; 
+    box-shadow: -6px 6px 20px rgba(0,0,0,0.3);
+    padding: 0.6rem 0;
+    display: none; 
+    min-width: 220px; 
 }
 
-/* Active Class Dynamic Script State Trigger Layout Rules Override */
 .navbar-dropdown-drawer.active {
     display: block;
 }
 
 .navbar-dropdown-drawer ul {
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0px; /* Strips random gaps to prevent vertical distortion */
 }
 
-.navbar-dropdown-drawer li {
-    width: 100%;
-}
-
-/* Cleans up internal alignments to look highly uniform, sharp, and left-justified */
+/* GRID FIX for disoriented text/icons */
 .navbar-dropdown-drawer a {
-    display: flex;
+    display: grid; 
+    grid-template-columns: 40px 1fr; /* Fixed column for icons to align text */
     align-items: center;
-    justify-content: flex-start; /* Rigid left alignment */
-    padding: 0.6rem 1.2rem; /* Clean even layout pads */
-    width: 100%;
+    padding: 0.8rem 1.5rem; 
+    font-family: 'Playpen Sans', cursive;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
-/* Underline Positioning Adjustment for Dropdown Left-Aligned Style */
-.navbar-dropdown-drawer a::after {
-    bottom: 4px;
-    left: 1.2rem;
-    right: 1.2rem;
+.navbar-dropdown-drawer a:hover {
+    background-color: rgba(0,0,0,0.08);
+}
+
+/* ICON COLOR CLASSES */
+.icon-photos { color: #FFD700; }   /* Gold */
+.icon-events { color: #FF6347; }   /* Tomato Red */
+.icon-services { color: #87CEEB; } /* Sky Blue */
+.icon-contact { color: #98FB98; }  /* Pale Green */
+.icon-donate { color: #FFB6C1; }   /* Light Pink */
+
+/* Reset icon color to black on hover to match text */
+.navbar-dropdown-drawer a:hover .bi {
+    color: #000000 !important;
+}
+
+.navbar-dropdown-drawer a .bi {
+    font-size: 1.1rem;
 }
