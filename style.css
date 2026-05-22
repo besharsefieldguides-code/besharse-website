@@ -42,7 +42,7 @@ body {
 /* Visible Tab Options */
 .navbar-links-visible {
     display: flex;
-    list-style: none; /* Ensures no bullets in main nav */
+    list-style: none;
     align-items: center;
     margin-left: auto; 
     margin-right: 1rem;  
@@ -69,9 +69,9 @@ body {
     margin-right: 6px;
 }
 
-/* Donate Heart Color - Red */
+/* Donate Heart Color - Gold */
 .icon-donate {
-    color: #FF4D4D !important;
+    color: #FFD700 !important;
 }
 
 /* Hover State */
@@ -80,7 +80,7 @@ body {
     color: #000000;
 }
 
-/* Ensures Heart stays red or turns black on hover (Currently turns black for consistency) */
+/* Heart turns black on hover for visual feedback */
 .navbar-dropdown-drawer a:hover .icon-donate {
     color: #000000 !important;
 }
