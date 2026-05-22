@@ -10,7 +10,7 @@ body {
     color: #000000;
 }
 
-/* Navbar Container - Kept slim for room */
+/* Navbar Container */
 .navbar {
     position: relative; 
     display: flex;
@@ -22,7 +22,7 @@ body {
     z-index: 1000; 
 }
 
-/* Global Font Application (Title, Links, Search) */
+/* Global Font Application */
 .navbar-title, 
 .navbar-links-visible a, 
 .navbar-dropdown-drawer a, 
@@ -42,7 +42,7 @@ body {
 /* Visible Tab Options */
 .navbar-links-visible {
     display: flex;
-    list-style: none;
+    list-style: none; /* Ensures no bullets in main nav */
     align-items: center;
     margin-left: auto; 
     margin-right: 1rem;  
@@ -54,7 +54,7 @@ body {
     align-items: center;
     text-decoration: none;
     color: #ffffff; 
-    font-size: 0.75rem; /* Unified small size for room */
+    font-size: 0.75rem; 
     font-weight: 600;
     transition: color 0.2s ease;
 }
@@ -63,26 +63,29 @@ body {
     padding: 0.3rem 0.5rem;
 }
 
-/* Icons - All Unified White */
+/* Unified Icon Sizes */
 .bi { 
     font-size: 0.85rem !important; 
-    color: #ffffff;
     margin-right: 6px;
 }
 
-/* Hover - Standard Black Flip */
+/* Donate Heart Color - Red */
+.icon-donate {
+    color: #FF4D4D !important;
+}
+
+/* Hover State */
 .navbar-links-visible a:hover,
-.navbar-dropdown-drawer a:hover,
-.hamburger-toggle:hover {
+.navbar-dropdown-drawer a:hover {
     color: #000000;
 }
 
-.navbar-links-visible a:hover .bi,
-.navbar-dropdown-drawer a:hover .bi {
-    color: #000000;
+/* Ensures Heart stays red or turns black on hover (Currently turns black for consistency) */
+.navbar-dropdown-drawer a:hover .icon-donate {
+    color: #000000 !important;
 }
 
-/* Search Area - Reverted Changes */
+/* Search Bar Area */
 .navbar-actions {
     display: flex;
     align-items: center;
@@ -104,7 +107,7 @@ body {
 }
 
 .search-input {
-    background-color: rgba(255, 255, 255, 0.15); /* Reverted to translucent */
+    background-color: rgba(255, 255, 255, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 3px;
     padding: 0.2rem 0.4rem 0.2rem 1.6rem;
@@ -127,7 +130,7 @@ body {
     color: #000000;
 }
 
-/* Hamburger Toggle */
+/* Hamburger Button */
 .hamburger-toggle {
     background: none;
     border: none;
@@ -142,7 +145,7 @@ body {
     margin-right: 0;
 }
 
-/* Dropdown Drawer */
+/* DROPDOWN DRAWER - No Bullet Points */
 .navbar-dropdown-drawer {
     position: absolute;
     top: 44px; 
@@ -156,6 +159,12 @@ body {
 
 .navbar-dropdown-drawer.active {
     display: block;
+}
+
+.navbar-dropdown-drawer ul {
+    list-style: none; /* REMOVES BULLET POINTS */
+    padding: 0;
+    margin: 0;
 }
 
 .navbar-dropdown-drawer a {
