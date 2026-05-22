@@ -18,7 +18,7 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: #556B2F; /* Olive Green background */
-    padding: 0 0.5rem; /* Pushed further to the left and right edges */
+    padding: 0 0.5rem; /* Maintained the extreme edge alignment */
     height: 49px;
 }
 
@@ -27,7 +27,7 @@ body {
     font-family: 'Playpen Sans', cursive;
     font-size: 1.3rem;
     font-weight: 700;
-    color: #000000; /* Strict black text */
+    color: #ffffff; /* Text color changed to white */
     cursor: default;
     user-select: none;
 }
@@ -44,36 +44,26 @@ body {
 .navbar-links li {
     display: flex;
     align-items: center;
+    margin: 0 0.15rem; /* Extremely tight structural margin between options */
 }
 
 /* Individual Link Styling */
 .navbar-links a {
-    position: relative; /* Setup for professional underline marker */
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    padding: 0 0.6rem; /* Squeezed spacing closely together */
+    padding: 0.35rem 0.5rem; /* Balanced, small bounding box padding around the text */
+    border-radius: 3px; /* Subtle crisp edge rounding for the box */
     text-decoration: none;
-    color: #000000; /* Strict black text */
+    color: #ffffff; /* Text color changed to white */
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    transition: background-color 0.15s ease; /* Rapid, responsive hover swap */
 }
 
-/* Professional Underline Hover Effect */
-.navbar-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 8px; /* Places the line cleanly right below the text */
-    left: 0.6rem; /* Aligns line perfectly with text boundaries */
-    right: 0.6rem;
-    height: 2px; /* Thickness of the underline accent */
-    background-color: #6B8E23; /* Lighter Olive Green accent */
-    transform: scaleX(0); /* Hidden by default */
-    transition: transform 0.2s ease;
-}
-
-/* Show Underline on Hover */
-.navbar-links a:hover::after {
-    transform: scaleX(1);
+/* Small, Perfect-Fit Square Hover Effect */
+.navbar-links a:hover {
+    background-color: #6B8E23; /* Lighter Olive Green box background */
+    color: #ffffff; /* Forces white text to remain visible on the light box */
 }
