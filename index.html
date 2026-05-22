@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Game Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="overlay">
+        <div class="loader">
+            <h1>INITIALIZING...</h1>
+            <div class="progress-bar"><div id="progress-fill"></div></div>
+        </div>
+    </div>
+
+    <!-- Main Menu Screen -->
+    <div id="menu-screen" class="overlay hidden">
+        <h1>GAME TITLE</h1>
+        <div class="menu-options">
+            <button onclick="console.log('Starting Game...')">PLAY</button>
+            <button onclick="console.log('Opening Options...')">OPTIONS</button>
+            <button onclick="console.log('Exiting...')">EXIT</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
