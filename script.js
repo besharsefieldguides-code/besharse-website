@@ -1,3 +1,10 @@
+// Loader Logic
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader-wrapper');
+    loader.classList.add('loader-hidden');
+});
+
+// Dropdown Toggle Logic
 const toggleBtn = document.getElementById('menuToggleBtn');
 const drawer = document.getElementById('dropdownDrawer');
 
