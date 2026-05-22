@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LegacyFPS</title>
     <style>
-        /* Reset and Hard Industrial Layout */
+        /* ==========================================================================
+           1. CORE INDUSTRIAL FRAMEWORK & VARIABLES
+           ========================================================================== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -13,45 +15,63 @@
             user-select: none;
         }
 
+        :root {
+            --color-bg-dark: #0d0e10;
+            --color-panel-dark: #111317;
+            --color-border-mute: #23271d;
+            --color-border-heavy: #323829;
+            --color-military-green: #8d9975;
+            --color-military-dark: #555d49;
+            --color-caution-gold: #bfa15f;
+            --color-alert-red: #ff3e3e;
+        }
+
         body, html {
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #0d0e10; /* Dark military graphite */
+            background-color: var(--color-bg-dark);
             font-family: 'Courier New', Courier, monospace;
+            color: #d1d7c4;
         }
 
-        /* Fullscreen Combat Terminal */
-        #loading-screen-container {
+        /* Screen States Control */
+        .game-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 9999;
-            display: flex;
+            display: none;
             flex-direction: column;
             justify-content: space-between;
             padding: 40px;
-            background: 
-                /* Heavy dark vignette */
-                radial-gradient(circle, rgba(0,0,0,0) 30%, rgba(0,0,0,0.85) 100%),
-                /* Tactical CRT phosphorus line texture */
-                linear-gradient(rgba(141, 153, 117, 0.02) 50%, transparent 50%),
-                /* Steel panel plating layout */
-                linear-gradient(#14161a 2px, transparent 2px),
-                linear-gradient(90deg, #14161a 2px, transparent 2px);
-            background-size: cover, 100% 4px, 100px 100px, 100px 100px;
-            border: 4px solid #1a1d24;
-            transition: opacity 0.5s ease-out, visibility 0.5s;
+            z-index: 10;
         }
 
-        /* Heavy Corner Bracket Alignment Vectors */
+        .game-screen.active {
+            display: flex;
+        }
+
+        /* Scanline HUD Overlay */
+        .hud-scanlines::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(141, 153, 117, 0.01) 50%, transparent 50%);
+            z-index: 9998;
+            background-size: 100% 4px;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        /* Tactical Common Components */
         .corner-bracket {
             position: absolute;
             width: 24px;
             height: 24px;
-            border-color: #8d9975; /* Tactical Olive Drab Green */
+            border-color: var(--color-military-green);
             border-style: solid;
             pointer-events: none;
         }
@@ -60,305 +80,685 @@
         .bottom-left { bottom: 20px; left: 20px; border-width: 0 0 3px 3px; }
         .bottom-right { bottom: 20px; right: 20px; border-width: 0 3px 3px 0; }
 
-        /* HUD Header Details */
-        .hud-header {
+        .btn-mil {
+            background: var(--color-panel-dark);
+            border: 1px solid var(--color-border-heavy);
+            color: var(--color-military-green);
+            padding: 12px 24px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-mil:hover {
+            background: var(--color-military-green);
+            color: var(--color-bg-dark);
+            box-shadow: 0 0 10px rgba(141, 153, 117, 0.4);
+        }
+
+        .btn-alert {
+            color: var(--color-alert-red);
+            border-color: var(--color-alert-red);
+        }
+        .btn-alert:hover {
+            background: var(--color-alert-red);
+            color: white;
+            box-shadow: 0 0 10px rgba(255, 62, 62, 0.4);
+        }
+
+        .input-mil {
+            background: #050607;
+            border: 1px solid var(--color-border-heavy);
+            color: white;
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .input-mil:focus {
+            outline: 1px solid var(--color-military-green);
+        }
+
+        /* Generic HUD Header Layout */
+        .section-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            border-bottom: 1px solid #323829;
+            border-bottom: 1px solid var(--color-border-heavy);
             padding-bottom: 15px;
+            width: 100%;
         }
 
-        .title-block {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .game-title {
-            font-size: 2.8rem;
+        .main-heading {
+            font-size: 2.5rem;
             font-weight: 900;
             letter-spacing: 4px;
-            color: #d1d7c4; /* Muted steel white */
-            font-family: 'Impact', 'Arial Black', sans-serif;
-            text-shadow: 2px 2px 0px #1a1d24;
+            font-family: 'Impact', sans-serif;
+            color: #d1d7c4;
         }
 
-        .system-status {
+        .sub-heading {
             font-size: 0.8rem;
-            color: #8d9975; /* Olive HUD */
+            color: var(--color-military-green);
             letter-spacing: 2px;
-            font-weight: bold;
             margin-top: 4px;
         }
 
-        .deployment-zone {
-            text-align: right;
-            font-size: 0.8rem;
-            color: #555d49;
-            line-height: 1.5;
+        /* ==========================================================================
+           2. SCREEN SCREEN STYLING: LOADING WINDOW
+           ========================================================================== */
+        #screen-loading {
+            z-index: 10000;
+            background: radial-gradient(circle, rgba(0,0,0,0) 30%, rgba(0,0,0,0.85) 100%), var(--color-bg-dark);
+        }
+        .progress-bar-track {
+            width: 100%;
+            height: 24px;
+            background: #111317;
+            border: 1px solid var(--color-border-heavy);
+            padding: 3px;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--color-military-green);
+            background-image: linear-gradient(45deg, #7a8563 25%, transparent 25%, transparent 50%, #7a8563 50%, #7a8563 75%, transparent 75%, transparent);
+            background-size: 24px 24px;
         }
 
-        .zone-highlight {
-            color: #8d9975;
-            font-weight: bold;
-        }
-
-        /* Center Layout: Technical Gun Hardware Blueprint Readout */
-        .hud-center {
+        /* ==========================================================================
+           3. SCREEN STYLING: AUTHENTICATION CONTAINER
+           ========================================================================== */
+        .auth-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 45%;
-            padding: 0 40px;
+            gap: 40px;
+            margin: auto;
+            width: 100%;
+            max-width: 900px;
         }
-
-        .telemetry-panel {
-            width: 220px;
+        .auth-panel {
+            flex: 1;
+            background: var(--color-panel-dark);
+            border: 1px solid var(--color-border-mute);
+            padding: 30px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+        }
+        .auth-notice {
             font-size: 0.75rem;
-            color: #555d49;
-            border-left: 1px solid #23271d;
-            padding-left: 12px;
+            color: var(--color-caution-gold);
+            margin-top: 15px;
+            border-top: 1px dashed var(--color-border-heavy);
+            padding-top: 10px;
         }
 
-        .telemetry-row {
+        /* ==========================================================================
+           4. SCREEN STYLING: MAIN MENU SYSTEM
+           ========================================================================== */
+        #screen-menu {
+            /* Fallback layer representation of the tactical battlefield layout scene */
+            background: linear-gradient(rgba(13, 14, 16, 0.4) 0%, rgba(13, 14, 16, 0.9) 100%), 
+                        radial-gradient(circle, transparent 20%, rgba(0,0,0,0.8) 100%);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .menu-top-nav {
             display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            background: rgba(17, 19, 23, 0.9);
+            border: 1px solid var(--color-border-heavy);
+            padding: 15px 40px;
+            margin: 0 auto;
+            width: fit-content;
+        }
+
+        .menu-nav-item {
+            color: #a2a897;
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+        .menu-nav-item:hover, .menu-nav-item.active {
+            color: var(--color-military-green);
+        }
+
+        .menu-center-theater {
+            height: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Placeholder graphic asset container for running character renders */
+        .character-avatar-render {
+            width: 250px;
+            height: 100%;
+            border-bottom: 2px solid var(--color-military-green);
+            background: linear-gradient(to top, rgba(141, 153, 117, 0.1), transparent);
+            position: relative;
+            animation: avatar-breathe 4s infinite ease-in-out;
+        }
+
+        @keyframes avatar-breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02) translateY(-2px); }
+        }
+
+        .menu-bottom-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 100%;
+        }
+
+        /* Lobby Submenu Overlay Modal Box */
+        .lobby-settings-panel {
+            background: rgba(17, 19, 23, 0.95);
+            border: 1px solid var(--color-border-heavy);
+            padding: 20px;
+            width: 320px;
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* ==========================================================================
+           5. SCREEN STYLING: MASTER MODERATION PANEL
+           ========================================================================== */
+        .admin-workspace {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 80%;
+            margin: 20px 0;
+        }
+
+        .admin-table-container {
+            background: var(--color-panel-dark);
+            border: 1px solid var(--color-border-heavy);
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .mil-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+
+        .mil-table th {
+            background: #181b21;
+            color: var(--color-military-green);
+            padding: 12px;
+            border-bottom: 2px solid var(--color-border-heavy);
+            letter-spacing: 1px;
+        }
+
+        .mil-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--color-border-mute);
+        }
+
+        .admin-toggles-bar {
+            display: flex;
+            gap: 20px;
+            background: #14171c;
+            padding: 15px;
+            border: 1px dashed var(--color-military-dark);
+        }
+
+        /* ==========================================================================
+           6. SCREEN STYLING: MATCH PLAYPLAY FIELD (WAVE SYSTEM UI)
+           ========================================================================== */
+        .match-hud-grid {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            height: 100%;
+        }
+
+        .match-sidebar {
+            width: 300px;
+            background: rgba(17, 19, 23, 0.85);
+            border: 1px solid var(--color-border-heavy);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
             justify-content: space-between;
         }
 
-        .telemetry-value {
-            color: #8d9975;
-            font-weight: bold;
-        }
-
-        /* Mechanical Crosshair Center */
-        .military-reticle {
-            width: 120px;
-            height: 120px;
-            border: 1px solid #23271d;
-            position: relative;
+        .match-center-feed {
+            flex-grow: 1;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
         }
 
-        .military-reticle::before, .military-reticle::after {
-            content: '';
-            position: absolute;
-            background: #8d9975;
-        }
-
-        /* Horizontal & Vertical Crosshair Stadia Marks */
-        .military-reticle::before { width: 30px; height: 1px; }
-        .military-reticle::after { width: 1px; height: 30px; }
-
-        /* Bottom Section: Combat Intel Feed & Danger Zone Progress Bar */
-        .hud-footer {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .intel-feed-box {
-            background: #111317;
-            border: 1px solid #23271d;
-            padding: 12px 18px;
-        }
-
-        .intel-label {
-            font-size: 0.75rem;
-            color: #bfa15f; /* Cautionary Dull Gold/Tan */
+        .timer-alert-box {
+            font-size: 2rem;
             font-weight: bold;
+            color: var(--color-caution-gold);
+            text-align: center;
             letter-spacing: 2px;
-            margin-bottom: 4px;
+            animation: text-pulse 1.5s infinite ease-in-out;
         }
 
-        .intel-text {
-            font-size: 0.85rem;
-            color: #9da392;
-            letter-spacing: 0.5px;
+        @keyframes text-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
-        .progress-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .boss-warning {
+            color: var(--color-alert-red) !important;
+            border: 2px dashed var(--color-alert-red) !important;
+            padding: 20px;
+            animation: boss-flash 0.5s infinite alternate;
         }
 
-        /* Military Block Track with Hazard Accents */
-        .progress-bar-track {
-            flex-grow: 1;
-            height: 24px;
-            background: #111317;
-            border: 1px solid #323829;
-            padding: 3px;
-            position: relative;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: #8d9975;
-            /* Authentic Military Industrial Hazard Stripe Pattern */
-            background-image: linear-gradient(
-                45deg, 
-                #7a8563 25%, 
-                transparent 25%, 
-                transparent 50%, 
-                #7a8563 50%, 
-                #7a8563 75%, 
-                transparent 75%, 
-                transparent
-            );
-            background-size: 24px 24px;
-            transition: width 0.1s linear;
-        }
-
-        .percentage-display {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #8d9975;
-            min-width: 65px;
-            text-align: right;
-        }
-
-        /* Fade container out on load exit */
-        .fade-out {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
+        @keyframes boss-flash {
+            0% { background: rgba(255, 62, 62, 0); }
+            100% { background: rgba(255, 62, 62, 0.15); }
         }
     </style>
 </head>
-<body>
+<body class="hud-scanlines">
 
-    <!-- MILITARY TERMINAL OVERLAY -->
-    <div id="loading-screen-container">
+    <!-- ==========================================================================
+       A. LOADING SCREEN MODULE
+       ========================================================================== -->
+    <div id="screen-loading" class="game-screen active">
+        <div class="corner-bracket top-left"></div><div class="corner-bracket top-right"></div>
+        <div class="corner-bracket bottom-left"></div><div class="corner-bracket bottom-right"></div>
         
-        <!-- Physical Alignment Markers -->
-        <div class="corner-bracket top-left"></div>
-        <div class="corner-bracket top-right"></div>
-        <div class="corner-bracket bottom-left"></div>
-        <div class="corner-bracket bottom-right"></div>
-        
-        <!-- Operational Frame Header -->
-        <div class="hud-header">
+        <div class="section-header">
             <div class="title-block">
-                <h1 class="game-title">LegacyFPS</h1>
-                <span id="engine-status" class="system-status">OP.LOG: INITIALIZING SECURE LINK...</span>
+                <h1 class="main-heading">LegacyFPS</h1>
+                <span id="load-status-log" class="sub-heading">OP.LOG: INITIALIZING SYSTEM HANDSHAKE...</span>
             </div>
             <div class="deployment-zone">
                 NET.NODE: <span class="zone-highlight">MIL-NET_US_EAST</span><br>
-                SEC_AUTH: <span class="zone-highlight">ENC_LEVEL_A</span><br>
-                BATTLE_COMMS: <span class="zone-highlight">ONLINE</span>
+                SEC_AUTH: <span class="zone-highlight">ENC_LEVEL_A</span>
             </div>
         </div>
 
-        <!-- Center Hardware Metrics Display -->
-        <div class="hud-center">
-            <div class="telemetry-panel">
-                <div class="telemetry-row"><span>SYS.CORE</span> <span class="telemetry-value">READY</span></div>
-                <div class="telemetry-row"><span>MEM.BANK</span> <span class="telemetry-value">ALLOCATED</span></div>
-                <div class="telemetry-row"><span>PHYS.ENG</span> <span class="telemetry-value">v4.12_STABLE</span></div>
+        <div class="progress-container" style="display: flex; align-items: center; gap: 20px; width: 100%;">
+            <div class="progress-bar-track">
+                <div id="load-bar-fill" class="progress-bar-fill"></div>
             </div>
-
-            <div class="military-reticle"></div>
-
-            <div class="telemetry-panel">
-                <div class="telemetry-row"><span>REND.PIPE</span> <span class="telemetry-value">WebGL_2.0</span></div>
-                <div class="telemetry-row"><span>HIT.SCAN</span> <span class="telemetry-value">CALIBRATED</span></div>
-                <div class="telemetry-row"><span>NET.TICK</span> <span class="telemetry-value">60_HZ</span></div>
-            </div>
+            <div id="load-percent-txt" style="font-size: 1.5rem; font-weight: bold; color: var(--color-military-green);">00%</div>
         </div>
-
-        <!-- Briefing Info & Striped Loader Frame -->
-        <div class="hud-footer">
-            <div class="intel-feed-box">
-                <div class="intel-label">:: EN-ROUTE BRIEFING</div>
-                <div id="intel-feed-text" class="intel-text">Awaiting operational guidelines from supreme command HQ...</div>
-            </div>
-
-            <div class="progress-container">
-                <div class="progress-bar-track">
-                    <div id="progress-bar-fill" class="progress-bar-fill"></div>
-                </div>
-                <div id="percentage-counter" class="percentage-display">00%</div>
-            </div>
-        </div>
-
     </div>
 
+
+    <!-- ==========================================================================
+       B. ACCOUNT SETUP & AUTHENTICATION SCREEN
+       ========================================================================== -->
+    <div id="screen-auth" class="game-screen">
+        <div class="corner-bracket top-left"></div><div class="corner-bracket top-right"></div>
+        <div class="corner-bracket bottom-left"></div><div class="corner-bracket bottom-right"></div>
+
+        <div class="section-header">
+            <div>
+                <h1 class="main-heading">LEGACY ACCOUNT SETUP</h1>
+                <div class="sub-heading">Select an option below to manage your profile. No verification required.</div>
+            </div>
+        </div>
+
+        <div class="auth-container">
+            <!-- Account Access Column -->
+            <div class="auth-panel">
+                <h3 style="margin-bottom: 20px; letter-spacing: 1px;">[ SECURE REGISTRY LOGIN ]</h3>
+                <input type="text" placeholder="Enter Username" class="input-mil">
+                <input type="password" placeholder="Enter Password" class="input-mil">
+                <button class="btn-mil" onclick="transitionToScreen('screen-menu')">Log In</button>
+                <div class="auth-notice">> ACCESS CODES MANDATORY FOR DISPATCH</div>
+            </div>
+
+            <!-- Creation Handling Column -->
+            <div class="auth-panel">
+                <h3 style="margin-bottom: 20px; letter-spacing: 1px;">[ INITIALIZE NEW AGENT ]</h3>
+                <input type="text" placeholder="Enter Username" class="input-mil">
+                <input type="password" placeholder="Enter Password" class="input-mil">
+                <input type="password" placeholder="Re-enter Password" class="input-mil">
+                <input type="text" maxlength="4" placeholder="Choose 4-Digit Secret PIN" class="input-mil">
+                
+                <label style="display: flex; align-items: center; gap: 10px; font-size: 0.8rem; margin-bottom: 15px; cursor: pointer;">
+                    <input type="checkbox" checked style="accent-color: var(--color-military-green);"> Save login details on this device (Enables Secure Autofill)
+                </label>
+
+                <button class="btn-mil" onclick="transitionToScreen('screen-menu')">Create Legacy Account</button>
+                
+                <div id="device-registry-notice" class="auth-notice" style="color: var(--color-military-green);">
+                    System Check Notice: "Validating device registry... [1/3] Accounts created."
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; font-size: 0.8rem; color: var(--color-military-dark);">
+            SECURE LINK COMPLIANT WITH OUTPOST MATRIX CONFIGURATION v2.1
+        </div>
+    </div>
+
+
+    <!-- ==========================================================================
+       C. MAIN MENU MODULE (WITH LOBBY CONFIGURATION MANAGEMENT)
+       ========================================================================== -->
+    <div id="screen-menu" class="game-screen">
+        <!-- Top Level Navigation Sub-bar -->
+        <div class="menu-top-nav">
+            <a href="#" class="menu-nav-item">[🛒 Shop]</a>
+            <span>•</span>
+            <a href="#" class="menu-nav-item">[📦 Locker]</a>
+            <span>•</span>
+            <a href="#" class="menu-nav-item">[👤 Profile]</a>
+            <span>•</span>
+            <a href="#" class="menu-nav-item">[⚙️ Settings]</a>
+            <span>•</span>
+            <span style="color: var(--color-caution-gold); font-weight: bold; letter-spacing: 1px;">Balance: <span id="player-wallet-display">$0</span></span>
+            <span>•</span>
+            <button class="btn-mil" style="padding: 4px 10px; font-size: 0.7rem;" onclick="transitionToScreen('screen-admin')">Console</button>
+        </div>
+
+        <!-- Center Interactive Combat Avatar Field -->
+        <div class="menu-center-theater">
+            <div class="character-avatar-render">
+                <div style="position: absolute; top: 20px; width: 100%; text-align: center; font-size: 0.7rem; color: var(--color-military-green);">
+                    [ AGENT RENDER ACTIVE ]
+                </div>
+            </div>
+        </div>
+
+        <!-- Lower Navigation Footing Blocks -->
+        <div class="menu-bottom-row">
+            <div class="left-nav-dock">
+                <button class="btn-mil" style="border-left: 4px solid var(--color-military-green);">[⚔️ Edit Loadout]</button>
+            </div>
+
+            <div class="right-nav-dock" style="position: relative; display: flex; gap: 15px;">
+                <button class="btn-mil" onclick="toggleLobbyMenu()">[🌐 Custom Lobby]</button>
+                <button class="btn-mil" style="background: var(--color-military-green); color: var(--color-bg-dark);" onclick="startMatchSequence()">[🎮 Start Match]</button>
+
+                <!-- Hidden Custom Multi-lobby Configuration Overlay Panel -->
+                <div id="lobby-settings-modal" class="lobby-settings-panel">
+                    <div style="font-size: 0.8rem; font-weight: bold; color: var(--color-military-green); margin-bottom: 5px;">> LOBBY PROTOCOLS</div>
+                    <input type="text" placeholder="Lobby Name" value="ALPHA_STRIKE_PROT" class="input-mil" style="margin-bottom: 5px; font-size: 0.75rem;">
+                    <input type="password" placeholder="Lobby Password (Optional)" class="input-mil" style="margin-bottom: 5px; font-size: 0.75rem;">
+                    <input type="text" readonly value="Server IP: 192.168.42.105" class="input-mil" style="color: var(--color-military-dark); font-size: 0.75rem; margin-bottom: 5px;">
+                    
+                    <select class="input-mil" style="font-size: 0.75rem; margin-bottom: 5px;">
+                        <option>Game Mode: Free-For-All</option>
+                        <option>Game Mode: Team Deathmatch</option>
+                    </select>
+                    
+                    <select class="input-mil" style="font-size: 0.75rem; margin-bottom: 5px;">
+                        <option>Round Limit: 5 Rounds</option>
+                        <option>Round Limit: 10 Rounds</option>
+                        <option>Round Limit: Unlimited</option>
+                    </select>
+
+                    <select class="input-mil" style="font-size: 0.75rem; margin-bottom: 5px;">
+                        <option>Match Timer: 5 Minutes</option>
+                        <option>Match Timer: 10 Minutes</option>
+                        <option>Match Timer: Unlimited</option>
+                    </select>
+
+                    <div style="font-size: 0.7rem; display: flex; justify-content: space-between;">
+                        <span>Max Bots:</span><span style="color: var(--color-military-green)">12</span>
+                    </div>
+                    <input type="range" min="1" max="12" value="6" style="accent-color: var(--color-military-green); width: 100%;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==========================================================================
+       D. DEVELOPER view: MASTER MODERATION PANEL
+       ========================================================================== -->
+    <div id="screen-admin" class="game-screen">
+        <div class="section-header">
+            <div>
+                <h1 class="main-heading">MASTER ADMINISTRATION CONSOLE</h1>
+                <div class="sub-heading">Live Account Database & Server Management</div>
+            </div>
+            <button class="btn-mil" onclick="transitionToScreen('screen-menu')">Exit Console</button>
+        </div>
+
+        <div class="admin-workspace">
+            <div class="admin-table-container">
+                <table class="mil-table">
+                    <thead>
+                        <tr>
+                            <th>Account ID</th>
+                            <th>Device ID / Hardware Hash</th>
+                            <th>Username</th>
+                            <th>Creation Date</th>
+                            <th>Account Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#00001</td>
+                            <td>DEV-84F9X2</td>
+                            <td>PlayerOne</td>
+                            <td>2026-05-22</td>
+                            <td style="color: var(--color-military-green);">Active</td>
+                            <td>
+                                <button class="btn-mil" style="padding: 4px 8px; font-size: 0.7rem;" onclick="adminModifyBalance()">[Modify Balance]</button>
+                                <button class="btn-mil" style="padding: 4px 8px; font-size: 0.7rem;" onclick="alert('Account Suspended for 3600s.')">[Suspend]</button>
+                                <button class="btn-mil btn-alert" style="padding: 4px 8px; font-size: 0.7rem;" onclick="alert('Account Deleted. Slot freed.')">[❌ Delete]</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-toggles-bar">
+                <div style="font-size: 0.8rem; font-weight: bold; color: var(--color-caution-gold); margin-right: 20px;">
+                    DEVELOPER STATUS TOGGLES:
+                </div>
+                <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 8px;">
+                    <input type="checkbox" checked style="accent-color: var(--color-military-green);"> God Mode
+                </label>
+                <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 8px;">
+                    <input type="checkbox" checked style="accent-color: var(--color-military-green);"> Sandbox Controls
+                </label>
+                <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 8px;">
+                    <input type="checkbox" checked style="accent-color: var(--color-military-green);"> Instant Unlock All
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==========================================================================
+       E. MATCH PROGRESSION FIELD & OVERLAY HUD
+       ========================================================================== -->
+    <div id="screen-match" class="game-screen">
+        <div class="match-hud-grid">
+            <!-- Left Panel Tactical Readout metrics -->
+            <div class="match-sidebar">
+                <div>
+                    <h3 style="color: var(--color-military-green); margin-bottom: 15px;">TACTICAL TELEMETRY</h3>
+                    <div style="font-size: 0.8rem; line-height: 2;">
+                        SIMULATION: <span style="color: white;">ACTIVE</span><br>
+                        ENGAGE TYPE: <span style="color: white;">PLAYER vs AI 1v1</span><br>
+                        GEOMETRY LOCK: <span style="color: var(--color-military-green);">FULL SOLID COLLISION</span>
+                    </div>
+                </div>
+                <button class="btn-mil btn-alert" onclick="transitionToScreen('screen-menu')">Forfeit Match</button>
+            </div>
+
+            <!-- Central Sequence Tracking Feed -->
+            <div class="match-center-feed">
+                <div id="match-timer-display" class="timer-alert-box">
+                    INITIALIZING SERVER...<br>ASSETS LOADING
+                </div>
+                <div id="boss-alert-banner" class="timer-alert-box boss-warning" style="display: none; margin-top: 20px;">
+                    🚨 WARNING: BOSS CHALLENGE INBOUND!
+                </div>
+            </div>
+
+            <!-- Right Panel Core Progression data tracking loops -->
+            <div class="match-sidebar">
+                <div>
+                    <h3 style="color: var(--color-caution-gold); margin-bottom: 15px;">ENGAGEMENT DATA</h3>
+                    <div style="font-size: 0.8rem; line-height: 2;">
+                        CURRENT ROUND: <span id="hud-round-display" style="color: white; font-weight: bold;">Round 1</span><br>
+                        AI ACCURACY: <span id="hud-ai-display" style="color: var(--color-military-green);">STANDARD (Rounds 1-5)</span><br>
+                        SESSION CASH: <span id="hud-cash-display" style="color: var(--color-caution-gold); font-weight: bold;">+$0</span>
+                    </div>
+                </div>
+                <div style="font-size: 0.7rem; color: var(--color-military-dark); text-align: center;">
+                    COLLISION PRESET: ENVIRONMENT BOUNDS ACTIVE
+                </div>
+            </div>
+        </div>
+    </div>
+
+    /* ==========================================================================
+       6. RUNTIME SCRIPT ROUTINES FOR SIMULATING INTERFACES
+       ========================================================================== */
     <script>
-        // System booting logging checkpoints
-        const militaryLogs = [
-            { threshold: 0, log: "ESTABLISHING FIELD NETWORK DIRECTIVES..." },
-            { threshold: 12, log: "COMPILING GEOMETRIC COLLISION MAPS & NAVMESHES..." },
-            { threshold: 30, log: "MOUNTING CORE ARMAMENT & BALLISTIC DATA ASSETS..." },
-            { threshold: 52, log: "DECOMPRESSING COMBAT SPATIAL SOUNDSCAPES & COMMAND VOIP..." },
-            { threshold: 72, log: "PARSING ENVIRO-TEXTURE SURFACE COEFFICIENTS..." },
-            { threshold: 88, log: "STABILIZING CLIENT-TO-HOST AUTHORITATIVE HANDSHAKE..." },
-            { threshold: 100, log: "DEPLOYMENT PHASES NOMINAL. OPERATIONAL COMPLIANCE READY." }
-        ];
+        // Fake Local Storage Simulation Cache metrics
+        let playerWallet = 0;
+        let activeMatchRound = 1;
 
-        // Practical tactical tactical instructions
-        const militaryIntel = [
-            "Awaiting operational guidelines from supreme command HQ...",
-            "TACTICAL: Moving target hitboxes are calculated with real-time latency interpolation.",
-            "ARMAMENT: High-caliber suppressors mask muzzle flashes but decrease weapon velocity profiles.",
-            "FIELD PROTOCOL: Maintain space between fire bursts to naturally allow weapon sway settling."
-        ];
+        // Transition Layer Engine Function
+        function transitionToScreen(screenId) {
+            document.querySelectorAll('.game-screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
 
-        let loadProgress = 0;
-        let intelIndex = 0;
+        // Toggles display tracking of custom lobbies configurations
+        function toggleLobbyMenu() {
+            const modal = document.getElementById('lobby-settings-modal');
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        }
 
-        const barFill = document.getElementById('progress-bar-fill');
-        const countDisplay = document.getElementById('percentage-counter');
-        const statusLog = document.getElementById('engine-status');
-        const intelBox = document.getElementById('intel-feed-text');
-        const screenContainer = document.getElementById('loading-screen-container');
-
-        function processLogs(percent) {
-            for (let i = militaryLogs.length - 1; i >= 0; i--) {
-                if (percent >= militaryLogs[i].threshold) {
-                    statusLog.textContent = `OP.LOG: ${militaryLogs[i].log}`;
-                    break;
-                }
+        // Admin Modify Balance Interaction
+        function adminModifyBalance() {
+            const amount = prompt("Enter In-Game Cash ($) quantity to grant:", "1000");
+            if (amount !== null) {
+                playerWallet += parseInt(amount) || 0;
+                document.getElementById('player-wallet-display').textContent = `$${playerWallet}`;
+                document.getElementById('hud-cash-display').textContent = `+$${playerWallet}`;
+                alert(`Successfully allocated $${amount} to account balance.`);
             }
         }
 
-        function executeDeploymentLoad() {
-            const loadTicker = setInterval(() => {
-                loadProgress += Math.floor(Math.random() * 4) + 1;
-                
-                if (loadProgress >= 100) {
-                    loadProgress = 100;
-                    clearInterval(loadTicker);
-                    clearInterval(intelTicker);
-                    
-                    barFill.style.width = '100%';
-                    countDisplay.textContent = '100%';
-                    processLogs(100);
+        // Simulates the primary deployment loading progress workflow sequence
+        function runLoadingPipeline() {
+            let loadValue = 0;
+            const barFill = document.getElementById('load-bar-fill');
+            const txtPercent = document.getElementById('load-percent-txt');
+            const txtStatus = document.getElementById('load-status-log');
 
-                    setTimeout(() => {
-                        screenContainer.classList.add('fade-out');
-                    }, 500);
+            const deploymentLogs = [
+                { p: 0, text: "OP.LOG: LINKING MIL-NET PERIPHERAL CHANNELS..." },
+                { p: 30, text: "OP.LOG: COMPILING SOLID-WORLD COLLISION MATRIX DATA..." },
+                { p: 65, text: "OP.LOG: MOUNTING ARMAMENT MESHES & MATERIAL LAYERS..." },
+                { p: 90, text: "OP.LOG: VERIFYING DEVICE HARDWARE SECURITY REGISTRIES..." }
+            ];
+
+            const interval = setInterval(() => {
+                loadValue += Math.floor(Math.random() * 5) + 2;
+                if (loadValue >= 100) {
+                    loadValue = 100;
+                    clearInterval(interval);
+                    barFill.style.width = '100%';
+                    txtPercent.textContent = '100%';
+                    txtStatus.textContent = "OP.LOG: INITIALIZATION COMPLETE.";
+                    setTimeout(() => { transitionToScreen('screen-auth'); }, 600);
                 } else {
-                    barFill.style.width = `${loadProgress}%`;
-                    countDisplay.textContent = `${String(loadProgress).padStart(2, '0')}%`;
-                    processLogs(loadProgress);
+                    barFill.style.width = `${loadValue}%`;
+                    txtPercent.textContent = `${String(loadValue).padStart(2, '0')}%`;
+                    for(let i=0; i<deploymentLogs.length; i++) {
+                        if(loadValue >= deploymentLogs[i].p) {
+                            txtStatus.textContent = deploymentLogs[i].text;
+                        }
+                    }
                 }
-            }, 120);
+            }, 80);
         }
 
-        const intelTicker = setInterval(() => {
-            intelIndex = (intelIndex + 1) % militaryIntel.length;
-            intelBox.textContent = militaryIntel[intelIndex];
-        }, 3800);
+        // Simulates the complete Progression Sequence timer queues for match loops
+        function startMatchSequence() {
+            transitionToScreen('screen-match');
+            const timerBox = document.getElementById('match-timer-display');
+            const roundDisplay = document.getElementById('hud-round-display');
+            const aiDisplay = document.getElementById('hud-ai-display');
+            const bossBanner = document.getElementById('boss-alert-banner');
+            
+            // Initialization Phase Setup 
+            let timeLeft = 30;
+            timerBox.innerHTML = `INITIALIZING SERVER... ASSETS LOADING<br><span style="font-size: 3rem;">${timeLeft}s</span>`;
+            
+            const matchSetupInterval = setInterval(() => {
+                timeLeft--;
+                if(timeLeft > 0) {
+                    timerBox.innerHTML = `INITIALIZING SERVER... ASSETS LOADING<br><span style="font-size: 3rem;">${timeLeft}s</span>`;
+                } else {
+                    clearInterval(matchSetupInterval);
+                    
+                    // Staging Round Commencing Loop Execution Timer Queue
+                    let prepTime = 15;
+                    timerBox.innerHTML = `PREPARE FOR COMBAT. ROUND ${activeMatchRound} STARTING IN...<br><span style="font-size: 4rem; color: var(--color-alert-red);">${prepTime}</span>`;
+                    
+                    const prepInterval = setInterval(() => {
+                        prepTime--;
+                        if(prepTime > 0) {
+                            timerBox.innerHTML = `PREPARE FOR COMBAT. ROUND ${activeMatchRound} STARTING IN...<br><span style="font-size: 4rem; color: var(--color-alert-red);">${prepTime}</span>`;
+                        } else {
+                            clearInterval(prepInterval);
+                            // Simulating Active Gameplay Frame Setup Metrics
+                            timerBox.innerHTML = `<span style="color: var(--color-military-green);">SIMULATION ENGAGED</span><br>ELIMINATE HUNTING AI TACTICAL UNIT`;
+                            
+                            // Mocking round advancement after 10 seconds for layout verification purposes
+                            setTimeout(() => {
+                                advanceRoundMock(roundDisplay, aiDisplay, bossBanner, timerBox);
+                            }, 8000);
+                        }
+                    }, 1000);
+                }
+            }, 100); // Accelerated testing cycle interval rate 
+        }
 
+        function advanceRoundMock(roundDisplay, aiDisplay, bossBanner, timerBox) {
+            activeMatchRound = 6; // Force skip loop parameters forward to display adaptive logic configurations
+            roundDisplay.textContent = `Round ${activeMatchRound}`;
+            aiDisplay.textContent = "ADAPTIVE SCALING ENGAGED (Accuracy + Movement Increased)";
+            aiDisplay.style.color = "var(--color-alert-red)";
+            
+            // Simulated triggers for Wave Boss Level milestones
+            setTimeout(() => {
+                activeMatchRound = 10;
+                roundDisplay.textContent = `Round ${activeMatchRound}`;
+                bossBanner.style.display = 'block';
+                timerBox.innerHTML = `<span style="color: var(--color-alert-red); font-weight: bold;">BOSS WAVE FIGHT ACTIVE</span><br>ELIMINATE SQUAD OF 5 ELITE AGENTS`;
+            }, 6000);
+        }
+
+        // Initialize Application Sequence Frame Pipeline Hooks
         window.addEventListener('DOMContentLoaded', () => {
-            executeDeploymentLoad();
+            runLoadingPipeline();
         });
     </script>
 </body>
