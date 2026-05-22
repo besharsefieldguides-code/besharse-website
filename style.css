@@ -18,7 +18,7 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: #556B2F; /* Olive Green background */
-    padding: 0 0.5rem; /* Maintained the extreme edge alignment */
+    padding: 0 0.5rem; /* Extreme edge alignment */
     height: 49px;
 }
 
@@ -27,7 +27,7 @@ body {
     font-family: 'Playpen Sans', cursive;
     font-size: 1.3rem;
     font-weight: 700;
-    color: #ffffff; /* Text color changed to white */
+    color: #ffffff; /* Remains pure white */
     cursor: default;
     user-select: none;
 }
@@ -44,26 +44,44 @@ body {
 .navbar-links li {
     display: flex;
     align-items: center;
-    margin: 0 0.15rem; /* Extremely tight structural margin between options */
+    margin: 0 0.15rem; /* Squeezed spacing */
 }
 
 /* Individual Link Styling */
 .navbar-links a {
+    position: relative; /* Context for absolute positioning of the underline */
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.35rem 0.5rem; /* Balanced, small bounding box padding around the text */
-    border-radius: 3px; /* Subtle crisp edge rounding for the box */
+    padding: 0.35rem 0.5rem; 
     text-decoration: none;
-    color: #ffffff; /* Text color changed to white */
+    color: #ffffff; /* Default text color is white */
     font-weight: 600;
     font-size: 0.85rem;
     letter-spacing: 0.5px;
-    transition: background-color 0.15s ease; /* Rapid, responsive hover swap */
+    transition: color 0.2s ease; /* Smooth transition for text color flip */
 }
 
-/* Small, Perfect-Fit Square Hover Effect */
+/* Hover State: Text changes to black, background remains transparent */
 .navbar-links a:hover {
-    background-color: #6B8E23; /* Lighter Olive Green box background */
-    color: #ffffff; /* Forces white text to remain visible on the light box */
+    color: #000000; /* Text color flips to black */
+    background-color: transparent; /* Box background completely removed */
+}
+
+/* Underline Asset Generation */
+.navbar-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 2px; /* Positions line right beneath the text */
+    left: 0.5rem; /* Matches the text bounding box padding */
+    right: 0.5rem;
+    height: 2px; /* Crisp thickness for the line */
+    background-color: #000000; /* Pure black underline */
+    transform: scaleX(0); /* Hidden by default */
+    transition: transform 0.2s ease; /* Smooth growing animation */
+}
+
+/* Show Underline on Hover */
+.navbar-links a:hover::after {
+    transform: scaleX(1); /* Expands line to 100% width on hover */
 }
