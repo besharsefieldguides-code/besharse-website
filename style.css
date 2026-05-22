@@ -58,15 +58,16 @@ body {
     align-items: center;
     text-decoration: none;
     color: #ffffff;
-    font-size: 0.85rem;
-    transition: color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
-/* Visible Navbar Links Specifics */
+/* Visible Navbar Links (HOME, ABOUT, etc) */
 .navbar-links-visible a {
     justify-content: center;
     padding: 0.35rem 0.5rem; 
     font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
 }
 
 /* Dropdown Drawer Container */
@@ -75,11 +76,11 @@ body {
     top: 49px; 
     right: 0rem; 
     background-color: #556B2F; 
-    border-radius: 0 0 0px 6px; 
-    box-shadow: -4px 4px 12px rgba(0,0,0,0.15);
+    border-radius: 0 0 0px 8px; 
+    box-shadow: -6px 6px 20px rgba(0,0,0,0.2);
     padding: 0.5rem 0;
     display: none; 
-    min-width: 180px; /* Slightly wider for better text breathing room */
+    min-width: 210px; /* Slightly wider to let the new font breathe */
 }
 
 .navbar-dropdown-drawer.active {
@@ -92,30 +93,30 @@ body {
     flex-direction: column;
 }
 
-/* DROP-DOWN TEXT FIXES */
+/* NEW CLEAN FONT FIXES FOR DROPDOWN */
 .navbar-dropdown-drawer a {
+    font-family: 'Playpen Sans', cursive; /* Match the title font */
     justify-content: flex-start;
-    padding: 0.7rem 1.2rem; /* Better vertical spacing */
+    padding: 0.8rem 1.5rem; 
     width: 100%;
-    font-weight: 500; /* Slightly thinner than 600 to prevent "chunky" look */
-    letter-spacing: 1px; /* Spaced out for high-end readability */
-    line-height: 1.2;
+    font-weight: 500; 
+    font-size: 0.95rem; /* Larger font for Playpen Sans readability */
+    letter-spacing: 0.5px;
 }
 
 .navbar-dropdown-drawer a .bi {
-    margin-right: 12px; /* Increased icon gap for cleaner look */
-    font-size: 1rem;
+    margin-right: 15px; 
+    font-size: 1.1rem;
 }
 
-/* Hover States */
+/* Hover States: Text flips to Black */
 .navbar-links-visible a:hover,
 .navbar-dropdown-drawer a:hover {
     color: #000000;
 }
 
-/* Underline Effect */
-.navbar-links-visible a::after,
-.navbar-dropdown-drawer a::after {
+/* Visible Link Underline */
+.navbar-links-visible a::after {
     content: '';
     position: absolute;
     bottom: 2px;
@@ -127,13 +128,27 @@ body {
     transition: transform 0.2s ease;
 }
 
-.navbar-dropdown-drawer a::after {
-    bottom: 6px;
-    left: 1.2rem;
-    right: 1.2rem;
+.navbar-links-visible a:hover::after {
+    transform: scaleX(1);
 }
 
-.navbar-links-visible a:hover::after,
+/* Dropdown Hover Style: Subtle Box + Black Underline */
+.navbar-dropdown-drawer a:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Very subtle depth */
+}
+
+.navbar-dropdown-drawer a::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 1.5rem;
+    right: 1.5rem;
+    height: 1px; /* Thinner line for the dropdown */
+    background-color: #000000;
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+}
+
 .navbar-dropdown-drawer a:hover::after {
     transform: scaleX(1);
 }
@@ -184,9 +199,10 @@ body {
     background: none;
     border: none;
     color: #ffffff;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     cursor: pointer;
     display: flex;
+    align-items: center;
 }
 
 .hamburger-toggle:hover {
