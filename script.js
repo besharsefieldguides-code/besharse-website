@@ -1,10 +1,8 @@
-// Loader
 window.addEventListener('load', () => {
     const loader = document.getElementById('loader-wrapper');
     loader.classList.add('loader-hidden');
 });
 
-// Hamburger Drawer
 const toggleBtn = document.getElementById('menuToggleBtn');
 const drawer = document.getElementById('dropdownDrawer');
 
