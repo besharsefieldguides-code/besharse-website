@@ -44,7 +44,7 @@ body {
 .navbar-links li {
     display: flex;
     align-items: center;
-    margin: 0 0.15rem; /* Squeezed spacing */
+    margin: 0 0.15rem; /* Squeezed spacing between options */
 }
 
 /* Individual Link Styling */
@@ -62,10 +62,10 @@ body {
     transition: color 0.2s ease; /* Smooth transition for text & icon color flip */
 }
 
-/* Icon Alignment Rule */
+/* Icon Spacing and Fine-Tuning */
 .navbar-links a i {
-    margin-right: 6px; /* Perfect space between icon and text */
-    font-size: 0.9rem; /* Scales the icon naturally with text size */
+    margin-right: 9px; /* Increased from 6px to give perfect breathing room */
+    font-size: 0.85rem; /* Matches the text scale elegantly */
 }
 
 /* Hover State: Text and Icon color flip to black */
