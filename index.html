@@ -6,7 +6,7 @@
     <title>Besharse Field Guides</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -17,35 +17,38 @@
     </div>
 
     <nav class="navbar">
-        <div class="nav-left">
-            <span class="navbar-title">Besharse Field Guides</span>
+        <div class="nav-brand">
+            <span class="brand-text">BESHARSE</span>
+            <span class="brand-subtext">FIELD GUIDES</span>
         </div>
         
-        <ul class="navbar-links-visible">
-            <li><a href="index.html"><i class="bi bi-house"></i>HOME</a></li>
-            <li><a href="about.html"><i class="bi bi-person"></i>ABOUT</a></li>
-            <li><a href="books.html"><i class="bi bi-book"></i>BOOKS</a></li>
-            <li><a href="blog.html"><i class="bi bi-chat-square-dots"></i>BLOG</a></li>
-        </ul>
+        <div class="nav-main">
+            <ul class="nav-menu">
+                <li><a href="index.html"><i class="bi bi-house"></i>HOME</a></li>
+                <li><a href="about.html"><i class="bi bi-person"></i>ABOUT</a></li>
+                <li><a href="books.html"><i class="bi bi-book"></i>BOOKS</a></li>
+                <li><a href="blog.html"><i class="bi bi-chat-square-dots"></i>BLOG</a></li>
+            </ul>
+        </div>
 
-        <div class="navbar-actions">
-            <div class="search-container">
-                <i class="bi bi-search search-icon"></i>
-                <input type="text" placeholder="Search..." class="search-input">
+        <div class="nav-right">
+            <div class="search-box">
+                <i class="bi bi-search"></i>
+                <input type="text" placeholder="Search guides..." class="search-field">
             </div>
-            <button class="hamburger-toggle" id="menuToggleBtn">
-                <i class="bi bi-list"></i>
+            <button class="menu-trigger" id="menuToggleBtn">
+                <i class="bi bi-grid-3x3-gap-fill"></i>
             </button>
         </div>
 
-        <div class="navbar-dropdown-drawer" id="dropdownDrawer">
-            <ul>
-                <li><a href="photos.html"><i class="bi bi-camera"></i>PHOTOS</a></li>
-                <li><a href="events.html"><i class="bi bi-calendar-event"></i>EVENTS</a></li>
-                <li><a href="services.html"><i class="bi bi-collection"></i>SERVICES</a></li>
-                <li><a href="contact.html"><i class="bi bi-envelope"></i>CONTACT</a></li>
-                <li><a href="donate.html"><i class="bi bi-heart"></i>DONATE</a></li>
-            </ul>
+        <div class="dropdown-panel" id="dropdownDrawer">
+            <div class="dropdown-grid">
+                <a href="photos.html"><i class="bi bi-camera"></i>PHOTOS</a>
+                <a href="events.html"><i class="bi bi-calendar-event"></i>EVENTS</a>
+                <a href="services.html"><i class="bi bi-collection"></i>SERVICES</a>
+                <a href="contact.html"><i class="bi bi-envelope"></i>CONTACT</a>
+                <a href="donate.html"><i class="bi bi-heart"></i>DONATE</a>
+            </div>
         </div>
     </nav>
 
