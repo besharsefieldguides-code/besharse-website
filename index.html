@@ -2,32 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tactical Boot</title>
+    <title>UPLINK_ESTABLISHED</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="crt-overlay"></div> <!-- Scanline effect -->
-    
-    <!-- Loading Screen -->
+    <div class="glitch-layer"></div>
+    <div class="scanline"></div>
+
     <div id="loading-screen" class="overlay">
-        <div class="loader">
-            <div class="header-tag">SYSTEM_INITIALIZATION</div>
-            <h1 id="status-text">INITIALIZING VULKAN_PIPELINES...</h1>
-            <div class="progress-bar">
+        <div class="loader-content">
+            <h1 id="status-text">DECRYPTING_FILES...</h1>
+            <div class="progress-container">
                 <div id="progress-fill"></div>
             </div>
+            <div class="data-stream">001011001101010100101010101</div>
         </div>
     </div>
 
-    <!-- Main Menu Screen -->
     <div id="menu-screen" class="overlay hidden">
         <div class="menu-container">
-            <h1 class="glitch">PROJECT: SURVIVAL</h1>
+            <h1 class="glitch-text">BLACK_OPS_CORE</h1>
             <div class="menu-options">
-                <button class="nav-btn">DEPLOY</button>
-                <button class="nav-btn">LOADOUT</button>
-                <button class="nav-btn">SETTINGS</button>
+                <button class="menu-btn">CAMPAIGN</button>
+                <button class="menu-btn">MULTIPLAYER</button>
+                <button class="menu-btn">SETTINGS</button>
             </div>
         </div>
     </div>
