@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TACTICAL DEPLOYMENT | OPERATING THEATER</title>
+    <title>LEGACYFPS // MILITARY DEPLOYMENT TERMINAL</title>
     <style>
-        /* Reset and Military Grid Base */
+        /* Reset and Hard Industrial Layout */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -17,11 +17,11 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #0b0c10;
-            font-family: 'Courier New', Courier, monospace; /* Clean tactical monospace */
+            background-color: #0d0e10; /* Dark military graphite */
+            font-family: 'Courier New', Courier, monospace;
         }
 
-        /* Fullscreen Military Tactical Overlay */
+        /* Fullscreen Combat Terminal */
         #loading-screen-container {
             position: fixed;
             top: 0;
@@ -32,50 +32,41 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 50px;
+            padding: 40px;
             background: 
-                /* Tactical crosshair vignette overlay */
-                radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(5,6,8,0.95) 85%, #050608 100%),
-                /* Subtle industrial grid lines */
-                linear-gradient(rgba(255, 115, 0, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 115, 0, 0.03) 1px, transparent 1px);
-            background-size: cover, 40px 40px, 40px 40px;
-            background-position: center;
-            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.6s;
+                /* Heavy dark vignette */
+                radial-gradient(circle, rgba(0,0,0,0) 30%, rgba(0,0,0,0.85) 100%),
+                /* Tactical CRT phosphorus line texture */
+                linear-gradient(rgba(141, 153, 117, 0.02) 50%, transparent 50%),
+                /* Steel panel plating layout */
+                linear-gradient(#14161a 2px, transparent 2px),
+                linear-gradient(90deg, #14161a 2px, transparent 2px);
+            background-size: cover, 100% 4px, 100px 100px, 100px 100px;
+            border: 4px solid #1a1d24;
+            transition: opacity 0.5s ease-out, visibility 0.5s;
         }
 
-        /* Scanline FX to simulate a soldier's helmet HUD display */
-        #loading-screen-container::before {
-            content: " ";
-            display: block;
+        /* Heavy Corner Bracket Alignment Vectors */
+        .corner-bracket {
             position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 2;
-            background-size: 100% 4px, 6px 100%;
+            width: 24px;
+            height: 24px;
+            border-color: #8d9975; /* Tactical Olive Drab Green */
+            border-style: solid;
             pointer-events: none;
-            opacity: 0.4;
         }
+        .top-left { top: 20px; left: 20px; border-width: 3px 0 0 3px; }
+        .top-right { top: 20px; right: 20px; border-width: 3px 3px 0 0; }
+        .bottom-left { bottom: 20px; left: 20px; border-width: 0 0 3px 3px; }
+        .bottom-right { bottom: 20px; right: 20px; border-width: 0 3px 3px 0; }
 
-        /* Top Bar: Matchmaking & Server Info */
+        /* HUD Header Details */
         .hud-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            border-bottom: 2px solid rgba(255, 115, 0, 0.2);
+            border-bottom: 1px solid #323829;
             padding-bottom: 15px;
-            position: relative;
-        }
-
-        /* Corner bracket accent details */
-        .hud-header::before {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 30px;
-            height: 5px;
-            background: #ff7300;
         }
 
         .title-block {
@@ -84,143 +75,156 @@
         }
 
         .game-title {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 6px;
-            color: #ffffff;
-            font-family: Arial, Helvetica, sans-serif;
+            letter-spacing: 4px;
+            color: #d1d7c4; /* Muted steel white */
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            text-shadow: 2px 2px 0px #1a1d24;
         }
 
         .system-status {
             font-size: 0.8rem;
-            color: #ff7300; /* High-visibility HUD Amber */
-            letter-spacing: 3px;
+            color: #8d9975; /* Olive HUD */
+            letter-spacing: 2px;
             font-weight: bold;
-            text-transform: uppercase;
             margin-top: 4px;
         }
 
         .deployment-zone {
             text-align: right;
-            font-size: 0.85rem;
-            color: #7a828e;
-            line-height: 1.6;
+            font-size: 0.8rem;
+            color: #555d49;
+            line-height: 1.5;
         }
 
         .zone-highlight {
-            color: #ffffff;
+            color: #8d9975;
             font-weight: bold;
         }
 
-        /* Center Section: Weapon Blueprint / Reticle Layout */
+        /* Center Layout: Technical Gun Hardware Blueprint Readout */
         .hud-center {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            position: relative;
-            height: 40%;
+            height: 45%;
+            padding: 0 40px;
         }
 
-        /* Precision crosshair center design */
-        .reticle-scope {
-            width: 200px;
-            height: 200px;
-            border: 1px dashed rgba(255, 115, 0, 0.2);
-            border-radius: 50%;
+        .telemetry-panel {
+            width: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: #555d49;
+            border-left: 1px solid #23271d;
+            padding-left: 12px;
+        }
+
+        .telemetry-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .telemetry-value {
+            color: #8d9975;
+            font-weight: bold;
+        }
+
+        /* Mechanical Crosshair Center */
+        .military-reticle {
+            width: 120px;
+            height: 120px;
+            border: 1px solid #23271d;
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
-            animation: radar-pulse 3s infinite linear;
         }
 
-        .reticle-scope::before {
+        .military-reticle::before, .military-reticle::after {
             content: '';
-            width: 10px;
-            height: 1px;
-            background: #ff7300;
             position: absolute;
-        }
-        .reticle-scope::after {
-            content: '';
-            width: 1px;
-            height: 10px;
-            background: #ff7300;
-            position: absolute;
+            background: #8d9975;
         }
 
-        @keyframes radar-pulse {
-            0% { transform: rotate(0deg); border-color: rgba(255, 115, 0, 0.2); }
-            50% { border-color: rgba(255, 115, 0, 0.5); }
-            100% { transform: rotate(360deg); border-color: rgba(255, 115, 0, 0.2); }
-        }
+        /* Horizontal & Vertical Crosshair Stadia Marks */
+        .military-reticle::before { width: 30px; height: 1px; }
+        .military-reticle::after { width: 1px; height: 30px; }
 
-        /* Bottom Section: Heavy Industrial Load Bar & Intel Data */
+        /* Bottom Section: Combat Intel Feed & Danger Zone Progress Bar */
         .hud-footer {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .intel-feed-box {
-            background: rgba(11, 12, 16, 0.85);
-            border-left: 4px solid #ff7300;
-            padding: 15px 20px;
-            min-height: 75px;
+            background: #111317;
+            border: 1px solid #23271d;
+            padding: 12px 18px;
         }
 
         .intel-label {
             font-size: 0.75rem;
-            color: #ff7300;
+            color: #bfa15f; /* Cautionary Dull Gold/Tan */
             font-weight: bold;
             letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         .intel-text {
-            font-size: 0.9rem;
-            color: #d1d5db;
-            letter-spacing: 1px;
+            font-size: 0.85rem;
+            color: #9da392;
+            letter-spacing: 0.5px;
         }
 
         .progress-container {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
 
-        /* Segmented Industrial Progress Bar */
+        /* Military Block Track with Hazard Accents */
         .progress-bar-track {
             flex-grow: 1;
-            height: 20px;
-            background: rgba(255, 115, 0, 0.05);
-            border: 1px solid rgba(255, 115, 0, 0.2);
-            padding: 2px;
-            display: flex;
+            height: 24px;
+            background: #111317;
+            border: 1px solid #323829;
+            padding: 3px;
+            position: relative;
         }
 
         .progress-bar-fill {
             height: 100%;
             width: 0%;
-            background: #ff7300;
-            /* Creates a rugged block-segmented pattern natively */
-            background-image: linear-gradient(90deg, rgba(0,0,0,0.3) 2px, transparent 2px);
-            background-size: 12px 100%;
-            transition: width 0.15s cubic-bezier(0.1, 0.8, 0.2, 1);
+            background: #8d9975;
+            /* Authentic Military Industrial Hazard Stripe Pattern */
+            background-image: linear-gradient(
+                45deg, 
+                #7a8563 25%, 
+                transparent 25%, 
+                transparent 50%, 
+                #7a8563 50%, 
+                #7a8563 75%, 
+                transparent 75%, 
+                transparent
+            );
+            background-size: 24px 24px;
+            transition: width 0.1s linear;
         }
 
         .percentage-display {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: #ffffff;
-            min-width: 80px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #8d9975;
+            min-width: 65px;
             text-align: right;
-            font-family: Arial, Helvetica, sans-serif;
         }
 
-        /* Fade-out execution class */
+        /* Fade container out on load exit */
         .fade-out {
             opacity: 0;
             visibility: hidden;
@@ -230,32 +234,50 @@
 </head>
 <body>
 
-    <!-- TACTICAL HUD LOADING OVERLAY -->
+    <!-- MILITARY TERMINAL OVERLAY -->
     <div id="loading-screen-container">
         
-        <!-- Header: Combat Operations Center Data -->
+        <!-- Physical Alignment Markers -->
+        <div class="corner-bracket top-left"></div>
+        <div class="corner-bracket top-right"></div>
+        <div class="corner-bracket bottom-left"></div>
+        <div class="corner-bracket bottom-right"></div>
+        
+        <!-- Operational Frame Header -->
         <div class="hud-header">
             <div class="title-block">
-                <h1 class="game-title">PROJECT: OPERATION</h1>
-                <span id="engine-status" class="system-status">SYS.CHECK: INITIALIZING ASSETS</span>
+                <h1 class="game-title">LEGACYFPS</h1>
+                <span id="engine-status" class="system-status">OP.LOG: INITIALIZING SECURE LINK...</span>
             </div>
             <div class="deployment-zone">
-                SERVER: <span class="zone-highlight">US-EAST_NODE_1</span><br>
-                OPERATION: <span class="zone-highlight">ALPHA DEPLOY</span><br>
-                LATENCY: <span class="zone-highlight">12ms</span>
+                NET.NODE: <span class="zone-highlight">MIL-NET_US_EAST</span><br>
+                SEC_AUTH: <span class="zone-highlight">ENC_LEVEL_A</span><br>
+                BATTLE_COMMS: <span class="zone-highlight">ONLINE</span>
             </div>
         </div>
 
-        <!-- Center: Targeting Reticle Centerpiece -->
+        <!-- Center Hardware Metrics Display -->
         <div class="hud-center">
-            <div class="reticle-scope"></div>
+            <div class="telemetry-panel">
+                <div class="telemetry-row"><span>SYS.CORE</span> <span class="telemetry-value">READY</span></div>
+                <div class="telemetry-row"><span>MEM.BANK</span> <span class="telemetry-value">ALLOCATED</span></div>
+                <div class="telemetry-row"><span>PHYS.ENG</span> <span class="telemetry-value">v4.12_STABLE</span></div>
+            </div>
+
+            <div class="military-reticle"></div>
+
+            <div class="telemetry-panel">
+                <div class="telemetry-row"><span>REND.PIPE</span> <span class="telemetry-value">WebGL_2.0</span></div>
+                <div class="telemetry-row"><span>HIT.SCAN</span> <span class="telemetry-value">CALIBRATED</span></div>
+                <div class="telemetry-row"><span>NET.TICK</span> <span class="telemetry-value">60_HZ</span></div>
+            </div>
         </div>
 
-        <!-- Footer: Mission Intel & Segmented Progress Track -->
+        <!-- Briefing Info & Striped Loader Frame -->
         <div class="hud-footer">
             <div class="intel-feed-box">
-                <div class="intel-label">> FIELD RECON INTEL</div>
-                <div id="intel-feed-text" class="intel-text">Syncing peripheral combat setups. Prepare for immediate engagement...</div>
+                <div class="intel-label">:: EN-ROUTE BRIEFING</div>
+                <div id="intel-feed-text" class="intel-text">Awaiting operational guidelines from supreme command HQ...</div>
             </div>
 
             <div class="progress-container">
@@ -269,23 +291,23 @@
     </div>
 
     <script>
-        // Immersive FPS operational logs mapped directly to load milestones
-        const tacticalLogs = [
-            { threshold: 0, log: "MOUNTING GAMEPLAY CONTEXT: VERIFYING INTEGRITY..." },
-            { threshold: 15, log: "COMPILING WARZONE ENGINE SHADERS & GEOMETRY BUFFERS..." },
-            { threshold: 35, log: "CACHING WEAPON BALLISTIC MESHES & PBR CAMO TEXTURES..." },
-            { threshold: 55, log: "STREAMING SPATIAL 3D AUDIO FOOTSTEPS & ENVIRO-ECHOES..." },
-            { threshold: 75, log: "ALLOCATING HITSCAN HITBOX DATA AND PENETRATION MAPS..." },
-            { threshold: 90, log: "HANDSHAKING WITH SERVER AUTHORITY... SECURING NETCODE..." },
-            { threshold: 100, log: "DEPLOYMENT PIPELINE COMPLETE. READY FOR IMPACT." }
+        // System booting logging checkpoints
+        const militaryLogs = [
+            { threshold: 0, log: "ESTABLISHING FIELD NETWORK DIRECTIVES..." },
+            { threshold: 12, log: "COMPILING GEOMETRIC COLLISION MAPS & NAVMESHES..." },
+            { threshold: 30, log: "MOUNTING CORE ARMAMENT & BALLISTIC DATA ASSETS..." },
+            { threshold: 52, log: "DECOMPRESSING COMBAT SPATIAL SOUNDSCAPES & COMMAND VOIP..." },
+            { threshold: 72, log: "PARSING ENVIRO-TEXTURE SURFACE COEFFICIENTS..." },
+            { threshold: 88, log: "STABILIZING CLIENT-TO-HOST AUTHORITATIVE HANDSHAKE..." },
+            { threshold: 100, log: "DEPLOYMENT PHASES NOMINAL. OPERATIONAL COMPLIANCE READY." }
         ];
 
-        // Core tactical tips to rotate while loading
-        const operationalIntel = [
-            "Syncing peripheral combat setups. Prepare for immediate engagement...",
-            "TACTICAL NOTE: Crouching reduces weapon recoil curves up to 35%.",
-            "EQUIPMENT ADVICE: Swapping to your secondary sidearm is faster than manual reloads.",
-            "FIELD NOTE: Bullet penetration profiles allow wallbangs through drywall and thin sheets."
+        // Practical tactical tactical instructions
+        const militaryIntel = [
+            "Awaiting operational guidelines from supreme command HQ...",
+            "TACTICAL: Moving target hitboxes are calculated with real-time latency interpolation.",
+            "ARMAMENT: High-caliber suppressors mask muzzle flashes but decrease weapon velocity profiles.",
+            "FIELD PROTOCOL: Maintain space between fire bursts to naturally allow weapon sway settling."
         ];
 
         let loadProgress = 0;
@@ -297,20 +319,18 @@
         const intelBox = document.getElementById('intel-feed-text');
         const screenContainer = document.getElementById('loading-screen-container');
 
-        // Handles adaptive text display updates alongside execution metrics
         function processLogs(percent) {
-            for (let i = tacticalLogs.length - 1; i >= 0; i--) {
-                if (percent >= tacticalLogs[i].threshold) {
-                    statusLog.textContent = `SYS.CHECK: ${tacticalLogs[i].log}`;
+            for (let i = militaryLogs.length - 1; i >= 0; i--) {
+                if (percent >= militaryLogs[i].threshold) {
+                    statusLog.textContent = `OP.LOG: ${militaryLogs[i].log}`;
                     break;
                 }
             }
         }
 
-        // Simulates engine load workflow
         function executeDeploymentLoad() {
             const loadTicker = setInterval(() => {
-                loadProgress += Math.floor(Math.random() * 5) + 1;
+                loadProgress += Math.floor(Math.random() * 4) + 1;
                 
                 if (loadProgress >= 100) {
                     loadProgress = 100;
@@ -321,23 +341,21 @@
                     countDisplay.textContent = '100%';
                     processLogs(100);
 
-                    // Tactical screen clear out delay
                     setTimeout(() => {
                         screenContainer.classList.add('fade-out');
-                    }, 600);
+                    }, 500);
                 } else {
                     barFill.style.width = `${loadProgress}%`;
                     countDisplay.textContent = `${String(loadProgress).padStart(2, '0')}%`;
                     processLogs(loadProgress);
                 }
-            }, 100);
+            }, 120);
         }
 
-        // Staggered interval rotation for tactical intelligence tips
         const intelTicker = setInterval(() => {
-            intelIndex = (intelIndex + 1) % operationalIntel.length;
-            intelBox.textContent = operationalIntel[intelIndex];
-        }, 3500);
+            intelIndex = (intelIndex + 1) % militaryIntel.length;
+            intelBox.textContent = militaryIntel[intelIndex];
+        }, 3800);
 
         window.addEventListener('DOMContentLoaded', () => {
             executeDeploymentLoad();
