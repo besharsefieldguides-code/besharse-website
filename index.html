@@ -2,38 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PROJECT: SURVIVAL</title>
+    <title>CORE_ENGINE_v1</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-    <div id="ui-root">
-        <!-- Menu Layer -->
-        <div id="menu-screen" class="view">
-            <h1>BLACK_OPS_CORE</h1>
+    <!-- Persistent UI Overlay -->
+    <div id="ui-layer">
+        <div id="main-menu" class="screen">
+            <h1>STRIKE_CORE</h1>
             <div class="menu-grid">
-                <button onclick="Engine.setState('combat')">DEPLOY</button>
-                <button onclick="Engine.setState('inventory')">INVENTORY</button>
-                <button onclick="Engine.setState('crates')">CRATE_DEPOT</button>
+                <button onclick="Game.initCombat()">DEPLOY</button>
+                <button onclick="Game.showInventory()">INVENTORY</button>
+                <button onclick="Game.showCrates()">CRATE_DEPOT</button>
             </div>
-            <div class="stats">KEYS: <span id="key-count">0</span> | LVL: <span id="level-count">1</span></div>
+            <div class="user-stats">LEVEL: <span id="lvl">1</span> | KEYS: <span id="keys">0</span></div>
         </div>
 
-        <!-- Inventory Layer -->
-        <div id="inventory-screen" class="view hidden">
-            <h1>LOADOUT</h1>
-            <div id="inventory-list"></div>
-            <button onclick="Engine.setState('menu')">BACK</button>
+        <div id="inventory-screen" class="screen hidden">
+            <h1>INVENTORY</h1>
+            <div id="inv-list" class="grid"></div>
+            <button onclick="Game.showMenu()">BACK</button>
         </div>
 
-        <!-- Combat Layer -->
-        <div id="combat-screen" class="view hidden">
-            <div class="hud">ROUND: <span id="round-val">1</span></div>
-            <div id="game-canvas">
-                <!-- 3D Engine will mount here -->
-                <div class="debug-ai">AI_ENEMIES: <span id="ai-count">1</span></div>
+        <div id="crate-screen" class="screen hidden">
+            <h1>CRATE_DEPOT</h1>
+            <div id="crate-grid" class="grid">
+                <button onclick="Game.openCrate('common')">COMMON (3 Keys)</button>
+                <button onclick="Game.openCrate('rare')">RARE (6 Keys)</button>
             </div>
+            <button onclick="Game.showMenu()">BACK</button>
         </div>
     </div>
-    <script src="engine.js"></script>
+    
+    <div id="game-canvas"></div>
+    <script src="game.js"></script>
 </body>
 </html>
