@@ -1,65 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
 body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #0a0a0a;
-    color: white;
-    font-family: sans-serif;
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    background-color: #050505;
+    color: #00ff99; /* Tactical Green */
+    font-family: 'Orbitron', sans-serif;
     overflow: hidden;
+}
+
+/* CRT Scanline Effect */
+.crt-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+    z-index: 10;
 }
 
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.5s ease;
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex; justify-content: center; align-items: center;
+    transition: opacity 0.8s ease;
 }
 
-.hidden {
-    display: none;
-}
-
-.loader { text-align: center; }
+.header-tag { font-size: 0.8rem; letter-spacing: 4px; margin-bottom: 10px; opacity: 0.7; }
 
 .progress-bar {
-    width: 300px;
-    height: 10px;
-    background: #333;
-    border-radius: 5px;
-    margin-top: 20px;
-    overflow: hidden;
+    width: 400px; height: 4px;
+    background: #1a1a1a;
+    margin-top: 10px;
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.2);
 }
 
 #progress-fill {
-    width: 0%;
-    height: 100%;
-    background: #00ffcc;
-    transition: width 0.1s linear;
-}
-
-.menu-options {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    width: 0%; height: 100%;
+    background: #00ff99;
+    box-shadow: 0 0 15px #00ff99;
 }
 
 button {
-    padding: 15px 40px;
-    font-size: 1.2rem;
-    background: transparent;
-    color: white;
-    border: 2px solid white;
-    cursor: pointer;
+    background: transparent; border: 1px solid #00ff99;
+    color: #00ff99; padding: 15px 50px;
+    cursor: pointer; font-family: inherit;
     transition: all 0.3s;
+    margin: 10px;
 }
 
-button:hover {
-    background: white;
-    color: black;
-}
+button:hover { background: #00ff99; color: #000; box-shadow: 0 0 20px #00ff99; }
+.hidden { display: none; }
