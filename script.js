@@ -1,24 +1,19 @@
 /**
- * Besharse Field Guides - Navigation Drawer Interaction Logic
- * Handles interactive opening, closing, and automatic click-outside detection.
+ * Besharse Field Guides - Navigation Logic
  */
 
-// Initialize reference nodes from the DOM
 const toggleBtn = document.getElementById('menuToggleBtn');
 const drawer = document.getElementById('dropdownDrawer');
 
-// Toggle dropdown class drawer state on direct button activation click triggers
+// Toggle the 'active' class on the drawer when the hamburger is clicked
 toggleBtn.addEventListener('click', (event) => {
-    event.stopPropagation(); // Prevents document click trigger event from immediately refiring
+    event.stopPropagation();
     drawer.classList.toggle('active');
 });
 
-// Automatically close the dropdown menu drawer if a user clicks anywhere outside the panel boundaries
+// Close the drawer if the user clicks anywhere else on the screen
 document.addEventListener('click', (event) => {
-    const isClickInsideDrawer = drawer.contains(event.target);
-    const isClickInsideButton = toggleBtn.contains(event.target);
-
-    if (!isClickInsideDrawer && !isClickInsideButton) {
+    if (!drawer.contains(event.target) && !toggleBtn.contains(event.target)) {
         drawer.classList.remove('active');
     }
 });
