@@ -6,12 +6,11 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
     background-color: #ffffff;
     color: #000000;
 }
 
-/* Navbar Container - Slim height for maximum room */
+/* Navbar Container - Slim for Room */
 .navbar {
     position: relative; 
     display: flex;
@@ -23,9 +22,16 @@ body {
     z-index: 1000; 
 }
 
+/* Global Navbar Font (Title & Tabs) */
+.navbar-title, 
+.navbar-links-visible a, 
+.navbar-dropdown-drawer a, 
+.search-input {
+    font-family: 'Playpen Sans', cursive;
+}
+
 /* Brand Title */
 .navbar-title {
-    font-family: 'Playpen Sans', cursive;
     font-size: 1.1rem;
     font-weight: 700;
     color: #ffffff; 
@@ -33,7 +39,7 @@ body {
     user-select: none;
 }
 
-/* Navigation Links - Unified Font Size */
+/* Tab Options - Unified Font & Small Size */
 .navbar-links-visible {
     display: flex;
     list-style: none;
@@ -48,9 +54,8 @@ body {
     align-items: center;
     text-decoration: none;
     color: #ffffff; 
-    font-size: 0.8rem; /* UNIFIED FONT SIZE */
+    font-size: 0.75rem; /* Unified small font size */
     font-weight: 600;
-    letter-spacing: 0.3px;
     transition: color 0.2s ease;
 }
 
@@ -58,10 +63,10 @@ body {
     padding: 0.3rem 0.5rem;
 }
 
-/* DEDICATED ICON COLORS */
+/* ICON COLORS (Dedicated) */
 .bi { font-size: 0.85rem !important; }
 
-/* Navbar Icons */
+/* Primary Navbar Icons */
 .icon-home { color: #A5F3FC; }    /* Cyan */
 .icon-about { color: #FDE68A; }   /* Yellow */
 .icon-books { color: #C4B5FD; }   /* Lavender */
@@ -71,21 +76,21 @@ body {
 .icon-photos { color: #FFD700; }   /* Gold */
 .icon-events { color: #FF6347; }   /* Tomato */
 .icon-services { color: #87CEEB; } /* Sky Blue */
-.icon-contact { color: #98FB98; }  /* Mint */
+.icon-contact { color: #98FB98; }  /* Mint Green */
 .icon-donate { color: #F472B6; }   /* Pink */
 
 .navbar-links-visible a .bi,
 .navbar-dropdown-drawer a .bi {
-    margin-right: 8px;
+    margin-right: 6px;
 }
 
-/* Unified Hover State */
+/* Hover - Text turns black */
 .navbar-links-visible a:hover,
 .navbar-dropdown-drawer a:hover {
     color: #000000;
 }
 
-/* Search Bar - Grey background with White text */
+/* Search Area */
 .navbar-actions {
     display: flex;
     align-items: center;
@@ -101,29 +106,25 @@ body {
 .search-icon {
     position: absolute;
     left: 7px;
-    font-size: 0.75rem !important;
+    font-size: 0.7rem !important;
     color: #ffffff;
     z-index: 2;
 }
 
 .search-input {
-    background-color: #4B5563; /* Solid Grey */
-    border: 1px solid #374151;
+    background-color: #6B7280; /* Grey background */
+    border: none;
     border-radius: 3px;
     padding: 0.2rem 0.4rem 0.2rem 1.6rem;
-    color: #ffffff; /* Typing text is White */
-    font-size: 0.8rem;
-    width: 120px;
+    color: #ffffff; /* Typed text is White */
+    font-size: 0.75rem;
+    width: 110px; /* Compact */
     outline: none;
 }
 
-/* Placeholder text styling */
+/* Placeholder styling */
 .search-input::placeholder {
-    color: rgba(255, 255, 255, 0.7); /* White-ish placeholder */
-}
-
-.search-input:focus {
-    background-color: #374151; /* Darker grey on focus */
+    color: rgba(255, 255, 255, 0.8); /* White placeholder text */
 }
 
 /* Hamburger Toggle */
@@ -149,7 +150,7 @@ body {
     box-shadow: -4px 4px 10px rgba(0,0,0,0.2);
     padding: 0.3rem 0;
     display: none; 
-    min-width: 160px;
+    min-width: 150px;
 }
 
 .navbar-dropdown-drawer.active {
