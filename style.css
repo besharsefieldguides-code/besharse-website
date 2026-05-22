@@ -15,7 +15,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #556B2F; /* Olive Green */
+    background-color: #556B2F; 
     padding: 0 1rem; 
     height: 44px;
     z-index: 1000; 
@@ -44,27 +44,32 @@ body {
     height: 100%;
 }
 
-.navbar-links-visible a {
-    text-decoration: none;
-    color: #ffffff; 
+/* Common Link Styling (Navbar & Drawer) */
+.navbar-links-visible a, 
+.navbar-dropdown-drawer a {
+    text-decoration: none; /* Removes the blue underline */
+    color: #ffffff;        /* Forces white text */
     font-size: 0.75rem; 
     font-weight: 600;
-    padding: 0 0.8rem;
-    height: 100%;
     display: flex;
     align-items: center;
-    transition: 0.2s;
+    transition: all 0.2s ease;
+}
+
+.navbar-links-visible a {
+    padding: 0 0.8rem;
+    height: 100%;
 }
 
 /* Bold White Hollow Icons */
 .bi { 
     font-size: 0.85rem !important; 
-    margin-right: 6px;
+    margin-right: 8px;
     color: #ffffff;
     -webkit-text-stroke: 0.5px #ffffff; 
 }
 
-/* Hover effect for Navbar */
+/* Unified Hover Effect (Turns text & icon black) */
 .navbar-links-visible a:hover,
 .navbar-dropdown-drawer a:hover {
     background-color: rgba(0, 0, 0, 0.1); 
@@ -85,30 +90,27 @@ body {
     background-size: cover;
     background-position: center;
     display: flex;
-    align-items: center; /* Center vertically */
+    align-items: center; 
 }
 
 .hero-container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 4rem; /* Aligns content to the left side */
-}
-
-.hero-content {
-    animation: slideIn 0.8s ease-out;
+    padding: 0 4rem; 
 }
 
 .hero-title {
     color: #ffffff;
-    font-size: 4rem;
+    font-size: 4.5rem;
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: 2rem;
-    text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+    text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8), 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: slideIn 0.8s ease-out;
 }
 
-/* Olive Green Button */
+/* Solid Olive Button */
 .hero-btn {
     display: inline-block;
     background-color: #556B2F;
@@ -116,16 +118,14 @@ body {
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 700;
-    padding: 0.8rem 2rem;
+    padding: 0.8rem 2.2rem;
     border-radius: 4px;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: color 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .hero-btn:hover {
-    background-color: rgba(0, 0, 0, 0.1); /* Match dropdown style */
     color: #000000;
-    transform: translateY(-2px);
 }
 
 @keyframes slideIn {
@@ -133,14 +133,40 @@ body {
     to { opacity: 1; transform: translateX(0); }
 }
 
-/* Search Bar */
+/* Search bar styling */
 .navbar-actions { display: flex; align-items: center; gap: 1rem; }
 .search-container { position: relative; display: flex; align-items: center; }
-.search-icon { position: absolute; left: 10px; font-size: 0.75rem !important; color: rgba(255,255,255,0.7); }
+.search-icon { position: absolute; left: 10px; font-size: 0.75rem !important; color: white; }
 .search-input { background: rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 0.4rem 1rem 0.4rem 2.2rem; color: white; width: 140px; outline: none; }
-
-/* Drawer */
 .hamburger-toggle { background: none; border: none; color: white; cursor: pointer; }
-.navbar-dropdown-drawer { position: absolute; top: 44px; right: 0; background: #556B2F; display: none; min-width: 180px; }
-.navbar-dropdown-drawer.active { display: block; }
-.navbar-dropdown-drawer a { padding: 0.8rem 1.2rem; width: 100%; }
+
+/* FIXING THE DROPDOWN DRAWER */
+.navbar-dropdown-drawer {
+    position: absolute;
+    top: 44px; 
+    right: 0; 
+    background-color: #556B2F; 
+    display: none; 
+    min-width: 180px;
+    box-shadow: -4px 8px 15px rgba(0,0,0,0.2);
+    border-bottom-left-radius: 4px;
+    z-index: 1001;
+}
+
+.navbar-dropdown-drawer.active {
+    display: block;
+}
+
+.navbar-dropdown-drawer ul {
+    list-style: none;
+}
+
+.navbar-dropdown-drawer li {
+    width: 100%;
+}
+
+.navbar-dropdown-drawer a {
+    padding: 0.8rem 1.2rem;
+    width: 100%;
+    justify-content: flex-start; /* Aligns text and icon to the left */
+}
