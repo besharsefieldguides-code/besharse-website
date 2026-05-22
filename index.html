@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TACTICAL DEPLOYMENT | OPERATING THEATER</title>
+    <style>
+        /* Reset and Military Grid Base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #0b0c10;
+            font-family: 'Courier New', Courier, monospace; /* Clean tactical monospace */
+        }
+
+        /* Fullscreen Military Tactical Overlay */
+        #loading-screen-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 50px;
+            background: 
+                /* Tactical crosshair vignette overlay */
+                radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(5,6,8,0.95) 85%, #050608 100%),
+                /* Subtle industrial grid lines */
+                linear-gradient(rgba(255, 115, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 115, 0, 0.03) 1px, transparent 1px);
+            background-size: cover, 40px 40px, 40px 40px;
+            background-position: center;
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.6s;
+        }
+
+        /* Scanline FX to simulate a soldier's helmet HUD display */
+        #loading-screen-container::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        /* Top Bar: Matchmaking & Server Info */
+        .hud-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid rgba(255, 115, 0, 0.2);
+            padding-bottom: 15px;
+            position: relative;
+        }
+
+        /* Corner bracket accent details */
+        .hud-header::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 30px;
+            height: 5px;
+            background: #ff7300;
+        }
+
+        .title-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .system-status {
+            font-size: 0.8rem;
+            color: #ff7300; /* High-visibility HUD Amber */
+            letter-spacing: 3px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .deployment-zone {
+            text-align: right;
+            font-size: 0.85rem;
+            color: #7a828e;
+            line-height: 1.6;
+        }
+
+        .zone-highlight {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        /* Center Section: Weapon Blueprint / Reticle Layout */
+        .hud-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 40%;
+        }
+
+        /* Precision crosshair center design */
+        .reticle-scope {
+            width: 200px;
+            height: 200px;
+            border: 1px dashed rgba(255, 115, 0, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            animation: radar-pulse 3s infinite linear;
+        }
+
+        .reticle-scope::before {
+            content: '';
+            width: 10px;
+            height: 1px;
+            background: #ff7300;
+            position: absolute;
+        }
+        .reticle-scope::after {
+            content: '';
+            width: 1px;
+            height: 10px;
+            background: #ff7300;
+            position: absolute;
+        }
+
+        @keyframes radar-pulse {
+            0% { transform: rotate(0deg); border-color: rgba(255, 115, 0, 0.2); }
+            50% { border-color: rgba(255, 115, 0, 0.5); }
+            100% { transform: rotate(360deg); border-color: rgba(255, 115, 0, 0.2); }
+        }
+
+        /* Bottom Section: Heavy Industrial Load Bar & Intel Data */
+        .hud-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .intel-feed-box {
+            background: rgba(11, 12, 16, 0.85);
+            border-left: 4px solid #ff7300;
+            padding: 15px 20px;
+            min-height: 75px;
+        }
+
+        .intel-label {
+            font-size: 0.75rem;
+            color: #ff7300;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .intel-text {
+            font-size: 0.9rem;
+            color: #d1d5db;
+            letter-spacing: 1px;
+        }
+
+        .progress-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Segmented Industrial Progress Bar */
+        .progress-bar-track {
+            flex-grow: 1;
+            height: 20px;
+            background: rgba(255, 115, 0, 0.05);
+            border: 1px solid rgba(255, 115, 0, 0.2);
+            padding: 2px;
+            display: flex;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: #ff7300;
+            /* Creates a rugged block-segmented pattern natively */
+            background-image: linear-gradient(90deg, rgba(0,0,0,0.3) 2px, transparent 2px);
+            background-size: 12px 100%;
+            transition: width 0.15s cubic-bezier(0.1, 0.8, 0.2, 1);
+        }
+
+        .percentage-display {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ffffff;
+            min-width: 80px;
+            text-align: right;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Fade-out execution class */
+        .fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TACTICAL HUD LOADING OVERLAY -->
+    <div id="loading-screen-container">
+        
+        <!-- Header: Combat Operations Center Data -->
+        <div class="hud-header">
+            <div class="title-block">
+                <h1 class="game-title">PROJECT: OPERATION</h1>
+                <span id="engine-status" class="system-status">SYS.CHECK: INITIALIZING ASSETS</span>
+            </div>
+            <div class="deployment-zone">
+                SERVER: <span class="zone-highlight">US-EAST_NODE_1</span><br>
+                OPERATION: <span class="zone-highlight">ALPHA DEPLOY</span><br>
+                LATENCY: <span class="zone-highlight">12ms</span>
+            </div>
+        </div>
+
+        <!-- Center: Targeting Reticle Centerpiece -->
+        <div class="hud-center">
+            <div class="reticle-scope"></div>
+        </div>
+
+        <!-- Footer: Mission Intel & Segmented Progress Track -->
+        <div class="hud-footer">
+            <div class="intel-feed-box">
+                <div class="intel-label">> FIELD RECON INTEL</div>
+                <div id="intel-feed-text" class="intel-text">Syncing peripheral combat setups. Prepare for immediate engagement...</div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar-track">
+                    <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                </div>
+                <div id="percentage-counter" class="percentage-display">00%</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Immersive FPS operational logs mapped directly to load milestones
+        const tacticalLogs = [
+            { threshold: 0, log: "MOUNTING GAMEPLAY CONTEXT: VERIFYING INTEGRITY..." },
+            { threshold: 15, log: "COMPILING WARZONE ENGINE SHADERS & GEOMETRY BUFFERS..." },
+            { threshold: 35, log: "CACHING WEAPON BALLISTIC MESHES & PBR CAMO TEXTURES..." },
+            { threshold: 55, log: "STREAMING SPATIAL 3D AUDIO FOOTSTEPS & ENVIRO-ECHOES..." },
+            { threshold: 75, log: "ALLOCATING HITSCAN HITBOX DATA AND PENETRATION MAPS..." },
+            { threshold: 90, log: "HANDSHAKING WITH SERVER AUTHORITY... SECURING NETCODE..." },
+            { threshold: 100, log: "DEPLOYMENT PIPELINE COMPLETE. READY FOR IMPACT." }
+        ];
+
+        // Core tactical tips to rotate while loading
+        const operationalIntel = [
+            "Syncing peripheral combat setups. Prepare for immediate engagement...",
+            "TACTICAL NOTE: Crouching reduces weapon recoil curves up to 35%.",
+            "EQUIPMENT ADVICE: Swapping to your secondary sidearm is faster than manual reloads.",
+            "FIELD NOTE: Bullet penetration profiles allow wallbangs through drywall and thin sheets."
+        ];
+
+        let loadProgress = 0;
+        let intelIndex = 0;
+
+        const barFill = document.getElementById('progress-bar-fill');
+        const countDisplay = document.getElementById('percentage-counter');
+        const statusLog = document.getElementById('engine-status');
+        const intelBox = document.getElementById('intel-feed-text');
+        const screenContainer = document.getElementById('loading-screen-container');
+
+        // Handles adaptive text display updates alongside execution metrics
+        function processLogs(percent) {
+            for (let i = tacticalLogs.length - 1; i >= 0; i--) {
+                if (percent >= tacticalLogs[i].threshold) {
+                    statusLog.textContent = `SYS.CHECK: ${tacticalLogs[i].log}`;
+                    break;
+                }
+            }
+        }
+
+        // Simulates engine load workflow
+        function executeDeploymentLoad() {
+            const loadTicker = setInterval(() => {
+                loadProgress += Math.floor(Math.random() * 5) + 1;
+                
+                if (loadProgress >= 100) {
+                    loadProgress = 100;
+                    clearInterval(loadTicker);
+                    clearInterval(intelTicker);
+                    
+                    barFill.style.width = '100%';
+                    countDisplay.textContent = '100%';
+                    processLogs(100);
+
+                    // Tactical screen clear out delay
+                    setTimeout(() => {
+                        screenContainer.classList.add('fade-out');
+                    }, 600);
+                } else {
+                    barFill.style.width = `${loadProgress}%`;
+                    countDisplay.textContent = `${String(loadProgress).padStart(2, '0')}%`;
+                    processLogs(loadProgress);
+                }
+            }, 100);
+        }
+
+        // Staggered interval rotation for tactical intelligence tips
+        const intelTicker = setInterval(() => {
+            intelIndex = (intelIndex + 1) % operationalIntel.length;
+            intelBox.textContent = operationalIntel[intelIndex];
+        }, 3500);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            executeDeploymentLoad();
+        });
+    </script>
+</body>
+</html>
