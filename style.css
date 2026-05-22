@@ -10,19 +10,17 @@ body {
     color: #000000;
 }
 
-/* Navbar Container */
 .navbar {
     position: relative; 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #556B2F; /* Olive Green */
+    background-color: #556B2F; 
     padding: 0 0.5rem; 
     height: 44px;
     z-index: 1000; 
 }
 
-/* Global Font Application */
 .navbar-title, 
 .navbar-links-visible a, 
 .navbar-dropdown-drawer a, 
@@ -30,16 +28,13 @@ body {
     font-family: 'Playpen Sans', cursive;
 }
 
-/* Brand Title */
 .navbar-title {
     font-size: 1.1rem;
     font-weight: 700;
     color: #ffffff; 
-    cursor: default;
     user-select: none;
 }
 
-/* Visible Tab Options */
 .navbar-links-visible {
     display: flex;
     list-style: none;
@@ -63,20 +58,25 @@ body {
     padding: 0.3rem 0.5rem;
 }
 
-/* Unified Icon Sizes */
 .bi { 
     font-size: 0.85rem !important; 
     margin-right: 6px;
 }
 
-/* SPECIFIC ICON COLORS */
-.icon-contact {
-    color: #4ade80 !important; /* Green */
-}
+/* --- ICON COLOR MAPPING --- */
 
-.icon-donate {
-    color: #FFD700 !important; /* Gold */
-}
+/* Top Navbar Icons */
+.icon-home { color: #A5F3FC !important; }    /* Cyan */
+.icon-about { color: #FDE68A !important; }   /* Yellow */
+.icon-books { color: #FFA07A !important; }   /* Light Salmon */
+.icon-blog { color: #D8BFD8 !important; }    /* Thistle */
+
+/* Dropdown Icons */
+.icon-photos { color: #FFD700 !important; }   /* Gold */
+.icon-events { color: #FF6347 !important; }   /* Tomato Red */
+.icon-services { color: #87CEEB !important; } /* Sky Blue */
+.icon-contact { color: #4ade80 !important; }  /* Green */
+.icon-donate { color: #FFD700 !important; }   /* Gold */
 
 /* Hover State */
 .navbar-links-visible a:hover,
@@ -84,13 +84,12 @@ body {
     color: #000000;
 }
 
-/* Icons turn black on hover for visual feedback */
-.navbar-dropdown-drawer a:hover .icon-contact,
-.navbar-dropdown-drawer a:hover .icon-donate {
+/* Force icons to black on hover for visibility */
+.navbar-links-visible a:hover .bi,
+.navbar-dropdown-drawer a:hover .bi {
     color: #000000 !important;
 }
 
-/* Search Bar Area */
 .navbar-actions {
     display: flex;
     align-items: center;
@@ -122,10 +121,6 @@ body {
     outline: none;
 }
 
-.search-input::placeholder {
-    color: rgba(255, 255, 255, 0.8);
-}
-
 .search-input:focus {
     background-color: #ffffff;
     color: #000000;
@@ -135,22 +130,14 @@ body {
     color: #000000;
 }
 
-/* Hamburger Button */
 .hamburger-toggle {
     background: none;
     border: none;
     color: #ffffff;
     cursor: pointer;
     display: flex;
-    padding: 0.2rem;
 }
 
-.hamburger-toggle .bi {
-    font-size: 1.1rem !important;
-    margin-right: 0;
-}
-
-/* DROPDOWN DRAWER - No Bullet Points */
 .navbar-dropdown-drawer {
     position: absolute;
     top: 44px; 
