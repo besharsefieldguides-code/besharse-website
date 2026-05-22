@@ -43,7 +43,7 @@ body {
     align-items: center;
     margin-left: auto; 
     margin-right: 1rem;
-    height: 100%; /* Ensure links take up full navbar height */
+    height: 100%;
 }
 
 .navbar-links-visible li {
@@ -64,7 +64,7 @@ body {
     transition: all 0.2s ease-in-out;
 }
 
-/* Specific Padding for Top Tabs to make the hover box look right */
+/* Specific Padding for Top Tabs */
 .navbar-links-visible a {
     padding: 0 0.8rem;
     height: 100%; 
@@ -82,7 +82,7 @@ body {
 /* --- UNIFIED TRANSPARENT HOVER EFFECT --- */
 .navbar-links-visible a:hover,
 .navbar-dropdown-drawer a:hover {
-    background-color: rgba(0, 0, 0, 0.1); /* Transparent black overlay */
+    background-color: rgba(0, 0, 0, 0.1); 
     color: #000000;
 }
 
@@ -131,7 +131,7 @@ body {
     width: 170px;
 }
 
-/* Hero Section */
+/* --- HERO SECTION WITH CAPTION --- */
 .hero-section {
     width: 100%;
     height: calc(100vh - 44px);
@@ -139,6 +139,42 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    
+    /* Centering logic for the caption box */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Professional Nature Caption Box */
+.hero-caption-box {
+    background-color: rgba(0, 0, 0, 0.6); /* Translucent dark for professional contrast */
+    padding: 2.5rem 4rem;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    text-align: center;
+    border-left: 5px solid #556B2F; /* Olive accent tie-in */
+    backdrop-filter: blur(2px); /* Subtle blur behind the box for depth */
+    max-width: 85%;
+}
+
+.hero-header {
+    font-family: 'Playpen Sans', cursive;
+    color: #ffffff;
+    font-size: 2.8rem; /* Large and bold */
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    letter-spacing: 1px;
+    line-height: 1.2;
+}
+
+.hero-subheader {
+    font-family: Arial, sans-serif; /* Clean Hierarchy */
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 3px; /* Clean letter spacing */
+    text-transform: uppercase; /* Professional look */
 }
 
 /* Hamburger Toggle */
@@ -168,7 +204,7 @@ body {
     display: none; 
     min-width: 180px;
     border-bottom-left-radius: 4px;
-    overflow: hidden; /* Ensures hover effect stays inside corners */
+    overflow: hidden;
 }
 
 .navbar-dropdown-drawer.active {
