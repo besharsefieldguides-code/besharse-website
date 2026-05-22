@@ -16,21 +16,57 @@
 <body>
 
     <nav class="navbar">
-        <!-- Logo / Title Section -->
+        <!-- Left Side: Brand Title -->
         <span class="navbar-title">Besharse Field Guides</span>
         
-        <!-- Navigation Links Section -->
-        <ul class="navbar-links">
-            <li><a href="index.html"><i class="fa-regular fa-images"></i>HOME</a></li>
+        <!-- Center Right Side: Core Four Visible Navigation Options -->
+        <ul class="navbar-links-visible">
+            <li><a href="index.html"><i class="fa-regular fa-house"></i>HOME</a></li>
             <li><a href="about.html"><i class="fa-regular fa-user"></i>ABOUT</a></li>
-            <li><a href="books.html"><i class="fa-regular fa-bookmark"></i>BOOKS</a></li>
+            <li><a href="books.html"><i class="fa-regular fa-book"></i>BOOKS</a></li>
             <li><a href="blog.html"><i class="fa-regular fa-comment-dots"></i>BLOG</a></li>
-            <li><a href="events.html"><i class="fa-regular fa-calendar"></i>EVENTS</a></li>
-            <li><a href="services.html"><i class="fa-regular fa-compass"></i>SERVICES</a></li>
-            <li><a href="contact.html"><i class="fa-regular fa-envelope"></i>CONTACT</a></li>
-            <li><a href="donate.html"><i class="fa-regular fa-heart"></i>DONATE</a></li>
         </ul>
+
+        <!-- Far Right Side: Search Box + Interactive Hamburger Element Menu -->
+        <div class="navbar-actions">
+            <div class="search-container">
+                <i class="fa-regular fa-magnifying-glass search-icon"></i>
+                <input type="text" placeholder="Search field guides..." class="search-input">
+            </div>
+            <button class="hamburger-toggle" id="menuToggleBtn" aria-label="Toggle menu">
+                <i class="fa-regular fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Hidden Slide-Down Drawer Container for Remaining Stacked Items -->
+        <div class="navbar-dropdown-drawer" id="dropdownDrawer">
+            <ul>
+                <li><a href="photos.html"><i class="fa-regular fa-image"></i>PHOTOS</a></li>
+                <li><a href="events.html"><i class="fa-regular fa-calendar"></i>EVENTS</a></li>
+                <li><a href="services.html"><i class="fa-regular fa-compass"></i>SERVICES</a></li>
+                <li><a href="contact.html"><i class="fa-regular fa-envelope"></i>CONTACT</a></li>
+                <li><a href="donate.html"><i class="fa-regular fa-heart"></i>DONATE</a></li>
+            </ul>
+        </div>
     </nav>
+
+    <!-- Simple Script to Handle the Opening and Closing Animation States -->
+    <script>
+        const toggleBtn = document.getElementById('menuToggleBtn');
+        const drawer = document.getElementById('dropdownDrawer');
+
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            drawer.classList.toggle('active');
+        });
+
+        // Silently close drawer if user clicks outside of the navigation panel components
+        document.addEventListener('click', (e) => {
+            if (!drawer.contains(e.target) && !toggleBtn.contains(e.target)) {
+                drawer.classList.remove('active');
+            }
+        });
+    </script>
 
 </body>
 </html>
