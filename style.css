@@ -59,20 +59,26 @@ body {
     font-weight: 600;
     font-size: 0.85rem;
     letter-spacing: 0.5px;
-    transition: color 0.2s ease; /* Smooth transition for text color flip */
+    transition: color 0.2s ease; /* Smooth transition for text & icon color flip */
 }
 
-/* Hover State: Text changes to black, background remains transparent */
+/* Icon Alignment Rule */
+.navbar-links a i {
+    margin-right: 6px; /* Perfect space between icon and text */
+    font-size: 0.9rem; /* Scales the icon naturally with text size */
+}
+
+/* Hover State: Text and Icon color flip to black */
 .navbar-links a:hover {
-    color: #000000; /* Text color flips to black */
-    background-color: transparent; /* Box background completely removed */
+    color: #000000; /* Flips both text and icons to black instantly */
+    background-color: transparent; 
 }
 
 /* Underline Asset Generation */
 .navbar-links a::after {
     content: '';
     position: absolute;
-    bottom: 2px; /* Positions line right beneath the text */
+    bottom: 2px; /* Positions line right beneath text/icon row */
     left: 0.5rem; /* Matches the text bounding box padding */
     right: 0.5rem;
     height: 2px; /* Crisp thickness for the line */
