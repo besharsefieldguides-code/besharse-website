@@ -10,7 +10,7 @@ body {
     color: #000000;
 }
 
-/* Navbar Container - Slim for Room */
+/* Navbar Container - Kept slim for room */
 .navbar {
     position: relative; 
     display: flex;
@@ -22,7 +22,7 @@ body {
     z-index: 1000; 
 }
 
-/* Global Navbar Font (Title & Tabs) */
+/* Global Font Application (Title, Links, Search) */
 .navbar-title, 
 .navbar-links-visible a, 
 .navbar-dropdown-drawer a, 
@@ -39,7 +39,7 @@ body {
     user-select: none;
 }
 
-/* Tab Options - Unified Font & Small Size */
+/* Visible Tab Options */
 .navbar-links-visible {
     display: flex;
     list-style: none;
@@ -54,7 +54,7 @@ body {
     align-items: center;
     text-decoration: none;
     color: #ffffff; 
-    font-size: 0.75rem; /* Unified small font size */
+    font-size: 0.75rem; /* Unified small size for room */
     font-weight: 600;
     transition: color 0.2s ease;
 }
@@ -63,34 +63,26 @@ body {
     padding: 0.3rem 0.5rem;
 }
 
-/* ICON COLORS (Dedicated) */
-.bi { font-size: 0.85rem !important; }
-
-/* Primary Navbar Icons */
-.icon-home { color: #A5F3FC; }    /* Cyan */
-.icon-about { color: #FDE68A; }   /* Yellow */
-.icon-books { color: #C4B5FD; }   /* Lavender */
-.icon-blog { color: #FDA4AF; }    /* Rose */
-
-/* Dropdown Icons */
-.icon-photos { color: #FFD700; }   /* Gold */
-.icon-events { color: #FF6347; }   /* Tomato */
-.icon-services { color: #87CEEB; } /* Sky Blue */
-.icon-contact { color: #98FB98; }  /* Mint Green */
-.icon-donate { color: #F472B6; }   /* Pink */
-
-.navbar-links-visible a .bi,
-.navbar-dropdown-drawer a .bi {
+/* Icons - All Unified White */
+.bi { 
+    font-size: 0.85rem !important; 
+    color: #ffffff;
     margin-right: 6px;
 }
 
-/* Hover - Text turns black */
+/* Hover - Standard Black Flip */
 .navbar-links-visible a:hover,
-.navbar-dropdown-drawer a:hover {
+.navbar-dropdown-drawer a:hover,
+.hamburger-toggle:hover {
     color: #000000;
 }
 
-/* Search Area */
+.navbar-links-visible a:hover .bi,
+.navbar-dropdown-drawer a:hover .bi {
+    color: #000000;
+}
+
+/* Search Area - Reverted Changes */
 .navbar-actions {
     display: flex;
     align-items: center;
@@ -112,19 +104,27 @@ body {
 }
 
 .search-input {
-    background-color: #6B7280; /* Grey background */
-    border: none;
+    background-color: rgba(255, 255, 255, 0.15); /* Reverted to translucent */
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 3px;
     padding: 0.2rem 0.4rem 0.2rem 1.6rem;
-    color: #ffffff; /* Typed text is White */
+    color: #ffffff; 
     font-size: 0.75rem;
-    width: 110px; /* Compact */
+    width: 110px;
     outline: none;
 }
 
-/* Placeholder styling */
 .search-input::placeholder {
-    color: rgba(255, 255, 255, 0.8); /* White placeholder text */
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.search-input:focus {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.search-container:focus-within .search-icon {
+    color: #000000;
 }
 
 /* Hamburger Toggle */
@@ -134,11 +134,12 @@ body {
     color: #ffffff;
     cursor: pointer;
     display: flex;
+    padding: 0.2rem;
 }
 
 .hamburger-toggle .bi {
     font-size: 1.1rem !important;
-    color: #ffffff;
+    margin-right: 0;
 }
 
 /* Dropdown Drawer */
