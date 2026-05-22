@@ -66,11 +66,11 @@ body {
     transition: color 0.2s ease;
 }
 
-/* Thin Hollow Icon Interior Padding Rule Constraint Adjustment */
-.navbar-links-visible a i,
-.navbar-dropdown-drawer a i {
+/* Thin Hollow Icon Interior Padding Rule Adjustment */
+.navbar-links-visible a .bi,
+.navbar-dropdown-drawer a .bi {
     margin-right: 9px; /* Gives the text perfect breathing room */
-    font-size: 0.85rem;
+    font-size: 0.9rem;
 }
 
 /* Link Actions Hover Colors Flip State Engine */
@@ -116,8 +116,13 @@ body {
     position: absolute;
     left: 8px;
     color: #ffffff; /* Keeps icon white to match look */
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     pointer-events: none;
+}
+
+.search-container .bi-search {
+    display: flex;
+    align-items: center;
 }
 
 .search-input {
@@ -152,7 +157,7 @@ body {
     background: none;
     border: none;
     color: #ffffff;
-    font-size: 1.1rem;
+    font-size: 1.3rem; /* Slightly larger for easier click targeting */
     cursor: pointer;
     padding: 0.25rem;
     display: flex;
