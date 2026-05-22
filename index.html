@@ -3,762 +3,814 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LegacyFPS</title>
+    <title>LEGACYFPS // MASTER OPERATIONAL MATRIX</title>
+    <!-- Three.js Infrastructure for Ultra-Realistic Browser 3D Graphics -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        /* ==========================================================================
-           1. CORE INDUSTRIAL FRAMEWORK & VARIABLES
-           ========================================================================== */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-        }
-
         :root {
-            --color-bg-dark: #0d0e10;
-            --color-panel-dark: #111317;
-            --color-border-mute: #23271d;
+            --color-bg: #0d0e10;
+            --color-panel: #111317;
             --color-border-heavy: #323829;
-            --color-military-green: #8d9975;
-            --color-military-dark: #555d49;
-            --color-caution-gold: #bfa15f;
-            --color-alert-red: #ff3e3e;
+            --color-mil-green: #8d9975;
+            --color-mil-dark: #555d49;
+            --color-caution: #bfa15f;
+            --color-alert: #ff3e3e;
         }
 
-        body, html {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: var(--color-bg-dark);
-            font-family: 'Courier New', Courier, monospace;
-            color: #d1d7c4;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+        body, html { width: 100%; height: 100%; overflow: hidden; background: var(--color-bg); font-family: 'Courier New', Courier, monospace; color: #d1d7c4; }
 
-        /* Screen States Control */
-        .game-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 40px;
-            z-index: 10;
-        }
-
-        .game-screen.active {
-            display: flex;
-        }
-
-        /* Scanline HUD Overlay */
-        .hud-scanlines::before {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
+        /* HUD CRT Overlay Lines */
+        .crt-hud::before {
+            content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
             background: linear-gradient(rgba(141, 153, 117, 0.01) 50%, transparent 50%);
-            z-index: 9998;
-            background-size: 100% 4px;
-            pointer-events: none;
-            opacity: 0.4;
+            z-index: 9999; background-size: 100% 4px; pointer-events: none; opacity: 0.4;
         }
 
-        /* Tactical Common Components */
-        .corner-bracket {
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            border-color: var(--color-military-green);
-            border-style: solid;
-            pointer-events: none;
-        }
+        /* Screen States System */
+        .game-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; flex-direction: column; justify-content: space-between; padding: 40px; z-index: 10; box-sizing: border-box; }
+        .game-layer.active { display: flex; }
+
+        /* Tactical Common UI Elements */
+        .corner-bracket { position: absolute; width: 24px; height: 24px; border-color: var(--color-mil-green); border-style: solid; pointer-events: none; }
         .top-left { top: 20px; left: 20px; border-width: 3px 0 0 3px; }
         .top-right { top: 20px; right: 20px; border-width: 3px 3px 0 0; }
         .bottom-left { bottom: 20px; left: 20px; border-width: 0 0 3px 3px; }
         .bottom-right { bottom: 20px; right: 20px; border-width: 0 3px 3px 0; }
 
-        .btn-mil {
-            background: var(--color-panel-dark);
-            border: 1px solid var(--color-border-heavy);
-            color: var(--color-military-green);
-            padding: 12px 24px;
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            letter-spacing: 2px;
-            transition: all 0.2s ease;
+        .btn-tactical { background: var(--color-panel); border: 1px solid var(--color-border-heavy); color: var(--color-mil-green); padding: 12px 24px; font-family: inherit; font-weight: bold; text-transform: uppercase; cursor: pointer; letter-spacing: 2px; transition: all 0.2s; }
+        .btn-tactical:hover { background: var(--color-mil-green); color: var(--color-bg); box-shadow: 0 0 12px rgba(141, 153, 117, 0.4); }
+        .btn-alert { color: var(--color-alert); border-color: var(--color-alert); }
+        .btn-alert:hover { background: var(--color-alert); color: white; box-shadow: 0 0 12px rgba(255, 62, 62, 0.4); }
+        .input-tactical { background: #050607; border: 1px solid var(--color-border-heavy); color: white; padding: 12px; font-family: inherit; margin-bottom: 10px; width: 100%; }
+        .input-tactical:focus { outline: 1px solid var(--color-mil-green); }
+
+        .header-block { border-bottom: 1px solid var(--color-border-heavy); padding-bottom: 15px; width: 100%; display: flex; justify-content: space-between; align-items: flex-start; }
+        .heading-main { font-size: 2.5rem; font-weight: 900; letter-spacing: 4px; font-family: 'Impact', sans-serif; color: #d1d7c4; }
+        .heading-sub { font-size: 0.8rem; color: var(--color-mil-green); letter-spacing: 2px; margin-top: 4px; }
+
+        /* 1. LOADING SCREEN */
+        #layer-loading { z-index: 1000; background: var(--color-bg); }
+        .bar-track { width: 100%; height: 24px; background: #111317; border: 1px solid var(--color-border-heavy); padding: 3px; }
+        .bar-fill { height: 100%; width: 0%; background: var(--color-mil-green); background-image: linear-gradient(45deg, #7a8563 25%, transparent 25%, transparent 50%, #7a8563 50%, #7a8563 75%, transparent 75%, transparent); background-size: 24px 24px; }
+
+        /* 2. AUTHENTICATION SCREEN */
+        .auth-grid { display: flex; gap: 40px; margin: auto; width: 100%; max-width: 950px; }
+        .auth-panel { flex: 1; background: var(--color-panel); border: 1px solid var(--color-border-heavy); padding: 30px; display: flex; flex-direction: column; }
+
+        /* 3. MAIN MENU PANEL */
+        .menu-nav { display: flex; gap: 30px; background: rgba(17, 19, 23, 0.95); border: 1px solid var(--color-border-heavy); padding: 15px 40px; margin: 0 auto; width: fit-content; }
+        .lobby-overlay { background: rgba(17, 19, 23, 0.98); border: 1px solid var(--color-border-heavy); padding: 20px; width: 320px; position: absolute; bottom: 85px; right: 40px; display: none; flex-direction: column; gap: 10px; z-index: 20; }
+
+        /* 4. ADMIN PANEL */
+        .admin-table-frame { background: var(--color-panel); border: 1px solid var(--color-border-heavy); overflow-y: auto; height: 60%; margin: 20px 0; }
+        .admin-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; }
+        .admin-table th { background: #181b21; color: var(--color-mil-green); padding: 12px; border-bottom: 2px solid var(--color-border-heavy); }
+        .admin-table td { padding: 12px; border-bottom: 1px solid #1c2026; }
+
+        /* 5. LIVE GAME HUD INTERFACE */
+        #layer-match { pointer-events: none; padding: 20px; background: transparent; }
+        .hud-side { width: 280px; background: rgba(17,19,23,0.75); border: 1px solid rgba(141,153,117,0.3); padding: 15px; display: flex; flex-direction: column; justify-content: space-between; pointer-events: auto; }
+        
+        /* 3D Target Reticle */
+        .crosshair-reticle {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 20px; height: 20px; pointer-events: none; z-index: 5;
+        }
+        .crosshair-reticle::before, .crosshair-reticle::after { content: ''; position: absolute; background: var(--color-mil-green); }
+        .crosshair-reticle::before { top: 9px; left: 0; width: 20px; height: 2px; }
+        .crosshair-reticle::after { top: 0; left: 9px; width: 2px; height: 20px; }
+
+        /* Weapon Canvas Layout Overlay */
+        #weapon-muzzle-flash {
+            position: fixed; bottom: 0; right: 25%; width: 300px; height: 300px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,0 60,40 100,50 60,60 50,100 40,60 0,50 40,40" fill="%23ffaa00" opacity="0.9"/></svg>') no-repeat center;
+            background-size: contain; transform: rotate(15deg); display: none; pointer-events: none; z-index: 4;
         }
 
-        .btn-mil:hover {
-            background: var(--color-military-green);
-            color: var(--color-bg-dark);
-            box-shadow: 0 0 10px rgba(141, 153, 117, 0.4);
-        }
-
-        .btn-alert {
-            color: var(--color-alert-red);
-            border-color: var(--color-alert-red);
-        }
-        .btn-alert:hover {
-            background: var(--color-alert-red);
-            color: white;
-            box-shadow: 0 0 10px rgba(255, 62, 62, 0.4);
-        }
-
-        .input-mil {
-            background: #050607;
-            border: 1px solid var(--color-border-heavy);
-            color: white;
-            padding: 10px;
-            font-family: 'Courier New', Courier, monospace;
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-        .input-mil:focus {
-            outline: 1px solid var(--color-military-green);
-        }
-
-        /* Generic HUD Header Layout */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            border-bottom: 1px solid var(--color-border-heavy);
-            padding-bottom: 15px;
-            width: 100%;
-        }
-
-        .main-heading {
-            font-size: 2.5rem;
-            font-weight: 900;
-            letter-spacing: 4px;
-            font-family: 'Impact', sans-serif;
-            color: #d1d7c4;
-        }
-
-        .sub-heading {
-            font-size: 0.8rem;
-            color: var(--color-military-green);
-            letter-spacing: 2px;
-            margin-top: 4px;
-        }
-
-        /* ==========================================================================
-           2. SCREEN SCREEN STYLING: LOADING WINDOW
-           ========================================================================== */
-        #screen-loading {
-            z-index: 10000;
-            background: radial-gradient(circle, rgba(0,0,0,0) 30%, rgba(0,0,0,0.85) 100%), var(--color-bg-dark);
-        }
-        .progress-bar-track {
-            width: 100%;
-            height: 24px;
-            background: #111317;
-            border: 1px solid var(--color-border-heavy);
-            padding: 3px;
-        }
-        .progress-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: var(--color-military-green);
-            background-image: linear-gradient(45deg, #7a8563 25%, transparent 25%, transparent 50%, #7a8563 50%, #7a8563 75%, transparent 75%, transparent);
-            background-size: 24px 24px;
-        }
-
-        /* ==========================================================================
-           3. SCREEN STYLING: AUTHENTICATION CONTAINER
-           ========================================================================== */
-        .auth-container {
-            display: flex;
-            gap: 40px;
-            margin: auto;
-            width: 100%;
-            max-width: 900px;
-        }
-        .auth-panel {
-            flex: 1;
-            background: var(--color-panel-dark);
-            border: 1px solid var(--color-border-mute);
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-        }
-        .auth-notice {
-            font-size: 0.75rem;
-            color: var(--color-caution-gold);
-            margin-top: 15px;
-            border-top: 1px dashed var(--color-border-heavy);
-            padding-top: 10px;
-        }
-
-        /* ==========================================================================
-           4. SCREEN STYLING: MAIN MENU SYSTEM
-           ========================================================================== */
-        #screen-menu {
-            /* Fallback layer representation of the tactical battlefield layout scene */
-            background: linear-gradient(rgba(13, 14, 16, 0.4) 0%, rgba(13, 14, 16, 0.9) 100%), 
-                        radial-gradient(circle, transparent 20%, rgba(0,0,0,0.8) 100%);
-            background-size: cover;
-            background-position: center;
-        }
-
-        .menu-top-nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            background: rgba(17, 19, 23, 0.9);
-            border: 1px solid var(--color-border-heavy);
-            padding: 15px 40px;
-            margin: 0 auto;
-            width: fit-content;
-        }
-
-        .menu-nav-item {
-            color: #a2a897;
-            text-decoration: none;
-            font-weight: bold;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-        }
-        .menu-nav-item:hover, .menu-nav-item.active {
-            color: var(--color-military-green);
-        }
-
-        .menu-center-theater {
-            height: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        /* Placeholder graphic asset container for running character renders */
-        .character-avatar-render {
-            width: 250px;
-            height: 100%;
-            border-bottom: 2px solid var(--color-military-green);
-            background: linear-gradient(to top, rgba(141, 153, 117, 0.1), transparent);
-            position: relative;
-            animation: avatar-breathe 4s infinite ease-in-out;
-        }
-
-        @keyframes avatar-breathe {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02) translateY(-2px); }
-        }
-
-        .menu-bottom-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            width: 100%;
-        }
-
-        /* Lobby Submenu Overlay Modal Box */
-        .lobby-settings-panel {
-            background: rgba(17, 19, 23, 0.95);
-            border: 1px solid var(--color-border-heavy);
-            padding: 20px;
-            width: 320px;
-            position: absolute;
-            bottom: 80px;
-            right: 0;
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        /* ==========================================================================
-           5. SCREEN STYLING: MASTER MODERATION PANEL
-           ========================================================================== */
-        .admin-workspace {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            height: 80%;
-            margin: 20px 0;
-        }
-
-        .admin-table-container {
-            background: var(--color-panel-dark);
-            border: 1px solid var(--color-border-heavy);
-            overflow-y: auto;
-            flex-grow: 1;
-        }
-
-        .mil-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.85rem;
-        }
-
-        .mil-table th {
-            background: #181b21;
-            color: var(--color-military-green);
-            padding: 12px;
-            border-bottom: 2px solid var(--color-border-heavy);
-            letter-spacing: 1px;
-        }
-
-        .mil-table td {
-            padding: 12px;
-            border-bottom: 1px solid var(--color-border-mute);
-        }
-
-        .admin-toggles-bar {
-            display: flex;
-            gap: 20px;
-            background: #14171c;
-            padding: 15px;
-            border: 1px dashed var(--color-military-dark);
-        }
-
-        /* ==========================================================================
-           6. SCREEN STYLING: MATCH PLAYPLAY FIELD (WAVE SYSTEM UI)
-           ========================================================================== */
-        .match-hud-grid {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            height: 100%;
-        }
-
-        .match-sidebar {
-            width: 300px;
-            background: rgba(17, 19, 23, 0.85);
-            border: 1px solid var(--color-border-heavy);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .match-center-feed {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .timer-alert-box {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--color-caution-gold);
-            text-align: center;
-            letter-spacing: 2px;
-            animation: text-pulse 1.5s infinite ease-in-out;
-        }
-
-        @keyframes text-pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .boss-warning {
-            color: var(--color-alert-red) !important;
-            border: 2px dashed var(--color-alert-red) !important;
-            padding: 20px;
-            animation: boss-flash 0.5s infinite alternate;
-        }
-
-        @keyframes boss-flash {
-            0% { background: rgba(255, 62, 62, 0); }
-            100% { background: rgba(255, 62, 62, 0.15); }
-        }
+        /* Canvas viewport handling layer */
+        #three-canvas-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: none; }
+        #three-canvas-container.active { display: block; }
     </style>
 </head>
-<body class="hud-scanlines">
+<body class="crt-hud">
 
-    <!-- ==========================================================================
-       A. LOADING SCREEN MODULE
-       ========================================================================== -->
-    <div id="screen-loading" class="game-screen active">
+    <!-- WebGL Rendering Canvas Frame Container -->
+    <div id="three-canvas-container"></div>
+
+    <!-- Reticle System -->
+    <div id="game-reticle" style="display:none;" class="crosshair-reticle"></div>
+    <div id="weapon-muzzle-flash"></div>
+
+    <!-- ==========================================
+         LAYER 1: MILITARY INITIALIZATION LOADING
+         ========================================== -->
+    <div id="layer-loading" class="game-layer active">
         <div class="corner-bracket top-left"></div><div class="corner-bracket top-right"></div>
         <div class="corner-bracket bottom-left"></div><div class="corner-bracket bottom-right"></div>
+        <div class="header-block">
+            <div>
+                <h1 class="heading-main">LEGACYFPS // COMPILING CORE SYSTEMS</h1>
+                <span id="load-log" class="heading-sub">> INITIALIZING GRAPHICS ENGINES...</span>
+            </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:20px; width:100%;">
+            <div class="bar-track"><div id="load-bar" class="bar-fill"></div></div>
+            <div id="load-txt" style="font-size:1.5rem; font-weight:bold; color:var(--color-mil-green);">00%</div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         LAYER 2: ACCOUNT MANAGEMENT & SECURITY AUTH
+         ========================================== -->
+    <div id="layer-auth" class="game-layer">
+        <div class="corner-bracket top-left"></div><div class="corner-bracket top-right"></div>
+        <div class="header-block">
+            <div>
+                <h1 class="heading-main">LEGACY ACCOUNT SETUP</h1>
+                <div class="heading-sub">Select an option below to manage your profile. No verification required.</div>
+            </div>
+        </div>
+        <div class="auth-grid">
+            <div class="auth-panel">
+                <h3 style="margin-bottom:15px; color:var(--color-mil-green);">[ LOGIN PROFILE ]</h3>
+                <input type="text" id="login-user" placeholder="Enter Username" class="input-tactical" value="Austin">
+                <input type="password" id="login-pass" placeholder="Enter Password" class="input-tactical" value="Matthew#2024">
+                <input type="text" id="login-pin" placeholder="4-Digit PIN (For Admin Entry)" class="input-tactical" value="2006">
+                <button class="btn-tactical" onclick="executeAuthentication()">Log In</button>
+            </div>
+            <div class="auth-panel">
+                <h3 style="margin-bottom:15px; color:var(--color-caution);">[ INITIALIZE REGISTRY ]</h3>
+                <input type="text" placeholder="Enter Username" class="input-tactical">
+                <input type="password" placeholder="Enter Password" class="input-tactical">
+                <input type="password" placeholder="Re-enter Password" class="input-tactical">
+                <input type="text" maxlength="4" placeholder="Choose 4-Digit Secret PIN" class="input-tactical">
+                <label style="font-size:0.8rem; display:flex; align-items:center; gap:10px; margin:10px 0; cursor:pointer;">
+                    <input type="checkbox" checked style="accent-color:var(--color-mil-green);"> Save details on this device (Secure Autofill)
+                </label>
+                <button class="btn-tactical" onclick="alert('Account created under sandbox context!')">Create Legacy Account</button>
+                <div class="heading-sub" style="margin-top:15px; color:var(--color-mil-green);">System Check Notice: "Validating device registry... [1/3] Accounts created."</div>
+            </div>
+        </div>
+        <div></div>
+    </div>
+
+    <!-- ==========================================
+         LAYER 3: MAIN OPERATIONS MENU
+         ========================================== -->
+    <div id="layer-menu" class="game-layer">
+        <div class="menu-nav">
+            <a href="#" class="btn-tactical" style="padding:5px 15px; font-size:0.8rem;">[🛒 Shop]</a>
+            <a href="#" class="btn-tactical" style="padding:5px 15px; font-size:0.8rem;">[📦 Locker]</a>
+            <a href="#" class="btn-tactical" style="padding:5px 15px; font-size:0.8rem;">[👤 Profile]</a>
+            <a href="#" class="btn-tactical" style="padding:5px 15px; font-size:0.8rem;">[⚙️ Settings]</a>
+            <span style="color:var(--color-caution); font-weight:bold; align-self:center; letter-spacing:1px;">Balance: <span id="wallet-txt">$0</span></span>
+            <button id="admin-shortcut-btn" class="btn-tactical btn-alert" style="padding:5px 10px; font-size:0.7rem; display:none;" onclick="transitionToLayer('layer-admin')">Admin Panel</button>
+        </div>
         
-        <div class="section-header">
-            <div class="title-block">
-                <h1 class="main-heading">LegacyFPS</h1>
-                <span id="load-status-log" class="sub-heading">OP.LOG: INITIALIZING SYSTEM HANDSHAKE...</span>
-            </div>
-            <div class="deployment-zone">
-                NET.NODE: <span class="zone-highlight">MIL-NET_US_EAST</span><br>
-                SEC_AUTH: <span class="zone-highlight">ENC_LEVEL_A</span>
-            </div>
+        <!-- Stand-in Viewport frame indicators -->
+        <div style="text-align:center; color:var(--color-mil-dark); font-size:0.9rem;">
+            [ 3D CINEMATIC MILITARY ENVIRONMENT ENGINE AWAKE ]<br>
+            <span style="color:white; font-size:0.75rem;">Click 'Start Match' or adjust P2P networks inside 'Custom Lobby'.</span>
         </div>
 
-        <div class="progress-container" style="display: flex; align-items: center; gap: 20px; width: 100%;">
-            <div class="progress-bar-track">
-                <div id="load-bar-fill" class="progress-bar-fill"></div>
+        <div style="display:flex; justify-content:between; width:100%; align-items:flex-end;">
+            <div style="flex-grow:1;"><button class="btn-tactical">[⚔️ Edit Loadout]</button></div>
+            <div style="display:flex; gap:15px; position:relative;">
+                <button class="btn-tactical" onclick="toggleCustomLobbyWindow()">[🌐 Custom Lobby]</button>
+                <button class="btn-tactical" style="background:var(--color-mil-green); color:var(--color-bg);" onclick="initializeActiveCombatMatch()">[🎮 Start Match]</button>
+
+                <!-- Custom Lobby Settings Dropdown Modal Frame -->
+                <div id="lobby-settings-dropdown" class="lobby-overlay">
+                    <div style="font-size:0.75rem; font-weight:bold; color:var(--color-mil-green); margin-bottom:5px;">> CONFIG LOBBY PARAMETERS</div>
+                    <input type="text" value="ALPHA_STRIKE_HOST" class="input-tactical" style="font-size:0.75rem; padding:6px; margin:0;">
+                    <input type="text" placeholder="Lobby Password (Optional)" class="input-tactical" style="font-size:0.75rem; padding:6px; margin:0;">
+                    <input type="text" readonly value="Server IP: 192.168.12.84" class="input-tactical" style="font-size:0.75rem; color:var(--color-mil-dark); padding:6px; margin:0;">
+                    <select class="input-tactical" style="font-size:0.75rem; padding:6px; margin:0;"><option>Free-For-All</option><option>Team Deathmatch</option></select>
+                    <select class="input-tactical" style="font-size:0.75rem; padding:6px; margin:0;"><option>Round Limit: 10</option><option>Unlimited</option></select>
+                    <div style="font-size:0.7rem; display:flex; justify-content:space-between; margin-top:5px;"><span>Max Bots:</span><span style="color:var(--color-mil-green)">12</span></div>
+                    <input type="range" min="1" max="12" value="6" style="accent-color:var(--color-mil-green); width:100%;">
+                </div>
             </div>
-            <div id="load-percent-txt" style="font-size: 1.5rem; font-weight: bold; color: var(--color-military-green);">00%</div>
         </div>
     </div>
 
-
-    <!-- ==========================================================================
-       B. ACCOUNT SETUP & AUTHENTICATION SCREEN
-       ========================================================================== -->
-    <div id="screen-auth" class="game-screen">
-        <div class="corner-bracket top-left"></div><div class="corner-bracket top-right"></div>
-        <div class="corner-bracket bottom-left"></div><div class="corner-bracket bottom-right"></div>
-
-        <div class="section-header">
+    <!-- ==========================================
+         LAYER 4: MASTER DEV/ADMINISTRATION CONSOLE
+         ========================================== -->
+    <div id="layer-admin" class="game-layer">
+        <div class="header-block">
             <div>
-                <h1 class="main-heading">LEGACY ACCOUNT SETUP</h1>
-                <div class="sub-heading">Select an option below to manage your profile. No verification required.</div>
+                <h1 class="heading-main" style="color:var(--color-alert);">MASTER ADMINISTRATION CONSOLE</h1>
+                <div class="heading-sub">Live Account Database & Server Management</div>
             </div>
+            <button class="btn-tactical" onclick="transitionToLayer('layer-menu')">Exit Console</button>
         </div>
-
-        <div class="auth-container">
-            <!-- Account Access Column -->
-            <div class="auth-panel">
-                <h3 style="margin-bottom: 20px; letter-spacing: 1px;">[ SECURE REGISTRY LOGIN ]</h3>
-                <input type="text" placeholder="Enter Username" class="input-mil">
-                <input type="password" placeholder="Enter Password" class="input-mil">
-                <button class="btn-mil" onclick="transitionToScreen('screen-menu')">Log In</button>
-                <div class="auth-notice">> ACCESS CODES MANDATORY FOR DISPATCH</div>
-            </div>
-
-            <!-- Creation Handling Column -->
-            <div class="auth-panel">
-                <h3 style="margin-bottom: 20px; letter-spacing: 1px;">[ INITIALIZE NEW AGENT ]</h3>
-                <input type="text" placeholder="Enter Username" class="input-mil">
-                <input type="password" placeholder="Enter Password" class="input-mil">
-                <input type="password" placeholder="Re-enter Password" class="input-mil">
-                <input type="text" maxlength="4" placeholder="Choose 4-Digit Secret PIN" class="input-mil">
-                
-                <label style="display: flex; align-items: center; gap: 10px; font-size: 0.8rem; margin-bottom: 15px; cursor: pointer;">
-                    <input type="checkbox" checked style="accent-color: var(--color-military-green);"> Save login details on this device (Enables Secure Autofill)
-                </label>
-
-                <button class="btn-mil" onclick="transitionToScreen('screen-menu')">Create Legacy Account</button>
-                
-                <div id="device-registry-notice" class="auth-notice" style="color: var(--color-military-green);">
-                    System Check Notice: "Validating device registry... [1/3] Accounts created."
-                </div>
-            </div>
+        <div class="admin-table-frame">
+            <table class="admin-table">
+                <thead>
+                    <tr><th>Account ID</th><th>Device ID / Hardware Hash</th><th>Username</th><th>Creation Date</th><th>Account Status</th><th>Actions</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#00001</td><td>DEV-84F9X2</td><td>PlayerOne</td><td>2026-05-22</td><td style="color:var(--color-mil-green);">Active</td>
+                        <td>
+                            <button class="btn-tactical" style="padding:4px 8px; font-size:0.7rem;" onclick="adminInjectCurrency()">[Modify Balance]</button>
+                            <button class="btn-tactical" style="padding:4px 8px; font-size:0.7rem;" onclick="alert('Target suspended temporarily for 3600s.')">[Suspend]</button>
+                            <button class="btn-tactical btn-alert" style="padding:4px 8px; font-size:0.7rem;" onclick="alert('Account permanently purged. Slot freed.')">[❌ Delete]</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-
-        <div style="text-align: center; font-size: 0.8rem; color: var(--color-military-dark);">
-            SECURE LINK COMPLIANT WITH OUTPOST MATRIX CONFIGURATION v2.1
+        <div style="background:#15181f; padding:15px; border:1px dashed var(--color-mil-dark); display:flex; gap:25px; font-size:0.8rem;">
+            <span style="color:var(--color-caution); font-weight:bold;">DEVELOPER LIVE CHEATS STATUS:</span>
+            <label><input type="checkbox" checked style="accent-color:var(--color-mil-green);"> God Mode</label>
+            <label><input type="checkbox" checked style="accent-color:var(--color-mil-green);"> Sandbox Controls</label>
+            <label><input type="checkbox" checked style="accent-color:var(--color-mil-green);"> Instant Unlock All</label>
         </div>
     </div>
 
-
-    <!-- ==========================================================================
-       C. MAIN MENU MODULE (WITH LOBBY CONFIGURATION MANAGEMENT)
-       ========================================================================== -->
-    <div id="screen-menu" class="game-screen">
-        <!-- Top Level Navigation Sub-bar -->
-        <div class="menu-top-nav">
-            <a href="#" class="menu-nav-item">[🛒 Shop]</a>
-            <span>•</span>
-            <a href="#" class="menu-nav-item">[📦 Locker]</a>
-            <span>•</span>
-            <a href="#" class="menu-nav-item">[👤 Profile]</a>
-            <span>•</span>
-            <a href="#" class="menu-nav-item">[⚙️ Settings]</a>
-            <span>•</span>
-            <span style="color: var(--color-caution-gold); font-weight: bold; letter-spacing: 1px;">Balance: <span id="player-wallet-display">$0</span></span>
-            <span>•</span>
-            <button class="btn-mil" style="padding: 4px 10px; font-size: 0.7rem;" onclick="transitionToScreen('screen-admin')">Console</button>
-        </div>
-
-        <!-- Center Interactive Combat Avatar Field -->
-        <div class="menu-center-theater">
-            <div class="character-avatar-render">
-                <div style="position: absolute; top: 20px; width: 100%; text-align: center; font-size: 0.7rem; color: var(--color-military-green);">
-                    [ AGENT RENDER ACTIVE ]
+    <!-- ==========================================
+         LAYER 5: MATCH HUD ENGAGEMENT LAYER
+         ========================================== -->
+    <div id="layer-match" class="game-layer">
+        <div style="display:flex; justify-content:space-between; width:100%; height:100%; pointer-events:none;">
+            <div class="hud-side">
+                <h3 style="color:var(--color-mil-green); border-bottom:1px solid var(--color-border-heavy); padding-bottom:5px;">TACTICAL HUD</h3>
+                <div style="font-size:0.75rem; line-height:2.2;">
+                    ENGAGE: <span style="color:white;">PLAYER vs AI 1v1</span><br>
+                    COLLISION: <span style="color:var(--color-mil-green);">SOLID ENVIRONMENT</span><br>
+                    AMMO: <span style="color:white; font-weight:bold;">30 / &infin;</span><br>
+                    <span style="color:var(--color-caution); font-weight:bold;">[CLICK SCENARIO TO LOCK MOUSE]</span>
                 </div>
-            </div>
-        </div>
-
-        <!-- Lower Navigation Footing Blocks -->
-        <div class="menu-bottom-row">
-            <div class="left-nav-dock">
-                <button class="btn-mil" style="border-left: 4px solid var(--color-military-green);">[⚔️ Edit Loadout]</button>
+                <button class="btn-tactical btn-alert" onclick="abortMatchAndReturnToLobby()">Forfeit</button>
             </div>
 
-            <div class="right-nav-dock" style="position: relative; display: flex; gap: 15px;">
-                <button class="btn-mil" onclick="toggleLobbyMenu()">[🌐 Custom Lobby]</button>
-                <button class="btn-mil" style="background: var(--color-military-green); color: var(--color-bg-dark);" onclick="startMatchSequence()">[🎮 Start Match]</button>
-
-                <!-- Hidden Custom Multi-lobby Configuration Overlay Panel -->
-                <div id="lobby-settings-modal" class="lobby-settings-panel">
-                    <div style="font-size: 0.8rem; font-weight: bold; color: var(--color-military-green); margin-bottom: 5px;">> LOBBY PROTOCOLS</div>
-                    <input type="text" placeholder="Lobby Name" value="ALPHA_STRIKE_PROT" class="input-mil" style="margin-bottom: 5px; font-size: 0.75rem;">
-                    <input type="password" placeholder="Lobby Password (Optional)" class="input-mil" style="margin-bottom: 5px; font-size: 0.75rem;">
-                    <input type="text" readonly value="Server IP: 192.168.42.105" class="input-mil" style="color: var(--color-military-dark); font-size: 0.75rem; margin-bottom: 5px;">
-                    
-                    <select class="input-mil" style="font-size: 0.75rem; margin-bottom: 5px;">
-                        <option>Game Mode: Free-For-All</option>
-                        <option>Game Mode: Team Deathmatch</option>
-                    </select>
-                    
-                    <select class="input-mil" style="font-size: 0.75rem; margin-bottom: 5px;">
-                        <option>Round Limit: 5 Rounds</option>
-                        <option>Round Limit: 10 Rounds</option>
-                        <option>Round Limit: Unlimited</option>
-                    </select>
-
-                    <select class="input-mil" style="font-size: 0.75rem; margin-bottom: 5px;">
-                        <option>Match Timer: 5 Minutes</option>
-                        <option>Match Timer: 10 Minutes</option>
-                        <option>Match Timer: Unlimited</option>
-                    </select>
-
-                    <div style="font-size: 0.7rem; display: flex; justify-content: space-between;">
-                        <span>Max Bots:</span><span style="color: var(--color-military-green)">12</span>
-                    </div>
-                    <input type="range" min="1" max="12" value="6" style="accent-color: var(--color-military-green); width: 100%;">
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- ==========================================================================
-       D. DEVELOPER view: MASTER MODERATION PANEL
-       ========================================================================== -->
-    <div id="screen-admin" class="game-screen">
-        <div class="section-header">
-            <div>
-                <h1 class="main-heading">MASTER ADMINISTRATION CONSOLE</h1>
-                <div class="sub-heading">Live Account Database & Server Management</div>
-            </div>
-            <button class="btn-mil" onclick="transitionToScreen('screen-menu')">Exit Console</button>
-        </div>
-
-        <div class="admin-workspace">
-            <div class="admin-table-container">
-                <table class="mil-table">
-                    <thead>
-                        <tr>
-                            <th>Account ID</th>
-                            <th>Device ID / Hardware Hash</th>
-                            <th>Username</th>
-                            <th>Creation Date</th>
-                            <th>Account Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#00001</td>
-                            <td>DEV-84F9X2</td>
-                            <td>PlayerOne</td>
-                            <td>2026-05-22</td>
-                            <td style="color: var(--color-military-green);">Active</td>
-                            <td>
-                                <button class="btn-mil" style="padding: 4px 8px; font-size: 0.7rem;" onclick="adminModifyBalance()">[Modify Balance]</button>
-                                <button class="btn-mil" style="padding: 4px 8px; font-size: 0.7rem;" onclick="alert('Account Suspended for 3600s.')">[Suspend]</button>
-                                <button class="btn-mil btn-alert" style="padding: 4px 8px; font-size: 0.7rem;" onclick="alert('Account Deleted. Slot freed.')">[❌ Delete]</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="admin-toggles-bar">
-                <div style="font-size: 0.8rem; font-weight: bold; color: var(--color-caution-gold); margin-right: 20px;">
-                    DEVELOPER STATUS TOGGLES:
-                </div>
-                <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 8px;">
-                    <input type="checkbox" checked style="accent-color: var(--color-military-green);"> God Mode
-                </label>
-                <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 8px;">
-                    <input type="checkbox" checked style="accent-color: var(--color-military-green);"> Sandbox Controls
-                </label>
-                <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 8px;">
-                    <input type="checkbox" checked style="accent-color: var(--color-military-green);"> Instant Unlock All
-                </label>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- ==========================================================================
-       E. MATCH PROGRESSION FIELD & OVERLAY HUD
-       ========================================================================== -->
-    <div id="screen-match" class="game-screen">
-        <div class="match-hud-grid">
-            <!-- Left Panel Tactical Readout metrics -->
-            <div class="match-sidebar">
-                <div>
-                    <h3 style="color: var(--color-military-green); margin-bottom: 15px;">TACTICAL TELEMETRY</h3>
-                    <div style="font-size: 0.8rem; line-height: 2;">
-                        SIMULATION: <span style="color: white;">ACTIVE</span><br>
-                        ENGAGE TYPE: <span style="color: white;">PLAYER vs AI 1v1</span><br>
-                        GEOMETRY LOCK: <span style="color: var(--color-military-green);">FULL SOLID COLLISION</span>
-                    </div>
-                </div>
-                <button class="btn-mil btn-alert" onclick="transitionToScreen('screen-menu')">Forfeit Match</button>
-            </div>
-
-            <!-- Central Sequence Tracking Feed -->
-            <div class="match-center-feed">
-                <div id="match-timer-display" class="timer-alert-box">
+            <div style="flex-grow:1; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                <div id="match-timer-alert" style="font-size:2rem; font-weight:bold; color:var(--color-caution); text-align:center; letter-spacing:2px; text-shadow:2px 2px black;">
                     INITIALIZING SERVER...<br>ASSETS LOADING
                 </div>
-                <div id="boss-alert-banner" class="timer-alert-box boss-warning" style="display: none; margin-top: 20px;">
+                <div id="boss-warning-hud" style="font-size:2rem; font-weight:bold; color:var(--color-alert); display:none; border:2px dashed var(--color-alert); padding:15px; margin-top:20px; animation: pulse 0.5s infinite alternate;">
                     🚨 WARNING: BOSS CHALLENGE INBOUND!
                 </div>
             </div>
 
-            <!-- Right Panel Core Progression data tracking loops -->
-            <div class="match-sidebar">
-                <div>
-                    <h3 style="color: var(--color-caution-gold); margin-bottom: 15px;">ENGAGEMENT DATA</h3>
-                    <div style="font-size: 0.8rem; line-height: 2;">
-                        CURRENT ROUND: <span id="hud-round-display" style="color: white; font-weight: bold;">Round 1</span><br>
-                        AI ACCURACY: <span id="hud-ai-display" style="color: var(--color-military-green);">STANDARD (Rounds 1-5)</span><br>
-                        SESSION CASH: <span id="hud-cash-display" style="color: var(--color-caution-gold); font-weight: bold;">+$0</span>
-                    </div>
+            <div class="hud-side">
+                <h3 style="color:var(--color-caution); border-bottom:1px solid var(--color-border-heavy); padding-bottom:5px;">COMBAT LOGS</h3>
+                <div style="font-size:0.75rem; line-height:2.2;">
+                    ROUND: <span id="hud-round-val" style="color:white; font-weight:bold;">Round 1</span><br>
+                    AI LEVEL: <span id="hud-ai-status" style="color:var(--color-mil-green);">NORMAL PATROL</span><br>
+                    CASH GAINED: <span id="hud-cash-val" style="color:var(--color-caution); font-weight:bold;">+$0</span>
                 </div>
-                <div style="font-size: 0.7rem; color: var(--color-military-dark); text-align: center;">
-                    COLLISION PRESET: ENVIRONMENT BOUNDS ACTIVE
-                </div>
+                <div style="font-size:0.65rem; color:var(--color-mil-dark); text-align:center;">GEOMETRY TRACKING LOCK: ON</div>
             </div>
         </div>
     </div>
 
-    /* ==========================================================================
-       6. RUNTIME SCRIPT ROUTINES FOR SIMULATING INTERFACES
-       ========================================================================== */
+    <!-- ==========================================
+         CORE GAME ENGINE REVOLUTION SCRIPT
+         ========================================== -->
     <script>
-        // Fake Local Storage Simulation Cache metrics
-        let playerWallet = 0;
-        let activeMatchRound = 1;
+        // Global Economy/Progression State Variables
+        let walletBalance = 0;
+        let currentRound = 1;
+        let matchSequenceTimer = null;
+        let isGameLoopActive = false;
 
-        // Transition Layer Engine Function
-        function transitionToScreen(screenId) {
-            document.querySelectorAll('.game-screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            document.getElementById(screenId).classList.add('active');
-        }
+        // 3D Engine System Variables
+        let scene, camera, renderer;
+        let playerVelocity = { x: 0, z: 0 };
+        let playerKeys = { w: false, a: false, s: false, d: false };
+        let playerPosition = { x: 0, z: 12 }; // Spawn distance back from screen center
+        let cameraRotation = { yaw: 0, pitch: 0 };
+        
+        // Environment Solid-World Structural Boundaries
+        const arenaSize = 25; 
+        const obstacles = [
+            { x: -5, z: -5, w: 4, d: 4, mesh: null },
+            { x: 6, z: 4, w: 3, d: 6, mesh: null }
+        ];
 
-        // Toggles display tracking of custom lobbies configurations
-        function toggleLobbyMenu() {
-            const modal = document.getElementById('lobby-settings-modal');
-            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
-        }
+        // Tactical Hunting AI Entity State Parameters
+        let aiEntity = {
+            mesh: null,
+            x: 0, z: -10,
+            speed: 0.05,
+            health: 100,
+            state: 'PATROL',
+            patrolAngle: 0,
+            lastShotTime: 0
+        };
 
-        // Admin Modify Balance Interaction
-        function adminModifyBalance() {
-            const amount = prompt("Enter In-Game Cash ($) quantity to grant:", "1000");
-            if (amount !== null) {
-                playerWallet += parseInt(amount) || 0;
-                document.getElementById('player-wallet-display').textContent = `$${playerWallet}`;
-                document.getElementById('hud-cash-display').textContent = `+$${playerWallet}`;
-                alert(`Successfully allocated $${amount} to account balance.`);
+        // Projectile Tracking Matrix
+        let activeTracers = [];
+
+        // Dynamic State Screen Switching Engine Layer Function
+        function transitionToLayer(layerId) {
+            document.querySelectorAll('.game-layer').forEach(layer => layer.classList.remove('active'));
+            document.getElementById(layerId).classList.add('active');
+            
+            const canvasContainer = document.getElementById('three-canvas-container');
+            const reticle = document.getElementById('game-reticle');
+            
+            if (layerId === 'layer-match') {
+                canvasContainer.classList.add('active');
+                reticle.style.display = 'block';
+                isGameLoopActive = true;
+            } else {
+                canvasContainer.classList.remove('active');
+                reticle.style.display = 'none';
+                isGameLoopActive = false;
+                if(document.pointerLockElement === document.body) document.exitPointerLock();
             }
         }
 
-        // Simulates the primary deployment loading progress workflow sequence
-        function runLoadingPipeline() {
-            let loadValue = 0;
-            const barFill = document.getElementById('load-bar-fill');
-            const txtPercent = document.getElementById('load-percent-txt');
-            const txtStatus = document.getElementById('load-status-log');
-
-            const deploymentLogs = [
-                { p: 0, text: "OP.LOG: LINKING MIL-NET PERIPHERAL CHANNELS..." },
-                { p: 30, text: "OP.LOG: COMPILING SOLID-WORLD COLLISION MATRIX DATA..." },
-                { p: 65, text: "OP.LOG: MOUNTING ARMAMENT MESHES & MATERIAL LAYERS..." },
-                { p: 90, text: "OP.LOG: VERIFYING DEVICE HARDWARE SECURITY REGISTRIES..." }
-            ];
-
-            const interval = setInterval(() => {
-                loadValue += Math.floor(Math.random() * 5) + 2;
-                if (loadValue >= 100) {
-                    loadValue = 100;
-                    clearInterval(interval);
-                    barFill.style.width = '100%';
-                    txtPercent.textContent = '100%';
-                    txtStatus.textContent = "OP.LOG: INITIALIZATION COMPLETE.";
-                    setTimeout(() => { transitionToScreen('screen-auth'); }, 600);
-                } else {
-                    barFill.style.width = `${loadValue}%`;
-                    txtPercent.textContent = `${String(loadValue).padStart(2, '0')}%`;
-                    for(let i=0; i<deploymentLogs.length; i++) {
-                        if(loadValue >= deploymentLogs[i].p) {
-                            txtStatus.textContent = deploymentLogs[i].text;
-                        }
-                    }
-                }
-            }, 80);
+        function toggleCustomLobbyWindow() {
+            const dropdown = document.getElementById('lobby-settings-dropdown');
+            dropdown.style.display = (dropdown.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        // Simulates the complete Progression Sequence timer queues for match loops
-        function startMatchSequence() {
-            transitionToScreen('screen-match');
-            const timerBox = document.getElementById('match-timer-display');
-            const roundDisplay = document.getElementById('hud-round-display');
-            const aiDisplay = document.getElementById('hud-ai-display');
-            const bossBanner = document.getElementById('boss-alert-banner');
-            
-            // Initialization Phase Setup 
-            let timeLeft = 30;
-            timerBox.innerHTML = `INITIALIZING SERVER... ASSETS LOADING<br><span style="font-size: 3rem;">${timeLeft}s</span>`;
-            
-            const matchSetupInterval = setInterval(() => {
-                timeLeft--;
-                if(timeLeft > 0) {
-                    timerBox.innerHTML = `INITIALIZING SERVER... ASSETS LOADING<br><span style="font-size: 3rem;">${timeLeft}s</span>`;
+        // Authentication Verification Gate Logic
+        function executeAuthentication() {
+            const user = document.getElementById('login-user').value;
+            const pass = document.getElementById('login-pass').value;
+            const pin = document.getElementById('login-pin').value;
+
+            if (user === "Austin" && pass === "Matthew#2024" && pin === "2006") {
+                document.getElementById('admin-shortcut-btn').style.display = 'inline-block';
+                alert("Master Admin Privileges Granted. Control Route Unlocked.");
+            }
+            transitionToLayer('layer-menu');
+        }
+
+        // Admin Operational Injection Methods
+        function adminInjectCurrency() {
+            const injectionValue = prompt("Specify custom cash asset load quantity ($):", "5000");
+            if (injectionValue !== null) {
+                walletBalance += parseInt(injectionValue) || 0;
+                document.getElementById('wallet-txt').textContent = `$${walletBalance}`;
+                document.getElementById('hud-cash-val').textContent = `+$${walletBalance}`;
+            }
+        }
+
+        // Bootstrap Loading Processing Sequence Sim
+        function executeSystemLoadingSequence() {
+            let currentProgress = 0;
+            const fillingElement = document.getElementById('load-bar');
+            const indicatorText = document.getElementById('load-txt');
+            const statusLogger = document.getElementById('load-log');
+
+            const deploymentLogs = [
+                { limit: 0, msg: "> STAGING RECONNAISSANCE HUD NETWORKS..." },
+                { limit: 25, msg: "> GENERATING SOLID-WORLD GEOMETRY MATRICES..." },
+                { limit: 60, msg: "> BUFFERING ADAPTIVE TACTICAL HUNTING AI PATHWAYS..." },
+                { limit: 85, msg: "> SYNCHRONIZING DEVICE ENCRYPTION HARWARE KEYS..." }
+            ];
+
+            const sequenceTicker = setInterval(() => {
+                currentProgress += Math.floor(Math.random() * 4) + 2;
+                if (currentProgress >= 100) {
+                    currentProgress = 100;
+                    clearInterval(sequenceTicker);
+                    fillingElement.style.width = '100%';
+                    indicatorText.textContent = '100%';
+                    statusLogger.textContent = "> INITIALIZATION NOMINAL. LINK READY.";
+                    setTimeout(() => {
+                        initialize3DEngineUniverse();
+                        transitionToLayer('layer-auth');
+                    }, 600);
                 } else {
-                    clearInterval(matchSetupInterval);
-                    
-                    // Staging Round Commencing Loop Execution Timer Queue
-                    let prepTime = 15;
-                    timerBox.innerHTML = `PREPARE FOR COMBAT. ROUND ${activeMatchRound} STARTING IN...<br><span style="font-size: 4rem; color: var(--color-alert-red);">${prepTime}</span>`;
-                    
-                    const prepInterval = setInterval(() => {
-                        prepTime--;
-                        if(prepTime > 0) {
-                            timerBox.innerHTML = `PREPARE FOR COMBAT. ROUND ${activeMatchRound} STARTING IN...<br><span style="font-size: 4rem; color: var(--color-alert-red);">${prepTime}</span>`;
+                    fillingElement.style.width = `${currentProgress}%`;
+                    indicatorText.textContent = `${String(currentProgress).padStart(2, '0')}%`;
+                    deploymentLogs.forEach(entry => {
+                        if (currentProgress >= entry.limit) statusLogger.textContent = entry.msg;
+                    });
+                }
+            }, 50);
+        }
+
+        // ==========================================
+        // THREE.JS ULTRA-REALISTIC GRAPHICS ARCHITECTURE
+        // ==========================================
+        function initialize3DEngineUniverse() {
+            const targetContainer = document.getElementById('three-canvas-container');
+            
+            // 1. Scene setup
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x0a0b0d);
+            scene.fog = new THREE.FogExp2(0x0a0b0d, 0.03);
+
+            // 2. Camera positioning Setup 
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.rotation.order = 'YXZ';
+
+            // 3. Renderer allocations
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMap.enabled = true;
+            targetContainer.appendChild(renderer.domElement);
+
+            // 4. Lighting Systems Setup
+            const environmentalDuskLight = new THREE.AmbientLight(0x222833, 1.2);
+            scene.add(environmentalDuskLight);
+
+            const directSunlight = new THREE.DirectionalLight(0x8d9975, 1.5);
+            directSunlight.position.set(20, 40, 20);
+            directSunlight.castShadow = true;
+            scene.add(directSunlight);
+
+            // 5. Environmental Geometry Terrain Generation (Military Compound Base Grid)
+            const asphaltTextureGrid = new THREE.GridHelper(arenaSize * 2, 50, 0x323829, 0x14161a);
+            asphaltTextureGrid.position.y = 0;
+            scene.add(asphaltTextureGrid);
+
+            const concreteFloorGeo = new THREE.PlaneGeometry(arenaSize * 2, arenaSize * 2);
+            const concreteFloorMat = new THREE.MeshStandardMaterial({ color: 0x111316, roughness: 0.85, metalness: 0.2 });
+            const floorMesh = new THREE.Mesh(concreteFloorGeo, concreteFloorMat);
+            floorMesh.rotation.x = -Math.PI / 2;
+            floorMesh.receiveShadow = true;
+            scene.add(floorMesh);
+
+            // 6. Solid Perimeter Compound Wall Structs
+            const perimeterWallMaterial = new THREE.MeshStandardMaterial({ color: 0x1f232b, roughness: 0.9, metalness: 0.1 });
+            const generateBoundaryWall = (w, h, d, x, z) => {
+                const geo = new THREE.BoxGeometry(w, h, d);
+                const mesh = new THREE.Mesh(geo, perimeterWallMaterial);
+                mesh.position.set(x, h/2, z);
+                mesh.castShadow = true; mesh.receiveShadow = true;
+                scene.add(mesh);
+            };
+
+            // Compound limits perimeter calculations
+            generateBoundaryWall(arenaSize*2, 6, 2, 0, arenaSize);
+            generateBoundaryWall(arenaSize*2, 6, 2, 0, -arenaSize);
+            generateBoundaryWall(2, 6, arenaSize*2, arenaSize, 0);
+            generateBoundaryWall(2, 6, arenaSize*2, -arenaSize, 0);
+
+            // 7. Tactical Solid Defensive Obscure Fortification Barriers
+            const barrierMaterial = new THREE.MeshStandardMaterial({ color: 0x3a4230, roughness: 0.7, metalness: 0.4 });
+            obstacles.forEach(b => {
+                const geo = new THREE.BoxGeometry(b.w, 4, b.d);
+                const mesh = new THREE.Mesh(geo, barrierMaterial);
+                mesh.position.set(b.x, 2, b.z);
+                mesh.castShadow = true; mesh.receiveShadow = true;
+                scene.add(mesh);
+                b.mesh = mesh;
+            });
+
+            // 8. Spawn Hunting AI Mesh Object Models
+            const aiBodyGeo = new THREE.CylinderGeometry(0.5, 0.5, 2, 16);
+            const aiBodyMat = new THREE.MeshStandardMaterial({ color: 0xff3e3e, roughness: 0.5 });
+            aiEntity.mesh = new THREE.Mesh(aiBodyGeo, aiBodyMat);
+            aiEntity.mesh.position.set(aiEntity.x, 1, aiEntity.z);
+            aiEntity.mesh.castShadow = true;
+            scene.add(aiEntity.mesh);
+
+            // 9. Input API Device Listeners setup
+            bindInputPipelines();
+
+            // 10. Core Frame Refresh Frame Thread Trigger
+            window.addEventListener('resize', onWindowResizeEngineUpdate);
+            executeMasterRenderFrameLoop();
+        }
+
+        // ==========================================
+        // INPUT PIPELINES AND POINTER LOOK MECHANICS
+        // ==========================================
+        function bindInputPipelines() {
+            document.body.addEventListener('click', () => {
+                if (document.getElementById('layer-match').classList.contains('active')) {
+                    document.body.requestPointerLock();
+                }
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (document.pointerLockElement === document.body && isGameLoopActive) {
+                    cameraRotation.yaw -= e.movementX * 0.0022;
+                    cameraRotation.pitch -= e.movementY * 0.0022;
+                    cameraRotation.pitch = Math.max(-1.4, Math.min(1.4, cameraRotation.pitch));
+
+                    camera.rotation.x = cameraRotation.pitch;
+                    camera.rotation.y = cameraRotation.yaw;
+                }
+            });
+
+            window.addEventListener('keydown', (e) => handleKeyToggle(e.key.toLowerCase(), true));
+            window.addEventListener('keyup', (e) => handleKeyToggle(e.key.toLowerCase(), false));
+            window.addEventListener('mousedown', (e) => {
+                if(document.pointerLockElement === document.body && e.button === 0 && isGameLoopActive) {
+                    triggerHitscanWeaponFire();
+                }
+            });
+        }
+
+        function handleKeyToggle(key, active) {
+            if (key === 'w') playerKeys.w = active;
+            if (key === 'a') playerKeys.a = active;
+            if (key === 's') playerKeys.s = active;
+            if (key === 'd') playerKeys.d = active;
+        }
+
+        // ==========================================
+        // HITSCAN WEAPONRY SYSTEM AND SPARKS MATRIX
+        // ==========================================
+        function triggerHitscanWeaponFire() {
+            // Muzzle flash visual triggering 
+            const flash = document.getElementById('weapon-muzzle-flash');
+            flash.style.display = 'block';
+            setTimeout(() => flash.style.display = 'none', 40);
+
+            // Procedural camera shake curves recoil
+            camera.position.y += 0.05;
+            camera.position.x += (Math.random() - 0.5) * 0.03;
+
+            // Generate Raycast Projective Target Vector parameters
+            const raycaster = new THREE.Raycaster();
+            const centerVector = new THREE.Vector2(0, 0); // Directly straight center crosshair
+            raycaster.setFromCamera(centerVector, camera);
+
+            // Collect lists of dynamic impact objects meshes
+            let targetMeshes = [aiEntity.mesh];
+            obstacles.forEach(b => targetMeshes.push(b.mesh));
+
+            const intersections = raycaster.intersectObjects(targetMeshes);
+
+            if (intersections.length > 0) {
+                const hit = intersections[0];
+                generateParticleImpactSpark(hit.point);
+
+                // Check hit against AI target bounds 
+                if (hit.object === aiEntity.mesh) {
+                    aiEntity.health -= 25;
+                    // Flash feedback texture mapping
+                    aiEntity.mesh.material.color.setHex(0xffffff);
+                    setTimeout(() => aiEntity.mesh.material.color.setHex(0xff3e3e), 80);
+
+                    if (aiEntity.health <= 0) {
+                        handleTargetAIKilledProgressReward();
+                    }
+                }
+            }
+        }
+
+        function generateParticleImpactSpark(point) {
+            const sparkCount = 8;
+            const geo = new THREE.BufferGeometry();
+            const positions = [];
+            const velocities = [];
+
+            for(let i=0; i<sparkCount; i++) {
+                positions.push(point.x, point.y, point.z);
+                velocities.push((Math.random()-0.5)*0.2, Math.random()*0.2, (Math.random()-0.5)*0.2);
+            }
+
+            geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            const mat = new THREE.PointsMaterial({ color: 0xffcc00, size: 0.15, transparent: true, opacity: 1 });
+            const system = new THREE.Points(geo, mat);
+            scene.add(system);
+
+            // Dynamic short fade array animation 
+            let lifespan = 0;
+            const animateSparks = () => {
+                lifespan++;
+                const posArr = system.geometry.attributes.position.array;
+                for(let i=0; i<sparkCount; i++) {
+                    posArr[i*3] += velocities[i*3];
+                    posArr[i*3+1] += velocities[i*3+1]; // Apply velocity vectors
+                    posArr[i*3+2] += velocities[i*3+2];
+                }
+                system.geometry.attributes.position.needsUpdate = true;
+                if(lifespan < 20) {
+                    requestAnimationFrame(animateSparks);
+                } else {
+                    scene.remove(system);
+                }
+            };
+            animateSparks();
+        }
+
+        // ==========================================
+        // MATCH CONTROL ENGINE PROGRESSION TIMERS
+        // ==========================================
+        function initializeActiveCombatMatch() {
+            transitionToLayer('layer-match');
+            const alertBox = document.getElementById('match-timer-alert');
+            const roundTxt = document.getElementById('hud-round-val');
+            const aiTxt = document.getElementById('hud-ai-status');
+            const bossAlert = document.getElementById('boss-warning-hud');
+
+            // Reset positioning loops maps parameters
+            playerPosition = { x: 0, z: 12 };
+            aiEntity.x = 0; aiEntity.z = -10; aiEntity.health = 100;
+            aiEntity.mesh.position.set(0, 1, -10);
+
+            // 1. Pre-Match Server Initialization Timer (Accelerated to 3 seconds for quick demo playability)
+            let initializationCountdown = 3;
+            alertBox.innerHTML = `INITIALIZING SERVER... ASSETS LOADING<br><span style="font-size:3rem; color:var(--color-caution);">${initializationCountdown}s</span>`;
+
+            const bootTimer = setInterval(() => {
+                initializationCountdown--;
+                if (initializationCountdown > 0) {
+                    alertBox.innerHTML = `INITIALIZING SERVER... ASSETS LOADING<br><span style="font-size:3rem; color:var(--color-caution);">${initializationCountdown}s</span>`;
+                } else {
+                    clearInterval(bootTimer);
+
+                    // 2. Round Commencement Countdown Phase (Accelerated to 2 seconds for gameplay fluency)
+                    let preparationCountdown = 2;
+                    alertBox.innerHTML = `PREPARE FOR COMBAT. ROUND ${currentRound} STARTING IN...<br><span style="font-size:4rem; color:var(--color-alert);">${preparationCountdown}</span>`;
+
+                    const prepTimer = setInterval(() => {
+                        preparationCountdown--;
+                        if (preparationCountdown > 0) {
+                            alertBox.innerHTML = `PREPARE FOR COMBAT. ROUND ${currentRound} STARTING IN...<br><span style="font-size:4rem; color:var(--color-alert);">${preparationCountdown}</span>`;
                         } else {
-                            clearInterval(prepInterval);
-                            // Simulating Active Gameplay Frame Setup Metrics
-                            timerBox.innerHTML = `<span style="color: var(--color-military-green);">SIMULATION ENGAGED</span><br>ELIMINATE HUNTING AI TACTICAL UNIT`;
+                            clearInterval(prepTimer);
                             
-                            // Mocking round advancement after 10 seconds for layout verification purposes
-                            setTimeout(() => {
-                                advanceRoundMock(roundDisplay, aiDisplay, bossBanner, timerBox);
-                            }, 8000);
+                            // Clear overlays to let game engage
+                            alertBox.innerHTML = "";
+                            
+                            // Adaptive scaling text logic updates
+                            roundTxt.textContent = `Round ${currentRound}`;
+                            if (currentRound >= 6 && currentRound < 10) {
+                                aiTxt.textContent = "ADAPTIVE SEEK & DESTROY";
+                                aiTxt.style.color = "var(--color-alert)";
+                                aiEntity.speed = 0.09;
+                            } else if (currentRound >= 10) {
+                                aiTxt.textContent = "ELITE BOSS SQUADRON";
+                                bossAlert.style.display = 'block';
+                                aiEntity.speed = 0.13;
+                            } else {
+                                aiTxt.textContent = "NORMAL PATROL AI";
+                                aiEntity.speed = 0.05;
+                            }
                         }
                     }, 1000);
                 }
-            }, 100); // Accelerated testing cycle interval rate 
+            }, 1000);
         }
 
-        function advanceRoundMock(roundDisplay, aiDisplay, bossBanner, timerBox) {
-            activeMatchRound = 6; // Force skip loop parameters forward to display adaptive logic configurations
-            roundDisplay.textContent = `Round ${activeMatchRound}`;
-            aiDisplay.textContent = "ADAPTIVE SCALING ENGAGED (Accuracy + Movement Increased)";
-            aiDisplay.style.color = "var(--color-alert-red)";
+        function handleTargetAIKilledProgressReward() {
+            clearInterval(matchSequenceTimer);
+            walletBalance += 50; // Add round complete cash allocation
+            document.getElementById('wallet-txt').textContent = `$${walletBalance}`;
+            document.getElementById('hud-cash-val').textContent = `+$${walletBalance}`;
             
-            // Simulated triggers for Wave Boss Level milestones
-            setTimeout(() => {
-                activeMatchRound = 10;
-                roundDisplay.textContent = `Round ${activeMatchRound}`;
-                bossBanner.style.display = 'block';
-                timerBox.innerHTML = `<span style="color: var(--color-alert-red); font-weight: bold;">BOSS WAVE FIGHT ACTIVE</span><br>ELIMINATE SQUAD OF 5 ELITE AGENTS`;
-            }, 6000);
+            alert(`TARGET ELIMINATED! Round ${currentRound} Complete. Reward allocated.`);
+            
+            currentRound++; // Step forward challenge difficulty vectors
+            document.getElementById('boss-warning-hud').style.display = 'none';
+            abortMatchAndReturnToLobby();
         }
 
-        // Initialize Application Sequence Frame Pipeline Hooks
+        function handlePlayerKilledReset() {
+            alert("❌ MISSION CRITICAL FAILURE: TARGET ELIMINATED YOU. Resetting sequence to Round 1.");
+            currentRound = 1;
+            document.getElementById('boss-warning-hud').style.display = 'none';
+            abortMatchAndReturnToLobby();
+        }
+
+        function abortMatchAndReturnToLobby() {
+            transitionToLayer('layer-menu');
+        }
+
+        // ==========================================
+        // SOLID GEOMETRY COLLISION & MOTION MATRIX LOOPS
+        // ==========================================
+        function processPlayerMovementAndCollisions() {
+            let forwardX = Math.sin(cameraRotation.yaw);
+            let forwardZ = Math.cos(cameraRotation.yaw);
+            let rightX = Math.cos(cameraRotation.yaw);
+            let rightZ = -Math.sin(cameraRotation.yaw);
+
+            let moveX = 0; let moveZ = 0;
+            if (playerKeys.w) { moveX -= forwardX; moveZ -= forwardZ; }
+            if (playerKeys.s) { moveX += forwardX; moveZ += forwardZ; }
+            if (playerKeys.a) { moveX -= rightX; moveZ -= rightZ; }
+            if (playerKeys.d) { moveX += rightX; moveZ += rightZ; }
+
+            // Standardize velocity lengths
+            let len = Math.sqrt(moveX*moveX + moveZ*moveZ);
+            if (len > 0) {
+                moveX = (moveX / len) * 0.12;
+                moveZ = (moveZ / len) * 0.12;
+            }
+
+            let nextX = playerPosition.x + moveX;
+            let nextZ = playerPosition.z + moveZ;
+
+            // Enforce Strict Perimeter Box Wall Limits
+            const boundsLimit = arenaSize - 1.5;
+            if (nextX > boundsLimit) nextX = boundsLimit;
+            if (nextX < -boundsLimit) nextX = -boundsLimit;
+            if (nextZ > boundsLimit) nextZ = boundsLimit;
+            if (nextZ < -boundsLimit) nextZ = -boundsLimit;
+
+            // Enforce Strict Defensive Barrier Collision Box Matrices
+            const bufferRadius = 0.8;
+            obstacles.forEach(b => {
+                let minX = b.x - (b.w/2) - bufferRadius;
+                let maxX = b.x + (b.w/2) + bufferRadius;
+                let minZ = b.z - (b.d/2) - bufferRadius;
+                let maxZ = b.z + (b.d/2) + bufferRadius;
+
+                if (nextX > minX && nextX < maxX && nextZ > minZ && nextZ < maxZ) {
+                    // Axis sliding rejections
+                    if (playerPosition.x <= minX || playerPosition.x >= maxX) nextX = playerPosition.x;
+                    if (playerPosition.z <= minZ || playerPosition.z >= maxZ) nextZ = playerPosition.z;
+                }
+            });
+
+            // Apply updates to environment transforms camera objects
+            playerPosition.x = nextX; playerPosition.z = nextZ;
+            camera.position.set(playerPosition.x, 1.7, playerPosition.z); // Forced constant height level (1.7m eye level)
+        }
+
+        // ==========================================
+        // ADAPTIVE HUNTING AI ARCHITECTURE PIPELINE
+        // ==========================================
+        function processAILogicAndTracking() {
+            if (!aiEntity.mesh || document.getElementById('match-timer-alert').innerHTML !== "") return;
+
+            // Compute distances vectors to target player coordinates 
+            let dX = playerPosition.x - aiEntity.x;
+            let dZ = playerPosition.z - aiEntity.z;
+            let rangeToTarget = Math.sqrt(dX*dX + dZ*dZ);
+
+            // Dynamic Patrol vs Seek Logic States 
+            if (currentRound >= 6 || rangeToTarget < 12) {
+                // HUNTING STATE: The AI tracks your precise location coordinates smoothly
+                aiEntity.state = 'SEEK';
+                if (rangeToTarget > 2) {
+                    aiEntity.x += (dX / rangeToTarget) * aiEntity.speed;
+                    aiEntity.z += (dZ / rangeToTarget) * aiEntity.speed;
+                }
+
+                // Fire tracing mechanics if line of sight intervals approach target zones
+                let now = Date.now();
+                if (now - aiEntity.lastShotTime > 1800) {
+                    spawnAILaserTracerCylinder(aiEntity.x, aiEntity.z, playerPosition.x, playerPosition.z);
+                    aiEntity.lastShotTime = now;
+                    
+                    // Simple hit evaluation checks based on dynamic accuracy parameters
+                    let hitChance = currentRound * 0.08; 
+                    if (Math.random() < hitChance && rangeToTarget < 15) {
+                        setTimeout(() => {
+                            if(document.getElementById('layer-match').classList.contains('active')) handlePlayerKilledReset();
+                        }, 200);
+                    }
+                }
+            } else {
+                // NORMAL IDLE PATROL STATE: Rotates seamlessly around center markers
+                aiEntity.state = 'PATROL';
+                aiEntity.patrolAngle += 0.01;
+                aiEntity.x = Math.sin(aiEntity.patrolAngle) * 6;
+                aiEntity.z = -8 + Math.cos(aiEntity.patrolAngle) * 3;
+            }
+
+            // Sync matrix positions updates down to three geometries meshes
+            aiEntity.mesh.position.set(aiEntity.x, 1, aiEntity.z);
+            aiEntity.mesh.rotation.y = Math.atan2(dX, dZ);
+        }
+
+        function spawnAILaserTracerCylinder(sx, sz, tx, tz) {
+            const material = new THREE.MeshBasicMaterial({ color: 0xff3300 });
+            const points = [];
+            points.push(new THREE.Vector3(sx, 1, sz));
+            points.push(new THREE.Vector3(tx, 1.2, tz));
+            
+            const tubeGeo = new THREE.LineCurve3(points[0], points[1]);
+            const geometry = new THREE.TubeGeometry(tubeGeo, 1, 0.04, 4, false);
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+
+            // Clear projectile graphics traces from environments fields instantly
+            setTimeout(() => scene.remove(mesh), 150);
+        }
+
+        // ==========================================
+        // MAIN SYSTEM ENGINE COMPILER FRAME REFRESH
+        // ==========================================
+        function executeMasterRenderFrameLoop() {
+            requestAnimationFrame(executeMasterRenderFrameLoop);
+
+            if (isGameLoopActive) {
+                processPlayerMovementAndCollisions();
+                processAILogicAndTracking();
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        function onWindowResizeEngineUpdate() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // Auto Boot Initialization
         window.addEventListener('DOMContentLoaded', () => {
-            runLoadingPipeline();
+            executeSystemLoadingSequence();
         });
     </script>
 </body>
