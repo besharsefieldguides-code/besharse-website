@@ -69,9 +69,13 @@ body {
     margin-right: 6px;
 }
 
-/* Donate Heart Color - Gold */
+/* SPECIFIC ICON COLORS */
+.icon-contact {
+    color: #4ade80 !important; /* Green */
+}
+
 .icon-donate {
-    color: #FFD700 !important;
+    color: #FFD700 !important; /* Gold */
 }
 
 /* Hover State */
@@ -80,7 +84,8 @@ body {
     color: #000000;
 }
 
-/* Heart turns black on hover for visual feedback */
+/* Icons turn black on hover for visual feedback */
+.navbar-dropdown-drawer a:hover .icon-contact,
 .navbar-dropdown-drawer a:hover .icon-donate {
     color: #000000 !important;
 }
@@ -162,7 +167,7 @@ body {
 }
 
 .navbar-dropdown-drawer ul {
-    list-style: none; /* REMOVES BULLET POINTS */
+    list-style: none;
     padding: 0;
     margin: 0;
 }
