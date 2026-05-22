@@ -5,105 +5,89 @@
     box-sizing: border-box;
 }
 
-/* Base Body Styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #ffffff;
     color: #000000;
 }
 
-/* Navbar Container Header Panel */
+/* Navbar Container - Height kept slim for room */
 .navbar {
     position: relative; 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #556B2F; /* Olive Green background */
+    background-color: #556B2F; /* Olive Green */
     padding: 0 0.5rem; 
-    height: 49px;
+    height: 44px; /* Slightly shorter for more room */
     z-index: 1000; 
 }
 
-/* Left Side Layout: Title text */
+/* Brand Title - Matches the unified clean scale */
 .navbar-title {
     font-family: 'Playpen Sans', cursive;
-    font-size: 1.3rem;
+    font-size: 1.1rem; /* Scaled down for more room */
     font-weight: 700;
     color: #ffffff; 
     cursor: default;
     user-select: none;
 }
 
-/* Middle Layout Position: Core Four Links */
+/* Navigation Links - Unified Font and Icon Size */
 .navbar-links-visible {
     display: flex;
     list-style: none;
-    height: 100%;
     align-items: center;
     margin-left: auto; 
-    margin-right: 1.5rem;  
+    margin-right: 1rem;  
 }
 
-.navbar-links-visible li {
-    display: flex;
-    align-items: center;
-}
-
-/* Base Link Styling */
 .navbar-links-visible a,
 .navbar-dropdown-drawer a {
-    position: relative;
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: #ffffff; 
-    transition: color 0.2s ease, background-color 0.2s ease;
+    color: #ffffff; /* Uniform color for all options */
+    font-size: 0.8rem; /* UNIFIED FONT SIZE */
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: color 0.2s ease;
 }
 
-/* Top Bar Specific Link Styles */
 .navbar-links-visible a {
-    padding: 0.35rem 0.6rem; 
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
+    padding: 0.3rem 0.5rem;
+}
+
+/* Icons - Unified Size Across All Sections */
+.bi {
+    font-size: 0.85rem !important; /* UNIFIED ICON SIZE */
+    color: #ffffff; /* Uniform icon color */
+    transition: color 0.2s ease;
 }
 
 .navbar-links-visible a .bi {
-    margin-right: 8px;
-    font-size: 1rem;
+    margin-right: 6px;
 }
 
-/* HOVER EFFECT: Text/Icons flip to black */
+/* UNIFIED HOVER - Text and Icons turn Black */
 .navbar-links-visible a:hover,
-.navbar-dropdown-drawer a:hover {
-    color: #000000; 
+.navbar-dropdown-drawer a:hover,
+.hamburger-toggle:hover {
+    color: #000000 !important;
 }
 
-/* Underline Animation for Top Bar */
-.navbar-links-visible a::after {
-    content: '';
-    position: absolute;
-    bottom: 2px;
-    left: 0.6rem;
-    right: 0.6rem;
-    height: 2px;
-    background-color: #000000; 
-    transform: scaleX(0);
-    transition: transform 0.2s ease;
+.navbar-links-visible a:hover .bi,
+.navbar-dropdown-drawer a:hover .bi {
+    color: #000000 !important;
 }
 
-.navbar-links-visible a:hover::after {
-    transform: scaleX(1);
-}
-
-/* Action Center Controls */
+/* Compact Search Bar */
 .navbar-actions {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
 }
 
-/* Search Box Container */
 .search-container {
     position: relative;
     display: flex;
@@ -112,22 +96,20 @@ body {
 
 .search-icon {
     position: absolute;
-    left: 8px;
-    color: #ffffff; 
-    font-size: 0.85rem;
-    pointer-events: none;
+    left: 7px;
+    font-size: 0.75rem !important;
+    color: #ffffff;
 }
 
 .search-input {
-    background-color: rgba(255, 255, 255, 0.15); 
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-    padding: 0.25rem 0.5rem 0.25rem 1.75rem; 
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    padding: 0.2rem 0.4rem 0.2rem 1.6rem;
     color: #ffffff;
-    font-size: 0.8rem;
-    width: 150px;
+    font-size: 0.8rem; /* UNIFIED SIZE */
+    width: 120px; /* Slimmer for room */
     outline: none;
-    transition: background-color 0.2s ease;
 }
 
 .search-input:focus {
@@ -139,33 +121,30 @@ body {
     color: #000000;
 }
 
-/* Hamburger Button Styling */
+/* Hamburger Icon - Unified Size */
 .hamburger-toggle {
     background: none;
     border: none;
     color: #ffffff;
-    font-size: 1.5rem; 
     cursor: pointer;
     display: flex;
-    align-items: center;
-    padding: 0.25rem;
+    padding: 0.2rem;
 }
 
-.hamburger-toggle:hover {
-    color: #000000;
+.hamburger-toggle .bi {
+    font-size: 1.1rem !important; /* Slightly larger for usability but still thin */
 }
 
-/* DROPDOWN DRAWER - Fixed Alignment */
+/* DROPDOWN DRAWER - Maximized for Space */
 .navbar-dropdown-drawer {
     position: absolute;
-    top: 49px; 
+    top: 44px; 
     right: 0; 
     background-color: #556B2F; 
-    border-radius: 0 0 0px 8px; 
-    box-shadow: -6px 6px 20px rgba(0,0,0,0.3);
-    padding: 0.6rem 0;
+    box-shadow: -4px 4px 10px rgba(0,0,0,0.2);
+    padding: 0.3rem 0;
     display: none; 
-    min-width: 220px; 
+    min-width: 150px; /* Slimmed down width */
 }
 
 .navbar-dropdown-drawer.active {
@@ -176,34 +155,13 @@ body {
     list-style: none;
 }
 
-/* GRID FIX for disoriented text/icons */
 .navbar-dropdown-drawer a {
-    display: grid; 
-    grid-template-columns: 40px 1fr; /* Fixed column for icons to align text */
-    align-items: center;
-    padding: 0.8rem 1.5rem; 
-    font-family: 'Playpen Sans', cursive;
-    font-size: 0.95rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-}
-
-.navbar-dropdown-drawer a:hover {
-    background-color: rgba(0,0,0,0.08);
-}
-
-/* ICON COLOR CLASSES */
-.icon-photos { color: #FFD700; }   /* Gold */
-.icon-events { color: #FF6347; }   /* Tomato Red */
-.icon-services { color: #87CEEB; } /* Sky Blue */
-.icon-contact { color: #98FB98; }  /* Pale Green */
-.icon-donate { color: #FFB6C1; }   /* Light Pink */
-
-/* Reset icon color to black on hover to match text */
-.navbar-dropdown-drawer a:hover .bi {
-    color: #000000 !important;
+    display: flex;
+    justify-content: flex-start;
+    padding: 0.5rem 1rem;
+    width: 100%;
 }
 
 .navbar-dropdown-drawer a .bi {
-    font-size: 1.1rem;
+    margin-right: 10px;
 }
