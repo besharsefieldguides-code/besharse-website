@@ -3,26 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Game Portal</title>
+    <title>Tactical Boot</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+    <div class="crt-overlay"></div> <!-- Scanline effect -->
+    
     <!-- Loading Screen -->
     <div id="loading-screen" class="overlay">
         <div class="loader">
-            <h1>INITIALIZING...</h1>
-            <div class="progress-bar"><div id="progress-fill"></div></div>
+            <div class="header-tag">SYSTEM_INITIALIZATION</div>
+            <h1 id="status-text">INITIALIZING VULKAN_PIPELINES...</h1>
+            <div class="progress-bar">
+                <div id="progress-fill"></div>
+            </div>
         </div>
     </div>
 
     <!-- Main Menu Screen -->
     <div id="menu-screen" class="overlay hidden">
-        <h1>GAME TITLE</h1>
-        <div class="menu-options">
-            <button onclick="console.log('Starting Game...')">PLAY</button>
-            <button onclick="console.log('Opening Options...')">OPTIONS</button>
-            <button onclick="console.log('Exiting...')">EXIT</button>
+        <div class="menu-container">
+            <h1 class="glitch">PROJECT: SURVIVAL</h1>
+            <div class="menu-options">
+                <button class="nav-btn">DEPLOY</button>
+                <button class="nav-btn">LOADOUT</button>
+                <button class="nav-btn">SETTINGS</button>
+            </div>
         </div>
     </div>
 
