@@ -58,25 +58,14 @@ body {
     padding: 0.3rem 0.5rem;
 }
 
+/* Bold and White Hollow Icons */
 .bi { 
     font-size: 0.85rem !important; 
     margin-right: 6px;
+    color: #ffffff !important;
+    /* This creates the "bold" look for hollow icons */
+    -webkit-text-stroke: 0.5px #ffffff; 
 }
-
-/* --- ICON COLOR MAPPING --- */
-
-/* Top Navbar Icons */
-.icon-home { color: #A5F3FC !important; }    /* Cyan */
-.icon-about { color: #FDE68A !important; }   /* Yellow */
-.icon-books { color: #FFA07A !important; }   /* Light Salmon */
-.icon-blog { color: #D8BFD8 !important; }    /* Thistle */
-
-/* Dropdown Icons */
-.icon-photos { color: #FFD700 !important; }   /* Gold */
-.icon-events { color: #FF6347 !important; }   /* Tomato Red */
-.icon-services { color: #87CEEB !important; } /* Sky Blue */
-.icon-contact { color: #4ade80 !important; }  /* Green */
-.icon-donate { color: #FFD700 !important; }   /* Gold */
 
 /* Hover State */
 .navbar-links-visible a:hover,
@@ -84,10 +73,11 @@ body {
     color: #000000;
 }
 
-/* Force icons to black on hover for visibility */
+/* On hover, icons turn black and stroke matches */
 .navbar-links-visible a:hover .bi,
 .navbar-dropdown-drawer a:hover .bi {
     color: #000000 !important;
+    -webkit-text-stroke: 0.5px #000000;
 }
 
 .navbar-actions {
