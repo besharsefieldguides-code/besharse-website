@@ -2,34 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>UPLINK_ESTABLISHED</title>
+    <title>PROJECT: SURVIVAL</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="glitch-layer"></div>
-    <div class="scanline"></div>
-
-    <div id="loading-screen" class="overlay">
-        <div class="loader-content">
-            <h1 id="status-text">DECRYPTING_FILES...</h1>
-            <div class="progress-container">
-                <div id="progress-fill"></div>
+    <div id="ui-root">
+        <!-- Menu Layer -->
+        <div id="menu-screen" class="view">
+            <h1>BLACK_OPS_CORE</h1>
+            <div class="menu-grid">
+                <button onclick="Engine.setState('combat')">DEPLOY</button>
+                <button onclick="Engine.setState('inventory')">INVENTORY</button>
+                <button onclick="Engine.setState('crates')">CRATE_DEPOT</button>
             </div>
-            <div class="data-stream">001011001101010100101010101</div>
+            <div class="stats">KEYS: <span id="key-count">0</span> | LVL: <span id="level-count">1</span></div>
+        </div>
+
+        <!-- Inventory Layer -->
+        <div id="inventory-screen" class="view hidden">
+            <h1>LOADOUT</h1>
+            <div id="inventory-list"></div>
+            <button onclick="Engine.setState('menu')">BACK</button>
+        </div>
+
+        <!-- Combat Layer -->
+        <div id="combat-screen" class="view hidden">
+            <div class="hud">ROUND: <span id="round-val">1</span></div>
+            <div id="game-canvas">
+                <!-- 3D Engine will mount here -->
+                <div class="debug-ai">AI_ENEMIES: <span id="ai-count">1</span></div>
+            </div>
         </div>
     </div>
-
-    <div id="menu-screen" class="overlay hidden">
-        <div class="menu-container">
-            <h1 class="glitch-text">BLACK_OPS_CORE</h1>
-            <div class="menu-options">
-                <button class="menu-btn">CAMPAIGN</button>
-                <button class="menu-btn">MULTIPLAYER</button>
-                <button class="menu-btn">SETTINGS</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="main.js"></script>
+    <script src="engine.js"></script>
 </body>
 </html>
