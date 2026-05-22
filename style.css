@@ -64,6 +64,7 @@ body {
     font-size: 0.85rem;
     letter-spacing: 0.5px;
     transition: color 0.2s ease;
+    line-height: 1; /* Locks text baseline tracking perfectly to avoid stacking distortion */
 }
 
 /* Thin Hollow Icon Interior Padding Rule Adjustment */
@@ -71,6 +72,8 @@ body {
 .navbar-dropdown-drawer a .bi {
     margin-right: 9px; /* Gives the text perfect breathing room */
     font-size: 0.9rem;
+    display: inline-block;
+    line-height: 1;
 }
 
 /* Link Actions Hover Colors Flip State Engine */
@@ -174,13 +177,13 @@ body {
 .navbar-dropdown-drawer {
     position: absolute;
     top: 49px; /* Placed directly flush below the primary header row base edge lines */
-    right: 0.5rem;
+    right: 0rem; /* Shifted 5% outward rightward relative to parent limits */
     background-color: #556B2F; /* Keeps matches uniform olive backdrop */
-    border-radius: 0 0 6px 6px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    padding: 0.5rem 0;
+    border-radius: 0 0 0px 6px; /* Squared outer corner to hug the browser frame edge nicely */
+    box-shadow: -4px 4px 12px rgba(0,0,0,0.15);
+    padding: 0.4rem 0;
     display: none; /* Block view layout hidden by default layers */
-    min-width: 170px;
+    min-width: 160px;
 }
 
 /* Active Class Dynamic Script State Trigger Layout Rules Override */
@@ -192,20 +195,25 @@ body {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0px; /* Strips random gaps to prevent vertical distortion */
 }
 
 .navbar-dropdown-drawer li {
     width: 100%;
 }
 
+/* Cleans up internal alignments to look highly uniform, sharp, and left-justified */
 .navbar-dropdown-drawer a {
-    justify-content: flex-start; /* Left-justifies content stacked inside dropdown column menus layout spaces */
-    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Rigid left alignment */
+    padding: 0.6rem 1.2rem; /* Clean even layout pads */
+    width: 100%;
 }
 
+/* Underline Positioning Adjustment for Dropdown Left-Aligned Style */
 .navbar-dropdown-drawer a::after {
     bottom: 4px;
-    left: 1rem;
-    right: 1rem;
+    left: 1.2rem;
+    right: 1.2rem;
 }
