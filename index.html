@@ -50,23 +50,8 @@
         </div>
     </nav>
 
-    <!-- Simple Script to Handle the Opening and Closing Animation States -->
-    <script>
-        const toggleBtn = document.getElementById('menuToggleBtn');
-        const drawer = document.getElementById('dropdownDrawer');
-
-        toggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            drawer.classList.toggle('active');
-        });
-
-        // Silently close drawer if user clicks outside of the navigation panel components
-        document.addEventListener('click', (e) => {
-            if (!drawer.contains(e.target) && !toggleBtn.contains(e.target)) {
-                drawer.classList.remove('active');
-            }
-        });
-    </script>
+    <!-- Link to the External JavaScript File -->
+    <script src="script.js"></script>
 
 </body>
 </html>
