@@ -1,0 +1,67 @@
+/* Reset default browser margins and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Base Body Styling */
+body {
+    font-family: Arial, sans-serif; /* Fallback font for the body */
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Navbar Container */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #556B2F; /* Olive Green background */
+    padding: 0 1.5rem; /* Pushes elements to the edge without hitting the screen border */
+    height: 70px; /* Uniform height for the navbar */
+}
+
+/* Left Side: Brand Title */
+.navbar-title {
+    font-family: 'Playpen Sans', cursive;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #000000; /* Strict black text */
+    cursor: default; /* Non-selectable text indicator */
+    user-select: none; /* Prevents text highlighting */
+}
+
+/* Right Side: Navigation Menu Layout */
+.navbar-links {
+    display: flex;
+    list-style: none;
+    height: 100%;
+    align-items: center;
+}
+
+/* Nav Menu Items */
+.navbar-links li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Individual Link Styling */
+.navbar-links a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 1.2rem; /* Perfectly balances the spacing between tabs */
+    text-decoration: none;
+    color: #000000; /* Strict black text */
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px; /* Subtle spacing for all-caps look */
+    transition: background-color 0.2s ease; /* Smooth hover transition */
+}
+
+/* Lighter Green Hover Effect for Tabs Only */
+.navbar-links a:hover {
+    background-color: #6B8E23; /* Lighter Olive Green */
+}
