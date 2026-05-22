@@ -1,53 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-
-body, html {
-    margin: 0; padding: 0;
-    width: 100%; height: 100%;
-    background-color: #050505;
-    color: #00ff99; /* Tactical Green */
-    font-family: 'Orbitron', sans-serif;
-    overflow: hidden;
-}
-
-/* CRT Scanline Effect */
-.crt-overlay {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-    background-size: 100% 4px, 3px 100%;
-    pointer-events: none;
-    z-index: 10;
+body {
+    margin: 0; background: #080808;
+    color: #ff3333; /* BO2 Red */
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden; text-transform: uppercase;
 }
 
 .overlay {
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%;
+    position: absolute; width: 100%; height: 100%;
     display: flex; justify-content: center; align-items: center;
-    transition: opacity 0.8s ease;
+    z-index: 5;
 }
 
-.header-tag { font-size: 0.8rem; letter-spacing: 4px; margin-bottom: 10px; opacity: 0.7; }
+/* Glitch Effect */
+.glitch-layer {
+    position: absolute; width: 100%; height: 100%;
+    background: rgba(255, 0, 0, 0.05); pointer-events: none;
+    animation: flicker 0.1s infinite;
+}
 
-.progress-bar {
-    width: 400px; height: 4px;
-    background: #1a1a1a;
-    margin-top: 10px;
-    box-shadow: 0 0 10px rgba(0, 255, 153, 0.2);
+@keyframes flicker {
+    0% { opacity: 0.1; }
+    50% { opacity: 0.2; }
+    100% { opacity: 0.1; }
+}
+
+.progress-container {
+    width: 300px; height: 2px;
+    background: #222; margin-top: 15px;
 }
 
 #progress-fill {
-    width: 0%; height: 100%;
-    background: #00ff99;
-    box-shadow: 0 0 15px #00ff99;
+    width: 0%; height: 100%; background: #ff3333;
+    box-shadow: 0 0 10px #ff3333;
 }
 
-button {
-    background: transparent; border: 1px solid #00ff99;
-    color: #00ff99; padding: 15px 50px;
-    cursor: pointer; font-family: inherit;
-    transition: all 0.3s;
-    margin: 10px;
+.menu-btn {
+    background: transparent; border: 1px solid #ff3333;
+    color: #ff3333; padding: 10px 30px;
+    margin: 10px; cursor: pointer;
+    font-weight: bold;
 }
 
-button:hover { background: #00ff99; color: #000; box-shadow: 0 0 20px #00ff99; }
+.menu-btn:hover { background: #ff3333; color: white; }
+
 .hidden { display: none; }
