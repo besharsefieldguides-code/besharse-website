@@ -4,38 +4,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingScreen = document.getElementById('loading-screen');
     const menuScreen = document.getElementById('menu-screen');
 
-    const bootSequences = [
-        "INITIALIZING WEBGL_CONTEXT...",
-        "STREAMING ASSET_CHUNKS...",
-        "SYNCING WEBRTC_NODES...",
-        "CALIBRATING PHYSICS_ENGINE...",
-        "FINALIZING SHADER_COMPILATION..."
+    const sequences = [
+        "UPLINK_ESTABLISHED...",
+        "DECRYPTING_SECURE_CHANNEL...",
+        "ACCESSING_TERMINAL...",
+        "SYSTEM_OVERRIDE_ACTIVE...",
+        "READY_FOR_DEPLOYMENT..."
     ];
 
     let progress = 0;
-    let seqIndex = 0;
+    let seqIdx = 0;
 
     const interval = setInterval(() => {
-        progress += 1;
+        progress += 2;
         progressFill.style.width = progress + '%';
 
-        // Update status text dynamically
-        if (progress % 20 === 0 && seqIndex < bootSequences.length) {
-            statusText.innerText = bootSequences[seqIndex];
-            seqIndex++;
+        if (progress % 20 === 0 && seqIdx < sequences.length) {
+            statusText.innerText = sequences[seqIdx];
+            seqIdx++;
         }
 
         if (progress >= 100) {
             clearInterval(interval);
-            setTimeout(transitionToMenu, 500);
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                menuScreen.classList.remove('hidden');
+            }, 500);
         }
-    }, 40);
-
-    function transitionToMenu() {
-        loadingScreen.style.opacity = '0';
-        setTimeout(() => {
-            loadingScreen.style.display = 'none';
-            menuScreen.classList.remove('hidden');
-        }, 800);
-    }
+    }, 60);
 });
