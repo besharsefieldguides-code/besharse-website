@@ -7,25 +7,25 @@
 
 /* Base Body Styling */
 body {
-    font-family: Arial, sans-serif; /* Fallback font for the body */
+    font-family: Arial, sans-serif;
     background-color: #ffffff;
     color: #000000;
 }
 
-/* Navbar Container */
+/* Navbar Container (Reduced height by 30%) */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #556B2F; /* Olive Green background */
-    padding: 0 1.5rem; /* Pushes elements to the edge without hitting the screen border */
-    height: 70px; /* Uniform height for the navbar */
+    padding: 0 1.5rem; /* Pushes elements to the edge without hitting screen borders */
+    height: 49px; /* Shrunk 30% from original 70px */
 }
 
 /* Left Side: Brand Title */
 .navbar-title {
     font-family: 'Playpen Sans', cursive;
-    font-size: 1.5rem;
+    font-size: 1.3rem; /* Slightly balanced down for the smaller navbar height */
     font-weight: 700;
     color: #000000; /* Strict black text */
     cursor: default; /* Non-selectable text indicator */
@@ -42,22 +42,23 @@ body {
 
 /* Nav Menu Items */
 .navbar-links li {
-    height: 100%;
     display: flex;
     align-items: center;
+    margin-left: 0.5rem; /* Separator spacing for isolated boxes */
 }
 
-/* Individual Link Styling */
+/* Individual Link Styling (Smaller, isolated hover boxes) */
 .navbar-links a {
     display: flex;
     align-items: center;
-    height: 100%;
-    padding: 0 1.2rem; /* Perfectly balances the spacing between tabs */
+    justify-content: center;
+    padding: 0.4rem 1rem; /* Compact padding to create a smaller square/rectangle hover footprint */
+    border-radius: 4px; /* Optional slight rounding for a clean look */
     text-decoration: none;
     color: #000000; /* Strict black text */
     font-weight: 600;
-    font-size: 0.95rem;
-    letter-spacing: 0.5px; /* Subtle spacing for all-caps look */
+    font-size: 0.85rem; /* Sized down to perfectly fit the shorter bar */
+    letter-spacing: 0.5px;
     transition: background-color 0.2s ease; /* Smooth hover transition */
 }
 
