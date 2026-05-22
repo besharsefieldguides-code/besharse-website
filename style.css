@@ -12,24 +12,24 @@ body {
     color: #000000;
 }
 
-/* Navbar Container (Reduced height by 30%) */
+/* Navbar Container */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #556B2F; /* Olive Green background */
-    padding: 0 1.5rem; /* Pushes elements to the edge without hitting screen borders */
-    height: 49px; /* Shrunk 30% from original 70px */
+    padding: 0 0.5rem; /* Pushed further to the left and right edges */
+    height: 49px;
 }
 
 /* Left Side: Brand Title */
 .navbar-title {
     font-family: 'Playpen Sans', cursive;
-    font-size: 1.3rem; /* Slightly balanced down for the smaller navbar height */
+    font-size: 1.3rem;
     font-weight: 700;
     color: #000000; /* Strict black text */
-    cursor: default; /* Non-selectable text indicator */
-    user-select: none; /* Prevents text highlighting */
+    cursor: default;
+    user-select: none;
 }
 
 /* Right Side: Navigation Menu Layout */
@@ -44,25 +44,36 @@ body {
 .navbar-links li {
     display: flex;
     align-items: center;
-    margin-left: 0.5rem; /* Separator spacing for isolated boxes */
 }
 
-/* Individual Link Styling (Smaller, isolated hover boxes) */
+/* Individual Link Styling */
 .navbar-links a {
+    position: relative; /* Setup for professional underline marker */
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.4rem 1rem; /* Compact padding to create a smaller square/rectangle hover footprint */
-    border-radius: 4px; /* Optional slight rounding for a clean look */
+    height: 100%;
+    padding: 0 0.6rem; /* Squeezed spacing closely together */
     text-decoration: none;
     color: #000000; /* Strict black text */
     font-weight: 600;
-    font-size: 0.85rem; /* Sized down to perfectly fit the shorter bar */
-    letter-spacing: 0.5px;
-    transition: background-color 0.2s ease; /* Smooth hover transition */
+    font-size: 0.9rem;
 }
 
-/* Lighter Green Hover Effect for Tabs Only */
-.navbar-links a:hover {
-    background-color: #6B8E23; /* Lighter Olive Green */
+/* Professional Underline Hover Effect */
+.navbar-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 8px; /* Places the line cleanly right below the text */
+    left: 0.6rem; /* Aligns line perfectly with text boundaries */
+    right: 0.6rem;
+    height: 2px; /* Thickness of the underline accent */
+    background-color: #6B8E23; /* Lighter Olive Green accent */
+    transform: scaleX(0); /* Hidden by default */
+    transition: transform 0.2s ease;
+}
+
+/* Show Underline on Hover */
+.navbar-links a:hover::after {
+    transform: scaleX(1);
 }
