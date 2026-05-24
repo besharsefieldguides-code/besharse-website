@@ -9,11 +9,11 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* Navbar Container (Darkened olive green tone) */
+/* Navbar Container */
 .navbar {
-    background-color: #415224; /* Richer, slightly darker Olive Green */
-    color: #f4f1ea; /* Cream/Off-white text */
-    padding: 0 2rem; /* Removed vertical padding here to allow full-bleed hover squares */
+    background-color: #415224; 
+    color: #f4f1ea; 
+    padding: 0 2rem; 
     box-shadow: 0 2px 4px rgba(0,0,0,0.12);
     position: sticky;
     top: 0;
@@ -25,11 +25,11 @@ body {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    align-items: stretch; /* Forces all inner child blocks to fill the full vertical height */
-    height: 52px; /* Fixed clean, slim height profile */
+    align-items: stretch; 
+    height: 52px; 
 }
 
-/* Brand Title (Clean, Default sans-serif look) */
+/* Brand Title */
 .brand {
     font-size: 1.25rem;
     font-weight: 600;
@@ -37,22 +37,22 @@ body {
     text-decoration: none;
     letter-spacing: -0.3px;
     display: flex;
-    align-items: center; /* Centers the brand text vertically */
+    align-items: center; 
 }
 
 /* Right Side Grouping */
 .nav-right {
     display: flex;
-    align-items: stretch; /* Stretches sub-containers vertically to borders */
+    align-items: stretch; 
     gap: 20px;
 }
 
-/* Links Container */
+/* Links */
 .nav-links {
     list-style: none;
     display: flex;
-    align-items: stretch; /* Ensures the list items scale to top/bottom */
-    gap: 0; /* Clear gaps to maintain continuous border-to-border blocks */
+    align-items: stretch;
+    gap: 0;
 }
 
 .nav-links li {
@@ -65,40 +65,41 @@ body {
     color: #f4f1ea;
     font-weight: 500;
     font-size: 0.9rem;
-    padding: 0 20px; /* Horizontal spacing inside the square */
-    border-radius: 0; /* Crisp, sharp square/rectangle profiles */
+    padding: 0 20px; 
     transition: background-color 0.15s ease;
     display: flex;
-    align-items: center; /* Centers the tab text inside the large hover block */
+    align-items: center; 
 }
 
-/* Full-bleed transparent square background hover stretching to top and bottom edge */
 .nav-links a:hover {
-    background-color: rgba(255, 255, 255, 0.18); /* Brighter modern premium tint */
+    background-color: rgba(255, 255, 255, 0.18); 
 }
 
-/* Search Bar (Vertically centered container structure) */
+/* Search Bar - Perfect Alignment Fix */
 .search-box-container {
     display: flex;
-    align-items: center;
+    align-items: center; /* Vertically centers the search group */
 }
 
 .search-box {
     display: flex;
     align-items: center;
     background: transparent;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.18); /* Updated to match hover effect color exactly */
-    padding: 2px 4px;
+    /* Line matches hover effect color perfectly */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.18); 
+    padding: 0 4px;
+    height: 28px; /* Tighter height to pull the line up closer to the text/icon */
 }
 
 .search-box input {
     background: none;
     border: none;
     color: #f4f1ea;
-    padding: 4px;
+    padding: 0 4px;
     outline: none;
     width: 130px;
     font-size: 0.85rem;
+    line-height: 28px;
 }
 
 .search-box input::placeholder {
@@ -112,14 +113,12 @@ body {
     cursor: pointer;
     font-size: 0.85rem;
     opacity: 0.8;
-    transition: opacity 0.2s;
+    height: 28px;
+    display: flex;
+    align-items: center;
 }
 
-.search-box button:hover {
-    opacity: 1;
-}
-
-/* Dropdown / Hamburger Menu Toggle area */
+/* Dropdown / Hamburger */
 .dropdown {
     position: relative;
     display: flex;
@@ -130,44 +129,37 @@ body {
     background: none;
     border: none;
     color: #f4f1ea;
-    padding: 0 20px; /* Wide square base setup */
+    padding: 0 20px; 
     font-size: 1.1rem;
-    border-radius: 0; /* Fully sharp corners matching links */
     cursor: pointer;
     transition: background-color 0.15s ease;
     display: flex;
-    align-items: center; /* Centers the icon vertically within the full-height block */
+    align-items: center; 
 }
 
-/* Full height toggle hover square touches top and bottom bar border perfectly */
 .dropbtn:hover {
     background-color: rgba(255, 255, 255, 0.18);
 }
 
-/* Upgraded Dropdown Panel (Shifted further right to eliminate the gap) */
 .dropdown-content {
     display: none;
     position: absolute;
-    right: -32px; /* Perfect right alignment alignment adjustment */
-    background-color: #415224; /* Matches the slightly darker Olive Green */
+    right: -32px; 
+    background-color: #415224; 
     min-width: 180px;
     box-shadow: 0px 8px 24px rgba(0,0,0,0.2);
-    border-radius: 0; /* Keeps full sharp box theme */
-    top: 52px; /* Aligns directly beneath the full-bleed navbar bounds */
-    overflow: hidden;
-    padding: 0; 
+    top: 52px; 
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Individual dropdown links turned into big, clean squares */
 .dropdown-content a {
     color: #f4f1ea;
-    padding: 16px 20px; /* Big, heavy square tracking padding rules */
+    padding: 16px 20px; 
     text-decoration: none;
     display: block;
     font-size: 0.9rem;
     font-weight: 500;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Minimal design panel separators */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
     transition: background-color 0.15s ease;
 }
 
@@ -175,17 +167,14 @@ body {
     border-bottom: none;
 }
 
-/* Dropdown link item hover actions matching standard bright theme rules */
 .dropdown-content a:hover {
     background-color: rgba(255, 255, 255, 0.18);
 }
 
-/* Active State Class triggered via JS */
 .show {
     display: block;
 }
 
-/* Responsive breakpoint: collapsing layout links if viewport window breaks */
 @media (max-width: 820px) {
     .nav-links {
         display: none;
