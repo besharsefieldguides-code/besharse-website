@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Besharse Field Guides</title>
-    <!-- Default clean sans-serif UI font stack -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Search and Hamburger Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,10 +12,8 @@
 
 <nav class="navbar">
     <div class="nav-container">
-        <!-- Brand Logo (Clean Default Font) -->
         <a href="/" class="brand">Besharse Field Guides</a>
 
-        <!-- Right Side Menu -->
         <div class="nav-right">
             <ul class="nav-links">
                 <li><a href="/">Home</a></li>
@@ -26,13 +22,13 @@
                 <li><a href="/blog">Blog</a></li>
             </ul>
 
-            <!-- Search Bar -->
-            <div class="search-box">
-                <input type="text" placeholder="Search...">
-                <button type="submit"><i class="fas fa-search"></i></button>
+            <div class="search-box-container">
+                <div class="search-box">
+                    <input type="text" placeholder="Search...">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </div>
             </div>
 
-            <!-- Hamburger Dropdown -->
             <div class="dropdown">
                 <button class="dropbtn" id="menuToggle" aria-label="Toggle Menu">
                     <i class="fas fa-bars"></i>
@@ -48,6 +44,21 @@
         </div>
     </div>
 </nav>
+
+<header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <p class="origin">Founded in Monette, Arkansas</p>
+        <h1>Besharse Field Guides</h1>
+        <p class="tagline">Providing comprehensive, expert-level wildlife field guides.</p>
+        <div class="hero-btns">
+            <a href="/about" class="btn-primary">Read More</a>
+        </div>
+    </div>
+    <div class="hero-footer">
+        <p>&copy; 2026 Besharse Field Guides. All Rights Reserved.</p>
+    </div>
+</header>
 
 <script src="script.js"></script>
 </body>
