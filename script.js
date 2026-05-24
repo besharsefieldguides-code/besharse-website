@@ -1,115 +1,112 @@
-const authManager = {
-    isLoggedIn: () => localStorage.getItem('isLoggedIn') === 'true',
-    getUserName: () => localStorage.getItem('userName') || 'User',
-    isAdmin: () => localStorage.getItem('userRole') === 'ADMIN',
-    
-    validateAndLogin: (email, password) => {
-        const cleanEmail = email.trim().toLowerCase();
-        
-        if (cleanEmail === 'austinbmatthew1811@gmail.com' && password === 'Matthew#2024') {
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('userName', 'Admin');
-            localStorage.setItem('userRole', 'ADMIN');
+const ADMIN_EMAIL = 'austinbmatthew1811@gmail.com';
+const ADMIN_PASS = 'Matthew#2024';
+
+const auth = {
+    check: () => localStorage.getItem('isAuth') === 'true',
+    isAdmin: () => localStorage.getItem('role') === 'ADMIN',
+    getUser: () => localStorage.getItem('uName') || 'Guest',
+
+    login: (email, pass) => {
+        if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+            localStorage.setItem('isAuth', 'true');
+            localStorage.setItem('role', 'ADMIN');
+            localStorage.setItem('uName', 'Admin');
             return true;
-        } 
-        
-        if (cleanEmail !== '' && password.length >= 4) {
-            const name = cleanEmail.split('@')[0];
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('userName', name.charAt(0).toUpperCase() + name.slice(1));
-            localStorage.setItem('userRole', 'USER');
-            mockDB.addUser(localStorage.getItem('userName'), cleanEmail);
+        }
+        if (email && pass.length >= 4) {
+            localStorage.setItem('isAuth', 'true');
+            localStorage.setItem('role', 'USER');
+            localStorage.setItem('uName', email.split('@')[0]);
+            db.saveUser(email);
             return true;
         }
         return false;
     },
 
-    signOut: () => {
+    logout: () => {
         localStorage.clear();
         window.location.href = 'index.html';
     }
 };
 
-const mockDB = {
-    getUsers: () => {
-        const data = localStorage.getItem('user_registry');
-        // Initial state: NO accounts except the logged in admin
-        return data ? JSON.parse(data) : [];
-    },
-    saveUsers: (data) => localStorage.setItem('user_registry', JSON.stringify(data)),
-    addUser: (name, email) => {
-        let users = mockDB.getUsers();
-        if(!users.find(u => u.email === email)) {
-            users.push({ id: Date.now(), name, email, status: 'Active' });
-            mockDB.saveUsers(users);
+const db = {
+    getUsers: () => JSON.parse(localStorage.getItem('user_db') || '[]'),
+    saveUser: (email) => {
+        let users = db.getUsers();
+        if (!users.find(u => u.email === email)) {
+            users.push({ id: Date.now(), name: email.split('@')[0], email: email, status: 'Active' });
+            localStorage.setItem('user_db', JSON.stringify(users));
         }
     },
-    removeUser: (id) => {
-        let users = mockDB.getUsers().filter(u => u.id !== id);
-        mockDB.saveUsers(users);
-        renderAdminTable();
+    deleteUser: (id) => {
+        let users = db.getUsers().filter(u => u.id !== id);
+        localStorage.setItem('user_db', JSON.stringify(users));
+        renderAdmin();
     }
 };
 
+// UI Handling
 document.addEventListener('DOMContentLoaded', () => {
-    // Loader
-    const loader = document.getElementById('page-loader');
-    window.addEventListener('load', () => setTimeout(() => loader.classList.add('fade-out'), 300));
+    const profBtn = document.getElementById('profileBtn');
+    const profMenu = document.getElementById('profileDropdown');
+    const label = document.getElementById('profileLabel');
+    const adminSlot = document.getElementById('adminLinkPlaceholder');
 
-    // Profile Label
-    const profileLabel = document.getElementById('profileLabel');
-    if (profileLabel) profileLabel.textContent = authManager.isLoggedIn() ? authManager.getUserName() : 'Sign In';
+    if (label) label.textContent = auth.check() ? auth.getUser() : 'Sign In';
 
-    // Dropdown Toggles
-    const profileBtn = document.getElementById('profileBtn');
-    const profileDropdown = document.getElementById('profileDropdown');
-    if (profileBtn) {
-        profileBtn.addEventListener('click', (e) => {
+    if (profBtn) {
+        profBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (authManager.isLoggedIn()) profileDropdown.classList.toggle('show');
+            if (auth.check()) profMenu.classList.toggle('show');
             else window.location.href = 'auth.html';
         });
     }
 
-    // Admin Table Rendering
-    if (window.location.pathname.includes('admin.html')) {
-        if (!authManager.isAdmin()) window.location.href = 'index.html';
-        else renderAdminTable();
+    if (auth.isAdmin() && adminSlot) {
+        adminSlot.innerHTML = `<a href="admin.html" style="color: #ffd700; font-weight: bold;">Manage Site</a>`;
     }
+
+    if (window.location.pathname.includes('admin.html')) {
+        if (!auth.isAdmin()) window.location.href = 'index.html';
+        renderAdmin();
+    }
+
+    document.addEventListener('click', () => profMenu?.classList.remove('show'));
 });
 
-function renderAdminTable() {
-    const tbody = document.getElementById('admin-user-rows');
-    const emptyState = document.getElementById('empty-state');
-    const users = mockDB.getUsers();
+function renderAdmin() {
+    const tbody = document.getElementById('userRows');
+    const empty = document.getElementById('noData');
+    const users = db.getUsers();
 
     if (!tbody) return;
     tbody.innerHTML = '';
     
     if (users.length === 0) {
-        emptyState.style.display = 'block';
+        empty.style.display = 'block';
     } else {
-        emptyState.style.display = 'none';
-        users.forEach(user => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><b>${user.name}</b></td>
-                <td>${user.email}</td> <td>User</td>
-                <td>${user.status}</td>
-                <td class="text-right">
-                    <button class="btn-mod remove" onclick="mockDB.removeUser(${user.id})">Remove</button>
+        empty.style.display = 'none';
+        users.forEach(u => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><b>${u.name}</b></td>
+                <td>${u.email}</td>
+                <td><span style="color:#44ff44">${u.status}</span></td>
+                <td style="text-align:right">
+                    <button class="btn-act ban">Suspend</button>
+                    <button class="btn-act del" onclick="db.deleteUser(${u.id})">Remove</button>
                 </td>
             `;
-            tbody.appendChild(row);
+            tbody.appendChild(tr);
         });
     }
-    document.getElementById('stat-total').textContent = users.length;
+    document.getElementById('stat-count').textContent = users.length;
 }
 
-function handleSignOut() { authManager.signOut(); }
+function handleSignOut() { auth.logout(); }
 function processAuthForm(type) {
     const email = document.getElementById(type === 'login' ? 'login-email' : 'reg-email').value;
     const pass = document.getElementById(type === 'login' ? 'login-password' : 'reg-password').value;
-    if (authManager.validateAndLogin(email, pass)) window.location.href = 'index.html';
-    else alert('Login Failed');
+    if (auth.login(email, pass)) window.location.href = 'index.html';
+    else alert('Invalid Credentials');
 }
