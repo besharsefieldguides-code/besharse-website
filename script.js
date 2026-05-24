@@ -1,112 +1,204 @@
-const ADMIN_EMAIL = 'austinbmatthew1811@gmail.com';
-const ADMIN_PASS = 'Matthew#2024';
-
-const auth = {
-    check: () => localStorage.getItem('isAuth') === 'true',
-    isAdmin: () => localStorage.getItem('role') === 'ADMIN',
-    getUser: () => localStorage.getItem('uName') || 'Guest',
-
-    login: (email, pass) => {
-        if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
-            localStorage.setItem('isAuth', 'true');
-            localStorage.setItem('role', 'ADMIN');
-            localStorage.setItem('uName', 'Admin');
+// --- STABLE SECURE ACCESS STORAGE CONTROLLER ---
+const authManager = {
+    isLoggedIn: () => localStorage.getItem('isLoggedIn') === 'true',
+    getUserName: () => localStorage.getItem('userName') || 'User Account',
+    isAdmin: () => localStorage.getItem('userRole') === 'ADMIN',
+    
+    validateAndLogin: (email, password) => {
+        const cleanEmail = email.trim().toLowerCase();
+        
+        // Locked High-Level Admin Identity Verification Check Rules
+        if (cleanEmail === 'austinbmatthew1811@gmail.com' && password === 'Matthew#2024') {
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userName', 'Admin');
+            localStorage.setItem('userRole', 'ADMIN');
             return true;
-        }
-        if (email && pass.length >= 4) {
-            localStorage.setItem('isAuth', 'true');
-            localStorage.setItem('role', 'USER');
-            localStorage.setItem('uName', email.split('@')[0]);
-            db.saveUser(email);
+        } 
+        
+        // Standard Sandboxed Registration Account Pipeline
+        if (cleanEmail !== '' && password.length >= 4) {
+            const parsedPrefix = cleanEmail.split('@')[0];
+            const profileDisplayTitle = parsedPrefix.charAt(0).toUpperCase() + parsedPrefix.slice(1);
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userName', profileDisplayTitle);
+            localStorage.setItem('userRole', 'USER');
+            
+            // Log directly into standard sandboxed data-store layer
+            mockDB.addUser(profileDisplayTitle, cleanEmail);
             return true;
         }
         return false;
     },
 
-    logout: () => {
-        localStorage.clear();
+    signOut: () => {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userRole');
         window.location.href = 'index.html';
     }
 };
 
-const db = {
-    getUsers: () => JSON.parse(localStorage.getItem('user_db') || '[]'),
-    saveUser: (email) => {
-        let users = db.getUsers();
-        if (!users.find(u => u.email === email)) {
-            users.push({ id: Date.now(), name: email.split('@')[0], email: email, status: 'Active' });
-            localStorage.setItem('user_db', JSON.stringify(users));
+// --- MODERN SANDBOX DATABASE INTEGRITY SHEET ---
+const mockDB = {
+    getUsers: () => {
+        let registry = localStorage.getItem('besharse_users');
+        // Initializing with clean empty array state as instructed (No default mock user templates)
+        return registry ? JSON.parse(registry) : [];
+    },
+    saveUsers: (data) => {
+        localStorage.setItem('besharse_users', JSON.stringify(data));
+    },
+    addUser: (name, email) => {
+        let records = mockDB.getUsers();
+        if(!records.some(r => r.email.toLowerCase() === email.toLowerCase())) {
+            records.push({ id: Date.now(), name: name, email: email.toLowerCase(), role: 'USER', status: 'Active' });
+            mockDB.saveUsers(records);
         }
     },
-    deleteUser: (id) => {
-        let users = db.getUsers().filter(u => u.id !== id);
-        localStorage.setItem('user_db', JSON.stringify(users));
-        renderAdmin();
+    alterStatus: (id, nextStatus) => {
+        let records = mockDB.getUsers().map(user => {
+            if (user.id === id) user.status = nextStatus;
+            return user;
+        });
+        mockDB.saveUsers(records);
+        renderAdminTable();
+    },
+    dropRecord: (id) => {
+        if (confirm("Confirm removal of this user from database archives?")) {
+            let records = mockDB.getUsers().filter(user => user.id !== id);
+            mockDB.saveUsers(records);
+            renderAdminTable();
+        }
     }
 };
 
-// UI Handling
+// --- SYSTEM RUNTIME EVENT WIRE-UP ---
 document.addEventListener('DOMContentLoaded', () => {
-    const profBtn = document.getElementById('profileBtn');
-    const profMenu = document.getElementById('profileDropdown');
-    const label = document.getElementById('profileLabel');
-    const adminSlot = document.getElementById('adminLinkPlaceholder');
-
-    if (label) label.textContent = auth.check() ? auth.getUser() : 'Sign In';
-
-    if (profBtn) {
-        profBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (auth.check()) profMenu.classList.toggle('show');
-            else window.location.href = 'auth.html';
+    // Structural transition element hook
+    const loader = document.getElementById('page-loader');
+    if (loader) {
+        window.addEventListener('load', () => {
+            setTimeout(() => loader.classList.add('fade-out'), 200);
         });
     }
 
-    if (auth.isAdmin() && adminSlot) {
-        adminSlot.innerHTML = `<a href="admin.html" style="color: #ffd700; font-weight: bold;">Manage Site</a>`;
+    // Nav component synchronization logic
+    const profileLabel = document.getElementById('profileLabel');
+    if (profileLabel) {
+        if (authManager.isLoggedIn()) {
+            profileLabel.textContent = authManager.getUserName();
+            if (authManager.isAdmin()) {
+                injectAdminManagementAnchors();
+            }
+        } else {
+            profileLabel.textContent = 'Sign In';
+        }
     }
 
+    // Guard evaluation framework check for administrative directory routes
     if (window.location.pathname.includes('admin.html')) {
-        if (!auth.isAdmin()) window.location.href = 'index.html';
-        renderAdmin();
+        if (!authManager.isAdmin()) {
+            window.location.href = 'index.html';
+        } else {
+            renderAdminTable();
+        }
     }
 
-    document.addEventListener('click', () => profMenu?.classList.remove('show'));
+    // Navbar element dropdown interactions handler logic
+    const profileBtn = document.getElementById('profileBtn');
+    const profileDropdown = document.getElementById('profileDropdown');
+    if (profileBtn && profileDropdown) {
+        profileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (authManager.isLoggedIn()) {
+                profileDropdown.classList.toggle('show');
+            } else {
+                window.location.href = 'auth.html';
+            }
+        });
+    }
+
+    const menuToggle = document.getElementById('menuToggle');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    if (menuToggle && dropdownMenu) {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+    }
+
+    document.addEventListener('click', () => {
+        if (profileDropdown) profileDropdown.classList.remove('show');
+        if (dropdownMenu) dropdownMenu.classList.remove('show');
+    });
 });
 
-function renderAdmin() {
-    const tbody = document.getElementById('userRows');
-    const empty = document.getElementById('noData');
-    const users = db.getUsers();
+// --- MENU BUTTON RUNTIME INJECTION WORKFLOW ---
+function injectAdminManagementAnchors() {
+    const desktopHook = document.getElementById('desktopNavLinks');
+    const mobileHook = document.getElementById('mobileAdminPlaceholder');
 
-    if (!tbody) return;
-    tbody.innerHTML = '';
-    
-    if (users.length === 0) {
-        empty.style.display = 'block';
-    } else {
-        empty.style.display = 'none';
-        users.forEach(u => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><b>${u.name}</b></td>
-                <td>${u.email}</td>
-                <td><span style="color:#44ff44">${u.status}</span></td>
-                <td style="text-align:right">
-                    <button class="btn-act ban">Suspend</button>
-                    <button class="btn-act del" onclick="db.deleteUser(${u.id})">Remove</button>
-                </td>
-            `;
-            tbody.appendChild(tr);
-        });
+    if (desktopHook && !document.getElementById('injectedDeskAdmin')) {
+        const li = document.createElement('li');
+        li.innerHTML = '<a href="admin.html" id="injectedDeskAdmin" class="admin-link-highlight"><i class="fas fa-shield-alt"></i> Manage</a>';
+        desktopHook.appendChild(li);
     }
-    document.getElementById('stat-count').textContent = users.length;
+
+    if (mobileHook && !document.getElementById('injectedMobAdmin')) {
+        mobileHook.innerHTML = '<a href="admin.html" id="injectedMobAdmin" class="admin-link-highlight"><i class="fas fa-shield-alt"></i> Manage Site</a>';
+    }
 }
 
-function handleSignOut() { auth.logout(); }
-function processAuthForm(type) {
-    const email = document.getElementById(type === 'login' ? 'login-email' : 'reg-email').value;
-    const pass = document.getElementById(type === 'login' ? 'login-password' : 'reg-password').value;
-    if (auth.login(email, pass)) window.location.href = 'index.html';
-    else alert('Invalid Credentials');
+// --- ADMINISTRATIVE ACCOUNTS LAYOUT INJECTOR ---
+function renderAdminTable() {
+    const tableBody = document.getElementById('admin-user-rows');
+    const emptyPlaceholder = document.getElementById('admin-empty-view');
+    if (!tableBody) return;
+
+    const dataCollection = mockDB.getUsers();
+    tableBody.innerHTML = '';
+
+    if (dataCollection.length === 0) {
+        if (emptyPlaceholder) emptyPlaceholder.style.display = 'block';
+        document.getElementById('stat-total').textContent = '0';
+        return;
+    }
+
+    if (emptyPlaceholder) emptyPlaceholder.style.display = 'none';
+
+    dataCollection.forEach(user => {
+        let badgeStateClass = 'status-active';
+        if (user.status === 'Suspended') badgeStateClass = 'status-suspended';
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>
+                <div style="display:flex; align-items:center; gap:10px; font-weight:500;">
+                    <i class="fas fa-user" style="opacity:0.5"></i>
+                    <span>${user.name}</span>
+                </div>
+            </td>
+            <td>${user.email}</td> <!-- FIXED: Extracted clean email string directly -->
+            <td><span class="badge role-user">${user.role}</span></td>
+            <td><span class="badge ${badgeStateClass}">${user.status}</span></td>
+            <td class="text-right">
+                <div class="mod-actions-group">
+                    <button class="btn-mod suspend" onclick="mockDB.alterStatus(${user.id}, 'Suspended')">Suspend</button>
+                    <button class="btn-mod remove" onclick="mockDB.dropRecord(${user.id})">Remove</button>
+                </div>
+            </td>
+        `;
+        tableBody.appendChild(tr);
+    });
+
+    document.getElementById('stat-total').textContent = dataCollection.length;
+}
+
+// --- GLOBAL SIGN OUT FLOW PROCESSORS ---
+function handleSignOut() { authManager.signOut(); }
+function switchAccount() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userRole');
+    window.location.href = 'auth.html';
 }
