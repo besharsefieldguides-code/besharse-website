@@ -182,11 +182,11 @@ body {
     text-overflow: ellipsis;
 }
 
-/* Profile Dropdown Position Raised up 75% relative to baseline (38px instead of 52px) */
+/* Profile Dropdown Position aligned with bottom of navbar */
 .profile-dropdown {
     display: none;
     position: absolute;
-    top: 38px;
+    top: 52px;
     right: 0;
     background-color: #35431d; /* Slightly darker shade for stacked UI popouts */
     min-width: 170px;
