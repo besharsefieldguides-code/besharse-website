@@ -16,10 +16,8 @@
 
 <nav class="navbar">
     <div class="nav-container">
-        <!-- Clean isolated left brand layout -->
         <a href="/" class="brand">Besharse Field Guides</a>
 
-        <!-- Right Side Menu Components Grid -->
         <div class="nav-right">
             <ul class="nav-links">
                 <li><a href="/">Home</a></li>
@@ -35,32 +33,17 @@
                 </div>
             </div>
 
-            <!-- Hamburger Dropdown -->
-            <div class="dropdown">
-                <button class="dropbtn" id="menuToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="dropdown-content" id="dropdownMenu">
-                    <a href="/photos">Photos</a>
-                    <a href="/events">Events</a>
-                    <a href="/services">Services</a>
-                    <a href="/contact">Contact</a>
-                    <a href="/donate">Donate</a>
-                </div>
-            </div>
-
-            <!-- Vertical Divider positioned perfectly on the right cluster edge -->
             <div class="nav-divider"></div>
 
-            <!-- Profile Interactive Widget (With Text Label next to it) -->
             <div class="profile-container" id="profileGroup">
                 <button class="profile-icon-btn" id="profileBtn" aria-label="User Profile">
                     <i class="fas fa-user-circle"></i>
                     <span id="profileLabel" class="profile-text-label">Sign In</span>
                 </button>
                 
-                <!-- Profile Action Menu (Shifted up 75%) -->
                 <div class="profile-dropdown" id="profileDropdown">
+                    <button class="prof-drop-item" id="manageBtn" style="display: none;" onclick="window.location.href='admin.html'"><i class="fas fa-shield-alt"></i> Manage</button>
+                    
                     <button class="prof-drop-item" onclick="switchAccount()"><i class="fas fa-exchange-alt"></i> Switch Account</button>
                     <button class="prof-drop-item" onclick="handleSignOut()"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
                     <button class="prof-drop-item" onclick="window.location.href='auth.html'"><i class="fas fa-user-plus"></i> Sign In</button>
