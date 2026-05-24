@@ -1,107 +1,152 @@
+// --- SIMULATED BACKEND DATABASE ENGINE ---
+// In a real app, this lives on a server. We use localStorage for the prototype.
+const dbManager = {
+    init: () => {
+        if (!localStorage.getItem('bfg_users')) {
+            // Seed database with a dummy user for demonstration
+            const seedUsers = [
+                { id: 'usr_1', name: 'John Doe', email: 'john@example.com', pass: '1234', ip: '192.168.0.45', status: 'active' },
+                { id: 'usr_2', name: 'Rule Breaker', email: 'bad@example.com', pass: '1234', ip: '10.0.0.88', status: 'suspended' }
+            ];
+            localStorage.setItem('bfg_users', JSON.stringify(seedUsers));
+        }
+    },
+    getUsers: () => JSON.parse(localStorage.getItem('bfg_users')) || [],
+    saveUsers: (users) => localStorage.setItem('bfg_users', JSON.stringify(users)),
+    generateMockIP: () => `${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`
+};
+
+dbManager.init();
+
 // --- STATE & AUTHENTICATION MANAGEMENT ENGINE ---
 const authManager = {
-    // Check session data tracking
     isLoggedIn: () => localStorage.getItem('isLoggedIn') === 'true',
-    
-    // Retrieve tracking user parameters
     getUserName: () => localStorage.getItem('userName') || 'User Account',
+    getUserEmail: () => localStorage.getItem('userEmail') || '',
     
     // Explicit Validation Login Routing Framework
-    validateAndLogin: (email, password) => {
+    validateAndLogin: (email, password, isRegistering = false, name = '') => {
         const cleanEmail = email.trim().toLowerCase();
+        const users = dbManager.getUsers();
         
-        // Admin Account Verification Ruleset
+        // Admin Master Bypass
         if (cleanEmail === 'austinbmatthew1811@gmail.com' && password === 'Matthew#2024') {
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('userName', 'Admin');
-            return true;
-        } 
-        
-        // Default Mock Registration Validation Fallback
-        if (cleanEmail !== '' && password.length >= 4) {
-            // Extracts name string segment safely out of email pattern
-            const extractedName = cleanEmail.split('@')[0];
-            const structuredName = extractedName.charAt(0).toUpperCase() + extractedName.slice(1);
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('userName', structuredName);
-            return true;
+            authManager.setSession('Admin', cleanEmail);
+            return { success: true };
         }
-        
-        return false;
+
+        if (isRegistering) {
+            // Check if user exists
+            if (users.find(u => u.email === cleanEmail)) {
+                return { success: false, message: 'Email already registered.' };
+            }
+            // Create new user
+            const newUser = {
+                id: 'usr_' + Date.now(),
+                name: name,
+                email: cleanEmail,
+                pass: password,
+                ip: dbManager.generateMockIP(),
+                status: 'active'
+            };
+            users.push(newUser);
+            dbManager.saveUsers(users);
+            authManager.setSession(name, cleanEmail);
+            return { success: true };
+        } else {
+            // Login Logic
+            const user = users.find(u => u.email === cleanEmail && u.pass === password);
+            if (user) {
+                if (user.status === 'banned') return { success: false, message: 'Your account and IP have been permanently banned.' };
+                if (user.status === 'suspended') return { success: false, message: 'Your account is currently suspended.' };
+                
+                authManager.setSession(user.name, user.email);
+                return { success: true };
+            }
+            return { success: false, message: 'Invalid credentials.' };
+        }
+    },
+
+    setSession: (name, email) => {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userName', name);
+        localStorage.setItem('userEmail', email);
     },
 
     signOut: () => {
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('userName');
-        window.location.reload();
+        localStorage.removeItem('userEmail');
+        window.location.href = 'index.html'; // Force redirect to home on sign out
     }
 };
 
+// --- SESSION WATCHDOG (LIVE KICK/BAN ENFORCEMENT) ---
+// This continuously checks if an admin banned the logged-in user in another tab
+function startSessionWatchdog() {
+    setInterval(() => {
+        if (authManager.isLoggedIn() && authManager.getUserName() !== 'Admin') {
+            const currentEmail = authManager.getUserEmail();
+            const users = dbManager.getUsers();
+            const userRecord = users.find(u => u.email === currentEmail);
+
+            if (!userRecord) {
+                alert("CRITICAL: Your account has been deleted by an Administrator.");
+                authManager.signOut();
+            } else if (userRecord.status === 'banned') {
+                alert("NOTICE: Your account has been permanently BANNED by an Administrator. You are being disconnected.");
+                authManager.signOut();
+            } else if (userRecord.status === 'suspended') {
+                alert("NOTICE: Your account has been SUSPENDED. Please contact support. You are being disconnected.");
+                authManager.signOut();
+            }
+        }
+    }, 2000); // Check every 2 seconds
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    // --- PAGE LOADER HANDLER ---
+    // Start live enforcement
+    startSessionWatchdog();
+
+    // Loader logic
     const loader = document.getElementById('page-loader');
     if (loader) {
-        window.addEventListener('load', () => {
-            setTimeout(() => loader.classList.add('fade-out'), 250);
-        });
+        setTimeout(() => {
+            loader.classList.add('fade-out');
+            setTimeout(() => loader.remove(), 400); 
+        }, 600);
     }
 
-    // --- RE-EVALUATE PROFILE DISPLAY LABELS ---
+    // UI Updates based on Login state
+    const profileBtn = document.getElementById('profileBtn');
+    const profileDropdown = document.getElementById('profileDropdown');
     const profileLabel = document.getElementById('profileLabel');
-    if (profileLabel) {
-        if (authManager.isLoggedIn()) {
-            profileLabel.textContent = authManager.getUserName();
-        } else {
-            profileLabel.textContent = 'Sign In';
+    const manageBtn = document.getElementById('manageBtn');
+
+    if (authManager.isLoggedIn() && profileLabel) {
+        profileLabel.textContent = authManager.getUserName();
+        
+        // Admin conditional rendering
+        if (manageBtn && authManager.getUserName() === 'Admin') {
+            manageBtn.style.display = 'flex';
         }
     }
 
-    // --- PROFILE ICON INTERACTION ROUTER ---
-    const profileBtn = document.getElementById('profileBtn');
-    const profileDropdown = document.getElementById('profileDropdown');
-
-    if (profileBtn) {
+    // Dropdown Toggling
+    if (profileBtn && profileDropdown) {
         profileBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (authManager.isLoggedIn()) {
-                // When signed in, toggle the dropdown menu (Shifted up 75%)
-                profileDropdown.classList.toggle('show');
-            } else {
-                // When signed out, redirect directly to auth entry page
-                window.location.href = 'auth.html';
+            profileDropdown.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!profileGroup.contains(e.target)) {
+                profileDropdown.classList.remove('show');
             }
         });
     }
 
-    // --- HAMBURGER TOGGLE LOGIC ---
-    const menuToggle = document.getElementById('menuToggle');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-    if (menuToggle && dropdownMenu) {
-        menuToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            dropdownMenu.classList.toggle('show');
-        });
-    }
-
-    // Intercept outside interface context mouse gestures to clear popup modals safely
-    document.addEventListener('click', () => {
-        if (profileDropdown) profileDropdown.classList.remove('show');
-        if (dropdownMenu) dropdownMenu.classList.remove('show');
-    });
-
-    // --- INTER-TAB SPEED SPIN OVERLAY TRIGGER ---
-    document.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            const href = link.getAttribute('href');
-            if (href && !href.startsWith('#') && !href.startsWith('javascript:') && link.target !== '_blank') {
-                e.preventDefault();
-                if (loader) loader.classList.remove('fade-out');
-                setTimeout(() => { window.location.href = href; }, 200);
-            }
-        });
-    });
-
-    // --- AUTH FORM TABS LOGIC ---
+    // Auth Page Tab Switching
     const tabLogin = document.getElementById('tab-login');
     const tabRegister = document.getElementById('tab-register');
     const loginForm = document.getElementById('login-form');
@@ -121,27 +166,32 @@ document.addEventListener('DOMContentLoaded', () => {
             loginForm.classList.remove('active-form');
         });
     }
+
+    // Admin Page Initializer
+    if (document.getElementById('adminTableBody')) {
+        renderAdminTable();
+    }
 });
 
 // --- ENGINE CONTROLLER DISPATCH ENTRY POINTS ---
 function processAuthForm(formId) {
-    let emailValue = '';
-    let passValue = '';
+    let response;
 
     if (formId === 'login') {
-        emailValue = document.getElementById('login-email').value;
-        passValue = document.getElementById('login-password').value;
+        const email = document.getElementById('login-email').value;
+        const pass = document.getElementById('login-password').value;
+        response = authManager.validateAndLogin(email, pass, false);
     } else {
-        emailValue = document.getElementById('reg-email').value;
-        passValue = document.getElementById('reg-password').value;
+        const name = document.getElementById('reg-name').value;
+        const email = document.getElementById('reg-email').value;
+        const pass = document.getElementById('reg-password').value;
+        response = authManager.validateAndLogin(email, pass, true, name);
     }
 
-    const success = authManager.validateAndLogin(emailValue, passValue);
-    if (success) {
-        // Automatic routing home standard execution
+    if (response.success) {
         window.location.href = 'index.html';
     } else {
-        alert('Authentication failed. Please verify credentials.');
+        alert(response.message);
     }
 }
 
@@ -152,5 +202,69 @@ function handleSignOut() {
 function switchAccount() {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userName');
+    localStorage.removeItem('userEmail');
     window.location.href = 'auth.html';
+}
+
+// --- ADMIN CONTROL PANEL LOGIC ---
+function renderAdminTable() {
+    // Security check - kick out non-admins trying to access the page
+    if (authManager.getUserName() !== 'Admin') {
+        window.location.href = 'index.html';
+        return;
+    }
+
+    const tbody = document.getElementById('adminTableBody');
+    const users = dbManager.getUsers();
+    tbody.innerHTML = '';
+
+    if (users.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 20px;">No registered users found.</td></tr>`;
+        return;
+    }
+
+    users.forEach(user => {
+        let statusClass = 'status-active';
+        if (user.status === 'suspended') statusClass = 'status-suspended';
+        if (user.status === 'banned') statusClass = 'status-banned';
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td style="font-family: monospace; color: rgba(255,255,255,0.6);">${user.ip}</td>
+            <td><span class="status-badge ${statusClass}">${user.status.toUpperCase()}</span></td>
+            <td>
+                <select class="admin-action-select" onchange="handleAdminAction('${user.id}', this.value); this.value='';">
+                    <option value="" disabled selected>Actions...</option>
+                    <option value="active">Set Active</option>
+                    <option value="suspended">Suspend User</option>
+                    <option value="banned">Ban User & IP</option>
+                    <option value="delete">Delete Account</option>
+                </select>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function handleAdminAction(userId, action) {
+    if (!action) return;
+    
+    let users = dbManager.getUsers();
+    const userIndex = users.findIndex(u => u.id === userId);
+    
+    if (userIndex === -1) return;
+
+    if (action === 'delete') {
+        if (confirm(`Are you sure you want to completely delete ${users[userIndex].name}'s account? This cannot be undone.`)) {
+            users.splice(userIndex, 1);
+        }
+    } else {
+        users[userIndex].status = action;
+        // The watchdog running on the user's browser will pick up this status change instantly
+    }
+
+    dbManager.saveUsers(users);
+    renderAdminTable(); // Refresh UI
 }
