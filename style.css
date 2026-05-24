@@ -58,14 +58,13 @@ body {
     font-size: 0.9rem;
     padding: 10px 16px; /* Expanded padding vertically and horizontally for a bigger square chip */
     border-radius: 0; /* Removed rounding to make it a full, sharp square/rectangle */
-    transition: background-color 0.15s ease, color 0.15s ease;
+    transition: background-color 0.15s ease;
     display: inline-block;
 }
 
-/* Google style: Bigger transparent full square background hover */
+/* Bigger, brighter white-transparent full square background hover (Text stays white/cream) */
 .nav-links a:hover {
-    color: #000000; 
-    background-color: rgba(0, 0, 0, 0.06); /* Clean, modern transparent tint overlay */
+    background-color: rgba(255, 255, 255, 0.18); /* Brighter premium tint overlay */
 }
 
 /* Search Bar (Transparent bar with minimalist border) */
@@ -98,12 +97,11 @@ body {
     cursor: pointer;
     font-size: 0.85rem;
     opacity: 0.8;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, color 0.2s;
 }
 
 .search-box button:hover {
     opacity: 1;
-    color: #000000;
 }
 
 /* Dropdown / Hamburger Menu Toggle button */
@@ -116,16 +114,15 @@ body {
     background: none;
     border: none;
     color: #f4f1ea;
-    padding: 6px 10px;
+    padding: 10px 14px; /* Balanced to match standard block alignments */
     font-size: 1.1rem;
-    border-radius: 4px;
+    border-radius: 0; /* Sharp profile matches main tabs */
     cursor: pointer;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    transition: background-color 0.15s ease;
 }
 
 .dropbtn:hover {
-    color: #000000;
-    background-color: rgba(0, 0, 0, 0.06);
+    background-color: rgba(255, 255, 255, 0.18); /* Brighter matching hover overlay */
 }
 
 /* Upgraded Dropdown Panel (Shifted further right to eliminate the gap) */
@@ -136,27 +133,32 @@ body {
     background-color: #556B2F; /* Matching cohesive Olive Green background */
     min-width: 180px;
     box-shadow: 0px 8px 24px rgba(0,0,0,0.2);
-    border-radius: 6px;
+    border-radius: 0; /* Removed rounding entirely for a full sharp block style */
     margin-top: 8px;
     overflow: hidden;
-    padding: 4px 0; /* Smooth alignment framing for inner layout items */
+    padding: 0; 
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Individual dropdown links turned into big, clean squares */
 .dropdown-content a {
     color: #f4f1ea;
-    padding: 10px 16px;
+    padding: 16px 20px; /* Heavily expanded padding to make the hover effect a big, heavy square block */
     text-decoration: none;
     display: block;
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Clean spacing separator lines */
+    transition: background-color 0.15s ease;
 }
 
-/* Dropdown hover retains a slight dark tint for menu item layout separation */
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+/* Dropdown item hover action matches the bright, large square look of top items */
 .dropdown-content a:hover {
-    background-color: rgba(0, 0, 0, 0.08); 
-    color: #000000;
+    background-color: rgba(255, 255, 255, 0.18); /* Uniform bright transparent overlay */
 }
 
 /* Active State Class triggered via JS */
