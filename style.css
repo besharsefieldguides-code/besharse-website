@@ -164,12 +164,32 @@ body {
     transition: background-color 0.15s ease;
 }
 
-.dropdown-content a:last-child {
-    border-bottom: none;
-}
-
 .dropdown-content a:hover {
     background-color: rgba(255, 255, 255, 0.18);
+}
+
+/* Dropdown Authentication Button Container */
+.dropdown-auth-container {
+    padding: 14px 20px;
+    background-color: rgba(0, 0, 0, 0.15); /* Breaks visual continuity subtly to show action block */
+}
+
+.btn-dropdown-auth {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #556b35; /* Crisp lighter olive shade for actionable visibility */
+    color: #f4f1ea !important; /* Forces color persistence */
+    padding: 10px 14px !important; /* Tailored tight button footprint */
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    text-decoration: none;
+    border: none !important;
+    transition: background-color 0.15s ease !important;
+}
+
+.btn-dropdown-auth:hover {
+    background-color: #647e3f !important; /* Brighter high-contrast olive focus glow */
 }
 
 .show {
@@ -242,20 +262,20 @@ body {
 .btn-primary {
     display: inline-block;
     padding: 16px 40px;
-    background-color: #415224; /* Signature Solid Olive Green */
+    background-color: #415224; 
     color: #f4f1ea;
     text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
-    border: none; /* Removed outline/border completely */
-    outline: none; /* Prevents default browser focus rings on hover */
+    border: none; 
+    outline: none; 
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 /* Hover State - Clean Color Transition */
 .btn-primary:hover {
-    background-color: #556b35; /* Smoothly transitions to lighter variant block */
-    border: none; /* Ensures no outline appears during animation states */
+    background-color: #556b35; 
+    border: none; 
     transform: translateY(-2px); 
 }
 
