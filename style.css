@@ -9,12 +9,12 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* Navbar Container (Size reduced by 50% & heights adjusted) */
+/* Navbar Container (Darkened olive green tone) */
 .navbar {
-    background-color: #556B2F; /* Olive Green */
+    background-color: #415224; /* Richer, slightly darker Olive Green */
     color: #f4f1ea; /* Cream/Off-white text */
-    padding: 0.5rem 2rem; /* Tightened padding for a slim profile */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    padding: 0 2rem; /* Removed vertical padding here to allow full-bleed hover squares */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.12);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -25,7 +25,8 @@ body {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch; /* Forces all inner child blocks to fill the full vertical height */
+    height: 52px; /* Fixed clean, slim height profile */
 }
 
 /* Brand Title (Clean, Default sans-serif look) */
@@ -35,20 +36,28 @@ body {
     color: #f4f1ea;
     text-decoration: none;
     letter-spacing: -0.3px;
+    display: flex;
+    align-items: center; /* Centers the brand text vertically */
 }
 
 /* Right Side Grouping */
 .nav-right {
     display: flex;
-    align-items: center;
+    align-items: stretch; /* Stretches sub-containers vertically to borders */
     gap: 20px;
 }
 
-/* Links */
+/* Links Container */
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 4px; /* Reduced gap since the individual box areas are now wider */
+    align-items: stretch; /* Ensures the list items scale to top/bottom */
+    gap: 0; /* Clear gaps to maintain continuous border-to-border blocks */
+}
+
+.nav-links li {
+    display: flex;
+    align-items: stretch;
 }
 
 .nav-links a {
@@ -56,18 +65,24 @@ body {
     color: #f4f1ea;
     font-weight: 500;
     font-size: 0.9rem;
-    padding: 10px 16px; /* Expanded padding vertically and horizontally for a bigger square chip */
-    border-radius: 0; /* Removed rounding to make it a full, sharp square/rectangle */
+    padding: 0 20px; /* Horizontal spacing inside the square */
+    border-radius: 0; /* Crisp, sharp square/rectangle profiles */
     transition: background-color 0.15s ease;
-    display: inline-block;
+    display: flex;
+    align-items: center; /* Centers the tab text inside the large hover block */
 }
 
-/* Bigger, brighter white-transparent full square background hover (Text stays white/cream) */
+/* Full-bleed transparent square background hover stretching to top and bottom edge */
 .nav-links a:hover {
-    background-color: rgba(255, 255, 255, 0.18); /* Brighter premium tint overlay */
+    background-color: rgba(255, 255, 255, 0.18); /* Brighter modern premium tint */
 }
 
-/* Search Bar (Transparent bar with minimalist border) */
+/* Search Bar (Vertically centered container structure) */
+.search-box-container {
+    display: flex;
+    align-items: center;
+}
+
 .search-box {
     display: flex;
     align-items: center;
@@ -97,44 +112,48 @@ body {
     cursor: pointer;
     font-size: 0.85rem;
     opacity: 0.8;
-    transition: opacity 0.2s, color 0.2s;
+    transition: opacity 0.2s;
 }
 
 .search-box button:hover {
     opacity: 1;
 }
 
-/* Dropdown / Hamburger Menu Toggle button */
+/* Dropdown / Hamburger Menu Toggle area */
 .dropdown {
     position: relative;
-    display: inline-block;
+    display: flex;
+    align-items: stretch;
 }
 
 .dropbtn {
     background: none;
     border: none;
     color: #f4f1ea;
-    padding: 10px 14px; /* Balanced to match standard block alignments */
+    padding: 0 20px; /* Wide square base setup */
     font-size: 1.1rem;
-    border-radius: 0; /* Sharp profile matches main tabs */
+    border-radius: 0; /* Fully sharp corners matching links */
     cursor: pointer;
     transition: background-color 0.15s ease;
+    display: flex;
+    align-items: center; /* Centers the icon vertically within the full-height block */
 }
 
+/* Full height toggle hover square touches top and bottom bar border perfectly */
 .dropbtn:hover {
-    background-color: rgba(255, 255, 255, 0.18); /* Brighter matching hover overlay */
+    background-color: rgba(255, 255, 255, 0.18);
 }
 
 /* Upgraded Dropdown Panel (Shifted further right to eliminate the gap) */
 .dropdown-content {
     display: none;
     position: absolute;
-    right: -45px; /* Pushed further right to hug the screen/container edge */
-    background-color: #556B2F; /* Matching cohesive Olive Green background */
+    right: -32px; /* Perfect right alignment alignment adjustment */
+    background-color: #415224; /* Matches the new slightly darker Olive Green */
     min-width: 180px;
     box-shadow: 0px 8px 24px rgba(0,0,0,0.2);
-    border-radius: 0; /* Removed rounding entirely for a full sharp block style */
-    margin-top: 8px;
+    border-radius: 0; /* Keeps full sharp box theme */
+    top: 52px; /* Aligns directly beneath the full-bleed navbar bounds */
     overflow: hidden;
     padding: 0; 
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -143,12 +162,12 @@ body {
 /* Individual dropdown links turned into big, clean squares */
 .dropdown-content a {
     color: #f4f1ea;
-    padding: 16px 20px; /* Heavily expanded padding to make the hover effect a big, heavy square block */
+    padding: 16px 20px; /* Big, heavy square tracking padding rules */
     text-decoration: none;
     display: block;
     font-size: 0.9rem;
     font-weight: 500;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Clean spacing separator lines */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Minimal design panel separators */
     transition: background-color 0.15s ease;
 }
 
@@ -156,9 +175,9 @@ body {
     border-bottom: none;
 }
 
-/* Dropdown item hover action matches the bright, large square look of top items */
+/* Dropdown link item hover actions matching standard bright theme rules */
 .dropdown-content a:hover {
-    background-color: rgba(255, 255, 255, 0.18); /* Uniform bright transparent overlay */
+    background-color: rgba(255, 255, 255, 0.18);
 }
 
 /* Active State Class triggered via JS */
