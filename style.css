@@ -238,11 +238,11 @@ body {
     margin-right: auto;
 }
 
-/* Primary Button Styling with Hover Fix */
+/* Primary Button Styling */
 .btn-primary {
     display: inline-block;
     padding: 16px 40px;
-    background-color: #415224; 
+    background-color: #415224; /* Signature Solid Olive Green */
     color: #f4f1ea;
     text-decoration: none;
     font-weight: 600;
@@ -251,9 +251,10 @@ body {
     transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
+/* Hover Fix: Uses a rich overlay tint so the solid box structure remains highly visible */
 .btn-primary:hover {
-    background-color: rgba(255, 255, 255, 0.18); 
-    border: 1px solid #ffffff; /* Explicitly forces the box border to turn bright white on hover */
+    background-color: #556b35; /* Tinted lighter olive variant to keep solid box visibility */
+    border: 1px solid rgba(255, 255, 255, 0.6); 
     transform: translateY(-2px); 
 }
 
