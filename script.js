@@ -1,67 +1,71 @@
+// --- AUTHENTICATION MOCK ENGINE ---
+const authManager = {
+    isLoggedIn: () => localStorage.getItem('isLoggedIn') === 'true',
+    signIn: () => {
+        localStorage.setItem('isLoggedIn', 'true');
+        window.location.href = 'index.html';
+    },
+    signOut: () => {
+        localStorage.removeItem('isLoggedIn');
+        window.location.reload();
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- 1. GLOBAL LOADER MANAGEMENT ---
+    // --- PAGE LOADER ---
     const loader = document.getElementById('page-loader');
-    
-    // Smoothly fade out spinner overlay once layout construction completes
     if (loader) {
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                loader.classList.add('fade-out');
-            }, 200); // Tiny pause guarantees visual stabilization first
+            setTimeout(() => loader.classList.add('fade-out'), 300);
         });
     }
 
-    // Capture all outbound and inner link interactions to prompt spin animations
-    document.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            const href = link.getAttribute('href');
-            
-            // Check to skip default anchor click triggers, phone links, or dead hashes
-            if (href && !href.startsWith('#') && !href.startsWith('javascript:') && link.target !== '_blank') {
-                e.preventDefault();
-                if (loader) {
-                    loader.classList.remove('fade-out'); // Re-trigger smooth visual loader spin block
-                }
-                setTimeout(() => {
-                    window.location.href = href;
-                }, 250); // Small timeout allows loader animation to render gracefully before redirect
+    // --- PROFILE ICON LOGIC ---
+    const profileBtn = document.getElementById('profileBtn');
+    const profileDropdown = document.getElementById('profileDropdown');
+
+    if (profileBtn) {
+        profileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (authManager.isLoggedIn()) {
+                // If logged in, show the 3-button menu
+                profileDropdown.classList.toggle('show');
+            } else {
+                // If logged out, go to sign in page
+                window.location.href = 'auth.html';
             }
         });
-    });
+    }
 
-    // --- 2. NAVIGATION BAR DROPDOWN ---
+    // --- DROPDOWN (HAMBURGER) ---
     const menuToggle = document.getElementById('menuToggle');
     const dropdownMenu = document.getElementById('dropdownMenu');
-
-    if (menuToggle && dropdownMenu) {
+    if (menuToggle) {
         menuToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             dropdownMenu.classList.toggle('show');
         });
-
-        // Safe auto-close interaction frame
-        document.addEventListener('click', (e) => {
-            if (!dropdownMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-                dropdownMenu.classList.remove('show');
-            }
-        });
     }
 
-    // --- 3. AUTHENTICATION TAB SWITCHING LOGIC ---
+    // Close menus on outside click
+    document.addEventListener('click', () => {
+        if (profileDropdown) profileDropdown.classList.remove('show');
+        if (dropdownMenu) dropdownMenu.classList.remove('show');
+    });
+
+    // --- AUTH TAB SWITCHING ---
     const tabLogin = document.getElementById('tab-login');
     const tabRegister = document.getElementById('tab-register');
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
 
-    if (tabLogin && tabRegister && loginForm && registerForm) {
+    if (tabLogin) {
         tabLogin.addEventListener('click', () => {
             tabLogin.classList.add('active');
             tabRegister.classList.remove('active');
             loginForm.classList.add('active-form');
             registerForm.classList.remove('active-form');
         });
-
         tabRegister.addEventListener('click', () => {
             tabRegister.classList.add('active');
             tabLogin.classList.remove('active');
@@ -70,3 +74,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// --- BUTTON ACTIONS ---
+function handleAuthSubmit() {
+    // This simulates a successful login
+    authManager.signIn();
+}
+
+function handleSignOut() {
+    authManager.signOut();
+}
+
+function switchAccount() {
+    // Switches accounts by clearing session and going back to login
+    localStorage.removeItem('isLoggedIn');
+    window.location.href = 'auth.html';
+}
