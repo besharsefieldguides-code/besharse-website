@@ -16,12 +16,11 @@
 
 <nav class="navbar">
     <div class="nav-container">
-        <!-- Clean isolated left brand layout -->
         <a href="/" class="brand">Besharse Field Guides</a>
 
-        <!-- Right Side Menu Components Grid -->
         <div class="nav-right">
-            <ul class="nav-links">
+            <!-- Dynamic placeholder slots for injecting Admin specific controls safely -->
+            <ul class="nav-links" id="desktopNavLinks">
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
                 <li><a href="/books">Books</a></li>
@@ -41,6 +40,8 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="dropdown-content" id="dropdownMenu">
+                    <!-- Dynamic injection target for mobile admin links -->
+                    <div id="mobileAdminPlaceholder"></div>
                     <a href="/photos">Photos</a>
                     <a href="/events">Events</a>
                     <a href="/services">Services</a>
@@ -49,17 +50,15 @@
                 </div>
             </div>
 
-            <!-- Vertical Divider positioned perfectly on the right cluster edge -->
             <div class="nav-divider"></div>
 
-            <!-- Profile Interactive Widget (With Text Label next to it) -->
             <div class="profile-container" id="profileGroup">
                 <button class="profile-icon-btn" id="profileBtn" aria-label="User Profile">
                     <i class="fas fa-user-circle"></i>
                     <span id="profileLabel" class="profile-text-label">Sign In</span>
                 </button>
                 
-                <!-- Profile Action Menu (Shifted up 75%) -->
+                <!-- Profile Action Menu (Lowered by 25% down to top: 45px) -->
                 <div class="profile-dropdown" id="profileDropdown">
                     <button class="prof-drop-item" onclick="switchAccount()"><i class="fas fa-exchange-alt"></i> Switch Account</button>
                     <button class="prof-drop-item" onclick="handleSignOut()"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
