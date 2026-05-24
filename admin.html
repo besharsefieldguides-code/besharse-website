@@ -3,54 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - BFG</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Admin Dashboard - Besharse Field Guides</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="admin-bg">
+<body class="admin-body">
 
-<div class="admin-layout">
-    <aside class="admin-sidebar">
-        <div class="sidebar-top">
-            <i class="fas fa-shield-alt"></i>
-            <span>Admin Central</span>
-        </div>
-        <nav class="sidebar-nav">
-            <a href="admin.html" class="active"><i class="fas fa-users"></i> Users</a>
-            <a href="index.html"><i class="fas fa-home"></i> Back to Site</a>
-        </nav>
-        <button class="logout-foot" onclick="handleSignOut()">Logout</button>
-    </aside>
+<div id="page-loader" class="loader-overlay">
+    <div class="spinner"></div>
+</div>
 
-    <main class="admin-content">
-        <header class="content-header">
-            <h2>User Management</h2>
-            <div class="stats-box">
-                Total Users: <span id="stat-count">0</span>
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/" class="brand"><i class="fas fa-shield-alt"></i> Besharse Control Deck</a>
+        
+        <div class="nav-right">
+            <!-- Return To Dashboard Button Layout Inclusion Link -->
+            <a href="admin.html" class="btn-return-dash"><i class="fas fa-tachometer-alt"></i> Return to Dashboard</a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">View Live Site</a></li>
+            </ul>
+            <div class="nav-divider"></div>
+            <div class="profile-container">
+                <button class="profile-icon-btn" id="profileBtn">
+                    <i class="fas fa-user-shield"></i>
+                    <span class="profile-text-label">Admin Control</span>
+                </button>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <button class="prof-drop-item" onclick="handleSignOut()"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+                </div>
             </div>
-        </header>
+        </div>
+    </div>
+</nav>
 
-        <section class="table-card">
-            <table class="data-table">
+<main class="admin-main">
+    <header class="admin-view-header">
+        <div>
+            <h1>User Accounts Management</h1>
+            <p>Review, audit, suspend, or revoke access levels across security groups.</p>
+        </div>
+        <div class="admin-summary-stats">
+            <div class="stat-pill">Total Active Registries: <span id="stat-total">0</span></div>
+        </div>
+    </header>
+
+    <div class="admin-card">
+        <div class="table-responsive-container">
+            <table class="admin-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>User Profile</th>
                         <th>Email Address</th>
+                        <th>Security Level</th>
                         <th>Status</th>
-                        <th style="text-align:right">Actions</th>
+                        <th class="text-right">Moderation Actions</th>
                     </tr>
                 </thead>
-                <tbody id="userRows">
-                    </tbody>
+                <tbody id="admin-user-rows">
+                    <!-- Dynamic updates through system engine rows -->
+                </tbody>
             </table>
-            <div id="noData" class="empty-msg" style="display:none">
+            
+            <!-- Clean Empty State view block indicator structure -->
+            <div id="admin-empty-view" class="admin-empty-placeholder" style="display: none;">
                 <i class="fas fa-folder-open"></i>
-                <p>No user accounts registered yet.</p>
+                <p>No user account records exist in database.</p>
             </div>
-        </section>
-    </main>
-</div>
+        </div>
+    </div>
+</main>
 
 <script src="script.js"></script>
 </body>
