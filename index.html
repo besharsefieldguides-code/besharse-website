@@ -4,25 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Besharse Field Guides</title>
-    <!-- Default clean sans-serif UI font stack -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Search and Hamburger Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Global Page Loader Overlay -->
 <div id="page-loader" class="loader-overlay">
     <div class="spinner"></div>
 </div>
 
 <nav class="navbar">
     <div class="nav-container">
-        <!-- Brand Logo -->
-        <a href="/" class="brand">Besharse Field Guides</a>
+        <div class="nav-left-group">
+            <a href="/" class="brand">Besharse Field Guides</a>
+            <div class="nav-divider"></div>
+            <div class="profile-container" id="profileGroup">
+                <button class="profile-icon-btn" id="profileBtn" aria-label="User Profile">
+                    <i class="fas fa-user-circle"></i>
+                </button>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <button class="prof-drop-item" onclick="switchAccount()"><i class="fas fa-exchange-alt"></i> Switch Account</button>
+                    <button class="prof-drop-item" onclick="handleSignOut()"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+                    <button class="prof-drop-item" onclick="window.location.href='auth.html'"><i class="fas fa-user-plus"></i> Sign In</button>
+                </div>
+            </div>
+        </div>
 
-        <!-- Right Side Menu -->
         <div class="nav-right">
             <ul class="nav-links">
                 <li><a href="/">Home</a></li>
@@ -31,7 +39,6 @@
                 <li><a href="/blog">Blog</a></li>
             </ul>
 
-            <!-- Search Bar -->
             <div class="search-box-container">
                 <div class="search-box">
                     <input type="text" placeholder="Search...">
@@ -39,9 +46,8 @@
                 </div>
             </div>
 
-            <!-- Hamburger Dropdown -->
             <div class="dropdown">
-                <button class="dropbtn" id="menuToggle" aria-label="Toggle Menu">
+                <button class="dropbtn" id="menuToggle">
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="dropdown-content" id="dropdownMenu">
@@ -50,17 +56,12 @@
                     <a href="/services">Services</a>
                     <a href="/contact">Contact</a>
                     <a href="/donate">Donate</a>
-                    <!-- Authentication CTA Button -->
-                    <div class="dropdown-auth-container">
-                        <a href="auth.html" class="btn-dropdown-auth">Sign Up / Sign In</a>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </nav>
 
-<!-- Hero Section -->
 <header class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
