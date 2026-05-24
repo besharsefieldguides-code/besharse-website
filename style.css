@@ -48,7 +48,7 @@ body {
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 18px;
+    gap: 8px; /* Slightly reduced gap to accommodate the background pill expansion */
 }
 
 .nav-links a {
@@ -56,15 +56,15 @@ body {
     color: #f4f1ea;
     font-weight: 500;
     font-size: 0.9rem;
-    padding-bottom: 2px;
-    border-bottom: 2px solid transparent; /* Balanced 2px base */
-    transition: color 0.2s ease, border-color 0.2s ease;
+    padding: 6px 12px; /* Added structured padding for the background chip shape */
+    border-radius: 4px; /* Google-style rounded corner effect */
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-/* Black text color and uniform 2px sharp underline effect */
+/* Google style: Transparent background hover instead of black line text overlay */
 .nav-links a:hover {
     color: #000000; 
-    border-color: #000000;
+    background-color: rgba(0, 0, 0, 0.06); /* Clean, modern transparent tint overlay */
 }
 
 /* Search Bar (Transparent bar with minimalist border) */
@@ -115,27 +115,30 @@ body {
     background: none;
     border: none;
     color: #f4f1ea;
-    padding: 6px 8px;
+    padding: 6px 10px;
     font-size: 1.1rem;
+    border-radius: 4px;
     cursor: pointer;
-    transition: color 0.2s;
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .dropbtn:hover {
     color: #000000;
+    background-color: rgba(0, 0, 0, 0.06);
 }
 
 /* Upgraded Dropdown Panel (Shifted further right to eliminate the gap) */
 .dropdown-content {
     display: none;
     position: absolute;
-    right: -45px; /* Pushed further right by an additional 70% to hug the screen/container edge */
+    right: -45px; /* Pushed further right to hug the screen/container edge */
     background-color: #556B2F; /* Matching cohesive Olive Green background */
     min-width: 180px;
     box-shadow: 0px 8px 24px rgba(0,0,0,0.2);
     border-radius: 6px;
     margin-top: 8px;
     overflow: hidden;
+    padding: 4px 0; /* Smooth alignment framing for inner layout items */
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -146,21 +149,13 @@ body {
     display: block;
     font-size: 0.88rem;
     font-weight: 500;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.dropdown-content a:last-child {
-    border-bottom: none;
-}
-
-/* Dropdown hover matches the exact 2px underline style of the main navigation links */
+/* Dropdown hover matches the exact clean transparent chip style of the main navigation links */
 .dropdown-content a:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.08); /* Slightly darker tint layer for contrast over stacked colors */
     color: #000000;
-    text-decoration: none; /* Disables standard thin underline */
-    border-bottom: 1px solid #000000; /* Replaces background divider border with clean black highlight */
-    box-shadow: inset 0 -1px 0 0 #000000; /* Simulates a perfect, crisp 2px underline total thickness */
 }
 
 /* Active State Class triggered via JS */
