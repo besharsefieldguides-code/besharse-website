@@ -75,20 +75,20 @@ body {
     background-color: rgba(255, 255, 255, 0.18); 
 }
 
-/* Search Bar - Perfect Alignment Fix */
+/* Search Bar Container & Absolute Centering Fix */
 .search-box-container {
     display: flex;
-    align-items: center; /* Vertically centers the search group */
+    align-items: stretch; /* Aligns container height to matching parent bounds */
 }
 
 .search-box {
     display: flex;
     align-items: center;
     background: transparent;
-    /* Line matches hover effect color perfectly */
-    border-bottom: 2px solid rgba(255, 255, 255, 0.18); 
+    border-bottom: 2px solid rgba(255, 255, 255, 0.18); /* Matches hover tone perfectly */
     padding: 0 4px;
-    height: 28px; /* Tighter height to pull the line up closer to the text/icon */
+    height: 28px; /* Tighter baseline height keeping line perfectly flush under elements */
+    margin: auto 0; /* Core Fix: Automatically calculates vertical spacing to lock it dead-center */
 }
 
 .search-box input {
