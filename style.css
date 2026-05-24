@@ -48,7 +48,7 @@ body {
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 8px; /* Slightly reduced gap to accommodate the background pill expansion */
+    gap: 4px; /* Reduced gap since the individual box areas are now wider */
 }
 
 .nav-links a {
@@ -56,12 +56,13 @@ body {
     color: #f4f1ea;
     font-weight: 500;
     font-size: 0.9rem;
-    padding: 6px 12px; /* Added structured padding for the background chip shape */
-    border-radius: 4px; /* Google-style rounded corner effect */
+    padding: 10px 16px; /* Expanded padding vertically and horizontally for a bigger square chip */
+    border-radius: 0; /* Removed rounding to make it a full, sharp square/rectangle */
     transition: background-color 0.15s ease, color 0.15s ease;
+    display: inline-block;
 }
 
-/* Google style: Transparent background hover instead of black line text overlay */
+/* Google style: Bigger transparent full square background hover */
 .nav-links a:hover {
     color: #000000; 
     background-color: rgba(0, 0, 0, 0.06); /* Clean, modern transparent tint overlay */
@@ -152,9 +153,9 @@ body {
     transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-/* Dropdown hover matches the exact clean transparent chip style of the main navigation links */
+/* Dropdown hover retains a slight dark tint for menu item layout separation */
 .dropdown-content a:hover {
-    background-color: rgba(0, 0, 0, 0.08); /* Slightly darker tint layer for contrast over stacked colors */
+    background-color: rgba(0, 0, 0, 0.08); 
     color: #000000;
 }
 
