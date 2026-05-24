@@ -238,7 +238,7 @@ body {
     margin-right: auto;
 }
 
-/* Primary Button Styling */
+/* Primary Button Styling - No Outline */
 .btn-primary {
     display: inline-block;
     padding: 16px 40px;
@@ -247,14 +247,15 @@ body {
     text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    border: none; /* Removed outline/border completely */
+    outline: none; /* Prevents default browser focus rings on hover */
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-/* Hover Fix: Uses a rich overlay tint so the solid box structure remains highly visible */
+/* Hover State - Clean Color Transition */
 .btn-primary:hover {
-    background-color: #556b35; /* Tinted lighter olive variant to keep solid box visibility */
-    border: 1px solid rgba(255, 255, 255, 0.6); 
+    background-color: #556b35; /* Smoothly transitions to lighter variant block */
+    border: none; /* Ensures no outline appears during animation states */
     transform: translateY(-2px); 
 }
 
