@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account - Besharse Field Guides</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+
+    <!-- Global Page Loader Overlay -->
+    <div id="page-loader" class="loader-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Minimal Back Nav -->
+    <div class="auth-back-nav">
+        <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+
+    <!-- Auth Container Box -->
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h2>Besharse Field Guides</h2>
+                <p>Access your curated natural journals and field data</p>
+            </div>
+
+            <!-- Form Toggle Tabs -->
+            <div class="auth-tabs">
+                <button id="tab-login" class="auth-tab-btn active">Sign In</button>
+                <button id="tab-register" class="auth-tab-btn">Sign Up</button>
+            </div>
+
+            <!-- Sign In Form -->
+            <form id="login-form" class="auth-form active-form" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" placeholder="name@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-auth-submit">Sign In to Account</button>
+            </form>
+
+            <!-- Sign Up Form (Hidden by default) -->
+            <form id="register-form" class="auth-form" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <label for="reg-name">Full Name</label>
+                    <input type="text" id="reg-name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Email Address</label>
+                    <input type="email" id="reg-email" placeholder="name@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Password</label>
+                    <input type="password" id="reg-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-auth-submit">Create Free Account</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
