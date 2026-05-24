@@ -3,72 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Besharse Field Guides</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Admin Panel - BFG</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="admin-body">
+<body class="admin-bg">
 
-<div id="page-loader" class="loader-overlay">
-    <div class="spinner"></div>
-</div>
-
-<nav class="navbar">
-    <div class="nav-container">
-        <div class="nav-col-left">
-            <a href="/" class="brand"><i class="fas fa-shield-alt"></i> Control Deck</a>
+<div class="admin-layout">
+    <aside class="admin-sidebar">
+        <div class="sidebar-top">
+            <i class="fas fa-shield-alt"></i>
+            <span>Admin Central</span>
         </div>
-        
-        <div class="nav-col-right">
-            <a href="admin.html" class="btn-admin-dash"><i class="fas fa-th-large"></i> Return to Dashboard</a>
-            <div class="nav-divider"></div>
-            <div class="profile-container">
-                <button class="profile-icon-btn" id="profileBtn">
-                    <i class="fas fa-user-shield"></i>
-                    <span class="profile-text-label">Admin</span>
-                </button>
-                <div class="profile-dropdown" id="profileDropdown">
-                    <button class="prof-drop-item" onclick="handleSignOut()"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
-                </div>
+        <nav class="sidebar-nav">
+            <a href="admin.html" class="active"><i class="fas fa-users"></i> Users</a>
+            <a href="index.html"><i class="fas fa-home"></i> Back to Site</a>
+        </nav>
+        <button class="logout-foot" onclick="handleSignOut()">Logout</button>
+    </aside>
+
+    <main class="admin-content">
+        <header class="content-header">
+            <h2>User Management</h2>
+            <div class="stats-box">
+                Total Users: <span id="stat-count">0</span>
             </div>
-        </div>
-    </div>
-</nav>
+        </header>
 
-<main class="admin-main">
-    <header class="admin-view-header">
-        <div>
-            <h1>User Accounts Management</h1>
-            <p>Full control over website access and user records.</p>
-        </div>
-        <div class="admin-summary-stats">
-            <div class="stat-pill">Users: <span id="stat-total">0</span></div>
-        </div>
-    </header>
-
-    <div class="admin-card">
-        <div class="table-responsive-container">
-            <table class="admin-table">
+        <section class="table-card">
+            <table class="data-table">
                 <thead>
                     <tr>
-                        <th>User Profile</th>
+                        <th>Name</th>
                         <th>Email Address</th>
-                        <th>Security Level</th>
                         <th>Status</th>
-                        <th class="text-right">Actions</th>
+                        <th style="text-align:right">Actions</th>
                     </tr>
                 </thead>
-                <tbody id="admin-user-rows">
+                <tbody id="userRows">
                     </tbody>
             </table>
-            <div id="empty-state" class="empty-table-msg" style="display:none;">
-                <i class="fas fa-users-slash"></i>
-                <p>No user accounts have been created yet.</p>
+            <div id="noData" class="empty-msg" style="display:none">
+                <i class="fas fa-folder-open"></i>
+                <p>No user accounts registered yet.</p>
             </div>
-        </div>
-    </div>
-</main>
+        </section>
+    </main>
+</div>
 
 <script src="script.js"></script>
 </body>
