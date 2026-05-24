@@ -50,7 +50,7 @@ body {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Ensures structural horizontal alignment */
+    align-items: center; 
     height: 52px;
 }
 
@@ -164,7 +164,7 @@ body {
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px; /* Clean tracking gap for profile text string next to it */
+    gap: 8px; 
     padding: 0 4px;
     transition: opacity 0.2s;
     height: 52px;
@@ -187,7 +187,7 @@ body {
     display: none;
     position: absolute;
     top: 52px;
-    right: -2rem; /* Offsets navbar padding to flush exactly to the visual right edge */
+    right: -2rem; 
     background-color: #35431d; 
     min-width: 170px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.35);
@@ -214,6 +214,10 @@ body {
 }
 .prof-drop-item:hover { background-color: rgba(255,255,255,0.08); }
 .prof-drop-item:last-child { border-bottom: none; }
+
+/* Admin Manage Button Specific Styling */
+#manageBtn { color: #f2bc57; } /* Subtle gold accent for Admin tools */
+#manageBtn:hover { background-color: rgba(242, 188, 87, 0.1); }
 
 /* --- HERO --- */
 .hero {
@@ -257,8 +261,36 @@ body {
 .auth-form { display: none; }
 .auth-form.active-form { display: block; }
 
+/* --- ADMIN PANEL --- */
+.admin-body { background-color: #1a2210; color: #f4f1ea; padding-top: 52px; min-height: 100vh; }
+.admin-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+.admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+.admin-header h1 { font-size: 2rem; font-weight: 600; }
+.admin-header h1 i { color: #f2bc57; margin-right: 10px; }
+.btn-secondary { background: #35431d; color: #f4f1ea; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-size: 0.9rem; transition: background 0.2s; border: 1px solid rgba(255,255,255,0.1); }
+.btn-secondary:hover { background: #415224; }
+
+.admin-card { background: #242f18; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+.admin-table { width: 100%; border-collapse: collapse; text-align: left; }
+.admin-table th { background: #1c2412; padding: 16px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(244,241,234,0.6); font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.admin-table td { padding: 16px; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.admin-table tr:last-child td { border-bottom: none; }
+.admin-table tr:hover { background: rgba(255,255,255,0.02); }
+
+.status-badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+.status-active { background: rgba(76, 175, 80, 0.2); color: #81c784; }
+.status-suspended { background: rgba(255, 152, 0, 0.2); color: #ffb74d; }
+.status-banned { background: rgba(244, 67, 54, 0.2); color: #e57373; }
+
+.admin-action-select { background: #1c2412; color: #f4f1ea; border: 1px solid rgba(255,255,255,0.2); padding: 8px; border-radius: 4px; font-family: 'Inter', sans-serif; font-size: 0.85rem; outline: none; cursor: pointer; }
+.admin-action-select:focus { border-color: #f2bc57; }
+
 /* Responsive Media Viewports */
 @media (max-width: 992px) {
     .nav-links { display: none; }
     .hero-content h1 { font-size: 2.75rem; }
+}
+@media (max-width: 768px) {
+    .admin-table th, .admin-table td { padding: 10px; font-size: 0.85rem; }
+    .admin-header { flex-direction: column; align-items: flex-start; gap: 15px; }
 }
