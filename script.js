@@ -1,26 +1,62 @@
-// --- AUTHENTICATION MOCK ENGINE ---
+// --- STATE & AUTHENTICATION MANAGEMENT ENGINE ---
 const authManager = {
+    // Check session data tracking
     isLoggedIn: () => localStorage.getItem('isLoggedIn') === 'true',
-    signIn: () => {
-        localStorage.setItem('isLoggedIn', 'true');
-        window.location.href = 'index.html';
+    
+    // Retrieve tracking user parameters
+    getUserName: () => localStorage.getItem('userName') || 'User Account',
+    
+    // Explicit Validation Login Routing Framework
+    validateAndLogin: (email, password) => {
+        const cleanEmail = email.trim().toLowerCase();
+        
+        // Admin Account Verification Ruleset
+        if (cleanEmail === 'austinbmatthew1811@gmail.com' && password === 'Matthew#2024') {
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userName', 'Admin');
+            return true;
+        } 
+        
+        // Default Mock Registration Validation Fallback
+        if (cleanEmail !== '' && password.length >= 4) {
+            // Extracts name string segment safely out of email pattern
+            const extractedName = cleanEmail.split('@')[0];
+            const structuredName = extractedName.charAt(0).toUpperCase() + extractedName.slice(1);
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userName', structuredName);
+            return true;
+        }
+        
+        return false;
     },
+
     signOut: () => {
         localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userName');
         window.location.reload();
     }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- PAGE LOADER ---
+    // --- PAGE LOADER HANDLER ---
     const loader = document.getElementById('page-loader');
     if (loader) {
         window.addEventListener('load', () => {
-            setTimeout(() => loader.classList.add('fade-out'), 300);
+            setTimeout(() => loader.classList.add('fade-out'), 250);
         });
     }
 
-    // --- PROFILE ICON LOGIC ---
+    // --- RE-EVALUATE PROFILE DISPLAY LABELS ---
+    const profileLabel = document.getElementById('profileLabel');
+    if (profileLabel) {
+        if (authManager.isLoggedIn()) {
+            profileLabel.textContent = authManager.getUserName();
+        } else {
+            profileLabel.textContent = 'Sign In';
+        }
+    }
+
+    // --- PROFILE ICON INTERACTION ROUTER ---
     const profileBtn = document.getElementById('profileBtn');
     const profileDropdown = document.getElementById('profileDropdown');
 
@@ -28,38 +64,50 @@ document.addEventListener('DOMContentLoaded', () => {
         profileBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             if (authManager.isLoggedIn()) {
-                // If logged in, show the 3-button menu
+                // When signed in, toggle the dropdown menu (Shifted up 75%)
                 profileDropdown.classList.toggle('show');
             } else {
-                // If logged out, go to sign in page
+                // When signed out, redirect directly to auth entry page
                 window.location.href = 'auth.html';
             }
         });
     }
 
-    // --- DROPDOWN (HAMBURGER) ---
+    // --- HAMBURGER TOGGLE LOGIC ---
     const menuToggle = document.getElementById('menuToggle');
     const dropdownMenu = document.getElementById('dropdownMenu');
-    if (menuToggle) {
+    if (menuToggle && dropdownMenu) {
         menuToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             dropdownMenu.classList.toggle('show');
         });
     }
 
-    // Close menus on outside click
+    // Intercept outside interface context mouse gestures to clear popup modals safely
     document.addEventListener('click', () => {
         if (profileDropdown) profileDropdown.classList.remove('show');
         if (dropdownMenu) dropdownMenu.classList.remove('show');
     });
 
-    // --- AUTH TAB SWITCHING ---
+    // --- INTER-TAB SPEED SPIN OVERLAY TRIGGER ---
+    document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            if (href && !href.startsWith('#') && !href.startsWith('javascript:') && link.target !== '_blank') {
+                e.preventDefault();
+                if (loader) loader.classList.remove('fade-out');
+                setTimeout(() => { window.location.href = href; }, 200);
+            }
+        });
+    });
+
+    // --- AUTH FORM TABS LOGIC ---
     const tabLogin = document.getElementById('tab-login');
     const tabRegister = document.getElementById('tab-register');
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
 
-    if (tabLogin) {
+    if (tabLogin && tabRegister) {
         tabLogin.addEventListener('click', () => {
             tabLogin.classList.add('active');
             tabRegister.classList.remove('active');
@@ -75,10 +123,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// --- BUTTON ACTIONS ---
-function handleAuthSubmit() {
-    // This simulates a successful login
-    authManager.signIn();
+// --- ENGINE CONTROLLER DISPATCH ENTRY POINTS ---
+function processAuthForm(formId) {
+    let emailValue = '';
+    let passValue = '';
+
+    if (formId === 'login') {
+        emailValue = document.getElementById('login-email').value;
+        passValue = document.getElementById('login-password').value;
+    } else {
+        emailValue = document.getElementById('reg-email').value;
+        passValue = document.getElementById('reg-password').value;
+    }
+
+    const success = authManager.validateAndLogin(emailValue, passValue);
+    if (success) {
+        // Automatic routing home standard execution
+        window.location.href = 'index.html';
+    } else {
+        alert('Authentication failed. Please verify credentials.');
+    }
 }
 
 function handleSignOut() {
@@ -86,7 +150,7 @@ function handleSignOut() {
 }
 
 function switchAccount() {
-    // Switches accounts by clearing session and going back to login
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userName');
     window.location.href = 'auth.html';
 }
