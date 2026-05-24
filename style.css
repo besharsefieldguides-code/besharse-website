@@ -182,13 +182,13 @@ body {
     text-overflow: ellipsis;
 }
 
-/* Profile Dropdown Position aligned with bottom of navbar */
+/* Profile Dropdown Position aligned with bottom and far right edge of navbar */
 .profile-dropdown {
     display: none;
     position: absolute;
     top: 52px;
-    right: 0;
-    background-color: #35431d; /* Slightly darker shade for stacked UI popouts */
+    right: -2rem; /* Offsets navbar padding to flush exactly to the visual right edge */
+    background-color: #35431d; 
     min-width: 170px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.35);
     border: 1px solid rgba(255,255,255,0.08);
