@@ -14,23 +14,21 @@
     <div class="spinner"></div>
 </div>
 
-<!-- Simplified Admin Specific Top Dashboard Nav -->
 <nav class="navbar">
     <div class="nav-container">
-        <a href="/" class="brand"><i class="fas fa-shield-alt"></i> Besharse Control Deck</a>
+        <div class="nav-col-left">
+            <a href="/" class="brand"><i class="fas fa-shield-alt"></i> Control Deck</a>
+        </div>
         
-        <div class="nav-right">
-            <ul class="nav-links">
-                <li><a href="index.html">View Live Site</a></li>
-            </ul>
+        <div class="nav-col-right">
+            <a href="admin.html" class="btn-admin-dash"><i class="fas fa-th-large"></i> Return to Dashboard</a>
             <div class="nav-divider"></div>
             <div class="profile-container">
                 <button class="profile-icon-btn" id="profileBtn">
                     <i class="fas fa-user-shield"></i>
-                    <span class="profile-text-label">Admin Control</span>
+                    <span class="profile-text-label">Admin</span>
                 </button>
                 <div class="profile-dropdown" id="profileDropdown">
-                    <button class="prof-drop-item" onclick="switchAccount()"><i class="fas fa-exchange-alt"></i> Switch Account</button>
                     <button class="prof-drop-item" onclick="handleSignOut()"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
                 </div>
             </div>
@@ -38,20 +36,17 @@
     </div>
 </nav>
 
-<!-- Admin Panel Main Content Grid Container -->
 <main class="admin-main">
     <header class="admin-view-header">
         <div>
             <h1>User Accounts Management</h1>
-            <p>Review, audit, suspend, or revoke access levels across security groups.</p>
+            <p>Full control over website access and user records.</p>
         </div>
         <div class="admin-summary-stats">
-            <div class="stat-pill">Total: <span id="stat-total">0</span></div>
-            <div class="stat-pill banned">Banned: <span id="stat-banned">0</span></div>
+            <div class="stat-pill">Users: <span id="stat-total">0</span></div>
         </div>
     </header>
 
-    <!-- Master User Database Card -->
     <div class="admin-card">
         <div class="table-responsive-container">
             <table class="admin-table">
@@ -61,13 +56,16 @@
                         <th>Email Address</th>
                         <th>Security Level</th>
                         <th>Status</th>
-                        <th class="text-right">Moderation Actions</th>
+                        <th class="text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody id="admin-user-rows">
-                    <!-- Dynamic Rows populated seamlessly via script.js -->
-                </tbody>
+                    </tbody>
             </table>
+            <div id="empty-state" class="empty-table-msg" style="display:none;">
+                <i class="fas fa-users-slash"></i>
+                <p>No user accounts have been created yet.</p>
+            </div>
         </div>
     </div>
 </main>
