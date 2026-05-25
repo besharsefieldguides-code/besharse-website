@@ -3,8 +3,10 @@
     display: flex;
     align-items: center;
     height: 100%;
-    margin-left: auto; /* Pushes the menu to the far right */
+    margin-left: auto;
+    position: relative; /* Added to act as an anchor for the child menu */
 }
+
 .dropbtn { 
     background: none; 
     border: none; 
@@ -16,18 +18,29 @@
     align-items: center; 
     height: 52px;
 }
+
 .dropbtn:hover { background-color: rgba(255,255,255,0.1); }
+
 .dropdown-content { 
     display: none; 
     position: absolute; 
-    right: 0; /* Aligned to the far right edge of the navbar container */
+    right: 0; /* Aligns the menu with the right edge of the dropdown container */
+    top: 100%; /* Positions the menu directly below the navbar baseline */
     background-color: #415224; 
     min-width: 180px; 
-    top: 52px; 
     border: 1px solid rgba(255,255,255,0.1); 
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     z-index: 1000;
 }
-.dropdown-content a { color: #f4f1ea; padding: 14px 20px; text-decoration: none; display: block; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+.dropdown-content a { 
+    color: #f4f1ea; 
+    padding: 14px 20px; 
+    text-decoration: none; 
+    display: block; 
+    border-bottom: 1px solid rgba(255,255,255,0.05); 
+}
+
 .dropdown-content a:hover { background-color: rgba(255,255,255,0.1); }
+
 .dropdown-content.show { display: block; }
