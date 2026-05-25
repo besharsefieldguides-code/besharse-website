@@ -114,8 +114,8 @@ body {
     display: flex;
     align-items: center;
     height: 100%;
-    position: relative; /* Acts as the master anchor for the child menu */
-    margin-left: auto; /* Pushes to the far right */
+    position: relative; 
+    margin-left: auto; 
 }
 .dropbtn { 
     background: none; 
@@ -132,15 +132,24 @@ body {
 .dropdown-content { 
     display: none; 
     position: absolute; 
-    right: 0; /* Locks to the exact right edge of the hamburger button */
-    top: 100%; /* Pushes exactly under the bottom of the navbar */
+    right: 0; 
+    top: 100%; 
     background-color: #415224; 
     min-width: 180px; 
     border: 1px solid rgba(255,255,255,0.1); 
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     z-index: 1000;
 }
-.dropdown-content a { color: #f4f1ea; padding: 14px 20px; text-decoration: none; display: block; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.dropdown-content a { 
+    color: #f4f1ea; 
+    padding: 0 20px; 
+    text-decoration: none; 
+    display: flex; 
+    align-items: center; 
+    height: 52px; /* Matches navbar height exactly */
+    font-size: 0.9rem; /* Matches main navbar text size exactly */
+    border-bottom: 1px solid rgba(255,255,255,0.05); 
+}
 .dropdown-content a:hover { background-color: rgba(255,255,255,0.1); }
 .dropdown-content.show { display: block; }
 
