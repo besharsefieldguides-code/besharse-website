@@ -50,7 +50,7 @@ body {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Ensures structural horizontal alignment */
+    align-items: center;
     height: 52px;
 }
 
@@ -114,7 +114,8 @@ body {
     display: flex;
     align-items: center;
     height: 100%;
-    position: relative; /* Acts as an anchor for the child menu */
+    position: relative; /* Acts as the master anchor for the child menu */
+    margin-left: auto; /* Pushes to the far right */
 }
 .dropbtn { 
     background: none; 
@@ -131,8 +132,8 @@ body {
 .dropdown-content { 
     display: none; 
     position: absolute; 
-    right: 0; /* Aligns flush to the right edge of the dropdown container */
-    top: 52px; /* Positions perfectly below the navbar baseline */
+    right: 0; /* Locks to the exact right edge of the hamburger button */
+    top: 100%; /* Pushes exactly under the bottom of the navbar */
     background-color: #415224; 
     min-width: 180px; 
     border: 1px solid rgba(255,255,255,0.1); 
