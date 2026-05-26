@@ -4,64 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Books & Guides - Besharse Field Guides</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="page-loader" class="loader-overlay">
-    <div class="spinner"></div>
-</div>
-
 <nav class="navbar">
     <div class="nav-container">
         <a href="index.html" class="brand">Besharse Field Guides</a>
-
-        <div class="nav-right">
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="books.html">Books</a></li>
-                <li><a href="/blog">Blog</a></li>
-            </ul>
-
-            <div class="search-box-container">
-                <div class="search-box">
-                    <input type="text" placeholder="Search...">
-                    <button type="submit"><i class="fas fa-search"></i></button>
-                </div>
-            </div>
-
-            <div class="dropdown">
-                <button class="dropbtn" id="menuToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="dropdown-content" id="dropdownMenu">
-                    <a href="/photos">Photos</a>
-                    <a href="/events">Events</a>
-                    <a href="/services">Services</a>
-                    <a href="/contact">Contact</a>
-                    <a href="/donate">Donate</a>
-                </div>
-            </div>
-        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="books.html">Books</a></li>
+        </ul>
     </div>
 </nav>
 
-<header class="page-header" style="background-image: linear-gradient(rgba(26, 34, 16, 0.8), rgba(26, 34, 16, 0.8)), url('https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=2000&auto=format&fit=crop');">
+<header class="page-header">
     <h1>Publications & Field Guides</h1>
-    <p>Comprehensive knowledge, bound and ready for the field.</p>
 </header>
 
-<main class="content-container" style="max-width: 1100px;">
-    <!-- The grid container that will be populated by JavaScript -->
-    <div id="book-list-container" class="book-grid">
-        <!-- Books will be injected here -->
-    </div>
+<main id="book-list-container" class="book-grid">
 </main>
 
-<script src="script.js"></script>
-<script src="book-data.js"></script>
+<script src="book-data.js" defer></script>
 </body>
 </html>
