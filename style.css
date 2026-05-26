@@ -170,11 +170,23 @@ body {
 .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 0 20px; }
 .hero-content h1 { font-size: 4rem; margin-bottom: 15px; font-weight: 700; letter-spacing: -1px; }
 .tagline { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9; }
+
+/* Updated Primary Button */
 .btn-primary {
-    display: inline-block; padding: 14px 36px; background-color: #415224; color: #f4f1ea;
-    text-decoration: none; font-weight: 600; transition: transform 0.2s, background 0.2s;
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    height: 52px; /* Matches navbar height exactly */
+    padding: 0 36px; 
+    background-color: #415224; 
+    color: #f4f1ea;
+    text-decoration: none; 
+    font-weight: 600; 
+    font-size: 0.9rem; /* Matches main navbar text size exactly */
+    transition: transform 0.2s, background 0.2s;
 }
 .btn-primary:hover { transform: translateY(-2px); background-color: #556b35; }
+
 .hero-footer { position: absolute; bottom: 20px; width: 100%; opacity: 0.6; font-size: 0.8rem; }
 
 /* Responsive Media Viewports */
