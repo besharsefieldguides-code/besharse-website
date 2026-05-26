@@ -1,7 +1,5 @@
 /**
  * BESHARSE FIELD GUIDES - BOOK DATA MANAGER
- * To add a new book, change a picture, or update a description, simply edit 
- * the text in this file and upload it to IONOS. Only you have access to these files.
  */
 
 const myBooks = [
@@ -18,7 +16,7 @@ const myBooks = [
     }
 ];
 
-// Helper to fill the grid with placeholders
+// Helper to fill the grid
 for (let i = 2; i <= 21; i++) {
     myBooks.push({
         id: "book-" + i,
@@ -48,7 +46,7 @@ function renderBooks() {
                     <div class="book-meta">
                         <p><strong>Status:</strong> ${book.status}</p>
                         <p><strong>Pages:</strong> ${book.pages}</p>
-                        <p><strong>Available At:</strong> ${book.store}</p>
+                        <p><strong>Store:</strong> ${book.store}</p>
                     </div>
                     <p class="book-desc">${book.shortDescription}</p>
                 </div>
