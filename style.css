@@ -16,11 +16,10 @@
     border-bottom: 1px solid #eeeeee;
 }
 
-/* Styling the Logo/Brand Text */
-.logo a {
+/* Updated: Styling the non-clickable Logo/Brand Text */
+.logo .brand-name {
     color: #000000;
-    text-decoration: none;
-    font-size: 24px;
+    font-size: 35px; /* Increased to size 35 as requested */
     font-weight: bold;
 }
 
@@ -53,18 +52,18 @@
     gap: 8px;
 }
 
-/* Updated: Styling the Donate Button with a light green background */
+/* Updated: Styling the Donate Button */
 .nav-links .donate-btn {
     background-color: #90EE90; /* Light green */
     color: #000000;
     padding: 10px 20px;
     border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s ease; /* Smooth transition for hover */
+    font-weight: normal; /* Removed the boldness */
+    transition: background-color 0.3s ease;
 }
 
-/* Updated: Hover effect for the Donate Button (slightly darker green) */
+/* Hover effect for the Donate Button */
 .nav-links .donate-btn:hover {
-    background-color: #76C276; 
+    background-color: #76C276; /* Slightly darker green */
     color: #000000;
 }
