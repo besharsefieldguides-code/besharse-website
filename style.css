@@ -92,7 +92,7 @@ body {
 /* --- Small Black Sub-Bar --- */
 .sub-bar {
     background-color: #000000; 
-    height: 4px; 
-    width: 50%; 
+    height: 10px; 
+    width: 100%; 
     margin: 0 auto; 
 }
