@@ -23,9 +23,7 @@ body {
 .nav-left {
     display: flex;
     align-items: baseline;
-    
-    /* I have doubled this gap from 12px to 24px! */
-    gap: 24px; 
+    gap: 24px; /* Double spacing between title and coordinates */
 }
 
 .nav-title {
@@ -52,7 +50,7 @@ body {
 .nav-links {
     display: flex;
     list-style: none; 
-    gap: 40px; /* Kept your wider 4-space tab layout */
+    gap: 40px; /* Wider spacing between navigation tabs */
 }
 
 .nav-links a {
@@ -89,4 +87,12 @@ body {
 .sign-in-btn:hover {
     color: #ffffff; 
     border-color: #ffffff; 
+}
+
+/* --- Small Black Sub-Bar --- */
+.sub-bar {
+    background-color: #000000; 
+    height: 4px; 
+    width: 100%; 
+    margin: 0 auto; 
 }
