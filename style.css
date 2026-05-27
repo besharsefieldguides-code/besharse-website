@@ -1,5 +1,4 @@
 /* --- Basic Reset --- */
-/* Removes default browser margins and padding to ensure consistent styling across devices */
 * {
     margin: 0;
     padding: 0;
@@ -7,8 +6,8 @@
 }
 
 body {
-    background-color: #1a1a1a; /* A very dark background for the main page body */
-    color: #ffffff; /* Default text color */
+    background-color: #1a1a1a; 
+    color: #ffffff; 
     font-family: Arial, sans-serif;
 }
 
@@ -18,6 +17,7 @@ body {
     align-items: center;
     background-color: #222222; 
     padding: 12px 24px;
+    gap: 20px; /* This controls the standard gap between sections, keeping them perfectly aligned together */
 }
 
 /* --- Left Section (Title & Coordinates) --- */
@@ -29,8 +29,9 @@ body {
 
 .nav-title {
     color: #ffffff; 
-    font-size: 1.25rem;
-    font-weight: bold;
+    font-size: 1.4rem;
+    font-family: 'Cinzel', serif; /* Wilderness/classic font applied here */
+    font-weight: 600;
     user-select: none; 
 }
 
@@ -44,7 +45,6 @@ body {
     width: 1px;
     height: 24px;
     background-color: #555555; 
-    margin: 0 20px; 
 }
 
 /* --- Navigation Links --- */
@@ -65,26 +65,24 @@ body {
     color: #ffffff; 
 }
 
-/* --- Right Section (Sign In Button) --- */
+/* --- Right Section (Profile Icon) --- */
+/* The margin-left: auto rule was removed here to prevent the giant gap seen in Screenshot (80).png */
 .nav-right {
-    margin-left: auto; 
-}
-
-.sign-in-btn {
     display: flex;
     align-items: center;
-    gap: 8px; 
-    background-color: transparent;
-    color: #aaaaaa;
-    border: 1px solid #555555;
-    padding: 6px 12px;
-    border-radius: 4px; 
-    cursor: pointer;
-    font-size: 0.95rem;
-    transition: all 0.2s ease-in-out;
 }
 
-.sign-in-btn:hover {
+.profile-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #aaaaaa;
+    border: none; /* Removed the border for a cleaner look since there is no text */
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+.profile-btn:hover {
     color: #ffffff; 
-    border-color: #ffffff; 
 }
