@@ -43,14 +43,16 @@ body {
     width: 1px;
     height: 24px;
     background-color: #555555; 
-    margin: 0 20px; /* Provides uniform breathing room around the lines */
+    margin: 0 20px; 
 }
 
 /* --- Navigation Links --- */
 .nav-links {
     display: flex;
     list-style: none; 
-    gap: 20px; 
+    
+    /* I have increased this gap from 20px to 40px to give you that wider "4 space" spacing between the tabs! */
+    gap: 40px; 
 }
 
 .nav-links a {
@@ -76,7 +78,7 @@ body {
     gap: 8px; 
     background-color: transparent;
     color: #aaaaaa;
-    border: 1px solid #555555; /* Brings the button outline back */
+    border: 1px solid #555555; 
     padding: 6px 12px;
     border-radius: 4px; 
     cursor: pointer;
