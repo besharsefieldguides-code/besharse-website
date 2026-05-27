@@ -1,0 +1,69 @@
+/* Removes default browser spacing so the navbar sits flush against the edges */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif; /* You can change this to your preferred font */
+}
+
+/* Main Navbar Container */
+.navbar {
+    display: flex; /* This allows us to align items side-by-side */
+    justify-content: space-between; /* Pushes the logo to the left and links to the right */
+    align-items: center; /* Centers everything vertically */
+    background-color: #ffffff; /* White background */
+    padding: 20px 40px; /* Adds space inside the top/bottom and left/right of the navbar */
+    border-bottom: 1px solid #eeeeee; /* Optional: A tiny gray line to separate the navbar from the page */
+}
+
+/* Styling the Logo/Brand Text */
+.logo a {
+    color: #000000; /* Black text */
+    text-decoration: none; /* Removes the default underline */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Styling the list of links */
+.nav-links {
+    display: flex;
+    align-items: center; /* Centers the text and buttons perfectly on the horizontal line */
+    list-style: none; /* Removes the bullet points */
+    gap: 30px; /* This creates the perfect, even spacing between every word */
+}
+
+/* Styling the standard text links */
+.nav-links a {
+    color: #000000; /* Black text */
+    text-decoration: none; /* Removes underlines */
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease; /* Adds a smooth fade when hovering */
+}
+
+/* Optional: Turns links gray when you hover over them with your mouse */
+.nav-links a:hover {
+    color: #666666; 
+}
+
+/* Aligning the Sign In text and Icon perfectly */
+.sign-in {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between the person icon and the words "Sign In" */
+}
+
+/* Styling the Donate Button */
+.nav-links .donate-btn {
+    background-color: #FFD700; /* Gold background */
+    color: #000000; /* Black text */
+    padding: 10px 20px; /* Creates the button shape around the text */
+    border-radius: 5px; /* Slightly rounds the corners of the button */
+    font-weight: bold;
+}
+
+/* Hover effect specifically for the Donate Button */
+.nav-links .donate-btn:hover {
+    background-color: #e6c200; /* Slightly darker gold when hovering */
+    color: #000000;
+}
