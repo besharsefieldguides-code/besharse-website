@@ -23,7 +23,9 @@ body {
 .nav-left {
     display: flex;
     align-items: baseline;
-    gap: 12px; 
+    
+    /* I have doubled this gap from 12px to 24px! */
+    gap: 24px; 
 }
 
 .nav-title {
@@ -50,9 +52,7 @@ body {
 .nav-links {
     display: flex;
     list-style: none; 
-    
-    /* I have increased this gap from 20px to 40px to give you that wider "4 space" spacing between the tabs! */
-    gap: 40px; 
+    gap: 40px; /* Kept your wider 4-space tab layout */
 }
 
 .nav-links a {
