@@ -17,7 +17,6 @@ body {
     align-items: center;
     background-color: #222222; 
     padding: 12px 24px;
-    gap: 20px; /* This controls the standard gap between sections, keeping them perfectly aligned together */
 }
 
 /* --- Left Section (Title & Coordinates) --- */
@@ -29,9 +28,8 @@ body {
 
 .nav-title {
     color: #ffffff; 
-    font-size: 1.4rem;
-    font-family: 'Cinzel', serif; /* Wilderness/classic font applied here */
-    font-weight: 600;
+    font-size: 1.25rem;
+    font-weight: bold;
     user-select: none; 
 }
 
@@ -45,6 +43,7 @@ body {
     width: 1px;
     height: 24px;
     background-color: #555555; 
+    margin: 0 20px; /* Provides uniform breathing room around the lines */
 }
 
 /* --- Navigation Links --- */
@@ -65,24 +64,27 @@ body {
     color: #ffffff; 
 }
 
-/* --- Right Section (Profile Icon) --- */
-/* The margin-left: auto rule was removed here to prevent the giant gap seen in Screenshot (80).png */
+/* --- Right Section (Sign In Button) --- */
 .nav-right {
     display: flex;
     align-items: center;
 }
 
-.profile-btn {
+.sign-in-btn {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 8px; 
     background-color: transparent;
     color: #aaaaaa;
-    border: none; /* Removed the border for a cleaner look since there is no text */
+    border: 1px solid #555555; /* Brings the button outline back */
+    padding: 6px 12px;
+    border-radius: 4px; 
     cursor: pointer;
-    transition: color 0.2s ease-in-out;
+    font-size: 0.95rem;
+    transition: all 0.2s ease-in-out;
 }
 
-.profile-btn:hover {
+.sign-in-btn:hover {
     color: #ffffff; 
+    border-color: #ffffff; 
 }
