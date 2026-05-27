@@ -3,23 +3,23 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif; /* You can change this to your preferred font */
+    font-family: Arial, sans-serif;
 }
 
 /* Main Navbar Container */
 .navbar {
-    display: flex; /* This allows us to align items side-by-side */
-    justify-content: space-between; /* Pushes the logo to the left and links to the right */
-    align-items: center; /* Centers everything vertically */
-    background-color: #ffffff; /* White background */
-    padding: 20px 40px; /* Adds space inside the top/bottom and left/right of the navbar */
-    border-bottom: 1px solid #eeeeee; /* Optional: A tiny gray line to separate the navbar from the page */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 20px 40px;
+    border-bottom: 1px solid #eeeeee;
 }
 
 /* Styling the Logo/Brand Text */
 .logo a {
-    color: #000000; /* Black text */
-    text-decoration: none; /* Removes the default underline */
+    color: #000000;
+    text-decoration: none;
     font-size: 24px;
     font-weight: bold;
 }
@@ -27,43 +27,44 @@
 /* Styling the list of links */
 .nav-links {
     display: flex;
-    align-items: center; /* Centers the text and buttons perfectly on the horizontal line */
-    list-style: none; /* Removes the bullet points */
-    gap: 30px; /* This creates the perfect, even spacing between every word */
+    align-items: center;
+    list-style: none;
+    gap: 30px;
 }
 
 /* Styling the standard text links */
 .nav-links a {
-    color: #000000; /* Black text */
-    text-decoration: none; /* Removes underlines */
+    color: #000000;
+    text-decoration: none;
     font-size: 16px;
     font-weight: 500;
-    transition: color 0.3s ease; /* Adds a smooth fade when hovering */
+    transition: color 0.3s ease;
 }
 
-/* Optional: Turns links gray when you hover over them with your mouse */
+/* Turns links gray when you hover over them */
 .nav-links a:hover {
     color: #666666; 
 }
 
-/* Aligning the Sign In text and Icon perfectly */
+/* Aligning the Sign in text and Icon perfectly */
 .sign-in {
     display: flex;
     align-items: center;
-    gap: 8px; /* Space between the person icon and the words "Sign In" */
+    gap: 8px;
 }
 
-/* Styling the Donate Button */
+/* Updated: Styling the Donate Button with a light green background */
 .nav-links .donate-btn {
-    background-color: #FFD700; /* Gold background */
-    color: #000000; /* Black text */
-    padding: 10px 20px; /* Creates the button shape around the text */
-    border-radius: 5px; /* Slightly rounds the corners of the button */
+    background-color: #90EE90; /* Light green */
+    color: #000000;
+    padding: 10px 20px;
+    border-radius: 5px;
     font-weight: bold;
+    transition: background-color 0.3s ease; /* Smooth transition for hover */
 }
 
-/* Hover effect specifically for the Donate Button */
+/* Updated: Hover effect for the Donate Button (slightly darker green) */
 .nav-links .donate-btn:hover {
-    background-color: #e6c200; /* Slightly darker gold when hovering */
+    background-color: #76C276; 
     color: #000000;
 }
