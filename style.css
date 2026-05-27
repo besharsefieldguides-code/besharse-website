@@ -1,0 +1,90 @@
+/* --- Basic Reset --- */
+/* Removes default browser margins and padding to ensure consistent styling across devices */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1a1a1a; /* A very dark background for the main page body */
+    color: #ffffff; /* Default text color */
+    font-family: Arial, sans-serif;
+}
+
+/* --- Navigation Bar Container --- */
+.navbar {
+    display: flex;
+    align-items: center;
+    background-color: #222222; 
+    padding: 12px 24px;
+}
+
+/* --- Left Section (Title & Coordinates) --- */
+.nav-left {
+    display: flex;
+    align-items: baseline;
+    gap: 12px; 
+}
+
+.nav-title {
+    color: #ffffff; 
+    font-size: 1.25rem;
+    font-weight: bold;
+    user-select: none; 
+}
+
+.nav-coords {
+    color: #aaaaaa; 
+    font-size: 0.8rem; 
+}
+
+/* --- Vertical Dividers --- */
+.divider {
+    width: 1px;
+    height: 24px;
+    background-color: #555555; 
+    margin: 0 20px; 
+}
+
+/* --- Navigation Links --- */
+.nav-links {
+    display: flex;
+    list-style: none; 
+    gap: 20px; 
+}
+
+.nav-links a {
+    text-decoration: none; 
+    color: #aaaaaa; 
+    font-size: 0.95rem;
+    transition: color 0.2s ease-in-out; 
+}
+
+.nav-links a:hover {
+    color: #ffffff; 
+}
+
+/* --- Right Section (Sign In Button) --- */
+.nav-right {
+    margin-left: auto; 
+}
+
+.sign-in-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+    background-color: transparent;
+    color: #aaaaaa;
+    border: 1px solid #555555;
+    padding: 6px 12px;
+    border-radius: 4px; 
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.sign-in-btn:hover {
+    color: #ffffff; 
+    border-color: #ffffff; 
+}
