@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Besharse Field Guides – Navbar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --nav-bg: #5a5f63;
+      --nav-bg-solid: #4d5256;
+      --accent-orange: #e8771a;
+      --text-main: #111111;
+      --text-white: #ffffff;
+      --text-coords: #d4d8dc;
+      --divider: rgba(255,255,255,0.35);
+      --hover-bg: rgba(255,255,255,0.12);
+      --nav-height: 62px;
+      --font-title: 'Playfair Display', Georgia, serif;
+      --font-ui: 'Source Sans 3', sans-serif;
+    }
+
+    /* ── NAV SHELL ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+      height: var(--nav-height);
+      background: linear-gradient(180deg, #626970 0%, var(--nav-bg-solid) 100%);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+      display: flex;
+      align-items: center;
+      padding: 0 20px 0 18px;
+      gap: 0;
+      overflow: visible;
+    }
+
+    /* ── LEFT BRAND BLOCK ── */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-family: var(--font-title);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent-orange);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+      line-height: 1;
+    }
+
+    .brand-coords {
+      font-family: var(--font-ui);
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--text-coords);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      line-height: 1;
+      opacity: 0.85;
+    }
+
+    /* ── VERTICAL DIVIDER ── */
+    .divider {
+      width: 1px;
+      height: 30px;
+      background: var(--divider);
+      flex-shrink: 0;
+      margin: 0 18px;
+    }
+
+    /* ── SPACER pushes nav links to far right ── */
+    .spacer { flex: 1; }
+
+    /* ── NAV LINKS ── */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      display: inline-block;
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-main);
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 4px;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+
+    .nav-links li a:hover {
+      background: var(--hover-bg);
+      color: var(--text-white);
+    }
+
+    /* ── SPECIAL: Sign up / Sign in ── */
+    .nav-links li.auth a {
+      border: 1px solid rgba(255,255,255,0.4);
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-left: 6px;
+      color: var(--text-main);
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .nav-links li.auth a:hover {
+      background: var(--accent-orange);
+      border-color: var(--accent-orange);
+      color: var(--text-white);
+    }
+
+    /* ── MOBILE HAMBURGER ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: background 0.15s;
+    }
+    .hamburger:hover { background: var(--hover-bg); }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-coords);
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── MOBILE MENU ── */
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: var(--nav-height);
+      left: 0;
+      right: 0;
+      background: var(--nav-bg-solid);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+      padding: 10px 0 14px;
+      z-index: 999;
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-main);
+      text-decoration: none;
+      padding: 11px 24px;
+      letter-spacing: 0.03em;
+      transition: background 0.15s, color 0.15s;
+    }
+    .mobile-menu a:hover { background: var(--hover-bg); color: var(--text-white); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ── DEMO PAGE RESET ── */
+    body {
+      font-family: var(--font-ui);
+      background: #f0ebe3;
+      min-height: 100vh;
+    }
+    .demo-body {
+      padding: 48px 32px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .demo-body h2 {
+      font-family: var(--font-title);
+      color: #333;
+      margin-bottom: 12px;
+    }
+    .demo-body p { color: #555; line-height: 1.7; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     NAVBAR  —  copy everything inside <nav>…</nav>
+     plus the <style> block and Google Fonts link
+     into your site pages.
+     ════════════════════════════════════════════ -->
+
+<nav>
+
+  <!-- LEFT: Brand + coordinates + divider -->
+  <div class="brand">
+    <span class="brand-title">Besharse Field Guides</span>
+    <span class="brand-coords">35.8908° N &nbsp;|&nbsp; 90.3442° W</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SPACER -->
+  <div class="spacer"></div>
+
+  <!-- RIGHT: Nav links (desktop) -->
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Field Guides</a></li>
+    <li><a href="#">Photos</a></li>
+    <li><a href="#">News</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">Donate</a></li>
+    <li class="auth"><a href="#">Sign up / Sign in</a></li>
+  </ul>
+
+  <!-- Mobile hamburger -->
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+</nav>
+
+<!-- Mobile slide-down menu -->
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+  <a href="#">Home</a>
+  <a href="#">About</a>
+  <a href="#">Field Guides</a>
+  <a href="#">Photos</a>
+  <a href="#">News</a>
+  <a href="#">Contact</a>
+  <a href="#">Donate</a>
+  <a href="#">Sign up / Sign in</a>
+</div>
+
+<!-- Demo page body (remove this in production) -->
+<div class="demo-body">
+  <h2>Welcome to Besharse Field Guides</h2>
+  <p>This is a preview page to demonstrate the navbar above. The nav is sticky — scroll down to see it stay fixed at the top. On screens narrower than 900 px, the nav links collapse into the hamburger menu.</p>
+  <br>
+  <p style="height:1200px; color:#aaa; font-style:italic;">← scroll area for sticky demo →</p>
+</div>
+
+<script>
+  const btn  = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+
+  btn.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+
+  // Close mobile menu when a link is tapped
+  menu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+
+</body>
+</html>
