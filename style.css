@@ -1,16 +1,11 @@
 /* ==========================================================================
-   CSS Variables - Immersive Forest Wildlife Palette
+   CSS Variables - Custom Palette
    ========================================================================== */
 :root {
-    --color-canopy: #183324;       /* Very deep forest green */
-    --color-pine: #264F36;         /* Lighter pine green */
-    --color-bark: #4A3525;         /* Rugged tree bark brown */
-    --color-moss: #8BA867;         /* Bright moss green for hover states */
-    --color-parchment: #F4EEDF;    /* Vintage field guide paper background */
-    --color-text: #2B2B2B;         /* Soft black for readable text */
-    --color-campfire: #D96A27;     /* Vibrant campfire orange */
-    --color-campfire-hover: #B8551B; 
-    --transition-speed: 0.3s;
+    --color-bg: #3E2723;       /* Dark Brown */
+    --color-text: #000000;     /* Black text */
+    --color-border: #000000;   /* Black border */
+    --color-donate: #FFD700;   /* Gold */
 }
 
 /* ==========================================================================
@@ -23,9 +18,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--color-parchment);
-    color: var(--color-text);
+    font-family: Arial, sans-serif;
     line-height: 1.6;
 }
 
@@ -33,11 +26,8 @@ body {
    Navbar Architecture
    ========================================================================== */
 .site-header {
-    /* Rich canopy gradient to give depth */
-    background: linear-gradient(135deg, var(--color-canopy) 0%, var(--color-pine) 100%);
-    /* Thick bark-colored border to ground the design */
-    border-bottom: 5px solid var(--color-bark);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background-color: var(--color-bg);
+    border-bottom: 3px solid var(--color-border); /* Black bar under navbar */
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -45,31 +35,31 @@ body {
 
 .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Pushes title left, options right */
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem 2rem;
+    width: 100%;
+    padding: 0.5rem 2rem; /* Significantly smaller padding to fix "pushed up" look */
 }
 
+/* Title / Logo - Far Left */
 .brand-logo {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    color: #F4EEDF; /* Parchment color for logo */
+    gap: 0.5rem;
+    color: var(--color-text);
     text-decoration: none;
-    font-size: 1.6rem;
-    /* Serif font to mimic a printed field guide book */
-    font-family: 'Georgia', 'Times New Roman', serif; 
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    font-size: 1.1rem; /* Smaller title text */
+    font-weight: bold;
 }
 
-/* SVG Leaf Icon Color */
+/* SVG Logo Color */
 .brand-logo svg {
-    color: var(--color-moss);
+    color: var(--color-text);
+    width: 20px; /* Smaller logo icon */
+    height: 20px;
 }
 
+/* Options - Far Right */
 .nav-links {
     list-style: none;
     display: flex;
@@ -78,42 +68,28 @@ body {
 }
 
 .nav-links a {
-    color: #E8E5D9;
+    color: var(--color-text);
     text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 600;
-    text-transform: uppercase; /* Rugged, structural look */
-    letter-spacing: 1px;
-    transition: color var(--transition-speed) ease;
-    padding: 0.5rem 0;
+    font-size: 0.85rem; /* Smaller option text */
+    font-weight: bold;
 }
 
+/* Text hover remains black per request */
 .nav-links a:hover,
 .nav-links a.active {
-    color: var(--color-moss);
+    color: var(--color-text); 
 }
 
-/* Donate Button Specifics */
+/* Donate Button */
 .nav-links a.btn-donate {
-    background-color: var(--color-campfire);
-    color: #ffffff;
-    padding: 0.6rem 1.4rem;
-    border-radius: 6px;
-    font-weight: 700;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: all var(--transition-speed) ease;
-}
-
-.nav-links a.btn-donate:hover {
-    background-color: var(--color-campfire-hover);
-    color: #ffffff;
-    transform: translateY(-1px); /* Slight lift effect on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: var(--color-donate);
+    color: #000000;
+    padding: 0.3rem 0.8rem; /* Smaller button padding */
+    border-radius: 4px;
 }
 
 /* ==========================================================================
-   Mobile Navigation Toggle
+   Mobile Navigation Toggle (Kept minimal to prevent breaking on phones)
    ========================================================================== */
 .mobile-toggle {
     display: none;
@@ -125,12 +101,10 @@ body {
 
 .hamburger {
     display: block;
-    width: 28px;
-    height: 3px;
-    background-color: var(--color-parchment);
+    width: 22px;
+    height: 2px;
+    background-color: var(--color-text);
     position: relative;
-    transition: background-color var(--transition-speed) ease;
-    border-radius: 2px;
 }
 
 .hamburger::before,
@@ -138,81 +112,33 @@ body {
     content: '';
     position: absolute;
     width: 100%;
-    height: 3px;
-    background-color: var(--color-parchment);
+    height: 2px;
+    background-color: var(--color-text);
     left: 0;
-    transition: transform var(--transition-speed) ease;
-    border-radius: 2px;
 }
 
-.hamburger::before { top: -9px; }
-.hamburger::after { top: 9px; }
+.hamburger::before { top: -6px; }
+.hamburger::after { top: 6px; }
 
-/* ==========================================================================
-   Responsive Design (Mobile)
-   ========================================================================== */
+/* Responsive adjustments */
 @media screen and (max-width: 768px) {
-    .mobile-toggle {
-        display: block;
-    }
-
+    .mobile-toggle { display: block; }
+    
     .nav-links {
+        display: none; /* Hide menu by default on mobile */
         position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
-        background-color: var(--color-canopy);
-        border-bottom: 4px solid var(--color-bark);
+        background-color: var(--color-bg);
+        border-bottom: 2px solid var(--color-border);
         flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease-in-out;
+        padding: 1rem 0;
     }
 
-    /* Toggled State */
     .nav-links.is-open {
-        max-height: 500px;
+        display: flex;
     }
 
-    .nav-links li {
-        text-align: center;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .nav-links a {
-        display: block;
-        padding: 1.2rem;
-    }
-
-    .nav-links a.btn-donate {
-        border-radius: 0;
-        border: none;
-        box-shadow: none;
-        background-color: var(--color-campfire);
-    }
-    
-    .nav-links a.btn-donate:hover {
-        transform: none;
-    }
-}
-
-/* Hero Section (Starter styles for visual structure) */
-.hero {
-    text-align: center;
-    padding: 8rem 2rem;
-    color: var(--color-canopy);
-}
-
-.hero h1 {
-    font-family: 'Georgia', serif;
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    color: var(--color-bark);
-}
-
-.hero p {
-    font-size: 1.25rem;
-    font-weight: 500;
+    .nav-links a { padding: 0.5rem 1rem; }
 }
