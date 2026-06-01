@@ -1,0 +1,68 @@
+/* =========================================
+   Global Resets & Base Styles
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Clean, professional sans-serif font stack */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* =========================================
+   Navbar Styling
+   ========================================= */
+.navbar {
+    background-color: #8B4513; /* Saddle Brown */
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between; /* Pushes left and right sections apart */
+    align-items: center;            /* Vertically centers items */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* --- Left Side (Links & Buttons) --- */
+.nav-left .nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; /* Even spacing between all items */
+}
+
+.nav-links li {
+    display: flex;
+    align-items: center;
+}
+
+/* General Link Styling */
+.navbar a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease; /* Smooth hover transition for better UX */
+}
+
+/* Hover Effect: Text turns black */
+.navbar a:hover {
+    color: #000000;
+}
+
+/* Separator styling (|) */
+.separator {
+    color: #FFFFFF;
+    font-weight: 300;
+    user-select: none; /* Prevents user from accidentally highlighting the pipe */
+}
+
+/* --- Right Side (Brand Name) --- */
+.nav-right .brand-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    /* Retains the hover effect applied globally to .navbar a */
+}
