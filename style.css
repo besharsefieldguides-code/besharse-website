@@ -152,7 +152,7 @@ body {
 
     /* Toggled State */
     .nav-links.is-open {
-        max-height: 400px; /* Adjust if more links are added */
+        max-height: 400px;
     }
 
     .nav-links li {
@@ -171,9 +171,18 @@ body {
     }
 }
 
-/* Hero Section (Just for visualization) */
+/* Hero Section (Starter styles for visual structure) */
 .hero {
     text-align: center;
     padding: 6rem 2rem;
     color: var(--color-forest);
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.25rem;
 }
