@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleButton.setAttribute('aria-expanded', isOpen);
     });
 
-    // Close menu when a link is clicked (useful for mobile single-page jumps)
+    // Close menu when a link is clicked
     const links = navMenu.querySelectorAll('a');
     links.forEach(link => {
         link.addEventListener('click', () => {
