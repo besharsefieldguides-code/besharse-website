@@ -1,14 +1,15 @@
 /* ==========================================================================
-   CSS Variables - Wildlife Theme Palette
+   CSS Variables - Immersive Forest Wildlife Palette
    ========================================================================== */
 :root {
-    --color-forest: #2C4C3B;      /* Deep green */
-    --color-forest-light: #3A634D;
-    --color-earth: #8B5A2B;       /* Wood brown */
-    --color-sand: #F4F1EA;        /* Off-white background */
-    --color-text: #333333;
-    --color-donate: #D48136;      /* Sunrise orange */
-    --color-donate-hover: #BF722D;
+    --color-canopy: #183324;       /* Very deep forest green */
+    --color-pine: #264F36;         /* Lighter pine green */
+    --color-bark: #4A3525;         /* Rugged tree bark brown */
+    --color-moss: #8BA867;         /* Bright moss green for hover states */
+    --color-parchment: #F4EEDF;    /* Vintage field guide paper background */
+    --color-text: #2B2B2B;         /* Soft black for readable text */
+    --color-campfire: #D96A27;     /* Vibrant campfire orange */
+    --color-campfire-hover: #B8551B; 
     --transition-speed: 0.3s;
 }
 
@@ -23,7 +24,7 @@
 
 body {
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--color-sand);
+    background-color: var(--color-parchment);
     color: var(--color-text);
     line-height: 1.6;
 }
@@ -32,8 +33,11 @@ body {
    Navbar Architecture
    ========================================================================== */
 .site-header {
-    background-color: var(--color-forest);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Rich canopy gradient to give depth */
+    background: linear-gradient(135deg, var(--color-canopy) 0%, var(--color-pine) 100%);
+    /* Thick bark-colored border to ground the design */
+    border-bottom: 5px solid var(--color-bark);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -51,12 +55,19 @@ body {
 .brand-logo {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    color: #ffffff;
+    gap: 0.75rem;
+    color: #F4EEDF; /* Parchment color for logo */
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    /* Serif font to mimic a printed field guide book */
+    font-family: 'Georgia', 'Times New Roman', serif; 
     font-weight: 700;
     letter-spacing: 0.5px;
+}
+
+/* SVG Leaf Icon Color */
+.brand-logo svg {
+    color: var(--color-moss);
 }
 
 .nav-links {
@@ -67,31 +78,38 @@ body {
 }
 
 .nav-links a {
-    color: #ffffff;
+    color: #E8E5D9;
     text-decoration: none;
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase; /* Rugged, structural look */
+    letter-spacing: 1px;
     transition: color var(--transition-speed) ease;
     padding: 0.5rem 0;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-    color: var(--color-earth);
+    color: var(--color-moss);
 }
 
 /* Donate Button Specifics */
 .nav-links a.btn-donate {
-    background-color: var(--color-donate);
-    padding: 0.6rem 1.2rem;
-    border-radius: 4px;
-    font-weight: bold;
-    transition: background-color var(--transition-speed) ease;
+    background-color: var(--color-campfire);
+    color: #ffffff;
+    padding: 0.6rem 1.4rem;
+    border-radius: 6px;
+    font-weight: 700;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all var(--transition-speed) ease;
 }
 
 .nav-links a.btn-donate:hover {
-    background-color: var(--color-donate-hover);
+    background-color: var(--color-campfire-hover);
     color: #ffffff;
+    transform: translateY(-1px); /* Slight lift effect on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* ==========================================================================
@@ -107,11 +125,12 @@ body {
 
 .hamburger {
     display: block;
-    width: 25px;
+    width: 28px;
     height: 3px;
-    background-color: #ffffff;
+    background-color: var(--color-parchment);
     position: relative;
     transition: background-color var(--transition-speed) ease;
+    border-radius: 2px;
 }
 
 .hamburger::before,
@@ -120,13 +139,14 @@ body {
     position: absolute;
     width: 100%;
     height: 3px;
-    background-color: #ffffff;
+    background-color: var(--color-parchment);
     left: 0;
     transition: transform var(--transition-speed) ease;
+    border-radius: 2px;
 }
 
-.hamburger::before { top: -8px; }
-.hamburger::after { top: 8px; }
+.hamburger::before { top: -9px; }
+.hamburger::after { top: 9px; }
 
 /* ==========================================================================
    Responsive Design (Mobile)
@@ -141,48 +161,58 @@ body {
         top: 100%;
         left: 0;
         width: 100%;
-        background-color: var(--color-forest-light);
+        background-color: var(--color-canopy);
+        border-bottom: 4px solid var(--color-bark);
         flex-direction: column;
         align-items: stretch;
         gap: 0;
         max-height: 0;
         overflow: hidden;
-        transition: max-height var(--transition-speed) ease-in-out;
+        transition: max-height 0.4s ease-in-out;
     }
 
     /* Toggled State */
     .nav-links.is-open {
-        max-height: 400px;
+        max-height: 500px;
     }
 
     .nav-links li {
         text-align: center;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .nav-links a {
         display: block;
-        padding: 1rem;
+        padding: 1.2rem;
     }
 
     .nav-links a.btn-donate {
         border-radius: 0;
-        background-color: var(--color-donate);
+        border: none;
+        box-shadow: none;
+        background-color: var(--color-campfire);
+    }
+    
+    .nav-links a.btn-donate:hover {
+        transform: none;
     }
 }
 
 /* Hero Section (Starter styles for visual structure) */
 .hero {
     text-align: center;
-    padding: 6rem 2rem;
-    color: var(--color-forest);
+    padding: 8rem 2rem;
+    color: var(--color-canopy);
 }
 
 .hero h1 {
-    font-size: 3rem;
+    font-family: 'Georgia', serif;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
+    color: var(--color-bark);
 }
 
 .hero p {
     font-size: 1.25rem;
+    font-weight: 500;
 }
