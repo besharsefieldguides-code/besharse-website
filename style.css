@@ -1,87 +1,29 @@
-/* Resets default browser margins */
-html, body {
+/* 1. The full-screen wildlife picture */
+body {
     margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
+    background-image: url('jamesdemers-raccoons-439883_1920.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: black;
     font-family: Arial, sans-serif;
 }
 
-/* Full-screen background image */
-.fullscreen-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-image: url('jamesdemers-raccoons-439883_1920.jpg'); 
-    background-size: cover; 
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: -1; /* Keeps the image perfectly tucked behind the navbar */
-}
-
-/* Transparent navbar */
+/* 2. Very light transparent navbar, basic size */
 .navbar {
+    height: 55px; 
+    background-color: rgba(255, 255, 255, 0.1); /* Very light transparency */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4); /* Just enough to see the border */
+    
+    /* Perfect alignment for the text */
     display: flex;
-    align-items: center; /* Perfectly centers the text vertically */
-    height: 60px; /* Standard, basic navbar height */
-    padding: 0 30px; /* Gives the brand name a clean margin from the far left edge */
-    background-color: rgba(255, 255, 255, 0.05); /* Very light transparency */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle, elegant border */
-    box-sizing: border-box;
-    width: 100%;
+    align-items: center;
+    padding-left: 20px; /* Keeps it strictly to the far left */
 }
 
-/* Brand text alignment and styling */
-.navbar-brand {
-    color: #ffffff;
-    font-size: 22px;
+/* 3. Brand text formatting */
+.brand {
+    color: white;
+    font-size: 20px;
     font-weight: bold;
-    letter-spacing: 1px;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); /* Drop shadow ensures readability over any image */
-}/* Resets default browser margins */
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    font-family: Arial, sans-serif;
-}
-
-/* Full-screen background image */
-.fullscreen-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-image: url('jamesdemers-raccoons-439883_1920.jpg'); 
-    background-size: cover; 
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: -1; /* Keeps the image perfectly tucked behind the navbar */
-}
-
-/* Transparent navbar */
-.navbar {
-    display: flex;
-    align-items: center; /* Perfectly centers the text vertically */
-    height: 60px; /* Standard, basic navbar height */
-    padding: 0 30px; /* Gives the brand name a clean margin from the far left edge */
-    background-color: rgba(255, 255, 255, 0.05); /* Very light transparency */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle, elegant border */
-    box-sizing: border-box;
-    width: 100%;
-}
-
-/* Brand text alignment and styling */
-.navbar-brand {
-    color: #ffffff;
-    font-size: 22px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); /* Drop shadow ensures readability over any image */
 }
