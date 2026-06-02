@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Besharse Field Guides</title>
+    <style>
+        /* Resets default browser margins to ensure the image touches the edges */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000; /* Dark background while image loads */
+            overflow: hidden; /* Prevents scrollbars */
+        }
+
+        .fullscreen-bg {
+            width: 100vw;
+            height: 100vh;
+            
+            /* ====================================================================
+               HOW TO CHANGE YOUR IMAGE:
+               1. Upload your new wildlife picture to your GitHub repository.
+               2. Replace the web link inside the url('...') below with your file's name.
+                  For example, if you upload 'bear.jpg', change it to:
+                  background-image: url('bear.jpg');
+               ==================================================================== */
+            background-image: url('https://images.unsplash.com/photo-1549471013-3364d7320600?q=80&w=1920&auto=format&fit=crop'); /* Currently set to a North American Elk */
+            
+            /* Ensures the image covers the entire screen without stretching */
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- The container holding your full-screen wildlife image -->
+    <div class="fullscreen-bg" role="img" aria-label="Besharse Field Guides - North American Wildlife"></div>
+
+</body>
+</html>
