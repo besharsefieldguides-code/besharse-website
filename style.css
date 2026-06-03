@@ -13,7 +13,7 @@ body, html {
 /* Navbar Styling */
 .navbar {
     width: 100%;
-    height: 70px;
+    height: 35px; /* Reduced to half the size */
     background-color: #556b2f; /* Olive Green */
     position: fixed;
     top: 0;
