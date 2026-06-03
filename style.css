@@ -61,7 +61,7 @@ body, html {
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease; /* Smooth transition for all properties including transform */
 }
 
 /* Standard Link Hover Effect: Text turns black */
@@ -75,12 +75,15 @@ body, html {
     padding: 6px 18px;
     border-radius: 4px;
     margin-left: 10px;
+    display: inline-block; /* Ensures transform animations render correctly */
 }
 
-/* Donate Hover: Very light, subtle semi-transparent white tint */
+/* Donate Hover: Light tint background + subtle push upward translation */
 .nav-donate:hover {
     background-color: rgba(255, 255, 255, 0.15);
     color: #ffffff;
+    transform: translateY(-3px); /* Pushes the button up slightly */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Adds a light depth shadow when elevated */
 }
 
 /* Full screen background image */
