@@ -48,18 +48,18 @@ body, html {
     border-radius: 8px;
     padding: 45px 60px; 
     text-align: center;
-    max-width: 1000px; 
+    max-width: 1050px; 
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
 }
 
-/* Bold White Title - Clean Adventure Font (Oswald) */
+/* Bold White Title - Stylish, premium adventure font (Cinzel) */
 .hero-title {
-    font-family: 'Oswald', sans-serif; /* Applied specific nature/adventure font */
+    font-family: 'Cinzel', serif; /* Elegant, cinematic nature font */
     color: #ffffff;
-    font-size: 4rem; /* Adjusted slightly to match the new font's natural scale */
-    font-weight: 700;
+    font-size: 3.5rem; 
+    font-weight: 800;
     margin-bottom: 16px; 
-    letter-spacing: 2.5px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5); 
     white-space: nowrap; /* Prevents text from stacking */
@@ -81,7 +81,7 @@ body, html {
         max-width: 95%;
     }
     .hero-title {
-        font-size: 5.5vw; 
+        font-size: 4.8vw; /* Scaled slightly for the wider font footprint */
     }
     .hero-subtitle {
         font-size: 1.2rem;
@@ -93,7 +93,7 @@ body, html {
         padding: 20px 25px;
     }
     .hero-title {
-        font-size: 6.5vw; 
+        font-size: 6vw; 
     }
     .hero-subtitle {
         font-size: 1rem;
