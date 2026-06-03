@@ -36,14 +36,16 @@ body, html {
     padding: 0 30px;
 }
 
-/* Left side Brand option - Updated to use Natoor font */
+/* Left side Brand - Non-clickable and Non-selectable */
 .nav-brand {
     font-family: 'Natoor', serif;
     color: #ffffff;
-    text-decoration: none;
     font-weight: normal;
     font-size: 1.35rem;
     letter-spacing: 1px;
+    cursor: default; /* Shows standard arrow instead of pointer finger */
+    user-select: none; /* Prevents text from being highlighted/selected */
+    -webkit-user-select: none; /* Safari support */
 }
 
 /* Right side Options container */
@@ -59,11 +61,12 @@ body, html {
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
-    transition: opacity 0.2s ease;
+    transition: color 0.3s ease;
 }
 
+/* Hover Effect: Only the links on the right turn black */
 .nav-link:hover {
-    opacity: 0.8;
+    color: #000000;
 }
 
 /* Full screen background image */
@@ -81,7 +84,7 @@ body, html {
     padding: 20px;
 }
 
-/* Larger transparent glassmorphism box */
+/* Glassmorphism box */
 .hero-content {
     background: rgba(0, 0, 0, 0.45); 
     backdrop-filter: blur(6px); 
@@ -94,7 +97,7 @@ body, html {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
 }
 
-/* Bold White Title - Custom Natoor Font */
+/* Center Title */
 .hero-title {
     font-family: 'Natoor', serif; 
     color: #ffffff;
@@ -107,7 +110,7 @@ body, html {
     white-space: nowrap; 
 }
 
-/* Refined Subtitle */
+/* Subtitle */
 .hero-subtitle {
     color: #f1f5f9;
     font-size: 1.4rem; 
@@ -116,40 +119,9 @@ body, html {
     letter-spacing: 0.5px;
 }
 
-/* Responsive adjustments for mobile layouts */
+/* Responsive adjustments */
 @media (max-width: 900px) {
-    .navbar {
-        padding: 0 15px;
-    }
-    .nav-links {
-        gap: 12px;
-    }
-    .nav-brand {
-        font-size: 1.1rem;
-    }
-    .nav-link {
-        font-size: 0.85rem;
-    }
-    .hero-content {
-        padding: 30px 40px;
-        max-width: 95%;
-    }
-    .hero-title {
-        font-size: 5vw; 
-    }
-    .hero-subtitle {
-        font-size: 1.2rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero-content {
-        padding: 20px 25px;
-    }
-    .hero-title {
-        font-size: 6.5vw; 
-    }
-    .hero-subtitle {
-        font-size: 1rem;
-    }
+    .nav-brand { font-size: 1.1rem; }
+    .nav-link { font-size: 0.85rem; }
+    .hero-title { font-size: 5vw; }
 }
