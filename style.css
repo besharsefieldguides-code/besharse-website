@@ -36,7 +36,7 @@ body, html {
     padding: 0 30px;
 }
 
-/* Left side Brand */
+/* Left side Brand - Pure White */
 .nav-brand {
     font-family: 'Natoor', serif;
     color: #ffffff;
@@ -51,37 +51,22 @@ body, html {
 /* Right side Options container */
 .nav-links {
     display: flex;
-    gap: 20px; /* Adjusted gap slightly to accommodate the button */
+    gap: 24px;
     align-items: center;
 }
 
-/* Individual Right side Options */
+/* Individual Right side Options - Faded white for contrast */
 .nav-link {
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.7); /* Slightly dimmed white for the non-hover state */
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease;
 }
 
-/* Hover Effect for standard links */
-.nav-link:not(.nav-signin):hover {
-    color: #000000;
-}
-
-/* Modern Sign In Button Styling */
-.nav-signin {
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    padding: 6px 18px;
-    border-radius: 4px;
-    margin-left: 10px;
-}
-
-/* Sign In Button Hover: Fills white with black text */
-.nav-signin:hover {
-    background-color: #ffffff;
-    border-color: #ffffff;
-    color: #000000;
+/* Hover Effect: Text turns pure bright white */
+.nav-link:hover {
+    color: #ffffff;
 }
 
 /* Full screen background image */
@@ -137,6 +122,5 @@ body, html {
 @media (max-width: 900px) {
     .nav-brand { font-size: 1.1rem; }
     .nav-link { font-size: 0.85rem; }
-    .nav-signin { padding: 4px 12px; }
     .hero-title { font-size: 5vw; }
 }
