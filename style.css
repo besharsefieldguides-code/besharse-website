@@ -18,14 +18,14 @@
 body, html {
     width: 100%;
     scroll-behavior: smooth;
-    background-color: #ffffff; /* Page background set to clean white */
+    background-color: #ffffff;
 }
 
 /* Navbar Styling */
 .navbar {
     width: 100%;
     height: 51px;
-    background-color: #556b2f; /* Olive Green */
+    background-color: #556b2f; 
     position: fixed;
     top: 0;
     left: 0;
@@ -123,91 +123,168 @@ body, html {
     font-size: 1.4rem;
 }
 
-/* Stats Section Styling - White Background */
-.stats-section {
-    background-color: #ffffff; 
-    padding: 100px 20px;
+/* Custom Premium Relaxed Stats Section */
+.custom-stats-section {
+    background-color: #ffffff;
+    padding: 120px 40px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    overflow: hidden;
 }
 
-.stats-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    max-width: 1200px;
-    width: 100%;
-    justify-content: center;
-}
-
-/* Individual Stat Cards - Configured with light modern borders */
-.stat-card {
-    flex: 1;
-    min-width: 250px;
-    max-width: 280px;
-    padding: 40px 20px;
-    border: 1px solid #e2e8f0; 
-    border-radius: 12px;
+/* Section Header Typography Layout */
+.section-intro {
     text-align: center;
-    background-color: #ffffff; 
-    display: flex;
-    flex-direction: column; /* Vertical alignment */
-    align-items: center;
-    transition: all 0.3s ease-in-out;
+    margin-bottom: 70px;
 }
 
-.stat-card:hover {
-    background-color: #f8fafc; 
-    border-color: #cbd5e1;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
-}
-
-/* Numbers: Styled using default system font weights */
-.stat-number {
-    font-size: 2.5rem;
-    color: #556b2f; /* Olive Green emphasis color */
-    font-weight: 800;
-    margin-bottom: 4px;
-}
-
-/* Labels: Replaced custom font with default system-ui styling */
-.stat-label {
-    font-family: system-ui, -apple-system, sans-serif; /* Default sans-serif font */
-    color: #64748b; /* Slate grey info text */
-    font-size: 0.95rem;
-    font-weight: 600;
+.intro-badge {
+    font-family: system-ui, sans-serif;
+    color: #556b2f;
+    background-color: rgba(85, 107, 47, 0.08);
+    font-size: 0.8rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 20px;
+    letter-spacing: 2px;
+    padding: 6px 16px;
+    border-radius: 30px;
+    display: inline-block;
+    margin-bottom: 12px;
 }
 
-/* Proper SVG Icon Placement at the Bottom */
-.stat-icon-container {
-    width: 44px;
-    height: 44px;
+.intro-heading {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 2.2rem;
+    color: #1e293b;
+    letter-spacing: -0.5px;
+}
+
+.intro-divider {
+    width: 40px;
+    height: 3px;
+    background-color: #556b2f;
+    margin: 16px auto 0 auto;
+    border-radius: 2px;
+}
+
+/* Grid Layout with Relaxed Spacing */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    max-width: 1140px;
+    width: 100%;
+}
+
+/* Premium Borderless Cards with Organic Asymmetric Staggering */
+.custom-stat-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    position: relative;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    cursor: default;
+}
+
+/* Asymmetric design depth styling */
+.card-inner {
+    padding: 40px 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 4px 20px rgba(85, 107, 47, 0.03);
+}
+
+/* Subtle staggered layout offsets for a beautiful organic cadence */
+.card-stagger-1 { transform: translateY(0px); }
+.card-stagger-2 { transform: translateY(15px); }
+.card-stagger-3 { transform: translateY(0px); }
+.card-stagger-4 { transform: translateY(15px); }
+
+/* Hover Interactive Elevation */
+.custom-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(85, 107, 47, 0.08);
+}
+
+.custom-stat-card:hover .card-inner {
+    border-color: rgba(85, 107, 47, 0.15);
+}
+
+/* Modern Default Typography Values */
+.stat-value {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #556b2f; /* Deep organic olive text focus */
+    line-height: 1.1;
+    margin-bottom: 6px;
+    letter-spacing: -1px;
+}
+
+.stat-description {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 0.95rem;
+    color: #64748b;
+    font-weight: 500;
+    margin-bottom: 35px;
+}
+
+/* Refined Premium SVG Icon Placement at Bottom */
+.icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: rgba(85, 107, 47, 0.05);
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #556b2f; /* Matching clean branding color */
-    margin-top: auto; /* Pushes icon cleanly to the card bottom */
+    color: #556b2f;
+    margin-top: auto; /* Clean uniform anchor execution */
+    transition: all 0.3s ease;
 }
 
-.stat-icon-container svg {
-    width: 32px;
-    height: 32px;
-    fill: currentColor;
+.icon-wrapper svg {
+    width: 22px;
+    height: 22px;
 }
 
-/* Extra blank white spacer at the bottom */
+.custom-stat-card:hover .icon-wrapper {
+    background-color: #556b2f;
+    color: #ffffff;
+}
+
+/* Extra lower baseline buffer */
 .bottom-spacer {
-    height: 400px;
+    height: 300px;
     background-color: #ffffff;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-    .hero-title { font-size: 2.5rem; }
-    .stats-container { gap: 16px; }
-    .stat-card { min-width: 100%; }
+/* Fluid Adaptive Breakdown */
+@media (max-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+    .card-stagger-2, .card-stagger-4 {
+        transform: translateY(0);
+    }
+    .custom-stats-section {
+        padding: 80px 24px;
+    }
+}
+
+@media (max-width: 640px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    .stat-value {
+        font-size: 2.6rem;
+    }
 }
