@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* Default clean font for general text (subtitle) */
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
@@ -45,28 +46,29 @@ body, html {
     -webkit-backdrop-filter: blur(6px); 
     border: 1px solid rgba(255, 255, 255, 0.35); 
     border-radius: 8px;
-    padding: 45px 60px; /* Increased padding */
+    padding: 45px 60px; 
     text-align: center;
-    max-width: 1000px; /* Widened to allow a larger single-line title */
+    max-width: 1000px; 
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
 }
 
-/* Bold White Title - Larger, forced to one line */
+/* Bold White Title - Clean Adventure Font (Oswald) */
 .hero-title {
+    font-family: 'Oswald', sans-serif; /* Applied specific nature/adventure font */
     color: #ffffff;
-    font-size: 3.5rem; /* Increased size */
-    font-weight: 800;
+    font-size: 4rem; /* Adjusted slightly to match the new font's natural scale */
+    font-weight: 700;
     margin-bottom: 16px; 
-    letter-spacing: 2px;
+    letter-spacing: 2.5px;
     text-transform: uppercase;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5); 
     white-space: nowrap; /* Prevents text from stacking */
 }
 
-/* Refined Subtitle - Scaled up proportionally */
+/* Refined Subtitle - Keeps the default system font */
 .hero-subtitle {
     color: #f1f5f9;
-    font-size: 1.4rem; /* Increased size */
+    font-size: 1.4rem; 
     line-height: 1.5;
     font-weight: 400;
     letter-spacing: 0.5px;
@@ -79,7 +81,7 @@ body, html {
         max-width: 95%;
     }
     .hero-title {
-        font-size: 5vw; /* Dynamically scales with window width */
+        font-size: 5.5vw; 
     }
     .hero-subtitle {
         font-size: 1.2rem;
@@ -91,7 +93,7 @@ body, html {
         padding: 20px 25px;
     }
     .hero-title {
-        font-size: 6.5vw; /* Keeps it single-line even on small screens */
+        font-size: 6.5vw; 
     }
     .hero-subtitle {
         font-size: 1rem;
