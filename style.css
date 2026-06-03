@@ -17,8 +17,9 @@
 
 body, html {
     width: 100%;
-    height: 100%;
+    /* Removed 'height: 100%' to allow natural page growth/scrolling */
     scroll-behavior: smooth;
+    background-color: #ffffff;
 }
 
 /* Navbar Styling */
@@ -36,26 +37,21 @@ body, html {
     padding: 0 30px;
 }
 
-/* Left side Brand */
 .nav-brand {
     font-family: 'Natoor', serif;
     color: #ffffff;
-    font-weight: normal;
     font-size: 1.35rem;
     letter-spacing: 1px;
     cursor: default;
     user-select: none;
-    -webkit-user-select: none;
 }
 
-/* Right side Options container */
 .nav-links {
     display: flex;
     gap: 22px;
     align-items: center;
 }
 
-/* Individual Right side Options */
 .nav-link {
     color: #ffffff; 
     text-decoration: none;
@@ -64,28 +60,22 @@ body, html {
     transition: all 0.25s ease-in-out;
 }
 
-/* Standard Link Hover Effect: Text turns black */
 .nav-link:not(.nav-donate):hover {
     color: #000000;
 }
 
-/* Redesigned Red Donate Button */
+/* Donate Button Style */
 .nav-donate {
-    background-color: #e11d48; /* Modern vibrant red */
+    background-color: #e11d48;
     color: #ffffff;
-    /* Adjusted padding: 8px on the left to "scoot" the icon closer to the edge */
     padding: 6px 18px 6px 8px; 
     border-radius: 50px; 
     font-weight: 600;
-    margin-left: 5px;
     display: flex;
     align-items: center;
-    /* Reduced gap between icon and text */
     gap: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* White circle for the icon */
 .donate-icon {
     background-color: #ffffff;
     width: 24px;
@@ -94,26 +84,21 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-shrink: 0;
 }
 
-/* Red heart inside the circle */
 .icon-heart {
     color: #e11d48;
     font-size: 14px;
-    margin-top: 1px;
 }
 
-/* Donate Hover State - Animation removed */
 .nav-donate:hover {
-    background-color: #be123c; /* Deeper red */
-    box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
+    background-color: #be123c;
 }
 
-/* Hero Section Styles */
+/* Hero Section */
 .hero-canvas {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100vh; /* Takes up exactly one full screen */
     background-image: url('Gator.jpg'); 
     background-size: cover;
     background-position: center;
@@ -137,7 +122,6 @@ body, html {
     color: #ffffff;
     font-size: 4rem; 
     text-transform: uppercase;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5); 
 }
 
 .hero-subtitle {
@@ -145,9 +129,33 @@ body, html {
     font-size: 1.4rem;
 }
 
+/* New White Content Area */
+.main-content {
+    background-color: #ffffff;
+    width: 100%;
+    min-height: 100vh;
+    padding: 80px 10%; /* Space for text and navbar clearance */
+}
+
+.info-section {
+    padding: 60px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.info-section h2 {
+    font-family: 'Natoor', serif;
+    font-size: 2.5rem;
+    color: #556b2f;
+    margin-bottom: 20px;
+}
+
+.spacer {
+    height: 500px; /* Extra height to demonstrate scrolling */
+}
+
 /* Responsive */
 @media (max-width: 900px) {
     .nav-brand { font-size: 1.1rem; }
-    .nav-link { font-size: 0.8rem; }
-    .nav-donate { padding: 4px 14px 4px 6px; font-size: 0.85rem; }
+    .hero-title { font-size: 3rem; }
+    .hero-content { padding: 30px; }
 }
