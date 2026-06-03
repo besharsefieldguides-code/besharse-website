@@ -3,1377 +3,839 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Besharse Field Guides</title>
+<title>Besharse Field Guides — Wildlife Field Guides & Conservation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabin:ital,wght@0,400;0,600;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;}
-  :root{
-    --forest:#1a3a2a;
-    --deep-green:#2d5a3d;
-    --moss:#4a7c5f;
-    --sage:#7aaa8a;
-    --cream:#f5f0e8;
-    --parchment:#ede5d4;
-    --warm-white:#faf7f2;
-    --bark:#6b4c2a;
-    --amber:#c8832a;
-    --gold:#d4a843;
-    --text-dark:#1c1c1c;
-    --text-med:#3a3a3a;
-    --text-light:#6b6b6b;
-    --border:#d4c9b0;
-    --shadow:rgba(26,58,42,0.12);
-  }
-  html{scroll-behavior:smooth;}
-  body{
-    font-family:'Source Serif 4',serif;
-    background:var(--warm-white);
-    color:var(--text-dark);
-    overflow-x:hidden;
-  }
-  #root{min-height:100vh;}
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#0a0c0a;
+  --near-black:#111410;
+  --dark:#1a1f18;
+  --mud:#2a2e26;
+  --olive:#3d4a32;
+  --moss:#5a7048;
+  --fern:#7a9458;
+  --lime-accent:#a8c848;
+  --orange:#d4621a;
+  --orange-bright:#f07020;
+  --cream:#f0ead8;
+  --off-white:#faf6ee;
+  --text-on-dark:rgba(240,234,216,0.92);
+  --text-muted:rgba(240,234,216,0.55);
+  --border-dark:rgba(240,234,216,0.12);
+  --border-light:rgba(240,234,216,0.25);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Cabin',sans-serif;background:var(--black);color:var(--cream);overflow-x:hidden;}
+#root{min-height:100vh;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--dark);}
+::-webkit-scrollbar-thumb{background:var(--olive);}
 
-  /* Scrollbar */
-  ::-webkit-scrollbar{width:6px;}
-  ::-webkit-scrollbar-track{background:var(--parchment);}
-  ::-webkit-scrollbar-thumb{background:var(--moss);border-radius:3px;}
+/* ── UTILITIES ── */
+.container{max-width:1200px;margin:0 auto;padding:0 2rem;}
+.label{font-family:'Courier Prime',monospace;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--lime-accent);}
+.big-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,8vw,8rem);line-height:0.92;letter-spacing:0.02em;color:var(--cream);}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5.5rem);line-height:0.95;color:var(--cream);}
+.divider{width:48px;height:3px;background:var(--orange);margin:1.2rem 0;}
+.btn{display:inline-block;font-family:'Courier Prime',monospace;font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.85rem 2rem;border-radius:2px;cursor:pointer;border:none;transition:all 0.2s;text-decoration:none;}
+.btn-orange{background:var(--orange);color:#fff;}
+.btn-orange:hover{background:var(--orange-bright);}
+.btn-ghost{background:transparent;border:1px solid var(--border-light);color:var(--cream);}
+.btn-ghost:hover{background:rgba(240,234,216,0.08);}
+.btn-lime{background:var(--lime-accent);color:var(--black);}
+.btn-lime:hover{background:#c0e050;}
+.btn-sm{padding:0.55rem 1.2rem;font-size:0.67rem;}
+.btn-full{width:100%;text-align:center;}
+.tag{display:inline-block;font-family:'Courier Prime',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.3rem 0.7rem;background:rgba(168,200,72,0.15);border:1px solid rgba(168,200,72,0.3);color:var(--lime-accent);border-radius:2px;}
 
-  /* Toast */
-  .toast{
-    position:fixed;bottom:2rem;right:2rem;
-    background:var(--forest);color:var(--cream);
-    padding:0.75rem 1.5rem;border-radius:6px;
-    font-family:'DM Mono',monospace;font-size:0.8rem;
-    z-index:9999;opacity:0;transition:opacity 0.3s;
-    pointer-events:none;
-  }
-  .toast.show{opacity:1;}
+/* ── TOAST ── */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--fern);color:#fff;padding:0.8rem 1.5rem;border-radius:2px;font-family:'Courier Prime',monospace;font-size:0.78rem;z-index:9999;opacity:0;transition:opacity 0.3s;pointer-events:none;}
+.toast.show{opacity:1;}
 
-  /* Modal overlay */
-  .modal-overlay{
-    position:fixed;inset:0;
-    background:rgba(26,58,42,0.6);
-    backdrop-filter:blur(4px);
-    z-index:1000;
-    display:flex;align-items:center;justify-content:center;
-    padding:1rem;
-  }
-  .modal-box{
-    background:var(--warm-white);
-    border:1px solid var(--border);
-    border-radius:4px;
-    max-width:480px;width:100%;
-    max-height:90vh;overflow-y:auto;
-    padding:2.5rem;
-    position:relative;
-  }
-  .modal-close{
-    position:absolute;top:1rem;right:1rem;
-    background:none;border:none;
-    font-size:1.4rem;cursor:pointer;
-    color:var(--text-light);
-    font-family:'DM Mono',monospace;
-  }
-  .modal-close:hover{color:var(--forest);}
+/* ── MODAL ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem;}
+.modal{background:var(--near-black);border:1px solid var(--border-dark);border-radius:4px;max-width:480px;width:100%;max-height:90vh;overflow-y:auto;padding:2.5rem;position:relative;}
+.modal-x{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--text-muted);font-size:1.3rem;cursor:pointer;font-family:'Courier Prime',monospace;transition:color 0.2s;}
+.modal-x:hover{color:var(--cream);}
+.modal h2{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--cream);margin:0.5rem 0 1.5rem;}
 
-  /* Forms */
-  input,textarea,select{
-    width:100%;
-    padding:0.65rem 0.9rem;
-    border:1px solid var(--border);
-    border-radius:3px;
-    font-family:'Source Serif 4',serif;
-    font-size:0.95rem;
-    background:var(--warm-white);
-    color:var(--text-dark);
-    outline:none;
-    transition:border-color 0.2s;
-    margin-top:0.35rem;
-  }
-  input:focus,textarea:focus,select:focus{border-color:var(--moss);}
-  label{
-    display:block;
-    font-size:0.8rem;
-    font-family:'DM Mono',monospace;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    color:var(--text-light);
-    margin-top:1rem;
-  }
-  label:first-child{margin-top:0;}
+/* ── FORMS ── */
+label{display:block;font-family:'Courier Prime',monospace;font-size:0.67rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-top:1.1rem;}
+label:first-of-type{margin-top:0;}
+input,textarea,select{width:100%;padding:0.7rem 0.9rem;background:rgba(255,255,255,0.05);border:1px solid var(--border-dark);border-radius:2px;color:var(--cream);font-family:'Cabin',sans-serif;font-size:0.95rem;outline:none;margin-top:0.3rem;transition:border-color 0.2s;}
+input:focus,textarea:focus,select:focus{border-color:var(--lime-accent);}
+select option{background:var(--dark);}
+.form-error{background:rgba(212,98,26,0.15);border:1px solid rgba(212,98,26,0.4);border-radius:2px;padding:0.65rem 0.9rem;font-size:0.85rem;color:#f09060;margin-bottom:1rem;}
 
-  /* Buttons */
-  .btn{
-    display:inline-block;
-    padding:0.7rem 1.8rem;
-    border-radius:3px;
-    font-family:'DM Mono',monospace;
-    font-size:0.78rem;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    cursor:pointer;
-    border:1px solid transparent;
-    transition:all 0.2s;
-    text-decoration:none;
-  }
-  .btn-primary{
-    background:var(--forest);
-    color:var(--cream);
-    border-color:var(--forest);
-  }
-  .btn-primary:hover{background:var(--deep-green);}
-  .btn-outline{
-    background:transparent;
-    color:var(--forest);
-    border-color:var(--forest);
-  }
-  .btn-outline:hover{background:var(--forest);color:var(--cream);}
-  .btn-amber{
-    background:var(--amber);
-    color:#fff;
-    border-color:var(--amber);
-  }
-  .btn-amber:hover{background:#b07020;}
-  .btn-sm{padding:0.5rem 1.2rem;font-size:0.72rem;}
-  .btn-full{width:100%;text-align:center;}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 2rem;height:68px;display:flex;align-items:center;justify-content:space-between;transition:background 0.4s,border-bottom 0.4s;}
+nav.scrolled{background:rgba(10,12,10,0.96);border-bottom:1px solid var(--border-dark);}
+.nav-logo-text{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:0.06em;color:var(--cream);text-decoration:none;}
+.nav-logo-sub{font-family:'Courier Prime',monospace;font-size:0.52rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--lime-accent);}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+.nav-links a{font-family:'Courier Prime',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-on-dark);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--lime-accent);}
+.nav-right{display:flex;align-items:center;gap:0.75rem;}
+@media(max-width:900px){.nav-links{display:none;}}
 
-  /* Star rating */
-  .stars{color:var(--gold);font-size:1rem;}
-  .star-empty{color:var(--border);}
+/* ── HERO ── */
+.hero{position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;}
+.hero-img{position:absolute;inset:0;background-size:cover;background-position:center;background-attachment:fixed;}
+.hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0.4) 45%,rgba(0,0,0,0.15) 100%);}
+.hero-content{position:relative;z-index:2;padding:0 2rem 5rem;max-width:1200px;margin:0 auto;width:100%;}
+.hero-eyebrow{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;}
+.hero-dot{width:8px;height:8px;background:var(--orange);border-radius:50%;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.6;transform:scale(0.8);}}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,9.5rem);line-height:0.88;color:var(--cream);margin-bottom:1.5rem;text-shadow:0 4px 40px rgba(0,0,0,0.5);}
+.hero-title span{color:var(--orange);}
+.hero-sub{font-size:1.05rem;color:rgba(240,234,216,0.75);line-height:1.7;max-width:520px;margin-bottom:2.5rem;}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;}
+.hero-scroll-hint{position:absolute;bottom:2rem;right:2rem;z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,rgba(240,234,216,0.5),transparent);animation:scrollLine 2s ease-in-out infinite;}
+@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform:scaleY(1);transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
 
-  /* Section spacing */
-  .section{padding:5rem 1.5rem;}
-  .section-alt{background:var(--parchment);}
-  .container{max-width:1100px;margin:0 auto;}
-  .section-label{
-    font-family:'DM Mono',monospace;
-    font-size:0.72rem;
-    letter-spacing:0.15em;
-    text-transform:uppercase;
-    color:var(--moss);
-    margin-bottom:0.75rem;
-  }
-  .section-title{
-    font-family:'Playfair Display',serif;
-    font-size:clamp(1.8rem,4vw,3rem);
-    font-weight:700;
-    color:var(--forest);
-    line-height:1.2;
-    margin-bottom:1.5rem;
-  }
-  .divider{
-    width:60px;height:2px;
-    background:var(--gold);
-    margin:1.5rem 0;
-  }
+/* ── PHOTO STRIP ── */
+.photo-strip{display:grid;grid-template-columns:repeat(5,1fr);height:220px;gap:3px;}
+.photo-strip-item{position:relative;overflow:hidden;cursor:pointer;}
+.photo-strip-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s;}
+.photo-strip-item:hover img{transform:scale(1.08);}
+.photo-strip-item::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.25);transition:background 0.3s;}
+.photo-strip-item:hover::after{background:rgba(0,0,0,0.1);}
+.photo-strip-caption{position:absolute;bottom:0;left:0;right:0;padding:0.5rem 0.65rem;background:linear-gradient(transparent,rgba(0,0,0,0.8));font-family:'Courier Prime',monospace;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,234,216,0.8);z-index:2;}
 
-  /* Nav */
-  nav{
-    position:fixed;top:0;left:0;right:0;
-    z-index:500;
-    background:rgba(250,247,242,0.95);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--border);
-    padding:0 1.5rem;
-    height:64px;
-    display:flex;align-items:center;justify-content:space-between;
-  }
-  .nav-logo{
-    font-family:'Playfair Display',serif;
-    font-size:1.15rem;
-    font-weight:700;
-    color:var(--forest);
-    text-decoration:none;
-    line-height:1.2;
-  }
-  .nav-logo span{
-    display:block;
-    font-family:'DM Mono',monospace;
-    font-size:0.55rem;
-    letter-spacing:0.18em;
-    text-transform:uppercase;
-    color:var(--moss);
-    font-weight:400;
-  }
-  .nav-links{
-    display:flex;align-items:center;gap:2rem;
-    list-style:none;
-  }
-  .nav-links a{
-    font-family:'DM Mono',monospace;
-    font-size:0.72rem;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:var(--text-med);
-    text-decoration:none;
-    transition:color 0.2s;
-  }
-  .nav-links a:hover{color:var(--forest);}
-  .nav-actions{display:flex;align-items:center;gap:0.75rem;}
+/* ── BOOKS ── */
+.books-section{background:var(--near-black);padding:7rem 0;}
+.books-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4rem;}
+@media(max-width:768px){.books-intro{grid-template-columns:1fr;gap:1.5rem;}}
+.books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2px;}
+.book-card{position:relative;overflow:hidden;cursor:pointer;group:true;}
+.book-img-wrap{height:360px;position:relative;overflow:hidden;}
+.book-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s;}
+.book-card:hover .book-img-wrap img{transform:scale(1.06);}
+.book-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.1) 60%);}
+.book-badge{position:absolute;top:1rem;left:1rem;z-index:3;}
+.book-over{position:absolute;bottom:0;left:0;right:0;z-index:3;padding:1.5rem;}
+.book-vol{font-family:'Courier Prime',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--lime-accent);margin-bottom:0.4rem;}
+.book-name{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--cream);line-height:1;margin-bottom:0.25rem;}
+.book-sub{font-size:0.8rem;color:rgba(240,234,216,0.65);margin-bottom:0.75rem;}
+.book-price-row{display:flex;align-items:center;justify-content:space-between;}
+.book-price{font-family:'Courier Prime',monospace;font-size:1rem;font-weight:700;color:var(--orange-bright);}
+.book-links-hover{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:0.75rem;background:rgba(10,12,10,0.88);opacity:0;transition:opacity 0.3s;padding:2rem;}
+.book-card:hover .book-links-hover{opacity:1;}
+.book-links-hover-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--cream);text-align:center;margin-bottom:0.5rem;}
+.book-links-row{display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:center;}
+.buy-pill{font-family:'Courier Prime',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.45rem 1rem;border:1px solid var(--border-light);border-radius:2px;color:var(--cream);text-decoration:none;transition:all 0.2s;}
+.buy-pill:hover{background:var(--orange);border-color:var(--orange);}
+.draft-overlay{position:absolute;inset:0;z-index:10;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;}
+.draft-label{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--orange);border:2px solid var(--orange);padding:0.5rem 1.5rem;transform:rotate(-5deg);}
 
-  /* Hero */
-  .hero{
-    min-height:100vh;
-    background:var(--forest);
-    display:flex;align-items:center;
-    position:relative;
-    overflow:hidden;
-    padding:6rem 1.5rem 4rem;
-  }
-  .hero-bg{
-    position:absolute;inset:0;
-    background:
-      radial-gradient(ellipse at 80% 50%, rgba(74,124,95,0.3) 0%, transparent 60%),
-      radial-gradient(ellipse at 20% 80%, rgba(26,58,42,0.8) 0%, transparent 50%);
-  }
-  .hero-pattern{
-    position:absolute;inset:0;
-    opacity:0.04;
-    background-image:
-      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.5) 39px, rgba(255,255,255,0.5) 40px),
-      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.5) 39px, rgba(255,255,255,0.5) 40px);
-  }
-  .hero-content{position:relative;z-index:2;max-width:680px;}
-  .hero-eyebrow{
-    font-family:'DM Mono',monospace;
-    font-size:0.72rem;
-    letter-spacing:0.2em;
-    text-transform:uppercase;
-    color:var(--sage);
-    margin-bottom:1.25rem;
-  }
-  .hero-title{
-    font-family:'Playfair Display',serif;
-    font-size:clamp(2.8rem,6vw,5rem);
-    font-weight:700;
-    color:var(--cream);
-    line-height:1.1;
-    margin-bottom:1.5rem;
-  }
-  .hero-title em{
-    color:var(--gold);
-    font-style:italic;
-  }
-  .hero-sub{
-    font-size:1.1rem;
-    color:rgba(245,240,232,0.75);
-    line-height:1.7;
-    max-width:520px;
-    margin-bottom:2.5rem;
-  }
-  .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;}
-  .hero-scroll{
-    position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
-    display:flex;flex-direction:column;align-items:center;gap:0.5rem;
-    font-family:'DM Mono',monospace;font-size:0.65rem;
-    letter-spacing:0.15em;text-transform:uppercase;
-    color:var(--sage);
-    animation:bounce 2s ease-in-out infinite;
-  }
-  @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-6px);}}
+/* ── NEWS ── */
+.news-section{padding:7rem 0;background:var(--dark);}
+.news-featured{display:grid;grid-template-columns:1.4fr 1fr;gap:2px;margin-top:3rem;}
+@media(max-width:768px){.news-featured{grid-template-columns:1fr;}}
+.news-main{position:relative;height:480px;overflow:hidden;cursor:pointer;}
+.news-main img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s;}
+.news-main:hover img{transform:scale(1.04);}
+.news-main::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.9),rgba(0,0,0,0.2));}
+.news-main-content{position:absolute;bottom:0;left:0;right:0;padding:2rem;z-index:2;}
+.news-stack{display:flex;flex-direction:column;gap:2px;}
+.news-small{position:relative;height:156.67px;overflow:hidden;cursor:pointer;}
+.news-small img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s;}
+.news-small:hover img{transform:scale(1.05);}
+.news-small::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.88),rgba(0,0,0,0.15));}
+.news-small-content{position:absolute;bottom:0;left:0;right:0;padding:1rem;z-index:2;}
+.news-title-text{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--cream);line-height:1.05;margin:0.4rem 0 0.3rem;}
+.news-small-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--cream);line-height:1.05;margin:0.3rem 0 0;}
+.news-excerpt{font-size:0.85rem;color:rgba(240,234,216,0.7);line-height:1.6;margin-top:0.4rem;}
+.news-date-text{font-family:'Courier Prime',monospace;font-size:0.6rem;letter-spacing:0.1em;color:rgba(240,234,216,0.5);margin-top:0.4rem;}
+.news-more-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2px;margin-top:2px;}
 
-  /* Books grid */
-  .books-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-    gap:2rem;
-    margin-top:3rem;
-  }
-  .book-card{
-    background:var(--warm-white);
-    border:1px solid var(--border);
-    border-radius:4px;
-    overflow:hidden;
-    transition:transform 0.2s, box-shadow 0.2s;
-  }
-  .book-card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 12px 40px var(--shadow);
-  }
-  .book-cover{
-    height:220px;
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Playfair Display',serif;
-    font-size:1.1rem;
-    color:var(--cream);
-    text-align:center;
-    padding:1.5rem;
-    position:relative;
-    overflow:hidden;
-  }
-  .book-cover-inner{position:relative;z-index:2;}
-  .book-cover-vol{
-    font-family:'DM Mono',monospace;
-    font-size:0.65rem;letter-spacing:0.15em;
-    text-transform:uppercase;
-    opacity:0.75;margin-bottom:0.5rem;
-  }
-  .book-cover-title{font-weight:700;line-height:1.3;font-size:1.2rem;}
-  .book-cover-sub{font-size:0.85rem;font-style:italic;opacity:0.8;margin-top:0.4rem;}
-  .book-info{padding:1.25rem;}
-  .book-meta{
-    font-family:'DM Mono',monospace;
-    font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;
-    color:var(--moss);margin-bottom:0.5rem;
-  }
-  .book-title{
-    font-family:'Playfair Display',serif;
-    font-size:1.1rem;font-weight:600;
-    color:var(--forest);margin-bottom:0.5rem;
-  }
-  .book-desc{font-size:0.88rem;color:var(--text-light);line-height:1.6;margin-bottom:1rem;}
-  .book-price{
-    font-family:'DM Mono',monospace;
-    font-size:1rem;font-weight:500;
-    color:var(--bark);margin-bottom:1rem;
-  }
-  .book-buy-links{display:flex;gap:0.5rem;flex-wrap:wrap;}
-  .buy-link{
-    display:inline-block;
-    padding:0.4rem 0.9rem;
-    border:1px solid var(--border);
-    border-radius:3px;
-    font-family:'DM Mono',monospace;
-    font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;
-    color:var(--text-med);text-decoration:none;
-    transition:all 0.2s;
-  }
-  .buy-link:hover{background:var(--forest);color:var(--cream);border-color:var(--forest);}
+/* ── ABOUT ── */
+.about-section{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;}
+.about-bg{position:absolute;inset:0;background-size:cover;background-position:center 20%;background-attachment:fixed;}
+.about-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(10,12,10,0.96) 0%,rgba(10,12,10,0.7) 55%,rgba(10,12,10,0.3) 100%);}
+.about-content{position:relative;z-index:2;padding:7rem 2rem;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+@media(max-width:768px){.about-content{grid-template-columns:1fr;gap:2.5rem;padding:5rem 1.5rem;}}
+.about-text p{font-size:1rem;color:rgba(240,234,216,0.8);line-height:1.9;margin-bottom:1.1rem;}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.5rem;}
+.stat-box{padding:1.25rem;border:1px solid var(--border-dark);border-radius:2px;background:rgba(255,255,255,0.03);}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--orange-bright);line-height:1;}
+.stat-desc{font-family:'Courier Prime',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:0.25rem;}
+.about-img-col{display:flex;flex-direction:column;gap:3px;}
+.about-img-tall{height:300px;overflow:hidden;border-radius:2px;}
+.about-img-tall img{width:100%;height:100%;object-fit:cover;}
+.about-img-pair{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
+.about-img-short{height:160px;overflow:hidden;border-radius:2px;}
+.about-img-short img{width:100%;height:100%;object-fit:cover;}
 
-  /* News */
-  .news-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-    gap:1.75rem;
-    margin-top:2.5rem;
-  }
-  .news-card{
-    background:var(--warm-white);
-    border:1px solid var(--border);
-    border-radius:4px;
-    padding:1.5rem;
-    transition:box-shadow 0.2s;
-  }
-  .news-card:hover{box-shadow:0 8px 30px var(--shadow);}
-  .news-tag{
-    display:inline-block;
-    padding:0.25rem 0.7rem;
-    background:var(--parchment);
-    border-radius:2px;
-    font-family:'DM Mono',monospace;
-    font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;
-    color:var(--moss);margin-bottom:0.75rem;
-  }
-  .news-title{
-    font-family:'Playfair Display',serif;
-    font-size:1.1rem;font-weight:600;
-    color:var(--forest);line-height:1.3;margin-bottom:0.6rem;
-  }
-  .news-excerpt{font-size:0.88rem;color:var(--text-light);line-height:1.6;margin-bottom:1rem;}
-  .news-date{
-    font-family:'DM Mono',monospace;
-    font-size:0.65rem;color:var(--text-light);
-    letter-spacing:0.08em;
-  }
+/* ── REVIEWS ── */
+.reviews-section{padding:7rem 0;background:var(--near-black);}
+.reviews-header{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;margin-bottom:3rem;}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;}
+.review-card{background:rgba(255,255,255,0.03);border:1px solid var(--border-dark);padding:1.75rem;transition:background 0.2s;}
+.review-card:hover{background:rgba(255,255,255,0.06);}
+.review-top{display:flex;align-items:center;gap:0.9rem;margin-bottom:1.1rem;}
+.r-avatar{width:42px;height:42px;border-radius:50%;overflow:hidden;flex-shrink:0;}
+.r-avatar img{width:100%;height:100%;object-fit:cover;}
+.r-avatar-fallback{width:42px;height:42px;border-radius:50%;background:var(--olive);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--cream);flex-shrink:0;}
+.r-name{font-weight:700;font-size:0.95rem;color:var(--cream);}
+.r-date{font-family:'Courier Prime',monospace;font-size:0.6rem;color:var(--text-muted);margin-top:2px;}
+.stars{color:var(--orange-bright);font-size:0.9rem;letter-spacing:2px;margin-bottom:0.75rem;}
+.r-text{font-size:0.92rem;color:rgba(240,234,216,0.72);line-height:1.75;font-style:italic;}
+.verified{display:inline-flex;align-items:center;gap:4px;font-family:'Courier Prime',monospace;font-size:0.6rem;letter-spacing:0.1em;color:var(--lime-accent);margin-top:0.85rem;}
 
-  /* About */
-  .about-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:5rem;
-    align-items:start;
-  }
-  @media(max-width:768px){.about-grid{grid-template-columns:1fr;gap:2.5rem;}}
-  .about-portrait{
-    width:100%;
-    aspect-ratio:3/4;
-    background:var(--deep-green);
-    border-radius:4px;
-    display:flex;align-items:center;justify-content:center;
-    color:var(--sage);
-    font-family:'DM Mono',monospace;
-    font-size:0.75rem;letter-spacing:0.1em;
-    position:relative;overflow:hidden;
-  }
-  .portrait-pattern{
-    position:absolute;inset:0;
-    background:
-      repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(122,170,138,0.08) 20px, rgba(122,170,138,0.08) 21px),
-      repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(122,170,138,0.08) 20px, rgba(122,170,138,0.08) 21px);
-  }
-  .portrait-icon{
-    position:relative;z-index:2;text-align:center;
-  }
-  .portrait-icon svg{opacity:0.6;margin-bottom:1rem;}
-  .credential{
-    display:flex;align-items:flex-start;gap:1rem;
-    margin-bottom:1.5rem;
-    padding-bottom:1.5rem;
-    border-bottom:1px solid var(--border);
-  }
-  .credential:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
-  .cred-icon{
-    width:36px;height:36px;flex-shrink:0;
-    background:var(--parchment);
-    border-radius:3px;
-    display:flex;align-items:center;justify-content:center;
-    font-size:1.1rem;
-  }
-  .cred-label{
-    font-family:'DM Mono',monospace;
-    font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;
-    color:var(--moss);margin-bottom:0.2rem;
-  }
-  .cred-val{font-size:0.95rem;color:var(--text-dark);font-weight:400;}
+/* ── DONATE ── */
+.donate-section{position:relative;overflow:hidden;}
+.donate-bg{height:100%;position:absolute;inset:0;background-size:cover;background-position:center;background-attachment:fixed;}
+.donate-bg::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.78);}
+.donate-inner{position:relative;z-index:2;padding:7rem 2rem;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+@media(max-width:768px){.donate-inner{grid-template-columns:1fr;gap:2.5rem;padding:5rem 1.5rem;}}
+.impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin:2rem 0;}
+.impact-item{padding:1.25rem;background:rgba(255,255,255,0.05);border:1px solid var(--border-dark);}
+.impact-amt{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--lime-accent);}
+.impact-desc{font-size:0.82rem;color:var(--text-muted);margin-top:0.2rem;line-height:1.5;}
+.progress-track{height:6px;background:rgba(255,255,255,0.1);border-radius:3px;margin:1rem 0;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--moss),var(--lime-accent));border-radius:3px;}
+.donate-form-box{background:rgba(10,12,10,0.85);border:1px solid var(--border-dark);padding:2rem;border-radius:2px;}
+.donate-form-box h3{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--cream);margin-bottom:1.5rem;}
+.amount-grid{display:flex;gap:0.5rem;flex-wrap:wrap;margin:0.75rem 0 1rem;}
+.amt-btn{font-family:'Courier Prime',monospace;font-size:0.82rem;font-weight:700;padding:0.6rem 1.1rem;border:1px solid var(--border-light);background:transparent;color:var(--cream);cursor:pointer;border-radius:2px;transition:all 0.2s;}
+.amt-btn:hover,.amt-btn.active{background:var(--orange);border-color:var(--orange);color:#fff;}
 
-  /* Reviews */
-  .reviews-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-    gap:1.5rem;
-    margin-top:2.5rem;
-  }
-  .review-card{
-    background:var(--warm-white);
-    border:1px solid var(--border);
-    border-radius:4px;
-    padding:1.5rem;
-  }
-  .review-header{
-    display:flex;align-items:center;gap:0.75rem;
-    margin-bottom:1rem;
-  }
-  .review-avatar{
-    width:40px;height:40px;border-radius:50%;
-    background:var(--moss);
-    display:flex;align-items:center;justify-content:center;
-    color:var(--cream);
-    font-family:'DM Mono',monospace;font-size:0.8rem;font-weight:500;
-  }
-  .review-name{font-weight:600;font-size:0.95rem;color:var(--forest);}
-  .review-date{font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--text-light);}
-  .review-text{font-size:0.9rem;color:var(--text-med);line-height:1.7;font-style:italic;}
-  .verified-badge{
-    display:inline-flex;align-items:center;gap:0.3rem;
-    font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.06em;
-    color:var(--moss);margin-top:0.75rem;
-  }
+/* ── CONTACT ── */
+.contact-section{padding:7rem 0;background:var(--mud);}
+.contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:5rem;align-items:start;}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr;gap:2.5rem;}}
+.contact-info-item{display:flex;gap:1rem;align-items:flex-start;padding:1rem 0;border-bottom:1px solid var(--border-dark);}
+.ci-icon{width:36px;height:36px;background:rgba(168,200,72,0.12);border:1px solid rgba(168,200,72,0.2);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.ci-label{font-family:'Courier Prime',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--lime-accent);margin-bottom:0.15rem;}
+.ci-val{font-size:0.92rem;color:var(--text-on-dark);}
+.contact-form-box{background:rgba(255,255,255,0.04);border:1px solid var(--border-dark);padding:2rem;border-radius:2px;}
+.contact-form-box h3{font-family:'Bebas Neue',sans-serif;font-size:2rem;margin-bottom:1.25rem;}
 
-  /* Donate */
-  .donate-amounts{
-    display:flex;gap:0.75rem;flex-wrap:wrap;margin:1.5rem 0;
-  }
-  .donate-btn{
-    padding:0.7rem 1.4rem;
-    border:1px solid var(--border);
-    border-radius:3px;
-    background:var(--warm-white);
-    font-family:'DM Mono',monospace;font-size:0.85rem;font-weight:500;
-    color:var(--text-dark);cursor:pointer;transition:all 0.2s;
-  }
-  .donate-btn:hover,.donate-btn.active{
-    background:var(--forest);color:var(--cream);border-color:var(--forest);
-  }
-  .donate-impact{
-    display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-    gap:1.25rem;margin:2rem 0;
-  }
-  .impact-card{
-    background:rgba(74,124,95,0.08);
-    border:1px solid rgba(74,124,95,0.2);
-    border-radius:4px;padding:1.25rem;
-  }
-  .impact-amount{
-    font-family:'Playfair Display',serif;
-    font-size:1.5rem;font-weight:700;color:var(--forest);
-  }
-  .impact-desc{font-size:0.83rem;color:var(--text-med);margin-top:0.3rem;line-height:1.5;}
+/* ── FOOTER ── */
+footer{background:var(--black);border-top:1px solid var(--border-dark);padding:4rem 2rem 2rem;}
+.footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:3rem;max-width:1200px;margin:0 auto;padding-bottom:3rem;border-bottom:1px solid var(--border-dark);}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:500px){.footer-grid{grid-template-columns:1fr;}}
+.f-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--cream);margin-bottom:0.5rem;}
+.f-tagline{font-size:0.88rem;color:var(--text-muted);line-height:1.7;max-width:280px;}
+.f-head{font-family:'Courier Prime',monospace;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--lime-accent);margin-bottom:1rem;}
+.f-links{list-style:none;}
+.f-links li{margin-bottom:0.5rem;}
+.f-links a{font-size:0.88rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;}
+.f-links a:hover{color:var(--lime-accent);}
+.footer-bottom{max-width:1200px;margin:1.5rem auto 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;}
+.f-copy{font-family:'Courier Prime',monospace;font-size:0.62rem;letter-spacing:0.08em;color:var(--text-muted);}
 
-  /* Contact */
-  .contact-grid{
-    display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;
-  }
-  @media(max-width:768px){.contact-grid{grid-template-columns:1fr;gap:2.5rem;}}
-  .contact-item{
-    display:flex;align-items:flex-start;gap:1rem;
-    margin-bottom:1.5rem;
-  }
-  .contact-icon{
-    width:40px;height:40px;flex-shrink:0;
-    background:var(--parchment);border-radius:3px;
-    display:flex;align-items:center;justify-content:center;font-size:1.1rem;
-  }
-  .contact-label{
-    font-family:'DM Mono',monospace;font-size:0.65rem;
-    letter-spacing:0.1em;text-transform:uppercase;color:var(--moss);
-    margin-bottom:0.2rem;
-  }
-  .contact-val{font-size:0.95rem;color:var(--text-dark);}
+/* ── ADMIN ── */
+.admin-wrap{min-height:100vh;background:var(--near-black);padding:2rem;}
+.admin-top{max-width:960px;margin:0 auto 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border-dark);}
+.admin-logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--cream);}
+.admin-tabs{display:flex;gap:0;max-width:960px;margin:0 auto 2rem;border-bottom:1px solid var(--border-dark);}
+.a-tab{padding:0.65rem 1.4rem;font-family:'Courier Prime',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;background:none;border:none;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s;}
+.a-tab:hover{color:var(--cream);}
+.a-tab.on{color:var(--lime-accent);border-bottom-color:var(--lime-accent);}
+.a-card{max-width:960px;margin:0 auto 1.5rem;background:rgba(255,255,255,0.03);border:1px solid var(--border-dark);border-radius:2px;padding:1.75rem;}
+.a-card-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--cream);margin-bottom:1.25rem;}
+.a-row{display:flex;align-items:center;justify-content:space-between;padding:1rem 0;border-bottom:1px solid var(--border-dark);gap:1rem;flex-wrap:wrap;}
+.a-row:last-child{border-bottom:none;padding-bottom:0;}
+.a-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;max-width:960px;margin:0 auto 2rem;}
+@media(max-width:600px){.a-stat-grid{grid-template-columns:repeat(2,1fr);}}
+.a-stat{background:rgba(255,255,255,0.04);border:1px solid var(--border-dark);border-radius:2px;padding:1.1rem;text-align:center;}
+.a-stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--lime-accent);}
+.a-stat-label{font-family:'Courier Prime',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:0.2rem;}
+.badge-pub{display:inline-block;font-family:'Courier Prime',monospace;font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.6rem;background:rgba(90,112,72,0.25);border:1px solid rgba(90,112,72,0.4);color:#8ac860;border-radius:2px;}
+.badge-draft{display:inline-block;font-family:'Courier Prime',monospace;font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.6rem;background:rgba(212,98,26,0.2);border:1px solid rgba(212,98,26,0.35);color:#f07020;border-radius:2px;}
+.form-panel{background:rgba(168,200,72,0.05);border:1px solid rgba(168,200,72,0.15);border-radius:2px;padding:1.5rem;margin-bottom:1.5rem;}
+.form-panel h4{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--cream);margin-bottom:1rem;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem;}
+@media(max-width:500px){.grid-2{grid-template-columns:1fr;}}
 
-  /* Footer */
-  footer{
-    background:var(--forest);
-    color:rgba(245,240,232,0.7);
-    padding:3.5rem 1.5rem;
-  }
-  .footer-inner{
-    max-width:1100px;margin:0 auto;
-    display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3rem;
-  }
-  @media(max-width:768px){.footer-inner{grid-template-columns:1fr;gap:2rem;}}
-  .footer-brand{
-    font-family:'Playfair Display',serif;
-    font-size:1.2rem;font-weight:700;color:var(--cream);
-    margin-bottom:0.75rem;
-  }
-  .footer-tagline{font-size:0.88rem;line-height:1.7;}
-  .footer-heading{
-    font-family:'DM Mono',monospace;font-size:0.65rem;
-    letter-spacing:0.15em;text-transform:uppercase;
-    color:var(--sage);margin-bottom:1rem;
-  }
-  .footer-links{list-style:none;}
-  .footer-links li{margin-bottom:0.5rem;}
-  .footer-links a{
-    font-size:0.88rem;color:rgba(245,240,232,0.65);text-decoration:none;
-    transition:color 0.2s;
-  }
-  .footer-links a:hover{color:var(--gold);}
-  .footer-bottom{
-    max-width:1100px;margin:2.5rem auto 0;
-    border-top:1px solid rgba(245,240,232,0.12);
-    padding-top:1.5rem;
-    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;
-  }
-  .footer-copy{font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.08em;}
-
-  /* Admin panel */
-  .admin-panel{
-    min-height:100vh;
-    background:var(--parchment);
-    padding:2rem 1.5rem;
-  }
-  .admin-header{
-    max-width:900px;margin:0 auto 2rem;
-    display:flex;align-items:center;justify-content:space-between;
-    flex-wrap:wrap;gap:1rem;
-  }
-  .admin-title{
-    font-family:'Playfair Display',serif;
-    font-size:1.8rem;font-weight:700;color:var(--forest);
-  }
-  .admin-sub{font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:var(--text-light);}
-  .admin-tabs{
-    display:flex;gap:0.5rem;max-width:900px;margin:0 auto 2rem;
-    border-bottom:1px solid var(--border);
-  }
-  .admin-tab{
-    padding:0.6rem 1.2rem;
-    font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;
-    background:none;border:none;cursor:pointer;
-    color:var(--text-light);transition:color 0.2s;
-    border-bottom:2px solid transparent;margin-bottom:-1px;
-  }
-  .admin-tab.active{color:var(--forest);border-bottom-color:var(--forest);}
-  .admin-card{
-    max-width:900px;margin:0 auto 1.5rem;
-    background:var(--warm-white);border:1px solid var(--border);
-    border-radius:4px;padding:1.75rem;
-  }
-  .admin-card-title{
-    font-family:'Playfair Display',serif;
-    font-size:1.1rem;font-weight:600;color:var(--forest);
-    margin-bottom:1.25rem;
-  }
-  .book-admin-row{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:1rem 0;border-bottom:1px solid var(--border);gap:1rem;flex-wrap:wrap;
-  }
-  .book-admin-row:last-child{border-bottom:none;padding-bottom:0;}
-  .news-admin-row{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:0.85rem 0;border-bottom:1px solid var(--border);gap:1rem;flex-wrap:wrap;
-  }
-  .news-admin-row:last-child{border-bottom:none;padding-bottom:0;}
-  .status-badge{
-    display:inline-block;padding:0.2rem 0.65rem;border-radius:2px;
-    font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;
-  }
-  .status-published{background:#e8f5e9;color:#2e7d32;}
-  .status-draft{background:#fff8e1;color:#f57f17;}
-
-  /* Responsive nav */
-  @media(max-width:768px){
-    .nav-links{display:none;}
-    .nav-actions .btn{display:none;}
-    .nav-actions .btn:last-child{display:inline-block;}
-  }
-
-  /* Animations */
-  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-  .fade-up{animation:fadeUp 0.6s ease forwards;}
-
-  /* Progress bar for donate */
-  .progress-bar{
-    height:8px;background:var(--parchment);border-radius:4px;overflow:hidden;margin:1rem 0;
-  }
-  .progress-fill{
-    height:100%;background:linear-gradient(90deg,var(--moss),var(--gold));
-    border-radius:4px;transition:width 0.5s ease;
-  }
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.fu{animation:fadeUp 0.7s ease forwards;}
+.fu-2{animation:fadeUp 0.7s 0.15s ease both;}
+.fu-3{animation:fadeUp 0.7s 0.3s ease both;}
+.fu-4{animation:fadeUp 0.7s 0.45s ease both;}
 </style>
 </head>
 <body>
 <div id="root"></div>
 <script type="text/babel">
-const { useState, useEffect, useRef } = React;
+const {useState,useEffect,useRef}=React;
 
-// ─── DATA ─────────────────────────────────────────────────────
-const ADMIN_CREDS = { username: 'admin', password: 'BFG2024!' };
+// ── Wildlife photo sets from Unsplash (free/open) ──
+const PHOTOS={
+  hero:"https://images.unsplash.com/photo-1444464666168-49d633b86797?w=1800&q=85&auto=format&fit=crop",
+  heroFallback:"https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=1800&q=85",
+  strip:[
+    {src:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&q=80&auto=format&fit=crop",cap:"Timber Rattlesnake"},
+    {src:"https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?w=500&q=80&auto=format&fit=crop",cap:"Box Turtle"},
+    {src:"https://images.unsplash.com/photo-1496436218839-c2f71680c5ec?w=500&q=80&auto=format&fit=crop",cap:"Tree Frog"},
+    {src:"https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&q=80&auto=format&fit=crop",cap:"Wetland Habitat"},
+    {src:"https://images.unsplash.com/photo-1551085254-e96b210db58a?w=500&q=80&auto=format&fit=crop",cap:"Eastern Fence Lizard"},
+  ],
+  books:[
+    "https://images.unsplash.com/photo-1444464666168-49d633b86797?w=600&q=80&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?w=600&q=80&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1496436218839-c2f71680c5ec?w=600&q=80&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80&auto=format&fit=crop",
+  ],
+  news:[
+    "https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=800&q=80&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1551085254-e96b210db58a?w=500&q=80&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&q=80&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&q=80&auto=format&fit=crop",
+  ],
+  about:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&q=85&auto=format&fit=crop",
+  about2:"https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0?w=600&q=80&auto=format&fit=crop",
+  about3:"https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80&auto=format&fit=crop",
+  about4:"https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=400&q=80&auto=format&fit=crop",
+  donate:"https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1600&q=85&auto=format&fit=crop",
+  avatars:[
+    "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&q=80&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&q=80&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80&auto=format&fit=crop",
+  ],
+};
 
-const INITIAL_BOOKS = [
-  {
-    id:1, status:'published',
-    vol:'Volume I',
-    title:'Snakes of the American Southeast',
-    subtitle:'A Complete Field Reference',
-    desc:'A comprehensive guide covering 60+ species found across Arkansas, Tennessee, Mississippi, Louisiana, and Alabama. Includes habitat notes, range maps, and identification keys.',
-    price:'$28.99',
-    pages:312, year:2021,
-    coverColor:'#1a3a2a',
-    coverAccent:'#4a7c5f',
-    links:[
-      {label:'Amazon',url:'https://amazon.com'},
-      {label:'Barnes & Noble',url:'https://barnesandnoble.com'},
-      {label:'Direct',url:'#'},
-    ]
-  },
-  {
-    id:2, status:'published',
-    vol:'Volume II',
-    title:'Turtles & Tortoises of North America',
-    subtitle:'Field Identification Guide',
-    desc:'Detailed accounts of 57 freshwater, terrestrial, and sea turtle species. Features life history, conservation status, and behavioral ecology throughout.',
-    price:'$31.99',
-    pages:278, year:2022,
-    coverColor:'#2d5a3d',
-    coverAccent:'#7aaa8a',
-    links:[
-      {label:'Amazon',url:'https://amazon.com'},
-      {label:'Powell\'s',url:'https://powells.com'},
-      {label:'Direct',url:'#'},
-    ]
-  },
-  {
-    id:3, status:'published',
-    vol:'Volume III',
-    title:'Frogs & Toads: The Anura Field Guide',
-    subtitle:'Eastern & Central United States',
-    desc:'Covers all anuran species from the Great Plains east to the Atlantic coast. Includes vocalizations, breeding ecology, and an innovative quick-ID chart system.',
-    price:'$26.99',
-    pages:244, year:2023,
-    coverColor:'#3d5a1a',
-    coverAccent:'#7a9a3a',
-    links:[
-      {label:'Amazon',url:'https://amazon.com'},
-      {label:'Bookshop.org',url:'https://bookshop.org'},
-      {label:'Direct',url:'#'},
-    ]
-  },
-  {
-    id:4, status:'draft',
-    vol:'Volume IV',
-    title:'Lizards of the Continental United States',
-    subtitle:'Comprehensive Species Accounts',
-    desc:'Coming 2025 — A deep dive into the 130+ lizard species found across the lower 48. Currently in peer review and final photography selection.',
-    price:'$32.99',
-    pages:350, year:2025,
-    coverColor:'#5a3a1a',
-    coverAccent:'#aa7a3a',
-    links:[
-      {label:'Pre-order',url:'#'},
-    ]
-  },
+const ADMIN_CREDS={username:'admin',password:'BFG2024!'};
+
+const INIT_BOOKS=[
+  {id:1,status:'published',vol:'Vol. I',title:'Snakes of the American Southeast',subtitle:'A Complete Field Reference',desc:'60+ species across AR, TN, MS, LA & AL. Habitat notes, range maps, and field-tested identification keys.',price:'$28.99',pages:312,year:2021,links:[{label:'Amazon',url:'https://amazon.com'},{label:'Barnes & Noble',url:'https://barnesandnoble.com'},{label:'Order Direct',url:'#'}]},
+  {id:2,status:'published',vol:'Vol. II',title:'Turtles & Tortoises of North America',subtitle:'Field Identification Guide',desc:'Detailed accounts of 57 freshwater, terrestrial, and sea turtle species with behavioral ecology and conservation status.',price:'$31.99',pages:278,year:2022,links:[{label:'Amazon',url:'https://amazon.com'},{label:"Powell's",url:'https://powells.com'},{label:'Order Direct',url:'#'}]},
+  {id:3,status:'published',vol:'Vol. III',title:'Frogs & Toads: The Anura Field Guide',subtitle:'Eastern & Central United States',desc:'All anuran species from the Great Plains to the Atlantic. Vocalizations, breeding ecology, and a quick-ID chart system.',price:'$26.99',pages:244,year:2023,links:[{label:'Amazon',url:'https://amazon.com'},{label:'Bookshop.org',url:'https://bookshop.org'},{label:'Order Direct',url:'#'}]},
+  {id:4,status:'draft',vol:'Vol. IV',title:'Lizards of the Continental U.S.',subtitle:'Comprehensive Species Accounts',desc:'Coming 2025 — 130+ lizard species across the lower 48. Currently in peer review and final photography selection.',price:'$32.99',pages:350,year:2025,links:[{label:'Pre-Order',url:'#'}]},
 ];
 
-const INITIAL_NEWS = [
-  {
-    id:1, status:'published',
-    tag:'Rescue Update',
-    title:'Timber Rattlesnake Recovery: 14 Months Post-Release',
-    excerpt:'Following last year\'s successful rehabilitation of a juvenile timber rattlesnake found near Jonesboro, we share an update on telemetry data showing strong territory establishment.',
-    date:'May 18, 2026',
-    full:'Our team has been tracking the juvenile timber rattlesnake (Crotalus horridus) we released in March 2025. Fourteen months later, telemetry data shows excellent territory establishment in the hardwood ridges of Crowley\'s Ridge. The individual has nearly doubled in length and shows no signs of stress from its earlier injury. This successful outcome underscores the importance of proper rehabilitation protocols for venomous species.'
-  },
-  {
-    id:2, status:'published',
-    tag:'Education',
-    title:'School Outreach Program Reaches 3,200 Students This Year',
-    excerpt:'Our mobile herpetology education unit visited 22 schools across northeast Arkansas and Missouri, bringing live ambassador animals and field guide workshops to classrooms.',
-    date:'April 30, 2026',
-    full:'This spring semester our education team—led by a rotating cast of trained volunteers and myself—brought live ambassador animals to 22 schools across Craighead, Mississippi, Greene, and Dunklin counties. Students got hands-on time with non-venomous snakes, turtles, and salamanders while learning about ecosystems, conservation threats, and careers in wildlife biology. Each classroom received a donated copy of a Besharse Field Guide for their science library.'
-  },
-  {
-    id:3, status:'published',
-    tag:'Conservation',
-    title:'Wetland Monitoring Partnership with Arkansas Game & Fish',
-    excerpt:'We are proud to announce a formal monitoring partnership with AGFC to document amphibian populations at four managed wetland sites in the Mississippi Alluvial Valley.',
-    date:'March 12, 2026',
-    full:'Beginning this spring, Besharse Field Guides will serve as a citizen science partner with the Arkansas Game and Fish Commission, deploying automated recording units to capture anuran vocalizations at four key wetland sites along the Mississippi Alluvial Valley. This multi-year dataset will help biologists track population trends for species of conservation concern, including the crawfish frog (Lithobates areolatus) and the southern leopard frog (L. sphenocephalus). Data collection runs through October.'
-  },
-  {
-    id:4, status:'published',
-    tag:'New Book',
-    title:'Volume IV — Lizards of the Continental U.S. — Heading to Press',
-    excerpt:'After two years of fieldwork and photography across 31 states, the final manuscript for our fourth field guide has been submitted to the publisher.',
-    date:'February 5, 2026',
-    full:'After 26 months of fieldwork spanning 31 states and more than 60,000 miles of driving, the complete manuscript for Lizards of the Continental United States has been delivered to our publishing partner. The 350-page guide covers all 130+ species with original range maps, habitat descriptions, natural history accounts, and a new taxonomic key system developed in consultation with Dr. Laurie Vitt. Expected release is Q1 2025.'
-  },
+const INIT_NEWS=[
+  {id:1,status:'published',tag:'Rescue Update',title:'Timber Rattlesnake Recovery: 14 Months Post-Release',excerpt:'Telemetry data shows strong territory establishment for a juvenile timber rattlesnake rehabilitated near Jonesboro, AR.',full:'Our team has been tracking the juvenile timber rattlesnake (Crotalus horridus) we released in March 2025. Fourteen months later, telemetry data shows excellent territory establishment in the hardwood ridges of Crowley\'s Ridge. The individual has nearly doubled in length and shows no signs of stress from its earlier injury. This successful outcome underscores the importance of proper rehabilitation protocols for venomous species.',date:'May 18, 2026'},
+  {id:2,status:'published',tag:'Education',title:'School Outreach Reaches 3,200 Students This Year',excerpt:'Our mobile herpetology unit visited 22 schools across northeast Arkansas and Missouri with live ambassador animals.',full:'This spring semester our education team brought live ambassador animals to 22 schools across Craighead, Mississippi, Greene, and Dunklin counties. Students got hands-on time with non-venomous snakes, turtles, and salamanders while learning about ecosystems, conservation threats, and careers in wildlife biology. Each classroom received a donated copy of a Besharse Field Guide for their science library.',date:'April 30, 2026'},
+  {id:3,status:'published',tag:'Conservation',title:'Wetland Monitoring Partnership with AR Game & Fish',excerpt:'A formal citizen science partnership to document amphibian populations at four managed wetland sites in the Mississippi Alluvial Valley.',full:'Beginning this spring, Besharse Field Guides will serve as a citizen science partner with the Arkansas Game and Fish Commission, deploying automated recording units to capture anuran vocalizations at four key wetland sites along the Mississippi Alluvial Valley. This multi-year dataset will help biologists track population trends for species of conservation concern, including the crawfish frog and southern leopard frog.',date:'March 12, 2026'},
+  {id:4,status:'published',tag:'New Book',title:'Volume IV Manuscript Delivered to Publisher',excerpt:'After 26 months and 60,000 miles of fieldwork across 31 states, the lizard guide is heading to press.',full:'After 26 months of fieldwork spanning 31 states and more than 60,000 miles of driving, the complete manuscript for Lizards of the Continental United States has been delivered to our publishing partner. The 350-page guide covers all 130+ species with original range maps, habitat descriptions, natural history accounts, and a new taxonomic key system. Expected release is Q1 2025.',date:'February 5, 2026'},
 ];
 
-const INITIAL_REVIEWS = [
-  {id:1, author:'TXHerper82', initials:'TX', rating:5, text:'Besharse\'s snake guide is the most dog-eared book in my pack. Range maps are accurate, the photography is exceptional, and the dichotomous key actually works in the field. This is the standard.', date:'March 2026'},
-  {id:2, author:'NatureTeacher_KY', initials:'NT', rating:5, text:'I use the turtle guide in my AP Environmental Science class every semester. My students can actually identify species on our field trips. The conservation status sections spark meaningful discussions.', date:'January 2026'},
-  {id:3, author:'WetlandBiologist', initials:'WB', rating:5, text:'As a professional biologist I am picky about field guides. The frog & toad volume is genuinely exceptional—the breeding chronology charts are something I haven\'t seen anywhere else.', date:'November 2025'},
-  {id:4, author:'ARWildlifeWatcher', initials:'AR', rating:4, text:'Fantastic reference guides that actually reflect what you\'ll find in the field. Would love to see a salamander volume next. The series has earned a permanent spot in my truck.', date:'October 2025'},
+const INIT_REVIEWS=[
+  {id:1,author:'TXHerper82',rating:5,text:'Besharse\'s snake guide is the most dog-eared book in my pack. Range maps are accurate, photography is exceptional, and the dichotomous key actually works in the field. This is the standard.',date:'March 2026',avatarIdx:0},
+  {id:2,author:'NatureTeacher_KY',rating:5,text:'I use the turtle guide in my AP Environmental Science class every semester. My students can actually identify species on our field trips. The conservation status sections spark meaningful discussions.',date:'January 2026',avatarIdx:1},
+  {id:3,author:'WetlandBiologist',rating:5,text:'As a professional biologist I am picky about field guides. The frog & toad volume is genuinely exceptional — the breeding chronology charts are something I haven\'t seen anywhere else.',date:'November 2025',avatarIdx:2},
+  {id:4,author:'ARWildlifeWatcher',rating:4,text:'Fantastic reference guides that actually reflect what you\'ll find in the field. Would love a salamander volume next. The series has earned a permanent spot in my truck.',date:'October 2025',avatarIdx:3},
 ];
 
-// ─── UTILITIES ────────────────────────────────────────────────
-function Toast({msg, show}){
-  return <div className={'toast'+(show?' show':'')}>{msg}</div>;
-}
-
-function StarRating({value, onChange}){
-  const [hover, setHover] = useState(0);
-  return (
-    <div style={{display:'flex',gap:'4px',margin:'0.5rem 0'}}>
+// ── Stars ──
+function Stars({n,onSet}){
+  const [hov,setHov]=useState(0);
+  return(
+    <div style={{display:'flex',gap:'3px',margin:'0.5rem 0'}}>
       {[1,2,3,4,5].map(s=>(
-        <span key={s} style={{cursor:onChange?'pointer':'default',fontSize:'1.3rem',color:s<=(hover||value)?'#d4a843':'#d4c9b0'}}
-          onMouseEnter={()=>onChange&&setHover(s)}
-          onMouseLeave={()=>onChange&&setHover(0)}
-          onClick={()=>onChange&&onChange(s)}
-        >★</span>
+        <span key={s} style={{fontSize:'1.2rem',cursor:onSet?'pointer':'default',color:s<=(hov||n)?'#f07020':'rgba(240,234,216,0.2)',transition:'color 0.15s'}}
+          onMouseEnter={()=>onSet&&setHov(s)} onMouseLeave={()=>onSet&&setHov(0)} onClick={()=>onSet&&onSet(s)}>★</span>
       ))}
     </div>
   );
 }
 
-// ─── SIGN IN MODAL ────────────────────────────────────────────
-function SignInModal({onClose, onSuccess, purpose}){
+// ── Toast ──
+function Toast({msg,show}){return <div className={'toast'+(show?' show':'')}>{msg}</div>;}
+
+// ── Sign-In Modal ──
+function SignInModal({onClose,onSuccess,purpose}){
   const [email,setEmail]=useState('');
   const [pass,setPass]=useState('');
+  const [mode,setMode]=useState('in');
   const [err,setErr]=useState('');
-  const [mode,setMode]=useState('signin'); // signin | signup
-
-  function handleSubmit(e){
+  function go(e){
     e.preventDefault();
     if(purpose==='admin'){
-      if(email===ADMIN_CREDS.username && pass===ADMIN_CREDS.password){
-        onSuccess({role:'admin',name:'Admin'});
-      } else {
-        setErr('Invalid admin credentials.');
-      }
+      email===ADMIN_CREDS.username&&pass===ADMIN_CREDS.password?onSuccess({role:'admin',name:'Admin'}):setErr('Invalid credentials.');
     } else {
-      if(email && pass.length>=6){
-        onSuccess({role:'user',name:email.split('@')[0]});
-      } else {
-        setErr('Please enter a valid email and a password (6+ chars).');
-      }
+      email&&pass.length>=6?onSuccess({role:'user',name:email.split('@')[0]}):setErr('Valid email + 6-char password required.');
     }
   }
-
-  return (
-    <div className="modal-overlay" onClick={e=>{if(e.target===e.currentTarget)onClose();}}>
-      <div className="modal-box">
-        <button className="modal-close" onClick={onClose}>✕</button>
-        <div style={{marginBottom:'1.5rem'}}>
-          <div className="section-label">{purpose==='admin'?'Admin Access':'Member Account'}</div>
-          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'1.6rem',color:'var(--forest)'}}>
-            {mode==='signup'?'Create Account':'Sign In'}
-          </h2>
-        </div>
-        {err && <div style={{background:'#fff3cd',border:'1px solid #ffc107',borderRadius:'3px',padding:'0.65rem 0.9rem',fontSize:'0.85rem',marginBottom:'1rem',color:'#856404'}}>{err}</div>}
-        <form onSubmit={handleSubmit}>
-          <label>{purpose==='admin'?'Username':'Email Address'}</label>
-          <input type={purpose==='admin'?'text':'email'} value={email} onChange={e=>setEmail(e.target.value)} placeholder={purpose==='admin'?'admin':'you@email.com'} required/>
+  return(
+    <div className="overlay" onClick={e=>e.target===e.currentTarget&&onClose()}>
+      <div className="modal">
+        <button className="modal-x" onClick={onClose}>✕</button>
+        <div className="label" style={{marginBottom:'0.3rem'}}>{purpose==='admin'?'Admin Access':'Member Account'}</div>
+        <h2>{mode==='in'?'Sign In':'Create Account'}</h2>
+        {err&&<div className="form-error">{err}</div>}
+        <form onSubmit={go}>
+          <label>{purpose==='admin'?'Username':'Email'}</label>
+          <input value={email} onChange={e=>setEmail(e.target.value)} placeholder={purpose==='admin'?'admin':'you@email.com'} required/>
           <label>Password</label>
           <input type="password" value={pass} onChange={e=>setPass(e.target.value)} placeholder="••••••••" required/>
-          {mode==='signup' && <>
-            <label>Confirm Password</label>
-            <input type="password" placeholder="••••••••"/>
-          </>}
-          <button type="submit" className="btn btn-primary btn-full" style={{marginTop:'1.5rem'}}>
-            {mode==='signup'?'Create Account':'Sign In'}
+          {mode==='up'&&<><label>Confirm Password</label><input type="password" placeholder="••••••••"/></>}
+          <button type="submit" className="btn btn-orange btn-full" style={{marginTop:'1.5rem'}}>
+            {mode==='in'?'Sign In':'Create Account'}
           </button>
         </form>
-        {purpose!=='admin' && (
-          <p style={{textAlign:'center',marginTop:'1.25rem',fontSize:'0.85rem',color:'var(--text-light)'}}>
-            {mode==='signin'?<>New here? <button style={{background:'none',border:'none',color:'var(--moss)',cursor:'pointer',fontFamily:"'Source Serif 4',serif",fontSize:'0.85rem',textDecoration:'underline'}} onClick={()=>{setErr('');setMode('signup');}}>Create a free account</button></>
-            :<>Already have one? <button style={{background:'none',border:'none',color:'var(--moss)',cursor:'pointer',fontFamily:"'Source Serif 4',serif",fontSize:'0.85rem',textDecoration:'underline'}} onClick={()=>{setErr('');setMode('signin');}}>Sign in</button></>}
+        {purpose!=='admin'&&(
+          <p style={{textAlign:'center',marginTop:'1.1rem',fontSize:'0.85rem',color:'rgba(240,234,216,0.5)'}}>
+            {mode==='in'?<>New? <button style={{background:'none',border:'none',color:'var(--lime-accent)',cursor:'pointer',fontFamily:'Cabin,sans-serif',fontSize:'0.85rem',textDecoration:'underline'}} onClick={()=>{setErr('');setMode('up');}}>Create account</button></>:<>Have one? <button style={{background:'none',border:'none',color:'var(--lime-accent)',cursor:'pointer',fontFamily:'Cabin,sans-serif',fontSize:'0.85rem',textDecoration:'underline'}} onClick={()=>{setErr('');setMode('in');}}>Sign in</button></>}
           </p>
         )}
-        {purpose==='admin' && (
-          <p style={{marginTop:'1rem',fontSize:'0.75rem',fontFamily:"'DM Mono',monospace",color:'var(--text-light)',textAlign:'center'}}>
-            Admin credentials required. Contact site owner for access.
-          </p>
-        )}
+        {purpose==='admin'&&<p style={{textAlign:'center',marginTop:'0.75rem',fontSize:'0.65rem',fontFamily:'Courier Prime,monospace',color:'rgba(240,234,216,0.3)',letterSpacing:'0.08em'}}>ADMIN ACCESS ONLY</p>}
       </div>
     </div>
   );
 }
 
-// ─── FEEDBACK MODAL ───────────────────────────────────────────
-function FeedbackModal({onClose, user, onSubmit}){
+// ── Review Modal ──
+function ReviewModal({onClose,user,onSubmit}){
   const [rating,setRating]=useState(5);
   const [text,setText]=useState('');
-  function handleSubmit(e){
+  function go(e){
     e.preventDefault();
-    if(text.trim().length<20){return;}
-    onSubmit({rating,text:text.trim()});
-    onClose();
+    if(text.trim().length<20)return;
+    onSubmit({rating,text:text.trim()});onClose();
   }
-  return (
-    <div className="modal-overlay" onClick={e=>{if(e.target===e.currentTarget)onClose();}}>
-      <div className="modal-box">
-        <button className="modal-close" onClick={onClose}>✕</button>
-        <div style={{marginBottom:'1.25rem'}}>
-          <div className="section-label">Verified Review</div>
-          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'1.5rem',color:'var(--forest)'}}>Leave Your Feedback</h2>
-          <p style={{fontSize:'0.85rem',color:'var(--moss)',marginTop:'0.4rem'}}>Signed in as <strong>{user?.name}</strong> — your review will be marked verified ✓</p>
-        </div>
-        <form onSubmit={handleSubmit}>
+  return(
+    <div className="overlay" onClick={e=>e.target===e.currentTarget&&onClose()}>
+      <div className="modal">
+        <button className="modal-x" onClick={onClose}>✕</button>
+        <div className="label" style={{marginBottom:'0.3rem'}}>Verified Review</div>
+        <h2>Leave Feedback</h2>
+        <p style={{fontSize:'0.85rem',color:'var(--lime-accent)',marginBottom:'1.25rem'}}>Signed in as <strong>{user?.name}</strong> — review will be marked verified ✓</p>
+        <form onSubmit={go}>
           <label>Your Rating</label>
-          <StarRating value={rating} onChange={setRating}/>
+          <Stars n={rating} onSet={setRating}/>
           <label>Your Review</label>
-          <textarea value={text} onChange={e=>setText(e.target.value)} rows={5} placeholder="Share your experience with our field guides or educational programs..." style={{resize:'vertical'}} required/>
-          <p style={{fontSize:'0.72rem',fontFamily:"'DM Mono',monospace",color:'var(--text-light)',marginTop:'0.35rem'}}>Minimum 20 characters · {text.length} typed</p>
-          <button type="submit" className="btn btn-primary btn-full" style={{marginTop:'1.25rem'}} disabled={text.trim().length<20}>
-            Submit Verified Review
-          </button>
+          <textarea value={text} onChange={e=>setText(e.target.value)} rows={5} placeholder="Share your experience with our field guides or programs..." style={{resize:'vertical'}} required/>
+          <p style={{fontSize:'0.65rem',fontFamily:'Courier Prime,monospace',color:'rgba(240,234,216,0.35)',marginTop:'0.3rem'}}>{text.length} chars · minimum 20</p>
+          <button type="submit" className="btn btn-orange btn-full" style={{marginTop:'1.25rem'}} disabled={text.trim().length<20}>Submit Verified Review</button>
         </form>
       </div>
     </div>
   );
 }
 
-// ─── DONATE MODAL ─────────────────────────────────────────────
-function DonateModal({onClose, amount, onToast}){
+// ── Donate Modal ──
+function DonateModal({onClose,amount,onToast}){
   const [name,setName]=useState('');
   const [email,setEmail]=useState('');
   const [card,setCard]=useState('');
-  const [submitted,setSubmitted]=useState(false);
-  function handleSubmit(e){
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(()=>{onClose();onToast(`Thank you! Your $${amount} donation has been received.`);},2000);
+  const [done,setDone]=useState(false);
+  function go(e){
+    e.preventDefault();setDone(true);
+    setTimeout(()=>{onClose();onToast(`Thank you! Your $${amount} donation is received.`);},2000);
   }
-  if(submitted) return (
-    <div className="modal-overlay">
-      <div className="modal-box" style={{textAlign:'center'}}>
-        <div style={{fontSize:'3rem',marginBottom:'1rem'}}>🐍</div>
-        <h2 style={{fontFamily:"'Playfair Display',serif",color:'var(--forest)',marginBottom:'0.5rem'}}>Thank You!</h2>
-        <p style={{color:'var(--text-med)',fontSize:'0.95rem'}}>Your donation of <strong>${amount}</strong> helps fund the Besharse Wildlife Center. Processing…</p>
+  if(done)return(
+    <div className="overlay">
+      <div className="modal" style={{textAlign:'center'}}>
+        <div style={{fontSize:'3.5rem',marginBottom:'1rem'}}>🌿</div>
+        <h2>Thank You!</h2>
+        <p style={{color:'var(--text-muted)'}}>Your ${amount} donation helps build the Besharse Wildlife Center.</p>
       </div>
     </div>
   );
-  return (
-    <div className="modal-overlay" onClick={e=>{if(e.target===e.currentTarget)onClose();}}>
-      <div className="modal-box">
-        <button className="modal-close" onClick={onClose}>✕</button>
-        <div style={{marginBottom:'1.25rem'}}>
-          <div className="section-label">Donation</div>
-          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'1.5rem',color:'var(--forest)'}}>Donate ${amount}</h2>
-          <p style={{fontSize:'0.85rem',color:'var(--text-light)',marginTop:'0.4rem'}}>Secure donation — demo form (no real charge)</p>
-        </div>
-        <form onSubmit={handleSubmit}>
-          <label>Full Name</label>
-          <input value={name} onChange={e=>setName(e.target.value)} placeholder="Jane Smith" required/>
-          <label>Email</label>
-          <input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="jane@email.com" required/>
-          <label>Card Number (demo)</label>
+  return(
+    <div className="overlay" onClick={e=>e.target===e.currentTarget&&onClose()}>
+      <div className="modal">
+        <button className="modal-x" onClick={onClose}>✕</button>
+        <div className="label" style={{marginBottom:'0.3rem'}}>Secure Donation</div>
+        <h2>Donate ${amount}</h2>
+        <form onSubmit={go}>
+          <label>Full Name</label><input value={name} onChange={e=>setName(e.target.value)} placeholder="Your name" required/>
+          <label>Email</label><input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@email.com" required/>
+          <label>Card Number (demo — no real charge)</label>
           <input value={card} onChange={e=>setCard(e.target.value.replace(/\D/g,'').slice(0,16))} placeholder="4242 4242 4242 4242" required/>
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'0.75rem'}}>
-            <div><label>Expiry</label><input placeholder="MM/YY"/></div>
-            <div><label>CVV</label><input placeholder="123"/></div>
-          </div>
-          <button type="submit" className="btn btn-amber btn-full" style={{marginTop:'1.5rem'}}>
-            Donate ${amount} →
-          </button>
+          <div className="grid-2"><div><label>Expiry</label><input placeholder="MM/YY"/></div><div><label>CVV</label><input placeholder="123"/></div></div>
+          <button type="submit" className="btn btn-lime btn-full" style={{marginTop:'1.5rem'}}>Donate ${amount} →</button>
         </form>
-        <p style={{marginTop:'1rem',fontSize:'0.72rem',fontFamily:"'DM Mono',monospace",color:'var(--text-light)',textAlign:'center'}}>
-          🔒 Donations support the Besharse Wildlife Rescue & Education Center
-        </p>
+        <p style={{textAlign:'center',marginTop:'0.75rem',fontSize:'0.65rem',fontFamily:'Courier Prime,monospace',color:'rgba(240,234,216,0.35)',letterSpacing:'0.08em'}}>🔒 SUPPORTS BESHARSE WILDLIFE CENTER</p>
       </div>
     </div>
   );
 }
 
-// ─── NEWS MODAL ───────────────────────────────────────────────
-function NewsModal({article, onClose}){
-  if(!article) return null;
-  return (
-    <div className="modal-overlay" onClick={e=>{if(e.target===e.currentTarget)onClose();}}>
-      <div className="modal-box" style={{maxWidth:'600px'}}>
-        <button className="modal-close" onClick={onClose}>✕</button>
-        <span className="news-tag">{article.tag}</span>
-        <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'1.5rem',color:'var(--forest)',margin:'0.75rem 0 0.5rem',lineHeight:'1.3'}}>{article.title}</h2>
-        <div className="news-date" style={{marginBottom:'1.25rem'}}>{article.date}</div>
-        <p style={{fontSize:'0.95rem',lineHeight:'1.8',color:'var(--text-med)'}}>{article.full}</p>
-        <button className="btn btn-outline btn-sm" style={{marginTop:'1.5rem'}} onClick={onClose}>← Back to News</button>
+// ── News Full Modal ──
+function NewsModal({article,onClose}){
+  if(!article)return null;
+  return(
+    <div className="overlay" onClick={e=>e.target===e.currentTarget&&onClose()}>
+      <div className="modal" style={{maxWidth:'620px'}}>
+        <button className="modal-x" onClick={onClose}>✕</button>
+        <span className="tag" style={{marginBottom:'1rem'}}>{article.tag}</span>
+        <h2 style={{marginTop:'0.5rem',lineHeight:'1.05'}}>{article.title}</h2>
+        <div style={{fontFamily:'Courier Prime,monospace',fontSize:'0.65rem',color:'rgba(240,234,216,0.4)',letterSpacing:'0.1em',marginBottom:'1.5rem'}}>{article.date}</div>
+        <p style={{fontSize:'0.95rem',lineHeight:'1.85',color:'rgba(240,234,216,0.78)'}}>{article.full}</p>
+        <button className="btn btn-ghost btn-sm" style={{marginTop:'1.75rem'}} onClick={onClose}>← Back to News</button>
       </div>
     </div>
   );
 }
 
-// ─── ADMIN PANEL ──────────────────────────────────────────────
-function AdminPanel({onLogout, books, setBooks, news, setNews, onToast}){
+// ── ADMIN PANEL ──
+function AdminPanel({onLogout,books,setBooks,news,setNews,onToast}){
   const [tab,setTab]=useState('books');
-  const [showAddBook,setShowAddBook]=useState(false);
-  const [showAddNews,setShowAddNews]=useState(false);
-  const [newBook,setNewBook]=useState({vol:'',title:'',subtitle:'',desc:'',price:'',pages:'',year:new Date().getFullYear(),links:[{label:'Amazon',url:''},{label:'Direct',url:'#'}],coverColor:'#1a3a2a',coverAccent:'#4a7c5f'});
-  const [newNews,setNewNews]=useState({tag:'',title:'',excerpt:'',full:'',date:new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})});
+  const [addBook,setAddBook]=useState(false);
+  const [addNews,setAddNews]=useState(false);
+  const [nb,setNb]=useState({vol:'',title:'',subtitle:'',desc:'',price:'',pages:'',year:new Date().getFullYear(),links:[{label:'Amazon',url:''},{label:'Direct',url:'#'}]});
+  const [nn,setNn]=useState({tag:'',title:'',excerpt:'',full:'',date:new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})});
 
-  function publishBook(){
-    if(!newBook.title||!newBook.vol) return;
-    const b={...newBook,id:Date.now(),status:'published',pages:parseInt(newBook.pages)||200,year:parseInt(newBook.year)||2024};
-    setBooks(prev=>[...prev,b]);
-    setNewBook({vol:'',title:'',subtitle:'',desc:'',price:'',pages:'',year:new Date().getFullYear(),links:[{label:'Amazon',url:''},{label:'Direct',url:'#'}],coverColor:'#1a3a2a',coverAccent:'#4a7c5f'});
-    setShowAddBook(false);
-    onToast('Book published successfully!');
+  function pubBook(){
+    if(!nb.title||!nb.vol)return;
+    setBooks(p=>[...p,{...nb,id:Date.now(),status:'published',pages:parseInt(nb.pages)||200,year:parseInt(nb.year)||2025}]);
+    setNb({vol:'',title:'',subtitle:'',desc:'',price:'',pages:'',year:new Date().getFullYear(),links:[{label:'Amazon',url:''},{label:'Direct',url:'#'}]});
+    setAddBook(false);onToast('Book published!');
   }
-
-  function toggleBookStatus(id){
-    setBooks(prev=>prev.map(b=>b.id===id?{...b,status:b.status==='published'?'draft':'published'}:b));
-  }
-  function deleteBook(id){
-    if(window.confirm('Delete this book?')) setBooks(prev=>prev.filter(b=>b.id!==id));
-  }
-  function publishNews(){
-    if(!newNews.title||!newNews.tag) return;
-    const n={...newNews,id:Date.now(),status:'published'};
-    setNews(prev=>[...prev,n]);
-    setNewNews({tag:'',title:'',excerpt:'',full:'',date:new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})});
-    setShowAddNews(false);
-    onToast('News article published!');
-  }
-  function toggleNewsStatus(id){
-    setNews(prev=>prev.map(n=>n.id===id?{...n,status:n.status==='published'?'draft':'published'}:n));
-  }
-  function deleteNews(id){
-    if(window.confirm('Delete this article?')) setNews(prev=>prev.filter(n=>n.id!==id));
+  function pubNews(){
+    if(!nn.title||!nn.tag)return;
+    setNews(p=>[...p,{...nn,id:Date.now(),status:'published'}]);
+    setNn({tag:'',title:'',excerpt:'',full:'',date:new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})});
+    setAddNews(false);onToast('Article published!');
   }
 
-  return (
-    <div className="admin-panel">
-      <div className="admin-header">
+  return(
+    <div className="admin-wrap">
+      <div className="admin-top">
         <div>
-          <div className="admin-title">Admin Dashboard</div>
-          <div className="admin-sub">Besharse Field Guides · bfg-admin</div>
+          <div className="admin-logo">Admin Dashboard</div>
+          <div style={{fontFamily:'Courier Prime,monospace',fontSize:'0.62rem',color:'rgba(240,234,216,0.35)',letterSpacing:'0.1em',marginTop:'2px'}}>BESHARSE FIELD GUIDES · bfg-admin</div>
         </div>
-        <div style={{display:'flex',gap:'0.75rem',alignItems:'center'}}>
-          <a href="#home" className="btn btn-outline btn-sm" onClick={onLogout} style={{color:'var(--bark)',borderColor:'var(--bark)'}}>← View Site</a>
-          <button className="btn btn-outline btn-sm" onClick={onLogout}>Sign Out</button>
+        <div style={{display:'flex',gap:'0.75rem'}}>
+          <button className="btn btn-ghost btn-sm" onClick={onLogout}>← View Site</button>
+          <button className="btn btn-ghost btn-sm" onClick={onLogout}>Sign Out</button>
         </div>
       </div>
 
-      {/* Stats row */}
-      <div style={{maxWidth:'900px',margin:'0 auto 2rem',display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'1rem'}}>
-        {[
-          {label:'Published Books', val:books.filter(b=>b.status==='published').length},
-          {label:'Draft Books', val:books.filter(b=>b.status==='draft').length},
-          {label:'News Articles', val:news.filter(n=>n.status==='published').length},
-          {label:'Total Reviews', val:'Live'},
-        ].map((s,i)=>(
-          <div key={i} style={{background:'var(--warm-white)',border:'1px solid var(--border)',borderRadius:'4px',padding:'1rem',textAlign:'center'}}>
-            <div style={{fontFamily:"'Playfair Display',serif",fontSize:'2rem',fontWeight:'700',color:'var(--forest)'}}>{s.val}</div>
-            <div style={{fontFamily:"'DM Mono',monospace",fontSize:'0.65rem',letterSpacing:'0.08em',textTransform:'uppercase',color:'var(--text-light)',marginTop:'0.25rem'}}>{s.label}</div>
-          </div>
+      <div className="a-stat-grid">
+        {[{v:books.filter(b=>b.status==='published').length,l:'Published Books'},{v:books.filter(b=>b.status==='draft').length,l:'Drafts'},{v:news.filter(n=>n.status==='published').length,l:'News Articles'},{v:'Live',l:'Community Reviews'}].map((s,i)=>(
+          <div key={i} className="a-stat"><div className="a-stat-num">{s.v}</div><div className="a-stat-label">{s.l}</div></div>
         ))}
       </div>
 
       <div className="admin-tabs">
-        {['books','news','site'].map(t=>(
-          <button key={t} className={'admin-tab'+(tab===t?' active':'')} onClick={()=>setTab(t)}>
-            {t.charAt(0).toUpperCase()+t.slice(1)}
-          </button>
+        {['books','news','settings'].map(t=>(
+          <button key={t} className={'a-tab'+(tab===t?' on':'')} onClick={()=>setTab(t)}>{t.charAt(0).toUpperCase()+t.slice(1)}</button>
         ))}
       </div>
 
-      {/* BOOKS TAB */}
-      {tab==='books' && <>
-        <div className="admin-card">
+      {tab==='books'&&(
+        <div className="a-card">
           <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'1.25rem'}}>
-            <div className="admin-card-title">Field Guide Books</div>
-            <button className="btn btn-primary btn-sm" onClick={()=>setShowAddBook(!showAddBook)}>
-              {showAddBook?'Cancel':'+ Add Book'}
-            </button>
+            <div className="a-card-title">Field Guide Books</div>
+            <button className="btn btn-orange btn-sm" onClick={()=>setAddBook(!addBook)}>{addBook?'Cancel':'+ Add Book'}</button>
           </div>
-
-          {showAddBook && (
-            <div style={{background:'var(--parchment)',border:'1px solid var(--border)',borderRadius:'4px',padding:'1.5rem',marginBottom:'1.5rem'}}>
-              <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:'1.05rem',color:'var(--forest)',marginBottom:'1rem'}}>New Field Guide</h3>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'0 1rem'}}>
-                <div><label>Volume (e.g. "Volume V")</label><input value={newBook.vol} onChange={e=>setNewBook(p=>({...p,vol:e.target.value}))}/></div>
-                <div><label>Year</label><input type="number" value={newBook.year} onChange={e=>setNewBook(p=>({...p,year:e.target.value}))}/></div>
+          {addBook&&(
+            <div className="form-panel">
+              <h4>New Field Guide</h4>
+              <div className="grid-2">
+                <div><label>Volume</label><input value={nb.vol} onChange={e=>setNb(p=>({...p,vol:e.target.value}))} placeholder="Vol. V"/></div>
+                <div><label>Year</label><input type="number" value={nb.year} onChange={e=>setNb(p=>({...p,year:e.target.value}))}/></div>
               </div>
-              <label>Book Title</label>
-              <input value={newBook.title} onChange={e=>setNewBook(p=>({...p,title:e.target.value}))} placeholder="e.g. Salamanders of the Ozarks"/>
-              <label>Subtitle</label>
-              <input value={newBook.subtitle} onChange={e=>setNewBook(p=>({...p,subtitle:e.target.value}))} placeholder="e.g. A Complete Species Account"/>
-              <label>Description</label>
-              <textarea rows={3} value={newBook.desc} onChange={e=>setNewBook(p=>({...p,desc:e.target.value}))} style={{resize:'vertical'}}/>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'0 1rem'}}>
-                <div><label>Price (e.g. $29.99)</label><input value={newBook.price} onChange={e=>setNewBook(p=>({...p,price:e.target.value}))}/></div>
-                <div><label>Page Count</label><input type="number" value={newBook.pages} onChange={e=>setNewBook(p=>({...p,pages:e.target.value}))}/></div>
+              <label>Title</label><input value={nb.title} onChange={e=>setNb(p=>({...p,title:e.target.value}))} placeholder="Salamanders of the Ozarks"/>
+              <label>Subtitle</label><input value={nb.subtitle} onChange={e=>setNb(p=>({...p,subtitle:e.target.value}))}/>
+              <label>Description</label><textarea rows={3} value={nb.desc} onChange={e=>setNb(p=>({...p,desc:e.target.value}))} style={{resize:'vertical'}}/>
+              <div className="grid-2">
+                <div><label>Price</label><input value={nb.price} onChange={e=>setNb(p=>({...p,price:e.target.value}))} placeholder="$29.99"/></div>
+                <div><label>Pages</label><input type="number" value={nb.pages} onChange={e=>setNb(p=>({...p,pages:e.target.value}))}/></div>
               </div>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'0 1rem'}}>
-                <div><label>Cover Color (hex)</label><input type="color" value={newBook.coverColor} onChange={e=>setNewBook(p=>({...p,coverColor:e.target.value}))} style={{height:'42px',cursor:'pointer'}}/></div>
-                <div><label>Accent Color (hex)</label><input type="color" value={newBook.coverAccent} onChange={e=>setNewBook(p=>({...p,coverAccent:e.target.value}))} style={{height:'42px',cursor:'pointer'}}/></div>
-              </div>
-              <label>Buy Links (label | URL, one per line)</label>
-              <textarea rows={3} value={newBook.links.map(l=>l.label+'|'+l.url).join('\n')} onChange={e=>{
-                const links=e.target.value.split('\n').map(l=>{const [label,url]=(l+'|').split('|');return{label:label.trim(),url:(url||'#').trim()};}).filter(l=>l.label);
-                setNewBook(p=>({...p,links}));
-              }} placeholder="Amazon|https://amazon.com&#10;Direct|#" style={{resize:'vertical'}}/>
-              <button className="btn btn-primary btn-sm" onClick={publishBook} style={{marginTop:'1rem'}}>Publish Book</button>
+              <label>Buy Links (Label|URL — one per line)</label>
+              <textarea rows={3} value={nb.links.map(l=>l.label+'|'+l.url).join('\n')} onChange={e=>{const ls=e.target.value.split('\n').map(l=>{const[a,b]=(l+'|').split('|');return{label:a.trim(),url:(b||'#').trim()};}).filter(l=>l.label);setNb(p=>({...p,links:ls}));}} placeholder="Amazon|https://amazon.com" style={{resize:'vertical'}}/>
+              <button className="btn btn-orange btn-sm" onClick={pubBook} style={{marginTop:'1rem'}}>Publish Book</button>
             </div>
           )}
-
           {books.map(b=>(
-            <div key={b.id} className="book-admin-row">
-              <div style={{display:'flex',alignItems:'center',gap:'0.75rem',flex:1,minWidth:'200px'}}>
-                <div style={{width:'36px',height:'48px',background:b.coverColor,borderRadius:'2px',flexShrink:0,display:'flex',alignItems:'center',justifyContent:'center'}}>
-                  <span style={{color:'rgba(255,255,255,0.5)',fontSize:'0.6rem',fontFamily:"'DM Mono',monospace"}}>📖</span>
-                </div>
-                <div>
-                  <div style={{fontFamily:"'DM Mono',monospace",fontSize:'0.62rem',color:'var(--moss)'}}>{b.vol}</div>
-                  <div style={{fontWeight:'600',color:'var(--text-dark)',fontSize:'0.92rem'}}>{b.title}</div>
-                  <div style={{fontSize:'0.78rem',color:'var(--text-light)'}}>{b.pages}pp · {b.year} · {b.price}</div>
-                </div>
+            <div key={b.id} className="a-row">
+              <div style={{flex:1,minWidth:'180px'}}>
+                <div style={{fontFamily:'Courier Prime,monospace',fontSize:'0.6rem',color:'var(--lime-accent)',letterSpacing:'0.1em'}}>{b.vol}</div>
+                <div style={{fontWeight:'700',color:'var(--cream)',fontSize:'0.95rem'}}>{b.title}</div>
+                <div style={{fontSize:'0.78rem',color:'rgba(240,234,216,0.4)',marginTop:'2px'}}>{b.pages}pp · {b.year} · {b.price}</div>
               </div>
               <div style={{display:'flex',alignItems:'center',gap:'0.5rem',flexShrink:0}}>
-                <span className={'status-badge '+(b.status==='published'?'status-published':'status-draft')}>{b.status}</span>
-                <button className="btn btn-outline btn-sm" onClick={()=>toggleBookStatus(b.id)}>
-                  {b.status==='published'?'Unpublish':'Publish'}
-                </button>
-                <button className="btn btn-sm" onClick={()=>deleteBook(b.id)} style={{color:'#c62828',border:'1px solid #ffcdd2',background:'#fff'}}>Delete</button>
+                <span className={b.status==='published'?'badge-pub':'badge-draft'}>{b.status}</span>
+                <button className="btn btn-ghost btn-sm" onClick={()=>setBooks(p=>p.map(x=>x.id===b.id?{...x,status:x.status==='published'?'draft':'published'}:x))}>{b.status==='published'?'Unpublish':'Publish'}</button>
+                <button className="btn btn-sm" style={{border:'1px solid rgba(212,98,26,0.3)',background:'transparent',color:'#f06040',cursor:'pointer'}} onClick={()=>window.confirm('Delete?')&&setBooks(p=>p.filter(x=>x.id!==b.id))}>Del</button>
               </div>
             </div>
           ))}
         </div>
-      </>}
+      )}
 
-      {/* NEWS TAB */}
-      {tab==='news' && <>
-        <div className="admin-card">
+      {tab==='news'&&(
+        <div className="a-card">
           <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'1.25rem'}}>
-            <div className="admin-card-title">News & Updates</div>
-            <button className="btn btn-primary btn-sm" onClick={()=>setShowAddNews(!showAddNews)}>
-              {showAddNews?'Cancel':'+ Add Article'}
-            </button>
+            <div className="a-card-title">News & Updates</div>
+            <button className="btn btn-orange btn-sm" onClick={()=>setAddNews(!addNews)}>{addNews?'Cancel':'+ Add Article'}</button>
           </div>
-
-          {showAddNews && (
-            <div style={{background:'var(--parchment)',border:'1px solid var(--border)',borderRadius:'4px',padding:'1.5rem',marginBottom:'1.5rem'}}>
-              <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:'1.05rem',color:'var(--forest)',marginBottom:'1rem'}}>New Article</h3>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'0 1rem'}}>
-                <div><label>Tag (e.g. "Rescue Update")</label><input value={newNews.tag} onChange={e=>setNewNews(p=>({...p,tag:e.target.value}))}/></div>
-                <div><label>Date</label><input value={newNews.date} onChange={e=>setNewNews(p=>({...p,date:e.target.value}))}/></div>
+          {addNews&&(
+            <div className="form-panel">
+              <h4>New Article</h4>
+              <div className="grid-2">
+                <div><label>Tag</label><input value={nn.tag} onChange={e=>setNn(p=>({...p,tag:e.target.value}))} placeholder="Rescue Update"/></div>
+                <div><label>Date</label><input value={nn.date} onChange={e=>setNn(p=>({...p,date:e.target.value}))}/></div>
               </div>
-              <label>Headline</label>
-              <input value={newNews.title} onChange={e=>setNewNews(p=>({...p,title:e.target.value}))}/>
-              <label>Excerpt (shown in card)</label>
-              <textarea rows={2} value={newNews.excerpt} onChange={e=>setNewNews(p=>({...p,excerpt:e.target.value}))} style={{resize:'vertical'}}/>
-              <label>Full Article Text</label>
-              <textarea rows={6} value={newNews.full} onChange={e=>setNewNews(p=>({...p,full:e.target.value}))} style={{resize:'vertical'}}/>
-              <button className="btn btn-primary btn-sm" onClick={publishNews} style={{marginTop:'1rem'}}>Publish Article</button>
+              <label>Headline</label><input value={nn.title} onChange={e=>setNn(p=>({...p,title:e.target.value}))}/>
+              <label>Excerpt</label><textarea rows={2} value={nn.excerpt} onChange={e=>setNn(p=>({...p,excerpt:e.target.value}))} style={{resize:'vertical'}}/>
+              <label>Full Text</label><textarea rows={6} value={nn.full} onChange={e=>setNn(p=>({...p,full:e.target.value}))} style={{resize:'vertical'}}/>
+              <button className="btn btn-orange btn-sm" onClick={pubNews} style={{marginTop:'1rem'}}>Publish Article</button>
             </div>
           )}
-
           {news.map(n=>(
-            <div key={n.id} className="news-admin-row">
-              <div style={{flex:1,minWidth:'200px'}}>
-                <span className="news-tag" style={{marginBottom:'0.25rem'}}>{n.tag}</span>
-                <div style={{fontWeight:'600',color:'var(--text-dark)',fontSize:'0.92rem'}}>{n.title}</div>
-                <div style={{fontFamily:"'DM Mono',monospace",fontSize:'0.62rem',color:'var(--text-light)'}}>{n.date}</div>
+            <div key={n.id} className="a-row">
+              <div style={{flex:1,minWidth:'180px'}}>
+                <span className="tag" style={{marginBottom:'0.3rem'}}>{n.tag}</span>
+                <div style={{fontWeight:'700',color:'var(--cream)',fontSize:'0.92rem',marginTop:'0.2rem'}}>{n.title}</div>
+                <div style={{fontFamily:'Courier Prime,monospace',fontSize:'0.6rem',color:'rgba(240,234,216,0.35)',marginTop:'2px'}}>{n.date}</div>
               </div>
               <div style={{display:'flex',alignItems:'center',gap:'0.5rem',flexShrink:0}}>
-                <span className={'status-badge '+(n.status==='published'?'status-published':'status-draft')}>{n.status}</span>
-                <button className="btn btn-outline btn-sm" onClick={()=>toggleNewsStatus(n.id)}>
-                  {n.status==='published'?'Unpublish':'Publish'}
-                </button>
-                <button className="btn btn-sm" onClick={()=>deleteNews(n.id)} style={{color:'#c62828',border:'1px solid #ffcdd2',background:'#fff'}}>Delete</button>
+                <span className={n.status==='published'?'badge-pub':'badge-draft'}>{n.status}</span>
+                <button className="btn btn-ghost btn-sm" onClick={()=>setNews(p=>p.map(x=>x.id===n.id?{...x,status:x.status==='published'?'draft':'published'}:x))}>{n.status==='published'?'Unpublish':'Publish'}</button>
+                <button className="btn btn-sm" style={{border:'1px solid rgba(212,98,26,0.3)',background:'transparent',color:'#f06040',cursor:'pointer'}} onClick={()=>window.confirm('Delete?')&&setNews(p=>p.filter(x=>x.id!==n.id))}>Del</button>
               </div>
             </div>
           ))}
         </div>
-      </>}
+      )}
 
-      {/* SITE TAB */}
-      {tab==='site' && (
-        <div className="admin-card">
-          <div className="admin-card-title">Site Settings</div>
-          <p style={{fontSize:'0.9rem',color:'var(--text-light)',marginBottom:'1.5rem'}}>Manage global site information. Changes are reflected immediately on the public site.</p>
-          <label>Site Tagline</label>
-          <input defaultValue="Field Guides by a Herpetologist, for the Field."/>
-          <label>Contact Email</label>
-          <input defaultValue="info@besharseFieldGuides.com"/>
-          <label>Donation Goal ($)</label>
-          <input type="number" defaultValue="250000"/>
-          <label>Fundraising Description</label>
-          <textarea defaultValue="Help us build the Besharse Wildlife Rescue & Education Center — a permanent facility to rehabilitate injured wildlife, educate the public, and conserve native species across the mid-South." rows={3}/>
-          <button className="btn btn-primary btn-sm" style={{marginTop:'1.25rem'}} onClick={()=>{}}>Save Settings</button>
+      {tab==='settings'&&(
+        <div className="a-card">
+          <div className="a-card-title">Site Settings</div>
+          <label>Tagline</label><input defaultValue="Field Guides by a Herpetologist, for the Field."/>
+          <label>Contact Email</label><input defaultValue="info@besharseFieldGuides.com"/>
+          <label>Donation Goal ($)</label><input type="number" defaultValue="250000"/>
+          <label>Wildlife Center Description</label>
+          <textarea rows={4} defaultValue="Help us build the Besharse Wildlife Rescue & Education Center — a permanent facility to rehabilitate injured wildlife, educate the public, and conserve native species across the mid-South."/>
+          <button className="btn btn-lime btn-sm" style={{marginTop:'1.25rem'}}>Save Settings</button>
         </div>
       )}
     </div>
   );
 }
 
-// ─── MAIN WEBSITE ─────────────────────────────────────────────
-function Website({user, onSignIn, onAdminLogin, books, news, reviews, onNewReview, onToast}){
-  const [activeSection,setActiveSection]=useState('home');
-  const [showFeedback,setShowFeedback]=useState(false);
+// ── MAIN SITE ──
+function Site({user,onSignIn,onAdminLogin,books,news,reviews,onNewReview,onToast}){
   const [showSignIn,setShowSignIn]=useState(false);
+  const [showAdminLogin,setShowAdminLogin]=useState(false);
+  const [showReview,setShowReview]=useState(false);
   const [showDonate,setShowDonate]=useState(false);
   const [donateAmt,setDonateAmt]=useState(50);
   const [customAmt,setCustomAmt]=useState('');
-  const [selectedNews,setSelectedNews]=useState(null);
-  const [contactForm,setContactForm]=useState({name:'',email:'',subject:'',message:''});
+  const [openNews,setOpenNews]=useState(null);
+  const [navScrolled,setNavScrolled]=useState(false);
   const [contactSent,setContactSent]=useState(false);
-  const [showAdminLogin,setShowAdminLogin]=useState(false);
+  const [cf,setCf]=useState({name:'',email:'',subject:'',message:''});
 
-  const navLinks=[
-    {id:'books',label:'Field Guides'},
-    {id:'news',label:'News'},
-    {id:'about',label:'About'},
-    {id:'reviews',label:'Reviews'},
-    {id:'donate',label:'Donate'},
-    {id:'contact',label:'Contact'},
-  ];
+  useEffect(()=>{
+    const h=()=>setNavScrolled(window.scrollY>60);
+    window.addEventListener('scroll',h);return()=>window.removeEventListener('scroll',h);
+  },[]);
 
-  function scrollTo(id){
-    document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
-  }
+  const go=id=>document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+  const pubBooks=books.filter(b=>b.status==='published');
+  const pubNews=news.filter(n=>n.status==='published');
 
-  function handleContact(e){
-    e.preventDefault();
-    setContactSent(true);
-    onToast('Message sent! We\'ll respond within 2 business days.');
-    setContactForm({name:'',email:'',subject:'',message:''});
+  function sendContact(e){
+    e.preventDefault();setContactSent(true);
+    onToast('Message sent! Response within 2 business days.');
+    setCf({name:'',email:'',subject:'',message:''});
     setTimeout(()=>setContactSent(false),4000);
   }
 
-  const publishedBooks = books.filter(b=>b.status==='published');
-  const publishedNews = news.filter(n=>n.status==='published');
+  const navItems=[{id:'books',l:'Field Guides'},{id:'news',l:'News'},{id:'about',l:'About'},{id:'reviews',l:'Reviews'},{id:'donate',l:'Donate'},{id:'contact',l:'Contact'}];
 
-  return (
-    <div style={{paddingTop:'64px'}}>
+  return(
+    <div>
       {/* NAV */}
-      <nav>
-        <a href="#" className="nav-logo" onClick={e=>{e.preventDefault();scrollTo('home');}}>
-          Besharse Field Guides
-          <span>BesharseFieldGuides.com</span>
+      <nav className={navScrolled?'scrolled':''}>
+        <a href="#" onClick={e=>{e.preventDefault();go('hero');}} style={{textDecoration:'none'}}>
+          <div className="nav-logo-text">Besharse Field Guides</div>
+          <div className="nav-logo-sub">BesharseFieldGuides.com</div>
         </a>
         <ul className="nav-links">
-          {navLinks.map(l=>(
-            <li key={l.id}><a href={'#'+l.id} onClick={e=>{e.preventDefault();scrollTo(l.id);}}>{l.label}</a></li>
-          ))}
+          {navItems.map(n=>(<li key={n.id}><a href={'#'+n.id} onClick={e=>{e.preventDefault();go(n.id);}}>{n.l}</a></li>))}
         </ul>
-        <div className="nav-actions">
-          {user ? (
-            <span style={{fontFamily:"'DM Mono',monospace",fontSize:'0.72rem',color:'var(--moss)'}}>Signed in as {user.name}</span>
-          ) : (
-            <button className="btn btn-outline btn-sm" onClick={()=>setShowSignIn(true)}>Sign In</button>
-          )}
-          <button className="btn btn-primary btn-sm" onClick={()=>scrollTo('donate')}>Donate</button>
+        <div className="nav-right">
+          {user?<span style={{fontFamily:'Courier Prime,monospace',fontSize:'0.65rem',color:'var(--lime-accent)',letterSpacing:'0.08em'}}>{user.name}</span>:<button className="btn btn-ghost btn-sm" onClick={()=>setShowSignIn(true)}>Sign In</button>}
+          <button className="btn btn-orange btn-sm" onClick={()=>go('donate')}>Donate</button>
         </div>
       </nav>
 
       {/* HERO */}
-      <section id="home" className="hero">
-        <div className="hero-bg"/>
-        <div className="hero-pattern"/>
-        <div className="hero-content container fade-up">
-          <div className="hero-eyebrow">🐍 Besharse Field Guides · Herpetology & Wildlife Conservation</div>
-          <h1 className="hero-title">
-            Field Guides Built<br/><em>in the Field</em>
+      <section id="hero" className="hero">
+        <div className="hero-img" style={{backgroundImage:`url('${PHOTOS.hero}')`}}/>
+        <div className="hero-content">
+          <div className="hero-eyebrow fu"><div className="hero-dot"/><span className="label">Herpetology · Wildlife Conservation · Field Science</span></div>
+          <h1 className="hero-title fu-2">
+            The Field<br/>Guide<br/><span>Built in</span><br/>the Field.
           </h1>
-          <p className="hero-sub">
-            Professional-grade identification guides crafted by an 8-year herpetologist. Authoritative. Portable. Designed for everyone from curious naturalists to working biologists.
-          </p>
-          <div className="hero-ctas">
-            <button className="btn btn-amber" onClick={()=>scrollTo('books')}>Browse Field Guides</button>
-            <button className="btn btn-outline" style={{color:'var(--cream)',borderColor:'rgba(245,240,232,0.4)'}} onClick={()=>scrollTo('donate')}>Support the Center</button>
+          <p className="hero-sub fu-3">Professional-grade wildlife identification guides by an 8-year herpetologist. Authoritative, portable, and designed for anyone — from curious naturalists to working biologists.</p>
+          <div className="hero-ctas fu-4">
+            <button className="btn btn-orange" onClick={()=>go('books')}>Browse Field Guides</button>
+            <button className="btn btn-ghost" onClick={()=>go('donate')}>Support the Wildlife Center</button>
           </div>
         </div>
-        <div className="hero-scroll">
-          <svg width="16" height="24" viewBox="0 0 16 24" fill="none">
-            <rect x="6" y="0" width="4" height="4" rx="2" fill="currentColor" opacity="0.6"/>
-            <rect x="6" y="7" width="4" height="4" rx="2" fill="currentColor" opacity="0.4"/>
-            <rect x="6" y="14" width="4" height="4" rx="2" fill="currentColor" opacity="0.2"/>
-          </svg>
-          Scroll
-        </div>
+        <div className="hero-scroll-hint"><div className="scroll-line"/></div>
       </section>
 
+      {/* PHOTO STRIP */}
+      <div className="photo-strip">
+        {PHOTOS.strip.map((p,i)=>(
+          <div key={i} className="photo-strip-item">
+            <img src={p.src} alt={p.cap} loading="lazy"/>
+            <div className="photo-strip-caption">{p.cap}</div>
+          </div>
+        ))}
+      </div>
+
       {/* BOOKS */}
-      <section id="books" className="section">
+      <section id="books" className="books-section">
         <div className="container">
-          <div className="section-label">Publications</div>
-          <h2 className="section-title">Field Guide Library</h2>
-          <div className="divider"/>
-          <p style={{maxWidth:'600px',color:'var(--text-med)',lineHeight:'1.8',marginBottom:'0.5rem'}}>
-            Each volume in the Besharse Field Guides series is the product of years of fieldwork, original photography, and consultation with fellow herpetologists. Built for the field — durable, indexed, and accurate.
-          </p>
-          <div className="books-grid">
-            {publishedBooks.map(b=>(
-              <div key={b.id} className="book-card">
-                <div className="book-cover" style={{background:b.coverColor}}>
-                  <div style={{position:'absolute',inset:0,background:`radial-gradient(ellipse at 30% 30%, ${b.coverAccent}60, transparent 60%)`}}/>
-                  <div style={{position:'absolute',bottom:0,left:0,right:0,height:'40%',background:'rgba(0,0,0,0.25)'}}/>
-                  <div className="book-cover-inner">
-                    <div className="book-cover-vol">{b.vol}</div>
-                    <div className="book-cover-title">{b.title}</div>
-                    {b.subtitle && <div className="book-cover-sub">{b.subtitle}</div>}
+          <div className="books-intro">
+            <div>
+              <div className="label">Publications</div>
+              <h2 className="section-title" style={{marginTop:'0.5rem'}}>Field Guide<br/>Library</h2>
+              <div className="divider"/>
+            </div>
+            <p style={{fontSize:'1rem',color:'rgba(240,234,216,0.65)',lineHeight:'1.85',paddingBottom:'0.5rem'}}>Each volume is built on years of fieldwork, original photography, and peer consultation. Made to survive rain, mud, and pocket — not just a bookshelf.</p>
+          </div>
+        </div>
+        <div className="books-grid">
+          {pubBooks.map((b,i)=>(
+            <div key={b.id} className="book-card">
+              <div className="book-img-wrap">
+                <img src={PHOTOS.books[i%PHOTOS.books.length]} alt={b.title} loading="lazy"/>
+                {b.status==='draft'&&<div className="draft-overlay"><div className="draft-label">Coming Soon</div></div>}
+                <div className="book-badge"><span className="tag">{b.vol}</span></div>
+                <div className="book-over">
+                  <div className="book-vol">{b.vol} · {b.year} · {b.pages}pp</div>
+                  <div className="book-name">{b.title}</div>
+                  <div className="book-sub">{b.subtitle}</div>
+                  <div className="book-price-row">
+                    <span className="book-price">{b.price}</span>
                   </div>
                 </div>
-                <div className="book-info">
-                  <div className="book-meta">{b.pages} pages · {b.year}</div>
-                  <div className="book-title">{b.title}</div>
-                  <p className="book-desc">{b.desc}</p>
-                  <div className="book-price">{b.price}</div>
-                  <div className="book-buy-links">
-                    {b.links.map((l,i)=>(
-                      <a key={i} className="buy-link" href={l.url} target="_blank" rel="noopener noreferrer">{l.label}</a>
-                    ))}
+                <div className="book-links-hover">
+                  <div className="book-links-hover-title">{b.title}</div>
+                  <p style={{fontSize:'0.83rem',color:'rgba(240,234,216,0.6)',textAlign:'center',lineHeight:'1.6',marginBottom:'0.75rem'}}>{b.desc}</p>
+                  <div className="book-links-row">
+                    {b.links.map((l,j)=>(<a key={j} className="buy-pill" href={l.url} target="_blank" rel="noopener noreferrer">{l.label}</a>))}
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* NEWS */}
-      <section id="news" className="section section-alt">
+      <section id="news" className="news-section">
         <div className="container">
-          <div className="section-label">Wildlife Business</div>
-          <h2 className="section-title">Latest News</h2>
-          <div className="divider"/>
-          <p style={{maxWidth:'600px',color:'var(--text-med)',lineHeight:'1.8'}}>
-            Updates on wildlife rescues, educational outreach, conservation partnerships, and new publications from the Besharse Field Guides organization.
-          </p>
-          <div className="news-grid">
-            {publishedNews.map(a=>(
-              <div key={a.id} className="news-card">
-                <span className="news-tag">{a.tag}</span>
-                <div className="news-title">{a.title}</div>
-                <p className="news-excerpt">{a.excerpt}</p>
-                <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                  <span className="news-date">{a.date}</span>
-                  <button style={{background:'none',border:'none',cursor:'pointer',fontFamily:"'DM Mono',monospace",fontSize:'0.68rem',letterSpacing:'0.08em',color:'var(--moss)',textTransform:'uppercase'}} onClick={()=>setSelectedNews(a)}>
-                    Read more →
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ABOUT */}
-      <section id="about" className="section">
-        <div className="container">
-          <div className="about-grid">
+          <div style={{display:'flex',alignItems:'flex-end',justifyContent:'space-between',flexWrap:'wrap',gap:'1rem',marginBottom:'0'}}>
             <div>
-              <div className="about-portrait">
-                <div className="portrait-pattern"/>
-                <div className="portrait-icon">
-                  <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-                    <circle cx="40" cy="28" r="18" stroke="rgba(122,170,138,0.6)" strokeWidth="1.5" fill="none"/>
-                    <path d="M10 70 Q40 48 70 70" stroke="rgba(122,170,138,0.6)" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-                    <path d="M35 50 Q40 60 45 50" stroke="rgba(122,170,138,0.4)" strokeWidth="1" fill="none"/>
-                  </svg>
-                  <div style={{fontSize:'0.75rem',letterSpacing:'0.15em',textTransform:'uppercase'}}>Founder & Author</div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="section-label">About the Author</div>
-              <h2 className="section-title">8 Years in the Field</h2>
+              <div className="label">Wildlife Business</div>
+              <h2 className="section-title" style={{marginTop:'0.5rem'}}>Latest News</h2>
               <div className="divider"/>
-              <p style={{color:'var(--text-med)',lineHeight:'1.9',marginBottom:'1.25rem',fontSize:'1rem'}}>
-                Growing up in northeast Arkansas, I spent childhood summers flipping logs and wading creek banks—building an obsession with reptiles and amphibians that never faded. After my first timber rattlesnake encounter at age 12, I knew herpetology was a calling, not just a hobby.
-              </p>
-              <p style={{color:'var(--text-med)',lineHeight:'1.9',marginBottom:'1.25rem',fontSize:'1rem'}}>
-                Over eight years of professional field work, I've documented species across 25 states, conducted population surveys, and responded to hundreds of human-wildlife conflict calls—safely relocating venomous snakes and educating homeowners in the process.
-              </p>
-              <p style={{color:'var(--text-med)',lineHeight:'1.9',marginBottom:'2rem',fontSize:'1rem'}}>
-                The Besharse Field Guides series grew from frustration with guides that were either too academic for the field or too simplified to be reliable. I set out to bridge that gap—and to fund a permanent wildlife rescue and education center through every copy sold.
-              </p>
-
-              <div style={{marginTop:'2rem'}}>
-                {[
-                  {icon:'🐍',label:'Primary Expertise',val:'Herpetology — Snakes, Lizards, Turtles, Frogs & Salamanders'},
-                  {icon:'📚',label:'Published Works',val:`${publishedBooks.length} Field Guide Volumes + ongoing research`},
-                  {icon:'🏫',label:'Education Outreach',val:'3,200+ students reached across AR & MO (2026)'},
-                  {icon:'🌿',label:'Conservation Focus',val:'Mississippi Alluvial Valley & Ozark-Ouachita Highlands'},
-                  {icon:'🦎',label:'Wildlife Rescues',val:'500+ documented relocations & rehabilitations'},
-                ].map((c,i)=>(
-                  <div key={i} className="credential">
-                    <div className="cred-icon">{c.icon}</div>
-                    <div>
-                      <div className="cred-label">{c.label}</div>
-                      <div className="cred-val">{c.val}</div>
+            </div>
+            <p style={{fontSize:'0.92rem',color:'rgba(240,234,216,0.55)',maxWidth:'380px',lineHeight:'1.7',paddingBottom:'1rem'}}>Rescues, outreach, conservation partnerships, and new publications from the Besharse organization.</p>
+          </div>
+          {pubNews.length>=1&&(
+            <div className="news-featured">
+              <div className="news-main" onClick={()=>setOpenNews(pubNews[0])}>
+                <img src={PHOTOS.news[0]} alt={pubNews[0].title} loading="lazy"/>
+                <div className="news-main-content">
+                  <span className="tag">{pubNews[0].tag}</span>
+                  <div className="news-title-text">{pubNews[0].title}</div>
+                  <p className="news-excerpt">{pubNews[0].excerpt}</p>
+                  <div className="news-date-text">{pubNews[0].date} · Click to read →</div>
+                </div>
+              </div>
+              <div className="news-stack">
+                {pubNews.slice(1,4).map((a,i)=>(
+                  <div key={a.id} className="news-small" onClick={()=>setOpenNews(a)}>
+                    <img src={PHOTOS.news[(i+1)%PHOTOS.news.length]} alt={a.title} loading="lazy"/>
+                    <div className="news-small-content">
+                      <span className="tag">{a.tag}</span>
+                      <div className="news-small-title">{a.title}</div>
+                      <div className="news-date-text">{a.date}</div>
                     </div>
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+          {pubNews.length>4&&(
+            <div className="news-more-grid">
+              {pubNews.slice(4).map((a,i)=>(
+                <div key={a.id} className="news-small" style={{height:'180px'}} onClick={()=>setOpenNews(a)}>
+                  <img src={PHOTOS.news[i%PHOTOS.news.length]} alt={a.title} loading="lazy"/>
+                  <div className="news-small-content">
+                    <span className="tag">{a.tag}</span>
+                    <div className="news-small-title">{a.title}</div>
+                    <div className="news-date-text">{a.date}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ABOUT */}
+      <section id="about" className="about-section">
+        <div className="about-bg" style={{backgroundImage:`url('${PHOTOS.about}')`}}/>
+        <div className="about-content">
+          <div className="about-text">
+            <div className="label">About the Author</div>
+            <h2 className="section-title" style={{marginTop:'0.5rem'}}>8 Years in<br/>the Field</h2>
+            <div className="divider"/>
+            <p>Growing up in northeast Arkansas, I spent childhood summers flipping logs and wading creek banks — building an obsession with reptiles and amphibians that never faded. After my first timber rattlesnake encounter at age 12, I knew herpetology was a calling, not just a hobby.</p>
+            <p>Over eight years of professional fieldwork I've documented species across 25 states, conducted population surveys, and responded to hundreds of human-wildlife conflict calls — safely relocating venomous snakes and educating homeowners in the process.</p>
+            <p>The Besharse Field Guides series grew from frustration with guides that were either too academic for the field or too simplified to be reliable. Every copy sold funds the permanent wildlife rescue and education center I'm building in northeast Arkansas.</p>
+            <div className="stat-row">
+              {[{n:'500+',l:'Wildlife Rescues'},{n:'25',l:'States Surveyed'},{n:'3,200',l:'Students Reached'},{n:'8 yrs',l:'Professional Field Work'}].map((s,i)=>(
+                <div key={i} className="stat-box">
+                  <div className="stat-num">{s.n}</div>
+                  <div className="stat-desc">{s.l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="about-img-col">
+            <div className="about-img-tall"><img src={PHOTOS.about2} alt="Field work" loading="lazy"/></div>
+            <div className="about-img-pair">
+              <div className="about-img-short"><img src={PHOTOS.about3} alt="Wildlife rescue" loading="lazy"/></div>
+              <div className="about-img-short"><img src={PHOTOS.about4} alt="Forest habitat" loading="lazy"/></div>
             </div>
           </div>
         </div>
       </section>
 
       {/* REVIEWS */}
-      <section id="reviews" className="section section-alt">
+      <section id="reviews" className="reviews-section">
         <div className="container">
-          <div className="section-label">Community Feedback</div>
-          <h2 className="section-title">Verified Reviews</h2>
-          <div className="divider"/>
-          <p style={{maxWidth:'600px',color:'var(--text-med)',lineHeight:'1.8',marginBottom:'0.75rem'}}>
-            All reviews are submitted by verified account holders. Sign in or create a free account to share your experience with the Besharse Field Guides series.
-          </p>
-          <div style={{marginBottom:'2rem'}}>
-            {user ? (
-              <button className="btn btn-primary btn-sm" onClick={()=>setShowFeedback(true)}>
-                + Leave a Review
-              </button>
-            ) : (
-              <button className="btn btn-outline btn-sm" onClick={()=>setShowSignIn(true)}>
-                Sign In to Leave a Review
-              </button>
-            )}
+          <div className="reviews-header">
+            <div>
+              <div className="label">Community</div>
+              <h2 className="section-title" style={{marginTop:'0.5rem'}}>Verified Reviews</h2>
+              <div className="divider"/>
+            </div>
+            <div style={{paddingBottom:'1rem'}}>
+              {user?<button className="btn btn-orange" onClick={()=>setShowReview(true)}>+ Leave a Review</button>:<button className="btn btn-ghost" onClick={()=>setShowSignIn(true)}>Sign In to Review</button>}
+            </div>
           </div>
           <div className="reviews-grid">
             {reviews.map(r=>(
               <div key={r.id} className="review-card">
-                <div className="review-header">
-                  <div className="review-avatar">{r.initials}</div>
-                  <div>
-                    <div className="review-name">{r.author}</div>
-                    <StarRating value={r.rating}/>
-                  </div>
+                <div className="review-top">
+                  {r.avatarIdx!=null&&PHOTOS.avatars[r.avatarIdx]?
+                    <div className="r-avatar"><img src={PHOTOS.avatars[r.avatarIdx]} alt={r.author}/></div>:
+                    <div className="r-avatar-fallback">{r.author.slice(0,2).toUpperCase()}</div>
+                  }
+                  <div><div className="r-name">{r.author}</div><div className="r-date">{r.date}</div></div>
                 </div>
-                <p className="review-text">"{r.text}"</p>
-                <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:'0.75rem'}}>
-                  <div className="verified-badge">✓ Verified Member</div>
-                  <span className="news-date">{r.date}</span>
-                </div>
+                <Stars n={r.rating}/>
+                <p className="r-text">"{r.text}"</p>
+                <div className="verified">✓ Verified Member</div>
               </div>
             ))}
           </div>
@@ -1381,116 +843,84 @@ function Website({user, onSignIn, onAdminLogin, books, news, reviews, onNewRevie
       </section>
 
       {/* DONATE */}
-      <section id="donate" className="section" style={{background:'var(--forest)',color:'var(--cream)'}}>
-        <div className="container">
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'5rem',alignItems:'start'}}>
-            <div>
-              <div className="section-label" style={{color:'var(--sage)'}}>Wildlife Center Fund</div>
-              <h2 className="section-title" style={{color:'var(--cream)'}}>Help Build the<br/>Besharse Wildlife Center</h2>
-              <div className="divider"/>
-              <p style={{color:'rgba(245,240,232,0.75)',lineHeight:'1.8',marginBottom:'1.5rem'}}>
-                We are raising funds to construct a permanent, dedicated wildlife rescue, rehabilitation, and education center in northeast Arkansas. The center will serve injured and orphaned native wildlife, host school and community education programs, and conserve regional biodiversity for generations.
-              </p>
-
-              <div className="donate-impact">
-                {[
-                  {amount:'$25',desc:'Covers feed & care for a rescued turtle for one month'},
-                  {amount:'$50',desc:'Sponsors one school classroom field guide donation'},
-                  {amount:'$100',desc:'Funds monitoring equipment for wetland surveys'},
-                  {amount:'$500',desc:'Names a habitat display at the education center'},
-                ].map((item,i)=>(
-                  <div key={i} className="impact-card">
-                    <div className="impact-amount">{item.amount}</div>
-                    <div className="impact-desc" style={{color:'rgba(245,240,232,0.7)'}}>{item.desc}</div>
-                  </div>
+      <section id="donate" className="donate-section" style={{minHeight:'auto'}}>
+        <div className="donate-bg" style={{backgroundImage:`url('${PHOTOS.donate}')`}}/>
+        <div className="donate-inner">
+          <div>
+            <div className="label">Wildlife Center Fund</div>
+            <h2 className="section-title" style={{marginTop:'0.5rem'}}>Help Build the<br/>Besharse<br/>Wildlife Center</h2>
+            <div className="divider"/>
+            <p style={{fontSize:'1rem',color:'rgba(240,234,216,0.7)',lineHeight:'1.85',marginBottom:'2rem'}}>We are raising funds to build a permanent wildlife rescue, rehabilitation, and education center in northeast Arkansas — to serve injured native wildlife, host school programs, and conserve regional biodiversity for generations.</p>
+            <div className="impact-grid">
+              {[{a:'$25',d:'One month of feed & care for a rescued turtle'},{a:'$50',d:'Sponsor a classroom field guide donation'},{a:'$100',d:'Fund wetland survey monitoring equipment'},{a:'$500',d:'Name a habitat display at the center'}].map((x,i)=>(
+                <div key={i} className="impact-item"><div className="impact-amt">{x.a}</div><div className="impact-desc">{x.d}</div></div>
+              ))}
+            </div>
+            <div style={{marginTop:'1.5rem',padding:'1.25rem',border:'1px solid var(--border-dark)',borderRadius:'2px',background:'rgba(10,12,10,0.6)'}}>
+              <div style={{display:'flex',justifyContent:'space-between',flexWrap:'wrap',gap:'0.5rem',marginBottom:'0.5rem'}}>
+                <span className="label" style={{fontSize:'0.65rem'}}>Fundraising Progress</span>
+                <span style={{fontFamily:'Bebas Neue,sans-serif',fontSize:'1.2rem',color:'var(--lime-accent)'}}>$47,250 of $250,000</span>
+              </div>
+              <div className="progress-track"><div className="progress-fill" style={{width:'18.9%'}}/></div>
+              <div style={{fontFamily:'Courier Prime,monospace',fontSize:'0.6rem',color:'rgba(240,234,216,0.35)',letterSpacing:'0.08em',marginTop:'0.4rem'}}>18.9% of goal · 312 supporters</div>
+            </div>
+          </div>
+          <div>
+            <div className="donate-form-box">
+              <h3>Make a Donation</h3>
+              <div className="label">Select Amount</div>
+              <div className="amount-grid">
+                {[25,50,100,250,500].map(a=>(
+                  <button key={a} className={'amt-btn'+(donateAmt===a&&!customAmt?' active':'')} onClick={()=>{setDonateAmt(a);setCustomAmt('');}}>
+                    ${a}
+                  </button>
                 ))}
               </div>
-
-              <div style={{background:'rgba(74,124,95,0.15)',border:'1px solid rgba(74,124,95,0.3)',borderRadius:'4px',padding:'1.25rem',marginTop:'1rem'}}>
-                <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'0.5rem'}}>
-                  <span style={{fontFamily:"'DM Mono',monospace",fontSize:'0.72rem',letterSpacing:'0.1em',color:'var(--sage)',textTransform:'uppercase'}}>Fundraising Progress</span>
-                  <span style={{fontFamily:"'Playfair Display',serif",fontSize:'1.1rem',fontWeight:'700',color:'var(--gold)'}}>$47,250 / $250,000</span>
-                </div>
-                <div className="progress-bar" style={{background:'rgba(245,240,232,0.12)'}}>
-                  <div className="progress-fill" style={{width:'18.9%'}}/>
-                </div>
-                <p style={{fontSize:'0.8rem',color:'rgba(245,240,232,0.5)',fontFamily:"'DM Mono',monospace",marginTop:'0.4rem'}}>18.9% of goal · 312 supporters</p>
+              <label>Custom Amount</label>
+              <input type="number" value={customAmt} onChange={e=>{setCustomAmt(e.target.value);setDonateAmt(parseInt(e.target.value)||0);}} placeholder="$ Enter amount" min="1" style={{marginBottom:'1rem'}}/>
+              <div style={{padding:'1rem',border:'1px solid var(--border-dark)',borderRadius:'2px',background:'rgba(168,200,72,0.06)',marginBottom:'1.25rem'}}>
+                <p style={{fontSize:'0.88rem',color:'rgba(240,234,216,0.65)',lineHeight:'1.65'}}>Your donation of <strong style={{color:'var(--lime-accent)'}}>${donateAmt||0}</strong> directly funds the Besharse Wildlife Center. All contributions are tax-deductible.</p>
               </div>
-            </div>
-
-            <div>
-              <div style={{background:'var(--warm-white)',borderRadius:'4px',padding:'2rem',color:'var(--text-dark)'}}>
-                <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:'1.3rem',color:'var(--forest)',marginBottom:'1.5rem'}}>Make a Donation</h3>
-                <div className="section-label">Select Amount</div>
-                <div className="donate-amounts">
-                  {[25,50,100,250,500].map(a=>(
-                    <button key={a} className={'donate-btn'+(donateAmt===a&&!customAmt?' active':'')}
-                      onClick={()=>{setDonateAmt(a);setCustomAmt('');}}>
-                      ${a}
-                    </button>
-                  ))}
-                </div>
-                <label>Custom Amount</label>
-                <input type="number" value={customAmt} onChange={e=>{setCustomAmt(e.target.value);setDonateAmt(parseInt(e.target.value)||0);}} placeholder="$ Enter amount" min="1"/>
-                <div style={{marginTop:'1.5rem',padding:'1rem',background:'var(--parchment)',borderRadius:'3px',fontSize:'0.88rem',color:'var(--text-med)',lineHeight:'1.6'}}>
-                  Your donation of <strong style={{color:'var(--forest)'}}>${donateAmt||0}</strong> will go directly toward building the Besharse Wildlife Rescue & Education Center. All contributions are tax-deductible.
-                </div>
-                <button className="btn btn-amber btn-full" style={{marginTop:'1.25rem'}} onClick={()=>donateAmt>0&&setShowDonate(true)}>
-                  Donate ${donateAmt||0} →
-                </button>
-                <p style={{textAlign:'center',marginTop:'0.75rem',fontSize:'0.72rem',fontFamily:"'DM Mono',monospace",color:'var(--text-light)'}}>
-                  🔒 Secure checkout · Tax-deductible
-                </p>
-              </div>
+              <button className="btn btn-lime btn-full" onClick={()=>donateAmt>0&&setShowDonate(true)}>Donate ${donateAmt||0} →</button>
+              <p style={{textAlign:'center',marginTop:'0.75rem',fontFamily:'Courier Prime,monospace',fontSize:'0.6rem',color:'rgba(240,234,216,0.3)',letterSpacing:'0.1em'}}>🔒 SECURE · TAX-DEDUCTIBLE</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="section section-alt">
+      <section id="contact" className="contact-section">
         <div className="container">
           <div className="contact-grid">
             <div>
-              <div className="section-label">Get in Touch</div>
-              <h2 className="section-title">Contact Us</h2>
+              <div className="label">Get in Touch</div>
+              <h2 className="section-title" style={{marginTop:'0.5rem'}}>Contact Us</h2>
               <div className="divider"/>
-              <p style={{color:'var(--text-med)',lineHeight:'1.8',marginBottom:'2rem'}}>
-                For business inquiries, media requests, speaking engagements, school programs, or wildlife emergency questions — we're here to help. Response time is typically 2 business days.
-              </p>
-              {[
-                {icon:'📧',label:'General Inquiries',val:'info@besharseFieldGuides.com'},
-                {icon:'🐍',label:'Wildlife Emergency (Non-Emergency Advice)',val:'wildlife@besharseFieldGuides.com'},
-                {icon:'🎓',label:'Education & Outreach Bookings',val:'education@besharseFieldGuides.com'},
-                {icon:'📍',label:'Based in',val:'Monette, Arkansas — serving the mid-South'},
-                {icon:'📱',label:'Social Media',val:'@BesharseFieldGuides'},
-              ].map((c,i)=>(
-                <div key={i} className="contact-item">
-                  <div className="contact-icon">{c.icon}</div>
-                  <div>
-                    <div className="contact-label">{c.label}</div>
-                    <div className="contact-val">{c.val}</div>
-                  </div>
+              <p style={{fontSize:'1rem',color:'rgba(240,234,216,0.65)',lineHeight:'1.85',marginBottom:'2rem'}}>For business inquiries, media requests, school programs, speaking engagements, or wildlife questions — we respond within 2 business days.</p>
+              {[{i:'📧',l:'General Inquiries',v:'info@besharseFieldGuides.com'},{i:'🐍',l:'Wildlife Advice',v:'wildlife@besharseFieldGuides.com'},{i:'🎓',l:'Education & Outreach',v:'education@besharseFieldGuides.com'},{i:'📍',l:'Based In',v:'Monette, Arkansas — serving the mid-South'},{i:'📱',l:'Social Media',v:'@BesharseFieldGuides'}].map((c,i)=>(
+                <div key={i} className="contact-info-item">
+                  <div className="ci-icon">{c.i}</div>
+                  <div><div className="ci-label">{c.l}</div><div className="ci-val">{c.v}</div></div>
                 </div>
               ))}
             </div>
             <div>
-              <div style={{background:'var(--warm-white)',border:'1px solid var(--border)',borderRadius:'4px',padding:'2rem'}}>
-                <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:'1.2rem',color:'var(--forest)',marginBottom:'1.25rem'}}>Send a Message</h3>
-                {contactSent ? (
-                  <div style={{textAlign:'center',padding:'3rem 1rem'}}>
-                    <div style={{fontSize:'2.5rem',marginBottom:'0.75rem'}}>✉️</div>
-                    <div style={{fontFamily:"'Playfair Display',serif",fontSize:'1.2rem',color:'var(--forest)',marginBottom:'0.5rem'}}>Message Sent!</div>
-                    <p style={{fontSize:'0.9rem',color:'var(--text-light)'}}>We'll respond within 2 business days.</p>
+              <div className="contact-form-box">
+                <h3>Send a Message</h3>
+                {contactSent?(
+                  <div style={{textAlign:'center',padding:'3rem 0'}}>
+                    <div style={{fontSize:'3rem',marginBottom:'0.75rem'}}>✉️</div>
+                    <div style={{fontFamily:'Bebas Neue,sans-serif',fontSize:'1.8rem',color:'var(--cream)',marginBottom:'0.5rem'}}>Message Sent!</div>
+                    <p style={{color:'rgba(240,234,216,0.55)'}}>We'll respond within 2 business days.</p>
                   </div>
-                ) : (
-                  <form onSubmit={handleContact}>
-                    <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'0 0.75rem'}}>
-                      <div><label>Name</label><input value={contactForm.name} onChange={e=>setContactForm(p=>({...p,name:e.target.value}))} placeholder="Your name" required/></div>
-                      <div><label>Email</label><input type="email" value={contactForm.email} onChange={e=>setContactForm(p=>({...p,email:e.target.value}))} placeholder="your@email.com" required/></div>
+                ):(
+                  <form onSubmit={sendContact}>
+                    <div className="grid-2">
+                      <div><label>Name</label><input value={cf.name} onChange={e=>setCf(p=>({...p,name:e.target.value}))} placeholder="Your name" required/></div>
+                      <div><label>Email</label><input type="email" value={cf.email} onChange={e=>setCf(p=>({...p,email:e.target.value}))} placeholder="you@email.com" required/></div>
                     </div>
                     <label>Subject</label>
-                    <select value={contactForm.subject} onChange={e=>setContactForm(p=>({...p,subject:e.target.value}))} required>
+                    <select value={cf.subject} onChange={e=>setCf(p=>({...p,subject:e.target.value}))} required>
                       <option value="">Select a topic…</option>
                       <option>Book Order / Wholesale</option>
                       <option>Media & Press</option>
@@ -1501,8 +931,8 @@ function Website({user, onSignIn, onAdminLogin, books, news, reviews, onNewRevie
                       <option>Other</option>
                     </select>
                     <label>Message</label>
-                    <textarea value={contactForm.message} onChange={e=>setContactForm(p=>({...p,message:e.target.value}))} rows={5} placeholder="Tell us how we can help…" required style={{resize:'vertical'}}/>
-                    <button type="submit" className="btn btn-primary btn-full" style={{marginTop:'1.25rem'}}>Send Message</button>
+                    <textarea value={cf.message} onChange={e=>setCf(p=>({...p,message:e.target.value}))} rows={5} placeholder="How can we help?" required style={{resize:'vertical'}}/>
+                    <button type="submit" className="btn btn-orange btn-full" style={{marginTop:'1.25rem'}}>Send Message</button>
                   </form>
                 )}
               </div>
@@ -1513,104 +943,72 @@ function Website({user, onSignIn, onAdminLogin, books, news, reviews, onNewRevie
 
       {/* FOOTER */}
       <footer>
-        <div className="footer-inner">
+        <div className="footer-grid">
           <div>
-            <div className="footer-brand">Besharse Field Guides</div>
-            <p className="footer-tagline">Field guides built in the field — by a herpetologist, for the field. Proudly based in northeast Arkansas.</p>
-            <p style={{fontSize:'0.8rem',marginTop:'1rem',opacity:'0.5',fontFamily:"'DM Mono',monospace",letterSpacing:'0.05em'}}>Supporting wildlife conservation & education across the mid-South since 2019.</p>
+            <div className="f-logo">Besharse Field Guides</div>
+            <p className="f-tagline">Field guides built in the field — by a herpetologist, for the field. Proudly based in northeast Arkansas since 2019.</p>
           </div>
           <div>
-            <div className="footer-heading">Field Guides</div>
-            <ul className="footer-links">
-              {books.filter(b=>b.status==='published').map(b=>(
-                <li key={b.id}><a href="#books" onClick={e=>{e.preventDefault();scrollTo('books');}}>{b.vol}: {b.title.split(' ').slice(0,4).join(' ')}…</a></li>
-              ))}
+            <div className="f-head">Field Guides</div>
+            <ul className="f-links">
+              {books.filter(b=>b.status==='published').map(b=>(<li key={b.id}><a href="#books" onClick={e=>{e.preventDefault();go('books');}}>{b.vol}: {b.title.split(' ').slice(0,3).join(' ')}</a></li>))}
             </ul>
           </div>
           <div>
-            <div className="footer-heading">Quick Links</div>
-            <ul className="footer-links">
-              {navLinks.map(l=>(
-                <li key={l.id}><a href={'#'+l.id} onClick={e=>{e.preventDefault();scrollTo(l.id);}}>{l.label}</a></li>
-              ))}
+            <div className="f-head">Site</div>
+            <ul className="f-links">
+              {navItems.map(n=>(<li key={n.id}><a href={'#'+n.id} onClick={e=>{e.preventDefault();go(n.id);}}>{n.l}</a></li>))}
+            </ul>
+          </div>
+          <div>
+            <div className="f-head">Connect</div>
+            <ul className="f-links">
+              <li><a href="#">@BesharseFieldGuides</a></li>
+              <li><a href="#">Facebook</a></li>
+              <li><a href="#">YouTube</a></li>
               <li><a href="#" onClick={e=>{e.preventDefault();setShowAdminLogin(true);}}>Admin Login</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <span className="footer-copy">© 2026 Besharse Field Guides · All Rights Reserved</span>
-          <span className="footer-copy" style={{color:'var(--gold)'}}>BesharseFieldGuides.com</span>
+          <span className="f-copy">© 2026 Besharse Field Guides · All Rights Reserved</span>
+          <span className="f-copy" style={{color:'var(--lime-accent)'}}>BesharseFieldGuides.com</span>
         </div>
       </footer>
 
       {/* MODALS */}
-      {showSignIn && <SignInModal purpose="user" onClose={()=>setShowSignIn(false)} onSuccess={u=>{onSignIn(u);setShowSignIn(false);onToast(`Welcome, ${u.name}!`);}}/>}
-      {showAdminLogin && <SignInModal purpose="admin" onClose={()=>setShowAdminLogin(false)} onSuccess={u=>{onAdminLogin(u);setShowAdminLogin(false);}}/>}
-      {showFeedback && user && <FeedbackModal user={user} onClose={()=>setShowFeedback(false)} onSubmit={(r)=>{onNewReview(r,user);onToast('Review submitted — thank you!');}}/>}
-      {showDonate && <DonateModal amount={donateAmt} onClose={()=>setShowDonate(false)} onToast={onToast}/>}
-      {selectedNews && <NewsModal article={selectedNews} onClose={()=>setSelectedNews(null)}/>}
+      {showSignIn&&<SignInModal purpose="user" onClose={()=>setShowSignIn(false)} onSuccess={u=>{onSignIn(u);setShowSignIn(false);onToast(`Welcome, ${u.name}!`);}}/>}
+      {showAdminLogin&&<SignInModal purpose="admin" onClose={()=>setShowAdminLogin(false)} onSuccess={u=>{onAdminLogin(u);setShowAdminLogin(false);}}/>}
+      {showReview&&user&&<ReviewModal user={user} onClose={()=>setShowReview(false)} onSubmit={(r)=>{onNewReview(r,user);onToast('Review submitted — thank you!');}}/>}
+      {showDonate&&<DonateModal amount={donateAmt} onClose={()=>setShowDonate(false)} onToast={onToast}/>}
+      {openNews&&<NewsModal article={openNews} onClose={()=>setOpenNews(null)}/>}
     </div>
   );
 }
 
-// ─── APP ROOT ─────────────────────────────────────────────────
+// ── APP ──
 function App(){
-  const [user, setUser] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [books, setBooks] = useState(INITIAL_BOOKS);
-  const [news, setNews] = useState(INITIAL_NEWS);
-  const [reviews, setReviews] = useState(INITIAL_REVIEWS);
-  const [toast, setToast] = useState({msg:'',show:false});
-  const toastTimer = useRef(null);
+  const [user,setUser]=useState(null);
+  const [isAdmin,setIsAdmin]=useState(false);
+  const [books,setBooks]=useState(INIT_BOOKS);
+  const [news,setNews]=useState(INIT_NEWS);
+  const [reviews,setReviews]=useState(INIT_REVIEWS);
+  const [toast,setToast]=useState({msg:'',show:false});
+  const timer=useRef(null);
 
   function showToast(msg){
-    clearTimeout(toastTimer.current);
+    clearTimeout(timer.current);
     setToast({msg,show:true});
-    toastTimer.current = setTimeout(()=>setToast(p=>({...p,show:false})),3500);
+    timer.current=setTimeout(()=>setToast(p=>({...p,show:false})),3500);
   }
-
-  function handleNewReview(r, user){
-    const initials = user.name.slice(0,2).toUpperCase();
-    setReviews(prev=>[{
-      id:Date.now(),
-      author:user.name,
-      initials,
-      rating:r.rating,
-      text:r.text,
-      date:'Just now'
-    },...prev]);
+  function handleNewReview(r,u){
+    setReviews(p=>[{id:Date.now(),author:u.name,rating:r.rating,text:r.text,date:'Just now',avatarIdx:null},...p]);
   }
+  function handleAdminLogin(u){setUser(u);setIsAdmin(true);showToast('Welcome to Admin Dashboard!');}
 
-  function handleAdminLogin(u){
-    setUser(u);
-    setIsAdmin(true);
-    showToast('Welcome to the Admin Dashboard!');
-  }
+  if(isAdmin)return<><AdminPanel onLogout={()=>setIsAdmin(false)} books={books} setBooks={setBooks} news={news} setNews={setNews} onToast={showToast}/><Toast msg={toast.msg} show={toast.show}/></>;
 
-  function handleAdminLogout(){
-    setIsAdmin(false);
-  }
-
-  if(isAdmin){
-    return <>
-      <AdminPanel onLogout={handleAdminLogout} books={books} setBooks={setBooks} news={news} setNews={setNews} onToast={showToast}/>
-      <Toast msg={toast.msg} show={toast.show}/>
-    </>;
-  }
-
-  return <>
-    <Website
-      user={user}
-      onSignIn={setUser}
-      onAdminLogin={handleAdminLogin}
-      books={books}
-      news={news}
-      reviews={reviews}
-      onNewReview={handleNewReview}
-      onToast={showToast}
-    />
-    <Toast msg={toast.msg} show={toast.show}/>
-  </>;
+  return<><Site user={user} onSignIn={setUser} onAdminLogin={handleAdminLogin} books={books} news={news} reviews={reviews} onNewReview={handleNewReview} onToast={showToast}/><Toast msg={toast.msg} show={toast.show}/></>;
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
