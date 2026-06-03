@@ -38,50 +38,62 @@ body, html {
     padding: 20px;
 }
 
-/* Smaller, organized transparent glassmorphism box */
+/* Larger transparent glassmorphism box */
 .hero-content {
     background: rgba(0, 0, 0, 0.45); 
     backdrop-filter: blur(6px); 
     -webkit-backdrop-filter: blur(6px); 
     border: 1px solid rgba(255, 255, 255, 0.35); 
     border-radius: 8px;
-    padding: 30px 40px; /* Reduced padding for a tighter fit */
+    padding: 45px 60px; /* Increased padding */
     text-align: center;
-    max-width: 650px; /* Reduced width */
+    max-width: 1000px; /* Widened to allow a larger single-line title */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
 }
 
-/* Bold White Title - Forced to one line */
+/* Bold White Title - Larger, forced to one line */
 .hero-title {
     color: #ffffff;
-    font-size: 2.2rem; /* Scaled down */
+    font-size: 3.5rem; /* Increased size */
     font-weight: 800;
-    margin-bottom: 12px; /* Tighter spacing */
-    letter-spacing: 1.5px;
+    margin-bottom: 16px; 
+    letter-spacing: 2px;
     text-transform: uppercase;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5); 
     white-space: nowrap; /* Prevents text from stacking */
 }
 
-/* Refined Subtitle */
+/* Refined Subtitle - Scaled up proportionally */
 .hero-subtitle {
     color: #f1f5f9;
-    font-size: 1rem; /* Scaled down */
+    font-size: 1.4rem; /* Increased size */
     line-height: 1.5;
     font-weight: 400;
     letter-spacing: 0.5px;
 }
 
-/* Responsive adjustments for mobile devices */
+/* Responsive adjustments for mobile devices to keep title on one line */
+@media (max-width: 900px) {
+    .hero-content {
+        padding: 30px 40px;
+        max-width: 95%;
+    }
+    .hero-title {
+        font-size: 5vw; /* Dynamically scales with window width */
+    }
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+}
+
 @media (max-width: 768px) {
     .hero-content {
         padding: 20px 25px;
-        max-width: 90%;
     }
     .hero-title {
-        font-size: 5vw; /* Uses viewport width to ensure it stays on one line */
+        font-size: 6.5vw; /* Keeps it single-line even on small screens */
     }
     .hero-subtitle {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 }
