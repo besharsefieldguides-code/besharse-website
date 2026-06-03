@@ -73,21 +73,23 @@ body, html {
 .nav-donate {
     background-color: #e11d48; /* Modern vibrant red */
     color: #ffffff;
-    padding: 6px 16px;
-    border-radius: 50px; /* Fully rounded pill shape for a friendly modern look */
+    /* Adjusted padding: 8px on the left to "scoot" the icon closer to the edge */
+    padding: 6px 18px 6px 8px; 
+    border-radius: 50px; 
     font-weight: 600;
     margin-left: 5px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    /* Reduced gap between icon and text */
+    gap: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* White circle for the icon */
 .donate-icon {
     background-color: #ffffff;
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -99,13 +101,12 @@ body, html {
 .icon-heart {
     color: #e11d48;
     font-size: 14px;
-    margin-top: 1px; /* Visual alignment tweak */
+    margin-top: 1px;
 }
 
-/* Donate Hover State */
+/* Donate Hover State - Animation removed */
 .nav-donate:hover {
     background-color: #be123c; /* Deeper red */
-    transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
 }
 
@@ -148,5 +149,5 @@ body, html {
 @media (max-width: 900px) {
     .nav-brand { font-size: 1.1rem; }
     .nav-link { font-size: 0.8rem; }
-    .nav-donate { padding: 4px 12px; font-size: 0.85rem; }
+    .nav-donate { padding: 4px 14px 4px 6px; font-size: 0.85rem; }
 }
