@@ -55,18 +55,18 @@ body, html {
     align-items: center;
 }
 
-/* Individual Right side Options - Faded white for contrast */
+/* Individual Right side Options - Default color set to White */
 .nav-link {
-    color: rgba(255, 255, 255, 0.7); /* Slightly dimmed white for the non-hover state */
+    color: #ffffff; 
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
-/* Hover Effect: Text turns pure bright white */
+/* Hover Effect: Text turns black */
 .nav-link:hover {
-    color: #ffffff;
+    color: #000000;
 }
 
 /* Full screen background image */
