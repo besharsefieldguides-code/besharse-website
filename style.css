@@ -61,7 +61,7 @@ body, html {
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease-in-out;
 }
 
 /* Standard Link Hover Effect: Text turns black */
@@ -69,30 +69,24 @@ body, html {
     color: #000000;
 }
 
-/* Clean Modern Box Outline for Donate Button - Modern Gold */
+/* Replicated Standard High-Contrast Solid Donate Button Layout */
 .nav-donate {
-    border: 1px solid #d4af37; /* Gold outline */
-    padding: 6px 18px;
-    border-radius: 4px;
-    margin-left: 10px;
-    display: inline-flex; /* Aligns heart and text horizontally */
-    align-items: center;
-    gap: 8px; /* Adds space between heart and text */
-}
-
-/* Specific Red Heart styling */
-.donate-heart {
-    color: #ff4d4d; /* Vibrant clean red */
-    font-size: 1rem;
-    line-height: 1;
-}
-
-/* Donate Hover: Subtle tint background + transform push upwards */
-.nav-donate:hover {
-    background-color: rgba(212, 175, 55, 0.15); /* Light modern gold tint */
+    background-color: #d97706; /* Vibrant warm amber/gold used by major non-profits for high conversion */
     color: #ffffff;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 7px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-left: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    display: inline-block;
+}
+
+/* Standard Button Hover State: Deepens color beautifully with a clean structural lift */
+.nav-donate:hover {
+    background-color: #b45309; /* Deepens background accent */
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Full screen background image */
@@ -148,5 +142,6 @@ body, html {
 @media (max-width: 900px) {
     .nav-brand { font-size: 1.1rem; }
     .nav-link { font-size: 0.85rem; }
+    .nav-donate { padding: 5px 14px; }
     .hero-title { font-size: 5vw; }
 }
