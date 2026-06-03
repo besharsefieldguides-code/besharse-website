@@ -17,7 +17,6 @@
 
 body, html {
     width: 100%;
-    /* Removed 'height: 100%' to allow natural page growth/scrolling */
     scroll-behavior: smooth;
     background-color: #ffffff;
 }
@@ -44,6 +43,7 @@ body, html {
     letter-spacing: 1px;
     cursor: default;
     user-select: none;
+    -webkit-user-select: none;
 }
 
 .nav-links {
@@ -60,6 +60,7 @@ body, html {
     transition: all 0.25s ease-in-out;
 }
 
+/* Hover Effect: Text turns black */
 .nav-link:not(.nav-donate):hover {
     color: #000000;
 }
@@ -98,7 +99,7 @@ body, html {
 /* Hero Section */
 .hero-canvas {
     width: 100%;
-    height: 100vh; /* Takes up exactly one full screen */
+    height: 100vh;
     background-image: url('Gator.jpg'); 
     background-size: cover;
     background-position: center;
@@ -129,33 +130,15 @@ body, html {
     font-size: 1.4rem;
 }
 
-/* New White Content Area */
-.main-content {
+/* Pure Blank White Section */
+.blank-white-section {
     background-color: #ffffff;
     width: 100%;
-    min-height: 100vh;
-    padding: 80px 10%; /* Space for text and navbar clearance */
+    height: 200vh; /* This height creates plenty of room to scroll down */
 }
 
-.info-section {
-    padding: 60px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.info-section h2 {
-    font-family: 'Natoor', serif;
-    font-size: 2.5rem;
-    color: #556b2f;
-    margin-bottom: 20px;
-}
-
-.spacer {
-    height: 500px; /* Extra height to demonstrate scrolling */
-}
-
-/* Responsive */
+/* Responsive adjustments */
 @media (max-width: 900px) {
     .nav-brand { font-size: 1.1rem; }
     .hero-title { font-size: 3rem; }
-    .hero-content { padding: 30px; }
 }
