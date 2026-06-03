@@ -1,3 +1,12 @@
+/* Custom Font Integration */
+@font-face {
+    font-family: 'Natoor';
+    src: url('Natoor.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* Reset default margins and padding */
 * {
     margin: 0;
@@ -52,12 +61,12 @@ body, html {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
 }
 
-/* Bold White Title - Stylish, premium adventure font (Cinzel) */
+/* Bold White Title - Custom Natoor Font */
 .hero-title {
-    font-family: 'Cinzel', serif; /* Elegant, cinematic nature font */
+    font-family: 'Natoor', serif; 
     color: #ffffff;
-    font-size: 3.5rem; 
-    font-weight: 800;
+    font-size: 4rem; /* Adjusted for custom font sizing */
+    font-weight: normal; /* FontSpace custom fonts often don't need synthetic bolding */
     margin-bottom: 16px; 
     letter-spacing: 1.5px;
     text-transform: uppercase;
@@ -81,7 +90,7 @@ body, html {
         max-width: 95%;
     }
     .hero-title {
-        font-size: 4.8vw; /* Scaled slightly for the wider font footprint */
+        font-size: 5vw; 
     }
     .hero-subtitle {
         font-size: 1.2rem;
@@ -93,7 +102,7 @@ body, html {
         padding: 20px 25px;
     }
     .hero-title {
-        font-size: 6vw; 
+        font-size: 6.5vw; 
     }
     .hero-subtitle {
         font-size: 1rem;
