@@ -13,19 +13,18 @@ body, html {
 /* Navbar Styling */
 .navbar {
     width: 100%;
-    height: 70px; /* Average height for modern websites */
-    background-color: #556b2f; /* Dark Olive Green */
-    position: fixed; /* Keeps it at the top when scrolling */
+    height: 70px;
+    background-color: #556b2f; /* Olive Green */
+    position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000; /* Ensures it stays above the image */
+    z-index: 1000;
 }
 
 /* Full screen background image */
 .hero-canvas {
     width: 100vw;
     height: 100vh;
-    /* Updated to your Gator image */
     background-image: url('Gator.jpg'); 
     background-size: cover;
     background-position: center;
