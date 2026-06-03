@@ -36,7 +36,7 @@ body, html {
     padding: 0 30px;
 }
 
-/* Left side Brand - Pure White */
+/* Left side Brand */
 .nav-brand {
     font-family: 'Natoor', serif;
     color: #ffffff;
@@ -55,17 +55,31 @@ body, html {
     align-items: center;
 }
 
-/* Individual Right side Options - Default color set to White */
+/* Individual Right side Options - Default color White */
 .nav-link {
     color: #ffffff; 
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-/* Hover Effect: Text turns black */
-.nav-link:hover {
+/* Standard Link Hover Effect: Text turns black */
+.nav-link:not(.nav-donate):hover {
+    color: #000000;
+}
+
+/* Clean Modern Box Outline for Donate Button */
+.nav-donate {
+    border: 1px solid #ffffff;
+    padding: 6px 18px;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+
+/* Donate Hover: Fills white with black text to stand out */
+.nav-donate:hover {
+    background-color: #ffffff;
     color: #000000;
 }
 
