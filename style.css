@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body, html {
@@ -13,7 +14,7 @@ body, html {
 /* Navbar Styling */
 .navbar {
     width: 100%;
-    height: 51px; /* Increased by 15% from 44px */
+    height: 51px;
     background-color: #556b2f; /* Olive Green */
     position: fixed;
     top: 0;
@@ -29,4 +30,56 @@ body, html {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    
+    /* Flexbox used to perfectly center the content box */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Transparent glassmorphism box with clean border */
+.hero-content {
+    background: rgba(0, 0, 0, 0.45); /* Dark transparent background for text contrast */
+    backdrop-filter: blur(6px); /* Modern blur effect */
+    -webkit-backdrop-filter: blur(6px); /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.35); /* Clean, semi-transparent white border */
+    border-radius: 12px;
+    padding: 50px 60px;
+    text-align: center;
+    max-width: 800px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+}
+
+/* Bold White Title */
+.hero-title {
+    color: #ffffff;
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Improves readability over images */
+}
+
+/* Refined Subtitle */
+.hero-subtitle {
+    color: #f1f5f9;
+    font-size: 1.35rem;
+    line-height: 1.6;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 768px) {
+    .hero-content {
+        padding: 35px 25px;
+    }
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
 }
