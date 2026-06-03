@@ -77,10 +77,10 @@ body, html {
     margin-left: 10px;
 }
 
-/* Donate Hover: Fills white with black text to stand out */
+/* Donate Hover: Very light, subtle semi-transparent white tint */
 .nav-donate:hover {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
 }
 
 /* Full screen background image */
